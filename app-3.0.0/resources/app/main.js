@@ -13151,7 +13151,7 @@ var r = {};
                     accelerator: "CmdOrCtrl+Shift+G",
                     click: ie("view-repository-on-github")
                 }, {
-                    label: `&在 ${t??"命令行中打开"}`,
+                    label: `&在 ${t??""}中打开`,
                     id: "open-in-shell",
                     accelerator: "Ctrl+`",
                     click: ie("open-in-shell")
@@ -13161,7 +13161,7 @@ var r = {};
                     accelerator: "CmdOrCtrl+Shift+F",
                     click: ie("open-working-directory")
                 }, {
-                    label: `&在 ${e??"外部编辑器中打开"}`,
+                    label: `&在 ${e??""}中打开`,
                     id: "open-external-editor",
                     accelerator: "CmdOrCtrl+Shift+A",
                     click: ie("open-external-editor")
