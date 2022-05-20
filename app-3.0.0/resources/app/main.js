@@ -13675,7 +13675,7 @@
                 }]
             });
             const b = [{
-                label: "新建 &分支…",
+                label: "新建&分支…",
                 id: "create-branch",
                 accelerator: "CmdOrCtrl+Shift+N",
                 click: ie("create-branch")
