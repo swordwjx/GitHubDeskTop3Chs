@@ -13192,7 +13192,7 @@
                     return function(e, t) {
                             throw new Error(t)
                         }
-                        (0, `Unknown menu item type ${u}`)
+                        (0, `未知菜单项类型 ${u}`)
             }
         }
 
@@ -13467,7 +13467,7 @@
         function te(e) {
             const t = e.endsWith("\\") ? e : `${e}\\`;
             i.shell.openPath(t).then((t => {
-                "" !== t && log.error(`Failed to open directory (${e}): ${t}`)
+                "" !== t && log.error(`无法打开目录 (${e}): ${t}`)
             }))
         }
 
@@ -13501,12 +13501,12 @@
                 m = {
                     label: "&文件",
                     submenu: [{
-                        label: "新建 &仓库…",
+                        label: "新建&仓库…",
                         id: "new-repository",
                         click: ie("create-repository"),
                         accelerator: "CmdOrCtrl+N"
                     }, p, {
-                        label: "导入 &本地仓库…",
+                        label: "导入&本地仓库…",
                         id: "add-local-repository",
                         accelerator: "CmdOrCtrl+O",
                         click: ie("add-local-repository")
