@@ -13192,7 +13192,7 @@
                     return function(e, t) {
                             throw new Error(t)
                         }
-                        (0, `未知菜单项类型 ${u}`)
+                        (0, `Unknown menu item type ${u}`)
             }
         }
 
@@ -13467,7 +13467,7 @@
         function te(e) {
             const t = e.endsWith("\\") ? e : `${e}\\`;
             i.shell.openPath(t).then((t => {
-                "" !== t && log.error(`无法打开目录 (${e}): ${t}`)
+                "" !== t && log.error(`Failed to open directory (${e}): ${t}`)
             }))
         }
 
@@ -13624,7 +13624,7 @@
                     return e ? t ? "Force P&ush(强制推送)…" : "Force P&ush(强制推送)" : "P&ush(推送)"
                 }
                 (u, n),
-                y = u ? "force-push(强制推送)" : "push(推送)";
+                y = u ? "force-push" : "push";
             d.push({
                 label: "&仓库",
                 id: "repository",
@@ -13659,7 +13659,7 @@
                     accelerator: "CmdOrCtrl+Shift+F",
                     click: ie("open-working-directory")
                 }, {
-                    label: `&在 ${e??""}中打开`,
+                    label: `&在 ${e??""}编辑器中打开`,
                     id: "open-external-editor",
                     accelerator: "CmdOrCtrl+Shift+A",
                     click: ie("open-external-editor")
@@ -14647,7 +14647,7 @@
                                                             click: () => n.replaceMisspelling(e)
                                                         }));
                                                     r && s.push(new i.MenuItem({
-                                                        label: "Add to dictionary",
+                                                        label: "添加到词典",
                                                         click: () => n.session.addWordToSpellCheckerDictionary(r)
                                                     })); {
                                                         const e = function(e) {
@@ -14657,7 +14657,7 @@
                                                                 if (t === n && r.includes(n))
                                                                     return null;
                                                                 const o = r.includes(n) && !r.includes(t) ? t : n,
-                                                                    s = o === n ? "Set spellcheck to English" : "Set spellcheck to system language";
+                                                                    s = o === n ? "将拼写检查设置为英语" : "将拼写检查设置为系统语言";
                                                                 return new i.MenuItem({
                                                                     label: s,
                                                                     click: () => e.setSpellCheckerLanguages([o])
