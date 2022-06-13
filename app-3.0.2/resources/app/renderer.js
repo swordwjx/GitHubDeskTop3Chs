@@ -43836,7 +43836,7 @@
 					behind: n
 				} = e;
 				if (0 === t && 0 === n) return null;
-				const r = "The currently checked out branch is" + (n ? ` ${Dy(n)} behind ` : "") + (n && t ? "and" : "") + (t ? ` ${Dy(t)} ahead of ` : "") + "its tracked branch.";
+				const r = "当前签出的分支是" + (n ? ` ${Dy(n)} behind ` : "") + (n && t ? "and" : "") + (t ? ` ${Dy(t)} ahead of ` : "") + "其跟踪分支。";
 				return ye.createElement("div", {
 					className: "ahead-behind",
 					title: r
@@ -46499,7 +46499,7 @@
 			renderPostFilter = () => ye.createElement(Mv, {
 				className: "new-repository-button",
 				onClick: this.onNewRepositoryButtonClick
-			}, "Add", ye.createElement(hy, {
+			}, "添加", ye.createElement(hy, {
 				symbol: ah
 			}));
 			renderNoItems = () => ye.createElement("div", {
@@ -46509,9 +46509,9 @@
 				className: "blankslate-image"
 			}), ye.createElement("div", {
 				className: "title"
-			}, "Sorry, I can't find that repository"), ye.createElement("div", {
+			}, "抱歉，我找不到该存储库"), ye.createElement("div", {
 				className: "protip"
-			}, "ProTip! Press ", this.renderAddLocalShortcut(), " to quickly add a local repository, and ", this.renderCloneRepositoryShortcut(), " to clone from anywhere within the app"));
+			}, "ProTip! Press ", this.renderAddLocalShortcut(), " 快速添加本地存储库，以及 ", this.renderCloneRepositoryShortcut(), " 从应用程序中的任何位置克隆"));
 			renderAddLocalShortcut() {
 				return ye.createElement("div", {
 					className: "kbd-shortcut"
@@ -48151,7 +48151,7 @@
 			const t = e.forkContributionTarget === Or.Self ? e.repository.gitHubRepository : e.repository.gitHubRepository.parent;
 			return ye.createElement("ul", {
 				className: "fork-settings-description"
-			}, ye.createElement("li", null, "Pull requests targeting ", ye.createElement("strong", null, t.fullName), " ", "will be shown in the pull request list."), ye.createElement("li", null, "Issues will be created in ", ye.createElement("strong", null, t.fullName), "."), ye.createElement("li", null, '"View on Github" will open ', ye.createElement("strong", null, t.fullName), " ", "in the browser."), ye.createElement("li", null, "New branches will be based on", " ", ye.createElement("strong", null, t.fullName), "'s default branch."), ye.createElement("li", null, "Autocompletion of user and issues will be based on", " ", ye.createElement("strong", null, t.fullName), "."))
+			}, ye.createElement("li", null, "拉取请求目标 ", ye.createElement("strong", null, t.fullName), " ", "将显示在拉取请求列表中。"), ye.createElement("li", null, "Issues 将在中创建 ", ye.createElement("strong", null, t.fullName), "."), ye.createElement("li", null, '"Github上的视图”将打开 ', ye.createElement("strong", null, t.fullName), " ", "在浏览器中."), ye.createElement("li", null, "新分支将基于", " ", ye.createElement("strong", null, t.fullName), "'s default branch."), ye.createElement("li", null, "Autocompletion of user and issues will be based on", " ", ye.createElement("strong", null, t.fullName), "."))
 		}
 		class Zb extends ye.Component {
 			constructor(e) {
@@ -49928,7 +49928,7 @@
 			if (!await rt.openExternal(`file://${e}`)) {
 				const n = {
 					name: "no-external-program",
-					message: `Unable to open file ${e} in an external program. Please check you have a program associated with this file extension`
+					message: `无法在外部程序中打开文件${e},请检查是否有与此文件扩展名关联的程序`
 				};
 				await t.postError(n)
 			}
@@ -50152,7 +50152,7 @@
 				return ye.createElement("section", null, ye.createElement("h3", null, "差异显示"), ye.createElement(Zb, {
 					value: "Unified",
 					checked: !this.props.showSideBySideDiff,
-					label: "统一的",
+					label: "统一",
 					onSelected: this.onUnifiedSelected
 				}), ye.createElement(Zb, {
 					value: "Split",
@@ -50162,13 +50162,13 @@
 				}))
 			}
 			renderHideWhitespaceChanges() {
-				return this.props.sourceTab, Ye.Changes, ye.createElement("section", null, ye.createElement("h3", null, "Whitespace"), ye.createElement(Uv, {
+				return this.props.sourceTab, Ye.Changes, ye.createElement("section", null, ye.createElement("h3", null, "空白"), ye.createElement(Uv, {
 					value: this.props.hideWhitespaceChanges ? Hv.On : Hv.Off,
 					onChange: this.onHideWhitespaceChangesChanged,
 					label: "隐藏空白更改"
 				}), this.props.sourceTab === Ye.Changes && ye.createElement("p", {
 					className: "secondary-text"
-				}, "Interacting with individual lines or hunks will be disabled while hiding whitespace."))
+				}, "隐藏空白更改时，将禁用与单个线条或大块的交互。"))
 			}
 		}
 		class Hw extends ye.Component {
@@ -53240,7 +53240,7 @@
 				if (null === r) return null;
 				if (r.files.kind !== Wo.Loaded) return null;
 				const i = r.files.files.length,
-					o = ye.createElement(ye.Fragment, null, "你有 ", i, " ", 1 === i ? "更改" : "更改", " in progress that you have not yet committed."),
+					o = ye.createElement(ye.Fragment, null, "你有 ", i, " ", 1 === i ? "更改" : "更改", " 您尚未承诺的正在进行中。"),
 					s = ye.createElement(ye.Fragment, null, "如果存在隐藏，请在左侧“更改”选项卡的底部访问它。"),
 					a = "toggle-stashed-changes",
 					l = this.getMenuItemInfo(a);
@@ -54688,7 +54688,7 @@
 				}, this.getGroupLabel(t)) : null
 			};
 			getGroupLabel(e) {
-				return "default" === e ? "Default branch" : "recent" === e ? "Recent branches" : "other" === e ? "Other branches" : st(0, `Unknown identifier: ${e}`)
+				return "default" === e ? "默认分支" : "recent" === e ? "最近分支" : "other" === e ? "其它分支" : st(0, `未知标识符: ${e}`)
 			}
 			onRenderNoItems = () => ye.createElement(bS, {
 				onCreateNewBranch: this.onCreateNewBranch,
@@ -54697,7 +54697,7 @@
 			onRenderNewButton = () => this.props.canCreateNewBranch ? ye.createElement(Mv, {
 				className: "new-branch-button",
 				onClick: this.onCreateNewBranch
-			}, "New branch") : null;
+			}, "新分支") : null;
 			onItemClick = (e, t) => {
 				this.props.onItemClick && this.props.onItemClick(e.branch, t)
 			};
@@ -57219,7 +57219,7 @@
 				symbol: Zu
 			}), ye.createElement("div", {
 				className: "name"
-			}, "New branch")) : null;
+			}, "新分支")) : null;
 			onMouseUpNewBranchDrop = async () => {
 				const {
 					dragData: e
@@ -57905,7 +57905,7 @@
 						branches: t,
 						formState: n
 					} = e;
-					return t.some((e => !e.isDesktopForkRemoteBranch)) ? n.kind === Xe.History ? "Select branch to compare..." : void 0 : "No branches to compare"
+					return t.some((e => !e.isDesktopForkRemoteBranch)) ? n.kind === Xe.History ? "选择要比较的分支..." : void 0 : "没有要比较的分支"
 				}(this.props.compareState);
 				return ye.createElement("div", {
 					id: "compare-view"
@@ -58404,22 +58404,22 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, this.isStepComplete(Ms.PickEditor) ? ye.createElement("p", {
 					className: "description"
-				}, "Your default editor is", " ", ye.createElement("strong", null, this.props.resolvedExternalEditor), ". You can change your preferred editor in", " ", ye.createElement(Sv, {
+				}, "默认编辑器为", " ", ye.createElement("strong", null, this.props.resolvedExternalEditor), ". 您可以在中更改首选编辑器", " ", ye.createElement(Sv, {
 					onClick: this.onPreferencesClick
-				}, "options")) : ye.createElement(ye.Fragment, null, ye.createElement("p", {
+				}, "选项")) : ye.createElement(ye.Fragment, null, ye.createElement("p", {
 					className: "description"
-				}, "It doesn’t look like you have a text editor installed. We can recommend", " ", ye.createElement(Sv, {
+				}, "看起来您没有安装文本编辑器。我们可以推荐", " ", ye.createElement(Sv, {
 					uri: di,
-					title: "Open the Visual Studio Code website"
+					title: "打开 Visual Studio code 网站"
 				}, pi), " or ", ye.createElement(Sv, {
 					uri: "https://atom.io",
-					title: "Open the Atom website"
-				}, "Atom"), ", but feel free to use any."), ye.createElement("div", {
+					title: "打开Atom网站"
+				}, "Atom"), ", 但请随意使用。"), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(Sv, {
 					onClick: this.skipEditorInstall
-				}, "I have an editor")))), ye.createElement(oE, {
-					summaryText: "Create a branch",
+				}, "我有一个编辑器")))), ye.createElement(oE, {
+					summaryText: "创建分支",
 					isComplete: this.isStepComplete,
 					isNextStepTodo: this.isStepNextTodo,
 					sectionId: Ms.CreateBranch,
@@ -58427,10 +58427,10 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, 'A branch allows you to work on different versions of a repository at one time. Create a\n                branch by going into the branch menu in the top bar and\n              clicking "New branch".'), ye.createElement("div", {
+				}, '分支允许您同时处理存储库的不同版本创建。\n 进入顶部栏中的“分支”菜单进行分支，然后单击“新建分支”.'), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "Shift"), ye.createElement("kbd", null, "N")))), ye.createElement(oE, {
-					summaryText: "Edit a file",
+					summaryText: "编辑文件",
 					isComplete: this.isStepComplete,
 					isNextStepTodo: this.isStepNextTodo,
 					sectionId: Ms.EditFile,
@@ -58438,12 +58438,12 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "Open this repository in your preferred text editor. Edit the", " ", ye.createElement(qb, null, "README.md"), " ", "file, save it, and come back."), this.props.resolvedExternalEditor && ye.createElement("div", {
+				}, "在首选文本编辑器中打开此存储库。编辑", " ", ye.createElement(qb, null, "README.md"), " ", "文件，保存，然后返回。"), this.props.resolvedExternalEditor && ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(Mv, {
 					onClick: this.openTutorialFileInEditor
-				}, "Open editor"), ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "Shift"), ye.createElement("kbd", null, "A")))), ye.createElement(oE, {
-					summaryText: "Make a commit",
+				}, "打开编辑器"), ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "Shift"), ye.createElement("kbd", null, "A")))), ye.createElement(oE, {
+					summaryText: "作出提交",
 					isComplete: this.isStepComplete,
 					isNextStepTodo: this.isStepNextTodo,
 					sectionId: Ms.MakeCommit,
@@ -58451,8 +58451,8 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.")), ye.createElement(oE, {
-					summaryText: "Publish to GitHub",
+				}, "提交允许您保存更改集。在左下角的“摘要”字段中，写一条描述所做更改的短消息。完成后，单击蓝色提交按钮完成。")), ye.createElement(oE, {
+					summaryText: "推送到GitHub",
 					isComplete: this.isStepComplete,
 					isNextStepTodo: this.isStepNextTodo,
 					sectionId: Ms.PushBranch,
@@ -58460,10 +58460,10 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar."), ye.createElement("div", {
+				}, "发布将“推送”或上载您对GitHub上存储库的此分支的提交。使用顶部栏中的第三个按钮发布。"), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "P")))), ye.createElement(oE, {
-					summaryText: "Open a pull request",
+					summaryText: "打开拉取请求",
 					isComplete: this.isStepComplete,
 					isNextStepTodo: this.isStepNextTodo,
 					sectionId: Ms.OpenPullRequest,
@@ -58474,17 +58474,17 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private."), ye.createElement("div", {
+				}, "拉取请求允许您对代码提出更改。打开一个，就是要求某人审阅并合并它们。由于这是一个演示存储库，因此该拉取请求将是私有的。"), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(Mv, {
 					onClick: this.openPullRequest
-				}, "Open pull request", ye.createElement(hy, {
+				}, "打开拉取请求", ye.createElement(hy, {
 					symbol: ju
 				})), ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "R"))))), ye.createElement("div", {
 					className: "footer"
 				}, ye.createElement(Mv, {
 					onClick: this.props.onExitTutorial
-				}, "Exit tutorial")))
+				}, "退出教程")))
 			}
 			onStepSummaryClick = e => {
 				this.setState({
@@ -58589,12 +58589,12 @@
 		class vE extends ye.Component {
 			render() {
 				return ye.createElement(Lb, {
-					title: "Exit tutorial",
+					title: "退出教程",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onContinue,
 					type: "normal"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Are you sure you want to leave the tutorial? This will bring you back to the home screen.")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Exit tutorial"
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "是否确实要退出教程？这将使您返回主屏幕。")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "退出教程"
 				})))
 			}
 			onContinue = () => {
@@ -58972,7 +58972,7 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "rename-branch",
-					title: "Rename branch",
+					title: "重命名分支",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.renameBranch
 				}, ye.createElement(Bb, null, ye.createElement(SE, {
@@ -58983,11 +58983,11 @@
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "This branch is tracking ", ye.createElement(qb, null, e.upstream), " and renaming this branch will not change the branch name on the remote.")) : null, null === this.props.stash ? null : ye.createElement(Ev, {
+				}), ye.createElement("p", null, "此分支正在跟踪 ", ye.createElement(qb, null, e.upstream), " 重命名此分支不会更改远程上的分支名称。")) : null, null === this.props.stash ? null : ye.createElement(Ev, {
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "Your current stashed changes on this branch will no longer be visible in GitHub Desktop if the branch is renamed."))), ye.createElement(Ub, null, ye.createElement(zb, {
+				}), ye.createElement("p", null, "如果重命名此分支，您当前在此分支上隐藏的更改将不再在 GitHub Desktop 中可见。"))), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: `Rename ${this.props.branch.name}`,
 					okButtonDisabled: 0 === this.state.newName.length
 				})));
@@ -59012,19 +59012,19 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "delete-branch",
-					title: "Delete branch",
+					title: "删除分支",
 					type: "warning",
 					onSubmit: this.deleteBranch,
 					onDismissed: this.props.onDismissed,
 					disabled: this.state.isDeleting,
 					loading: this.state.isDeleting
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Delete branch ", ye.createElement(qb, null, this.props.branch.name), "?", ye.createElement("br", null), "This action cannot be undone."), this.renderDeleteOnRemote()), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "删除分支 ", ye.createElement(qb, null, this.props.branch.name), "?", ye.createElement("br", null), "此操作无法撤消。"), this.renderDeleteOnRemote()), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Delete"
+					okButtonText: "删除"
 				})))
 			}
 			renderDeleteOnRemote() {
-				return this.props.branch.upstreamRemoteName && this.props.existsOnRemote ? ye.createElement("div", null, ye.createElement("p", null, ye.createElement("strong", null, "The branch also exists on the remote, do you wish to delete it there as well?")), ye.createElement(Uv, {
+				return this.props.branch.upstreamRemoteName && this.props.existsOnRemote ? ye.createElement("div", null, ye.createElement("p", null, ye.createElement("strong", null, "远程上也存在分支，是否也要将其删除？")), ye.createElement(Uv, {
 					label: "是，删除远程上的此分支",
 					value: this.state.includeRemoteBranch ? Hv.On : Hv.Off,
 					onChange: this.onIncludeRemoteChanged
@@ -59056,15 +59056,15 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "delete-branch",
-					title: "Delete remote branch",
+					title: "删除远程分支",
 					type: "warning",
 					onSubmit: this.deleteBranch,
 					onDismissed: this.props.onDismissed,
 					disabled: this.state.isDeleting,
 					loading: this.state.isDeleting
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Delete remote branch ", ye.createElement(qb, null, this.props.branch.name), "?", ye.createElement("br", null), "This action cannot be undone."), ye.createElement("p", null, "This branch does not exist locally. Deleting it may impact others collaborating on this branch.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "删除远程分支 ", ye.createElement(qb, null, this.props.branch.name), "?", ye.createElement("br", null), "此操作无法撤消。"), ye.createElement("p", null, "本地不存在此分支。删除它可能会影响在此分支上协作的其他人。")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Delete"
+					okButtonText: "删除"
 				})))
 			}
 			deleteBranch = async () => {
@@ -59386,8 +59386,8 @@
 				}(e, t);
 				if (null === i) return h = this.push, ye.createElement(DE, {
 					...ME,
-					title: "Publish repository",
-					description: "Publish this repository to GitHub",
+					title: "发布存储库",
+					description: "将此存储库发布到GitHub",
 					className: "push-pull-button",
 					icon: hh,
 					style: _E.Subtitle,
@@ -59396,29 +59396,29 @@
 				var h;
 				if (s === Lr.Unborn) return ye.createElement(DE, {
 					...ME,
-					title: "Publish branch",
-					description: "Cannot publish unborn HEAD",
+					title: "发布分支",
+					description: "无法发布 unborn HEAD",
 					icon: hh,
 					disabled: !0
 				});
 				if (s === Lr.Detached) return function(e) {
-					const t = e ? "Rebase in progress" : "Cannot publish detached HEAD";
+					const t = e ? "正在重设变基" : "无法发布游离的 HEAD";
 					return ye.createElement(DE, {
 						...ME,
-						title: "Publish branch",
+						title: "发布分支",
 						description: t,
 						icon: hh,
 						disabled: !0
 					})
 				}(a);
 				if (null === n) return function(e, t, n) {
-					const r = e ? "Publish this branch to GitHub" : "Publish this branch to the remote",
+					const r = e ? "将此分支发布到GitHub" : "将此分支发布到远程",
 						i = hl()(ME.className, "nudge-arrow", {
 							"nudge-arrow-up": n
 						});
 					return ye.createElement(DE, {
 						...ME,
-						title: "Publish branch",
+						title: "发布分支",
 						description: r,
 						icon: hh,
 						onClick: t,
@@ -59430,7 +59430,7 @@
 					behind: d
 				} = n;
 				return 0 === p && 0 === d && 0 === r ? function(e, t, n, r, i) {
-					const o = `Fetch ${e}`;
+					const o = `获取 ${e}`;
 					return ye.createElement(DE, {
 						...ME,
 						title: o,
@@ -59441,13 +59441,13 @@
 				}(i, n, r, l, this.fetch) : u ? function(e, t, n, r, i) {
 					return ye.createElement(DE, {
 						...ME,
-						title: `Force push ${e}`,
+						title: `强制推送 ${e}`,
 						description: IE(r),
 						icon: OE,
 						onClick: i
 					}, PE(t, n))
 				}(i, n, r, l, this.forcePushWithLease) : d > 0 ? function(e, t, n, r, i, o) {
-					const s = i ? `Pull ${e} with rebase` : `Pull ${e}`;
+					const s = i ? `拉取 ${e} 至变基` : `拉取 ${e}`;
 					return ye.createElement(DE, {
 						...ME,
 						title: s,
@@ -59458,7 +59458,7 @@
 				}(i, n, r, l, c || !1, this.pull) : function(e, t, n, r, i) {
 					return ye.createElement(DE, {
 						...ME,
-						title: `Push ${e}`,
+						title: `推送 ${e}`,
 						description: IE(r),
 						icon: pu,
 						onClick: i
@@ -60082,7 +60082,7 @@
 					if (i.kind !== Lr.Valid) return st(0, `Unknown tip state: ${s}`);
 					l = c = i.branch.name
 				}
-				n ? (l = n.targetBranch, p = "Switching to branch", n.value > 0 && (p = `${p} (${Math.round(100*n.value)}%)`), c = `Switching to ${n.targetBranch}`, u = n.value, h = by, a = "spin", d = !1) : null !== o && et(o) && (l = o.targetBranch, p = "Rebasing branch", h = Ou, d = !1, f = !0, c = `Rebasing ${o.targetBranch}`);
+				n ? (l = n.targetBranch, p = "切换到分支", n.value > 0 && (p = `${p} (${Math.round(100*n.value)}%)`), c = `切换到 ${n.targetBranch}`, u = n.value, h = by, a = "spin", d = !1) : null !== o && et(o) && (l = o.targetBranch, p = "变基分支", h = Ou, d = !1, f = !0, c = `变基中 ${o.targetBranch}`);
 				const m = this.props.isOpen,
 					g = m && d ? "open" : "closed",
 					y = hl()("nudge-arrow", {
@@ -61881,14 +61881,14 @@
 					onNameChanged: this.props.onNameChanged
 				})
 			}
-			renderWarningMessage = (e, t) => "" === e ? ye.createElement(ye.Fragment, null, ye.createElement(qb, null, t), " is an invalid branch name.") : ye.createElement(ye.Fragment, null, "Will be saved as ", ye.createElement(qb, null, e), ".");
+			renderWarningMessage = (e, t) => "" === e ? ye.createElement(ye.Fragment, null, ye.createElement(qb, null, t), " 是无效的分支名称。") : ye.createElement(ye.Fragment, null, "将另存为 ", ye.createElement(qb, null, e), ".");
 			renderDefaultBranchSetting() {
 				const {
 					defaultBranchIsOther: e
 				} = this.state;
 				return ye.createElement("div", {
 					className: "default-branch-component"
-				}, ye.createElement("h2", null, "Default branch name for new repositories"), hs.map((t => ye.createElement(Zb, {
+				}, ye.createElement("h2", null, "新存储库的默认分支名称"), hs.map((t => ye.createElement(Zb, {
 					key: t,
 					checked: !e && this.props.defaultBranch === t,
 					value: t,
@@ -67305,21 +67305,21 @@
 			}
 		}
 		const HI = {
-				title: "System",
-				description: "Automatically switch theme to match system theme",
+				title: "系统",
+				description: "自动切换主题以匹配系统主题",
 				key: ir.System
 			},
 			UI = [{
-				title: "Light",
-				description: "The default theme of GitHub Desktop",
+				title: "亮",
+				description: " GitHub Desktop 的默认主题",
 				key: ir.Light
 			}, {
-				title: "Dark",
-				description: "GitHub Desktop is for you too, creatures of the night",
+				title: "暗",
+				description: "GitHub Desktop 夜晚的使用",
 				key: ir.Dark
 			}, ...no() ? [{
-				title: "High Contrast",
-				description: "Customizable High Contrast Theme",
+				title: "高对比度",
+				description: "可定制的高对比度主题",
 				key: ir.HighContrast
 			}] : [], ...hr() ? [HI] : []];
 		class zI extends ye.Component {
@@ -69241,8 +69241,8 @@
 				})));
 				var n
 			}
-			getHeaderText = () => void 0 !== this.props.headerText ? this.props.headerText : "Create a branch";
-			getOkButtonText = () => void 0 !== this.props.okButtonText ? this.props.okButtonText : "Create branch";
+			getHeaderText = () => void 0 !== this.props.headerText ? this.props.headerText : "创建分支";
+			getOkButtonText = () => void 0 !== this.props.okButtonText ? this.props.okButtonText : "创建分支";
 			onBranchNameChange = e => {
 				this.updateBranchName(e)
 			};
@@ -69284,14 +69284,14 @@
 				}
 			};
 			renderRegularBranchSelection(e, t) {
-				if (null === t || t.name === e) return ye.createElement("div", null, "Your new branch will be based on your currently checked out branch (", ye.createElement(qb, null, e), ")", this.renderForkLinkSuffix(), ".", " ", ye.createElement(qb, null, e), " is the ", xM, " for your repository."); {
+				if (null === t || t.name === e) return ye.createElement("div", null, "您的新分支将基于您当前签出的分支 (", ye.createElement(qb, null, e), ")", this.renderForkLinkSuffix(), ".", " ", ye.createElement(qb, null, e), " 来自你的仓库的 ", xM, " "); {
 					const n = [{
 							title: t.name,
-							description: "The default branch in your repository. Pick this to start on something new that's not dependent on your current branch.",
+							description: "存储库中的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
 							key: Sr.DefaultBranch
 						}, {
 							title: e,
-							description: "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+							description: "当前签出的分支。如果需要在此分支上完成的工作基础上进行构建，请选择此选项。",
 							key: Sr.CurrentBranch
 						}],
 						r = this.state.startPoint === Sr.DefaultBranch ? this.state.startPoint : Sr.CurrentBranch;
@@ -69299,14 +69299,14 @@
 				}
 			}
 			renderForkBranchSelection(e, t, n) {
-				if (e === t.nameWithoutRemote) return ye.createElement("div", null, "Your new branch will be based on", " ", ye.createElement("strong", null, n), "'s ", xM, " (", ye.createElement(qb, null, t.nameWithoutRemote), ")", this.renderForkLinkSuffix(), "."); {
+				if (e === t.nameWithoutRemote) return ye.createElement("div", null, "您的新分支将基于", " ", ye.createElement("strong", null, n), "'s ", xM, " (", ye.createElement(qb, null, t.nameWithoutRemote), ")", this.renderForkLinkSuffix(), "."); {
 					const n = [{
 							title: t.name,
-							description: "The default branch of the upstream repository. Pick this to start on something new that's not dependent on your current branch.",
+							description: "上游存储库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
 							key: Sr.UpstreamDefaultBranch
 						}, {
 							title: e,
-							description: "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+							description: "当前签出的分支。如果需要在此分支上完成的工作基础上进行构建，请选择此选项。",
 							key: Sr.CurrentBranch
 						}],
 						r = this.state.startPoint === Sr.UpstreamDefaultBranch ? this.state.startPoint : Sr.CurrentBranch;
@@ -69522,12 +69522,12 @@
 				return ye.createElement(Lb, {
 					id: "install-git",
 					type: "warning",
-					title: "Unable to locate Git",
+					title: "找不到Git",
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "We were unable to locate Git on your system. This means you won't be able to execute any Git commands in the", " ", "command prompt", "."), ye.createElement("p", null, "To help you get Git installed and configured for your operating system, we have some external resources available.")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Open without Git",
-					cancelButtonText: "Install Git",
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "我们无法在您的系统上找到Git。这意味着您将无法在", " ", "命令行", "."), ye.createElement("p", null, "为了帮助您为操作系统安装和配置Git，我们提供了一些外部资源。")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "无Git打开",
+					cancelButtonText: "安装Git",
 					onCancelButtonClick: this.onExternalLink
 				})))
 			}
@@ -69561,7 +69561,7 @@
 				return ye.createElement(Lb, {
 					id: "external-editor-error",
 					type: "error",
-					title: "Unable to open external editor",
+					title: "无法打开外部编辑器",
 					onSubmit: this.props.onDismissed,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement("p", null, this.props.message)), this.renderFooter())
@@ -69844,7 +69844,7 @@
 				const e = this.getCurrentTabState();
 				return ye.createElement(Lb, {
 					id: "publish-repository",
-					title: "Publish repository",
+					title: "发布存储库",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.publishRepository,
 					disabled: this.state.publishing,
@@ -70045,14 +70045,14 @@
 				}
 				return ye.createElement(Lb, {
 					id: "acknowledgements",
-					title: "License and Open Source Notices",
+					title: "许可证和开源声明",
 					onSubmit: this.props.onDismissed,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement("p", null, ye.createElement(Sv, {
 					uri: "https://desktop.github.com"
-				}, "GitHub Desktop"), " is an open source project published under the MIT License. You can view the source code and contribute to this project on", " ", ye.createElement(Sv, {
+				}, "GitHub Desktop"), " 是根据麻省理工学院许可证发布的开源项目。您可以在上查看源代码并参与此项目", " ", ye.createElement(Sv, {
 					uri: "https://github.com/desktop/desktop"
-				}, "GitHub"), "."), t, ye.createElement("p", null, "GitHub Desktop also distributes these libraries:"), e ? this.renderLicenses(e) : ye.createElement(Qv, null)), ye.createElement(Wb, null))
+				}, "GitHub"), "."), t, ye.createElement("p", null, "GitHub Desktop还分发以下库："), e ? this.renderLicenses(e) : ye.createElement(Qv, null)), ye.createElement(Wb, null))
 			}
 		}
 
@@ -70064,13 +70064,13 @@
 			render() {
 				const e = o.parse(this.props.url).hostname;
 				return ye.createElement(Lb, {
-					title: "Untrusted server",
+					title: "不受信任的服务器",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onContinue,
 					type: "error"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "GitHub Desktop cannot verify the identity of ", e, ". The certificate (", this.props.certificate.subjectName, ") is invalid or untrusted.", " ", ye.createElement("strong", null, "This may indicate attackers are trying to steal your data.")), ye.createElement("p", null, "In some cases, this may be expected. For example:"), ye.createElement("ul", null, ye.createElement("li", null, "If this is a GitHub Enterprise trial."), ye.createElement("li", null, "If your GitHub Enterprise instance is run on an unusual top-level domain.")), ye.createElement("p", null, "If you are unsure of what to do, cancel and contact your system administrator.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "GitHub Desktop 无法验证的标识 ", e, ". 证书 (", this.props.certificate.subjectName, ") 无效或不受信任.", " ", ye.createElement("strong", null, "这可能表示攻击者正试图窃取您的数据。")), ye.createElement("p", null, "在某些情况下，这可能是意料之中的。例如："), ye.createElement("ul", null, ye.createElement("li", null, "如果这是GitHub Enterprise试用版。"), ye.createElement("li", null, "如果您的GitHub企业实例在一个不寻常的顶级域上运行。")), ye.createElement("p", null, "如果您不确定要做什么，请取消并与系统管理员联系。")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Add certificate"
+					okButtonText: "添加证书"
 				})))
 			}
 			onContinue = () => {
@@ -70272,7 +70272,7 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "terms-and-conditions",
-					title: "GitHub Open Source Applications Terms and Conditions",
+					title: "GitHub开源应用程序条款和条件",
 					onSubmit: this.props.onDismissed,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement("p", null, 'These GitHub Open Source Applications Terms and Conditions ("Application Terms") are a legal agreement between you (either as an individual or on behalf of an entity) and GitHub, Inc. regarding your use of GitHub\'s applications, such as GitHub Desktop™ and associated documentation ("Software"). These Application Terms apply to the executable code version of the Software. Source code for the Software is available separately and free of charge under open source software license agreements. If you do not agree to all of the terms in these Application Terms, do not download, install, use, or copy the Software.'), ye.createElement("h2", null, "Connecting to GitHub"), ye.createElement("p", null, 'If you configure the Software to work with one or more accounts on the GitHub.com website or with an instance of GitHub Enterprise Server, your use of the Software will also be governed your applicable GitHub.com website Terms of Service and/or the license agreement applicable to your instance of GitHub Enterprise ("GitHub Terms").'), ye.createElement("p", null, "Any use of the Software that violates your applicable GitHub Terms will also be a violation of these Application Terms."), ye.createElement("h2", null, "Open Source Licenses and Notices"), ye.createElement("p", null, 'The open source license for the Software is included in the "Open Source Notices" documentation that is included with the Software. That documentation also includes copies of all applicable open source licenses.'), ye.createElement("p", null, "To the extent the terms of the licenses applicable to open source components require GitHub to make an offer to provide source code in connection with the Software, such offer is hereby made, and you may exercise it by contacting GitHub:", " ", ye.createElement(Sv, {
@@ -70291,11 +70291,11 @@
 		class $M extends ye.Component {
 			render() {
 				return ye.createElement(Lb, {
-					title: "Command line tool installed",
+					title: "已安装命令行工具",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement("div", null, "The command line tool has been installed at", " ", ye.createElement("strong", null, kg), ".")), ye.createElement(Wb, {
-					buttonText: "Ok"
+				}, ye.createElement(Bb, null, ye.createElement("div", null, "命令行工具已安装在", " ", ye.createElement("strong", null, kg), ".")), ye.createElement(Wb, {
+					buttonText: "确定"
 				}))
 			}
 		}
@@ -70310,10 +70310,10 @@
 				const e = !this.state.password.length || !this.state.username.length;
 				return ye.createElement(Lb, {
 					id: "generic-git-auth",
-					title: "Authentication failed",
+					title: "验证失败",
 					onDismissed: this.props.onDismiss,
 					onSubmit: this.save
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "We were unable to authenticate with ", ye.createElement(qb, null, this.props.hostname), ". Please enter your username and password to try again."), ye.createElement(Ev, null, ye.createElement(kv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "我们无法通过验证 ", ye.createElement(qb, null, this.props.hostname), ". 请输入用户名和密码以重试。"), ye.createElement(Ev, null, ye.createElement(kv, {
 					label: "用户名",
 					autoFocus: !0,
 					value: this.state.username,
@@ -70323,7 +70323,7 @@
 					type: "password",
 					value: this.state.password,
 					onValueChanged: this.onPasswordChange
-				})), ye.createElement(Ev, null, ye.createElement("div", null, "Depending on your repository's hosting service, you might need to use a Personal Access Token (PAT) as your password. Learn more about creating a PAT in our", " ", ye.createElement(Sv, {
+				})), ye.createElement(Ev, null, ye.createElement("div", null, "根据存储库的托管服务，您可能需要使用个人访问令牌（PAT）作为密码。了解有关在我们的", " ", ye.createElement(Sv, {
 					uri: "https://github.com/desktop/desktop/tree/development/docs/integrations"
 				}, "integration docs"), "."))), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "Save and retry",
@@ -70352,12 +70352,12 @@
 				return ye.createElement(Lb, {
 					id: "shell-error",
 					type: "error",
-					title: "Unable to open shell",
+					title: "无法打开 shell",
 					onSubmit: this.props.onDismissed,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement("p", null, this.props.message)), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Close",
-					cancelButtonText: "Open options",
+					okButtonText: "关闭",
+					cancelButtonText: "打开选项",
 					onCancelButtonClick: this.onShowPreferencesDialog
 				})))
 			}
@@ -70367,12 +70367,12 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "initialize-lfs",
-					title: "Initialize Git LFS",
+					title: "初始化 Git LFS",
 					dismissable: !1,
 					onSubmit: this.onInitialize
 				}, ye.createElement(Bb, null, this.renderRepositories()), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Initialize Git LFS",
-					cancelButtonText: "Not now",
+					okButtonText: "初始化 Git LFS",
+					cancelButtonText: "现在",
 					onCancelButtonClick: this.props.onDismissed
 				})))
 			}
@@ -70380,15 +70380,15 @@
 				this.props.onInitialize(this.props.repositories), this.props.onDismissed()
 			};
 			renderRepositories() {
-				if (this.props.repositories.length > 10) return ye.createElement("p", null, this.props.repositories.length, " repositories use", " ", ye.createElement(Sv, {
+				if (this.props.repositories.length > 10) return ye.createElement("p", null, this.props.repositories.length, " 存储库使用", " ", ye.createElement(Sv, {
 					uri: VM
-				}, "Git LFS"), ". To contribute to them, Git LFS must first be initialized. Would you like to do so now?"); {
+				}, "Git LFS"), ". 要对其作出贡献，必须首先初始化Git LFS。您现在想这样做吗？"); {
 					const e = 1 !== this.props.repositories.length,
-						t = e ? "The repositories use" : "This repository uses",
+						t = e ? "存储库使用" : "此存储库使用",
 						n = e ? "them" : "it";
 					return ye.createElement("div", null, ye.createElement("p", null, t, " ", ye.createElement(Sv, {
 						uri: VM
-					}, "Git LFS"), ". To contribute to", " ", n, ", Git LFS must first be initialized. Would you like to do so now?"), ye.createElement("ul", null, this.props.repositories.map((e => ye.createElement("li", {
+					}, "Git LFS"), ". To contribute to", " ", n, ", 必须首先初始化Git LFS。您现在想这样做吗？"), ye.createElement("ul", null, this.props.repositories.map((e => ye.createElement("li", {
 						key: e.id
 					}, ye.createElement(ww, {
 						path: e.path
@@ -70432,12 +70432,12 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "lfs-attribute-mismatch",
-					title: "Update existing Git LFS filters?",
+					title: "是否更新现有Git LFS筛选器？",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Git LFS filters are already configured in", " ", this.renderGlobalGitConfigLink(), " but are not the values it expects. Would you like to update them now?")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Update existing filters",
-					cancelButtonText: "Not now"
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "Git LFS筛选器已在中配置", " ", this.renderGlobalGitConfigLink(), " 但这并不是它所期望的价值。您想现在更新它们吗？")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "更新现有筛选器",
+					cancelButtonText: "不是现在"
 				})))
 			}
 			onSubmit = () => {
@@ -70447,20 +70447,20 @@
 		class ZM extends ye.Component {
 			render() {
 				const e = this.props.repository.name,
-					t = at("A repository must have a GitHub repository to add an upstream remote", this.props.repository.gitHubRepository),
-					n = at("A repository must have a parent repository to add an upstream remote", t.parent),
+					t = at("存储库必须具有GitHub存储库才能添加上游远程", this.props.repository.gitHubRepository),
+					n = at("存储库必须具有父存储库才能添加上游远程", t.parent),
 					r = n.fullName,
 					i = this.props.existingRemote.url,
 					o = n.cloneURL;
 				return ye.createElement(Lb, {
-					title: "Upstream already exists",
+					title: "上游已存在",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onUpdate,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "The repository ", ye.createElement(qb, null, e), " is a fork of", " ", ye.createElement(qb, null, r), ", but its ", ye.createElement(qb, null, Ho), " ", "remote points elsewhere."), ye.createElement("ul", null, ye.createElement("li", null, "Current: ", ye.createElement(qb, null, i)), ye.createElement("li", null, "Expected: ", ye.createElement(qb, null, o))), ye.createElement("p", null, "Would you like to update the remote to use the expected URL?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "存储库 ", ye.createElement(qb, null, e), " 是一个分叉", " ", ye.createElement(qb, null, r), ",但是它 ", ye.createElement(qb, null, Ho), " ", "其他地方的远程点。"), ye.createElement("ul", null, ye.createElement("li", null, "Current: ", ye.createElement(qb, null, i)), ye.createElement("li", null, "Expected: ", ye.createElement(qb, null, o))), ye.createElement("p", null, "是否要更新远程以使用预期的URL？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Update",
-					cancelButtonText: "Ignore",
+					okButtonText: "更新",
+					cancelButtonText: "忽略",
 					onCancelButtonClick: this.onIgnore
 				})))
 			}
@@ -70588,15 +70588,15 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "delete-branch",
-					title: "Delete branch",
+					title: "删除分支",
 					type: "warning",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.deleteBranch
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "This branch may have an open pull request associated with it."), ye.createElement("p", null, "If", " ", ye.createElement(Sv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "此分支可能有一个与之关联的打开拉取请求。"), ye.createElement("p", null, "如果", " ", ye.createElement(Sv, {
 					onClick: this.openPullRequest
-				}, "#", this.props.pullRequest.pullRequestNumber), " ", "has been merged, you can also go to GitHub to delete the remote branch.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, "#", this.props.pullRequest.pullRequestNumber), " ", "已合并，您还可以转到GitHub删除远程分支。")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Delete"
+					okButtonText: "删除"
 				})))
 			}
 			openPullRequest = () => {
@@ -70625,11 +70625,11 @@
 					id: "commit-conflict-markers-warning",
 					onDismissed: this.onCancel,
 					onSubmit: this.onSubmit,
-					title: "Confirm committing conflicted files",
+					title: "确认提交冲突文件",
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "If you choose to commit, you’ll be committing the following conflicted files into your repository:"), this.renderFiles(this.props.files), ye.createElement("p", null, "Are you sure you want to commit these conflicted files?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "如果选择提交，则将以下冲突文件提交到存储库中："), this.renderFiles(this.props.files), ye.createElement("p", null, "是否确实要提交这些冲突的文件？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Yes, commit files"
+					okButtonText: "是，提交文件"
 				})))
 			}
 		}
@@ -70704,17 +70704,17 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "oversized-files",
-					title: "Files too large",
+					title: "文件太大",
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "The following files are over 100MB.", " ", ye.createElement("strong", null, "If you commit these files, you will no longer be able to push this repository to GitHub.com.")), this.renderFileList(), ye.createElement("p", {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "T以下文件超过100MB.", " ", ye.createElement("strong", null, "如果提交这些文件，您将无法再将此存储库推送到 GitHub.com.")), this.renderFileList(), ye.createElement("p", {
 					className: "recommendation"
 				}, "We recommend you avoid committing these files or use", " ", ye.createElement(Sv, {
 					uri: "https://help.github.com/articles/versioning-large-files/"
-				}, "Git LFS"), " to store large files on GitHub.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, "Git LFS"), " 在GitHub上存储大型文件.")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Commit anyway"
+					okButtonText: "无论如何提交"
 				})))
 			}
 			renderFileList() {
@@ -70738,15 +70738,15 @@
 			}
 			render() {
 				return ye.createElement(Lb, {
-					title: "Newer commits on remote",
+					title: "远程上更新的提交",
 					dismissable: !this.state.isLoading,
 					disabled: this.state.isLoading,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onFetch,
 					loading: this.state.isLoading,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Desktop is unable to push commits to this branch because there are commits on the remote that are not present on your local branch. Fetch these new commits before pushing in order to reconcile them with your local commits.")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Fetch",
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "桌面无法将提交推送到该分支，因为远程服务器上存在本地分支上不存在的提交。在推送之前获取这些新提交，以便将它们与本地提交进行协调。")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "获取",
 					okButtonDisabled: this.state.isLoading
 				})))
 			}
@@ -70776,30 +70776,30 @@
 				} = this.state;
 				return ye.createElement(Lb, {
 					id: "stash-changes",
-					title: "Switch branch",
+					title: "转换分支",
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed,
 					loading: e,
 					disabled: e
 				}, ye.createElement(Bb, null, this.renderStashActions(), this.renderStashOverwriteWarning()), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Switch branch"
+					okButtonText: "转换分支"
 				})))
 			}
 			renderStashOverwriteWarning() {
 				return this.props.hasAssociatedStash && this.state.selectedStashAction === oO.StashOnCurrentBranch ? ye.createElement(Ev, null, ye.createElement(hy, {
 					symbol: cu
-				}), " Your current stash will be overwritten by creating a new stash") : null
+				}), " 创建新的存储将覆盖当前的存储") : null
 			}
 			renderStashActions() {
 				const {
 					branchToCheckout: e
 				} = this.props, t = [{
-					title: `Leave my changes on ${this.state.currentBranchName}`,
-					description: "Your in-progress work will be stashed on this branch for you to return to later",
+					title: `保留我的更改 ${this.state.currentBranchName}`,
+					description: "您正在进行的工作将保存在此分支上，以便您稍后返回",
 					key: oO.StashOnCurrentBranch
 				}, {
-					title: `Bring my changes to ${e.name}`,
-					description: "Your in-progress work will follow you to the new branch",
+					title: `将我的更改带到 ${e.name}`,
+					description: "您正在进行的工作将跟随您进入新的分支机构",
 					key: oO.MoveToNewBranch
 				}];
 				return ye.createElement(Ev, null, ye.createElement(zx, {
@@ -70853,14 +70853,14 @@
 				return ye.createElement(Lb, {
 					id: "overwrite-stash",
 					type: "warning",
-					title: "Overwrite stash?",
+					title: "是否覆盖隐藏？",
 					loading: this.state.isLoading,
 					disabled: this.state.isLoading,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "Are you sure you want to proceed? This will overwrite your existing stash with your current changes.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "是否确实要继续？这将用当前更改覆盖现有存储.")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Overwrite"
+					okButtonText: "覆盖"
 				})))
 			}
 			onSubmit = async () => {
@@ -70896,14 +70896,14 @@
 				return ye.createElement(Lb, {
 					id: "discard-stash",
 					type: "warning",
-					title: "Discard stash?",
+					title: "丢弃隐藏更改？",
 					loading: this.state.isDiscarding,
 					disabled: this.state.isDiscarding,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "Are you sure you want to discard these stashed changes?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "是否确实要放弃这些隐藏的更改？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Discard"
+					okButtonText: "丢弃"
 				})))
 			}
 			onSubmit = async () => {
@@ -70949,16 +70949,16 @@
 				} = this.props, n = void 0 !== t;
 				return ye.createElement(Lb, {
 					id: "create-tutorial-repository-dialog",
-					title: "Start tutorial",
+					title: "开始教程",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit,
 					dismissable: !n,
 					loading: n,
 					disabled: n
-				}, ye.createElement(Bb, null, ye.createElement("div", null, "This will create a repository on your local machine, and push it to your account ", ye.createElement(qb, null, "@", this.props.account.login), " on", " ", ye.createElement(Sv, {
+				}, ye.createElement(Bb, null, ye.createElement("div", null, "这将在本地计算机上创建存储库，并将其推送到您的帐户 ", ye.createElement(qb, null, "@", this.props.account.login), " on", " ", ye.createElement(Sv, {
 					uri: wn(e.endpoint)
-				}, ba(e)), ". This repository will only be visible to you, and not visible publicly."), this.renderProgress()), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Continue"
+				}, ba(e)), ". 此存储库将仅对您可见，而不公开可见。"), this.renderProgress()), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "继续"
 				})))
 			}
 		}
@@ -70971,13 +70971,13 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "workflow-push-rejected",
-					title: "Push rejected",
+					title: "推送被拒绝",
 					loading: this.state.loading,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSignIn,
 					type: "error"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "The push was rejected by the server for containing a modification to the workflow file ", ye.createElement(qb, null, this.props.rejectedPath), ". In order to be able to push to workflow files GitHub Desktop needs to request additional permissions."), ye.createElement("p", null, "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Continue in browser"
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "由于包含对工作流文件的修改，推送被服务器拒绝 ", ye.createElement(qb, null, this.props.rejectedPath), ". 为了能够推送到工作流文件，GitHub桌面需要请求其他权限。"), ye.createElement("p", null, "是否打开浏览器以授予GitHub桌面更新工作流文件的权限？")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "在浏览器中继续"
 				})))
 			}
 			onSignIn = async () => {
@@ -71001,13 +71001,13 @@
 			}
 			render() {
 				return ye.createElement(Lb, {
-					title: "Re-authorization required",
+					title: "需要重新授权",
 					loading: this.state.loading,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSignIn,
 					type: "error"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, 'The "', this.props.organizationName, "\" organization has enabled or enforced SAML SSO. To access this repository, you must sign in again and grant GitHub Desktop permission to access the organization's repositories."), ye.createElement("p", null, "Would you like to open a browser to grant GitHub Desktop permission to access the repository?")), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Continue in browser"
+				}, ye.createElement(Bb, null, ye.createElement("p", null, '这个 "', this.props.organizationName, "\" 组织已启用或强制SAML SSO。要访问此存储库，您必须再次登录并授予GitHub Desktop访问组织存储库的权限。"), ye.createElement("p", null, "是否要打开浏览器以授予GitHub桌面访问存储库的权限？")), ye.createElement(Ub, null, ye.createElement(zb, {
+					okButtonText: "在浏览器中继续"
 				})))
 			}
 			onSignIn = async () => {
@@ -71048,7 +71048,7 @@
 			};
 			render() {
 				return ye.createElement(Lb, {
-					title: "Do you want to fork this repository?",
+					title: "是否要分支此存储库？",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.state.error ? void 0 : this.onSubmit,
 					dismissable: !this.state.loading,
@@ -71057,15 +71057,15 @@
 					key: this.props.repository.name,
 					id: "create-fork"
 				}, void 0 !== this.state.error ? function(e, t, n) {
-					const r = null !== e.gitHubRepository.htmlURL ? ye.createElement(ye.Fragment, null, "You can try ", ye.createElement(Sv, {
+					const r = null !== e.gitHubRepository.htmlURL ? ye.createElement(ye.Fragment, null, "你可以尝试 ", ye.createElement(Sv, {
 						uri: e.gitHubRepository.htmlURL
-					}, "creating the fork manually on GitHub"), ".") : void 0;
-					return ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("div", null, "Creating your fork ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " failed. ", r), ye.createElement("details", null, ye.createElement("summary", null, "Error details"), ye.createElement("pre", {
+					}, "在GitHub上手动创建分支"), ".") : void 0;
+					return ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("div", null, "创建您的分支  ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " failed. ", r), ye.createElement("details", null, ye.createElement("summary", null, "Error details"), ye.createElement("pre", {
 						className: "error"
 					}, n.message))), ye.createElement(Wb, null))
-				}(this.props.repository, this.props.account, this.state.error) : (e = this.props.repository, t = this.props.account, n = this.state.loading, ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("p", null, "It looks like you don’t have write access to ", ye.createElement("strong", null, e.gitHubRepository.fullName), ". If you should, please check with a repository administrator."), ye.createElement("p", null, " Do you want to create a fork of this repository at ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " to continue?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}(this.props.repository, this.props.account, this.state.error) : (e = this.props.repository, t = this.props.account, n = this.state.loading, ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("p", null, "看起来您没有写入权限 ", ye.createElement("strong", null, e.gitHubRepository.fullName), ". 如果需要，请与存储库管理员联系。"), ye.createElement("p", null, " 是否要在中创建此存储库的分支 ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " 要继续吗？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Fork this repository",
+					okButtonText: "分支此存储库",
 					okButtonDisabled: n,
 					cancelButtonDisabled: n
 				})))));
@@ -71146,15 +71146,15 @@
 			render() {
 				return ye.createElement(Lb, {
 					id: "delete-tag",
-					title: "Delete tag",
+					title: "删除标记",
 					type: "warning",
 					onSubmit: this.DeleteTag,
 					onDismissed: this.props.onDismissed,
 					disabled: this.state.isDeleting,
 					loading: this.state.isDeleting
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Are you sure you want to delete the tag", " ", ye.createElement(qb, null, this.props.tagName), "?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "确实要删除标记吗", " ", ye.createElement(qb, null, this.props.tagName), "?")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Delete"
+					okButtonText: "删除"
 				})))
 			}
 			DeleteTag = async () => {
@@ -71176,17 +71176,17 @@
 			}
 			render() {
 				const e = [{
-					title: "To contribute to the parent project",
-					description: ye.createElement(ye.Fragment, null, "We will help you contribute to the", " ", ye.createElement("strong", null, this.props.repository.gitHubRepository.parent.fullName), " ", "repository"),
+					title: "为父项目作出贡献",
+					description: ye.createElement(ye.Fragment, null, "我们将帮助您为", " ", ye.createElement("strong", null, this.props.repository.gitHubRepository.parent.fullName), " ", "仓库"),
 					key: Or.Parent
 				}, {
-					title: "For my own purposes",
-					description: ye.createElement(ye.Fragment, null, "We will help you contribute to the", " ", ye.createElement("strong", null, this.props.repository.gitHubRepository.fullName), " ", "repository"),
+					title: "为了我自己的目的",
+					description: ye.createElement(ye.Fragment, null, "我们将帮助您为", " ", ye.createElement("strong", null, this.props.repository.gitHubRepository.fullName), " ", "仓库"),
 					key: Or.Self
 				}];
 				return ye.createElement(Lb, {
 					id: "fork-settings",
-					title: "How are you planning to use this fork?",
+					title: "你打算怎么用这个分支？",
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement(Ev, null, ye.createElement(zx, {
@@ -71198,7 +71198,7 @@
 					repository: this.props.repository,
 					forkContributionTarget: this.state.forkContributionTarget
 				}))), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Continue"
+					okButtonText: "继续"
 				})))
 			}
 			onSelectionChanged = e => {
@@ -71226,7 +71226,7 @@
 				const e = this.state.isDiscardingSelection;
 				return ye.createElement(Lb, {
 					id: "discard-changes",
-					title: "Confirm discard changes",
+					title: "确认放弃更改",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.discard,
 					dismissable: !e,
@@ -71263,16 +71263,16 @@
 				}
 			}
 			render() {
-				const e = this.props.files.length > 0 ? " The following files would be overwritten:" : null;
+				const e = this.props.files.length > 0 ? " 将覆盖以下文件：" : null;
 				return ye.createElement(Lb, {
-					title: "Error",
+					title: "错误",
 					id: "local-changes-overwritten",
 					loading: this.state.stashingAndRetrying,
 					disabled: this.state.stashingAndRetrying,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit,
 					type: "error"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Unable to ", this.getRetryActionName(), " when changes are present on your branch.", e), this.renderFiles(), this.renderStashText()), this.renderFooter())
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "Unable to ", this.getRetryActionName(), " 当分支上存在更改时。", e), this.renderFiles(), this.renderStashText()), this.renderFooter())
 			}
 			renderFiles() {
 				const {
@@ -71287,13 +71287,13 @@
 				}))))))
 			}
 			renderStashText() {
-				return this.props.hasExistingStash && !this.state.stashingAndRetrying ? null : ye.createElement("p", null, "You can stash your changes now and recover them afterwards.")
+				return this.props.hasExistingStash && !this.state.stashingAndRetrying ? null : ye.createElement("p", null, "您可以现在隐藏更改，然后恢复更改。")
 			}
 			renderFooter() {
 				return this.props.hasExistingStash && !this.state.stashingAndRetrying ? ye.createElement(Wb, null) : ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Stash changes and continue",
-					okButtonTitle: "This will create a stash with your current changes. You can recover them by restoring the stash afterwards.",
-					cancelButtonText: "Close"
+					okButtonText: "保存更改并继续",
+					okButtonTitle: "这将为您当前的更改创建一个隐藏。您可以在事后恢复藏品来恢复它们。",
+					cancelButtonText: "关闭"
 				}))
 			}
 			onSubmit = async () => {
@@ -71453,7 +71453,7 @@
 			}
 			render() {
 				return ye.createElement(Lb, {
-					title: "Move GitHub Desktop to the Applications folder?",
+					title: "是否将GitHub桌面移动到Applications文件夹？",
 					id: "move-to-applications-folder",
 					dismissable: !1,
 					onDismissed: this.props.onDismissed,
@@ -71467,9 +71467,9 @@
 			}
 			renderFooter() {
 				return ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Move and Restart",
-					okButtonTitle: "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
-					cancelButtonText: "Not Now",
+					okButtonText: "移动并重新启动",
+					okButtonTitle: "这会将GitHub Desktop移动到计算机中的Applications文件夹，然后重新启动应用程序。",
+					cancelButtonText: "不是现在",
 					onCancelButtonClick: this.onNotNow
 				}))
 			}
@@ -71502,15 +71502,15 @@
 					t = null === e.alias ? "Create" : "Change";
 				return ye.createElement(Lb, {
 					id: "change-repository-alias",
-					title: `${t} repository alias`,
+					title: `${t} 存储库别名`,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.changeAlias
-				}, ye.createElement(Bb, null, ye.createElement("p", null, 'Choose a new alias for the repository "', Qr(e), '". '), ye.createElement("p", null, ye.createElement(kv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, '为存储库选择新别名 "', Qr(e), '". '), ye.createElement("p", null, ye.createElement(kv, {
 					value: this.state.newAlias,
 					onValueChanged: this.onNameChanged
 				})), null !== e.gitHubRepository && ye.createElement("p", {
 					className: "description"
-				}, "This will not affect the original repository name on GitHub.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, "这不会影响GitHub上的原始存储库名称。")), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: `${t} alias`,
 					okButtonDisabled: 0 === this.state.newAlias.length
 				})))
@@ -71573,7 +71573,7 @@
 						renderUrlsAsLinks: !0
 					})))),
 					t = null !== this.props.latestVersion ? ` ${this.props.latestVersion}` : "",
-					n = ye.createElement(ye.Fragment, null, "Thanks so much for all your hard work on GitHub Desktop", t, ". We're so grateful for your willingness to contribute and make the app better for everyone!");
+					n = ye.createElement(ye.Fragment, null, "非常感谢您在GitHub桌面上的辛勤工作", t, ". 我们非常感谢您愿意为每个人贡献力量，让应用程序变得更好！");
 				return ye.createElement(Lb, {
 					id: "thank-you-notes",
 					onDismissed: this.props.onDismissed,
@@ -71584,7 +71584,7 @@
 					className: "thank-you-note"
 				}, n), ye.createElement("div", {
 					className: "contributions-heading"
-				}, "You contributed:"), ye.createElement("div", {
+				}, "你贡献了:"), ye.createElement("div", {
 					className: "contributions"
 				}, this.renderList(this.props.userContributions)), ye.createElement("div", {
 					className: "confetti-container",
@@ -71886,7 +71886,7 @@
 					abortButton: i
 				} = this.props, o = function(e) {
 					return e.files.filter((e => Ki(e.status)))
-				}(this.props.workingDirectory), s = eo(e, t), a = s.length > 0 ? "Resolve all changes before continuing" : void 0;
+				}(this.props.workingDirectory), s = eo(e, t), a = s.length > 0 ? "在继续之前解决所有更改" : void 0;
 				return ye.createElement(Lb, {
 					id: "conflicts-dialog",
 					dismissable: !this.state.isCommitting,
@@ -71925,16 +71925,16 @@
 				} = this.props;
 				return ye.createElement(Lb, {
 					id: "abort-warning",
-					title: `Confirm abort ${e.toLowerCase()}`,
+					title: `确认中止 ${e.toLowerCase()}`,
 					onDismissed: this.onCancel,
 					onSubmit: this.onSubmit,
 					disabled: this.state.isAborting,
 					type: "warning"
 				}, ye.createElement(Bb, null, ye.createElement("div", {
 					className: "column-left"
-				}, ye.createElement("p", null, "Are you sure you want to abort this ", e.toLowerCase(), "?"), ye.createElement("p", null, "This will take you back to the original branch state and the conflicts you have already resolved will be discarded."))), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement("p", null, "是否确实要中止此操作 ", e.toLowerCase(), "?"), ye.createElement("p", null, "这将使您返回原始分支状态，并且您已经解决的冲突将被丢弃。"))), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: `Abort ${e.toLowerCase()}`
+					okButtonText: `中止 ${e.toLowerCase()}`
 				})))
 			}
 		}
@@ -71953,7 +71953,7 @@
 				return ye.createElement(Lb, {
 					dismissable: !1,
 					id: "multi-commit-progress",
-					title: `${t} in progress`
+					title: `${t} 正在进行中`
 				}, ye.createElement(Bb, null, ye.createElement("div", null, ye.createElement("progress", {
 					value: a
 				}), ye.createElement("div", {
@@ -71984,19 +71984,19 @@
 				const {
 					operation: e,
 					onDismissed: t
-				} = this.props, n = `${e} will require force push`;
+				} = this.props, n = `${e} 需要强制推送`;
 				return ye.createElement(Lb, {
 					title: n,
 					onDismissed: t,
 					onSubmit: this.onBegin,
 					dismissable: !1,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "Are you sure you want to ", e.toLowerCase(), "?"), ye.createElement("p", null, "At the end of the ", e.toLowerCase(), " flow, GitHub Desktop will enable you to force push the branch to update the upstream branch. Force pushing will alter the history on the remote and potentially cause problems for others collaborating on this branch."), ye.createElement("div", null, ye.createElement(Uv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "是否确实要 ", e.toLowerCase(), "?"), ye.createElement("p", null, "在末尾", e.toLowerCase(), " 流，GitHub桌面将允许您强制推送分支以更新上游分支。强制推送将改变远程上的历史记录，并可能给在此分支上协作的其他人带来问题。"), ye.createElement("div", null, ye.createElement(Uv, {
 					label: "不现显示此消息",
 					value: this.state.askForConfirmationOnForcePush ? Hv.Off : Hv.On,
 					onChange: this.onAskForConfirmationOnForcePushChanged
 				}))), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: `Begin ${e.toLowerCase()}`,
+					okButtonText: `开始 ${e.toLowerCase()}`,
 					onCancelButtonClick: this.props.onDismissed
 				})))
 			}
@@ -72594,7 +72594,7 @@
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit,
 					dismissable: !0,
-					title: ye.createElement("strong", null, "Cherry-pick ", this.props.commitCount, " ", t, " to a branch")
+					title: ye.createElement("strong", null, "优选 ", this.props.commitCount, " ", t, " 到分支")
 				}, ye.createElement(Bb, null, ye.createElement(CS, {
 					allBranches: this.props.allBranches,
 					currentBranch: this.props.currentBranch,
@@ -72945,7 +72945,7 @@
 							openRepositoryInShell: this.props.openRepositoryInShell
 						});
 					default:
-						return st(0, `Unknown multi commit operation kind of ${e}.`)
+						return st(0, `未知的多重提交操作类型 ${e}.`)
 				}
 			}
 		}
@@ -72959,21 +72959,21 @@
 				return ye.createElement(Lb, {
 					id: "warn-local-changes-before-undo",
 					type: "warning",
-					title: "Undo commit",
+					title: "撤消提交",
 					loading: this.state.isLoading,
 					disabled: this.state.isLoading,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
 				}, ye.createElement(Bb, null, ye.createElement(Ev, null, this.getWarningText())), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Continue"
+					okButtonText: "继续"
 				})))
 			}
 			getWarningText() {
-				return this.props.commit.isMergeCommit && !this.props.isWorkingDirectoryClean ? ye.createElement(ye.Fragment, null, "You have changes in progress. Undoing the merge commit might result in some of these changes being lost.", ye.createElement("br", null), ye.createElement("br", null), this.getMergeCommitUndoWarningText(), ye.createElement("br", null), ye.createElement("br", null), "Do you want to continue anyway?") : this.props.commit.isMergeCommit ? ye.createElement(ye.Fragment, null, this.getMergeCommitUndoWarningText(), ye.createElement("br", null), ye.createElement("br", null), "Do you want to continue anyway?") : ye.createElement(ye.Fragment, null, "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?")
+				return this.props.commit.isMergeCommit && !this.props.isWorkingDirectoryClean ? ye.createElement(ye.Fragment, null, "您正在进行更改。撤消合并提交可能会导致某些更改丢失。", ye.createElement("br", null), ye.createElement("br", null), this.getMergeCommitUndoWarningText(), ye.createElement("br", null), ye.createElement("br", null), "是否仍要继续？") : this.props.commit.isMergeCommit ? ye.createElement(ye.Fragment, null, this.getMergeCommitUndoWarningText(), ye.createElement("br", null), ye.createElement("br", null), "是否仍要继续？") : ye.createElement(ye.Fragment, null, "您正在进行更改。撤消提交可能会导致某些更改丢失。是否仍要继续？")
 			}
 			getMergeCommitUndoWarningText() {
-				return "Undoing a merge commit will apply the changes from the merge into\n    your working directory, and committing again will create an entirely new\n    commit. This means you will lose the merge commit and, as a result, commits\n    from the merged branch could disappear from this branch."
+				return "撤消合并提交将把合并中的更改应用到工作目录中，\n 再次提交将创建一个全新的提交。这意味着您将丢失合并提交，\n 因此，来自合并分支的提交可能从此分支中消失。"
 			}
 			onSubmit = async () => {
 				const {
@@ -73005,14 +73005,14 @@
 				return ye.createElement(Lb, {
 					id: "warning-before-reset",
 					type: "warning",
-					title: "Reset to commit",
+					title: "重置以提交",
 					loading: this.state.isLoading,
 					disabled: this.state.isLoading,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "You have changes in progress. Resetting to a previous commit might result in some of these changes being lost. Do you want to continue anyway?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "您正在进行更改。重置为以前的提交可能会导致某些更改丢失。是否仍要继续？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "Continue"
+					okButtonText: "继续"
 				})))
 			}
 			onSubmit = async () => {
@@ -73041,10 +73041,10 @@
 				return ye.createElement(Lb, {
 					id: "invalidated-token",
 					type: "warning",
-					title: "Warning",
+					title: "警告",
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "Your account token has been invalidated and you have been signed out from your GitHub", e, " account. Do you want to sign in again?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "您的帐户令牌已失效，您已从GitHub注销", e, " 账户是否要再次登录？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "Yes",
 					cancelButtonText: "No"
 				})))
@@ -73065,11 +73065,11 @@
 				return ye.createElement(Lb, {
 					id: "add-ssh-host",
 					type: "normal",
-					title: "SSH Host",
+					title: "SSH 主机",
 					dismissable: !1,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
-				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "The authenticity of host '", this.props.host, " (", this.props.ip, ")' can't be established. ", this.props.keyType, " key fingerprint is", " ", this.props.fingerprint, ".", ye.createElement("br", null), "Are you sure you want to continue connecting?")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement(Ev, null, "主机的真实性 '", this.props.host, " (", this.props.ip, ")'无法建立。 ", this.props.keyType, " 密钥指纹为", " ", this.props.fingerprint, ".", ye.createElement("br", null), "是否确实要继续连接？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "Yes",
 					cancelButtonText: "No",
 					onCancelButtonClick: this.onCancel
@@ -73100,7 +73100,7 @@
 				return ye.createElement(Lb, {
 					id: "ssh-key-passphrase",
 					type: "normal",
-					title: "SSH Key Passphrase",
+					title: "SSH Key 口令",
 					dismissable: !1,
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed
@@ -73151,18 +73151,18 @@
 			}
 			render() {
 				return ye.createElement(Lb, {
-					title: "Are you sure you want to force push?",
+					title: "是否确实要强制推送？",
 					dismissable: !this.state.isLoading,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onForcePush,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "A force push will rewrite history on", " ", ye.createElement(qb, null, this.props.upstreamBranch), ". Any collaborators working on this branch will need to reset their own local branch to match the history of the remote."), ye.createElement("div", null, ye.createElement(Uv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "强制推送将重写上的历史", " ", ye.createElement(qb, null, this.props.upstreamBranch), ". 在此分支上工作的任何协作者都需要重置自己的本地分支，以匹配远程分支的历史记录。"), ye.createElement("div", null, ye.createElement(Uv, {
 					label: "不再显示此消息",
 					value: this.state.askForConfirmationOnForcePush ? Hv.Off : Hv.On,
 					onChange: this.onAskForConfirmationOnForcePushChanged
 				}))), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "I'm sure"
+					okButtonText: "我肯定"
 				})))
 			}
 			onAskForConfirmationOnForcePushChanged = e => {
@@ -73199,8 +73199,8 @@
 				return this.state.loadingActionWorkflows || this.state.loadingActionLogs
 			}
 			render() {
-				let e = "Switch to pull request";
-				this.props.shouldChangeRepository && (e = "Switch to repository and pull request");
+				let e = "切换到pull请求";
+				this.props.shouldChangeRepository && (e = "切换到存储库并拉取请求");
 				const {
 					pullRequest: t
 				} = this.props, n = this.loadingChecksInfo, r = this.state.checks.filter(Yc), i = r.length > 1 ? "checks" : "check", o = ye.createElement("div", {
@@ -76250,7 +76250,7 @@
 				async clone(e, t, n) {
 					const r = new Tr(t, e);
 					this._repositories.push(r);
-					const i = `Cloning into ${t}`;
+					const i = `克隆到 ${t}`;
 					this.stateByID.set(r.id, {
 						kind: "clone",
 						title: i,
@@ -76267,7 +76267,7 @@
 							};
 							if (r) {
 								s.push("--progress");
-								const e = `Cloning into ${t}`,
+								const e = `克隆到 ${t}`,
 									n = "clone";
 								a = await ya({
 									...a,
@@ -78788,7 +78788,7 @@
 							return "APPROVED" === e.state || "CHANGES_REQUESTED" === e.state || "COMMENTED" === e.state
 						}(s)) return;
 					const a = fh(s),
-						l = `@${s.user.login} ${a} your pull request`,
+						l = `@${s.user.login} ${a} 您的拉取请求`,
 						c = `${r.title} #${r.pullRequestNumber}\n${lu(s.body,50)}`,
 						u = () => {
 							this.statsStore.recordPullRequestReviewNotificationClicked(s.state), this.onPullRequestReviewSubmitCallback?.(n, r, s, e.number_of_comments)
@@ -78823,7 +78823,7 @@
 							this.statsStore.recordChecksFailedNotificationClicked(), this.onChecksFailedCallback?.(n, r, s.summary, o, a)
 						};
 					t ? p() : (au({
-						title: "Pull Request checks failed",
+						title: "拉取请求检查失败",
 						body: h,
 						userInfo: e,
 						onClick: p
@@ -80282,7 +80282,7 @@
 				async refreshAfterCheckout(e, t) {
 					return this.updateCheckoutProgress(e, {
 						kind: "checkout",
-						title: "Refreshing repository",
+						title: "正在刷新存储库",
 						value: 1,
 						targetBranch: t.name
 					}), await this._refreshRepository(e), e
@@ -80417,7 +80417,7 @@
 						if (o.kind === Lr.Valid) {
 							const {
 								branch: r
-							} = o, s = r.upstreamRemoteName || i.name, a = `Pushing to ${s}`;
+							} = o, s = r.upstreamRemoteName || i.name, a = `推送至 ${s}`;
 							this.updatePushPullFetchProgress(e, {
 								kind: "push",
 								title: a,
@@ -80454,7 +80454,7 @@
 									};
 									if (a) {
 										l.push("--progress");
-										const e = `Pushing to ${n.name}`,
+										const e = `推送至 ${n.name}`,
 											t = "push";
 										u = await ya({
 											...u,
@@ -80492,7 +80492,7 @@
 										value: l + t.value * c
 									})
 								}));
-								const i = "Refreshing repository",
+								const i = "正在刷新存储库",
 									o = l + c;
 								this.updatePushPullFetchProgress(e, {
 									kind: "generic",
@@ -80559,7 +80559,7 @@
 								theirBranch: i.branch.upstream,
 								currentBranch: i.branch.name
 							});
-							const a = `Pulling ${r.name}`,
+							const a = `拉取中 ${r.name}`,
 								l = "pull";
 							this.updatePushPullFetchProgress(e, {
 								kind: l,
@@ -80583,7 +80583,7 @@
 										expectedErrors: Ca
 									};
 									if (r) {
-										const e = `Pulling ${n.name}`,
+										const e = `拉取中 ${n.name}`,
 											t = "pull";
 										i = await ya({
 											...i,
@@ -80629,7 +80629,7 @@
 									retryAction: u
 								});
 								const h = i + a,
-									p = "Refreshing repository";
+									p = "正在刷新存储库";
 								this.updatePushPullFetchProgress(e, {
 									kind: "generic",
 									title: p,
@@ -80812,7 +80812,7 @@
 									})
 								};
 							void 0 === r ? await i.fetch(t, a, l) : await i.fetchRemotes(t, r, a, l);
-							const c = "Refreshing repository";
+							const c = "正在刷新存储库";
 							this.updatePushPullFetchProgress(e, {
 								kind: "generic",
 								title: c,
@@ -81684,25 +81684,25 @@
 							r = e.resolve(await _a(), n),
 							i = await async function(t, n, r, i) {
 								const o = ba(t);
-								if (i(`Creating repository on ${o}`, 0), await S(r)) throw new Error(`The path '${r}' already exists. Please move it out of the way, or remove it, and then try again.`);
+								if (i(`正在上创建存储库 ${o}`, 0), await S(r)) throw new Error(`路径“${r}”已存在。请将其移开，或将其移除，然后重试。`);
 								const s = await async function(e, t) {
 									const n = new yn(e.endpoint, e.token);
 									try {
-										return await n.createRepository(null, t, "GitHub Desktop tutorial repository", !0)
+										return await n.createRepository(null, t, "GitHub Desktop 教程存储库", !0)
 									} catch (n) {
-										if (n instanceof Rt && 422 === n.responseStatus && null !== n.apiError && "Repository creation failed." === n.apiError.message && n.apiError.errors && n.apiError.errors.some((e => "name already exists on this account" === e.message))) throw new Error(`You already have a repository named "${t}" on your account at ${ba(e)}.\n\nPlease delete the repository and try again.`);
+										if (n instanceof Rt && 422 === n.responseStatus && null !== n.apiError && "存储库创建失败。" === n.apiError.message && n.apiError.errors && n.apiError.errors.some((e => "此帐户上已存在名称" === e.message))) throw new Error(`您在${ba(e)}的帐户上已经有一个名为“${t}”的存储库.\n\n请删除存储库，然后重试。`);
 										throw n
 									}
 								}(t, n), a = s.default_branch ?? await ps();
-								i("Initializing local repository", .2), await (0, y.mkdir)(r, {
+								i("正在初始化本地存储库", .2), await (0, y.mkdir)(r, {
 									recursive: !0
-								}), await Bm(["-c", `init.defaultBranch=${a}`, "init"], r, "tutorial:init"), await (0, y.writeFile)(e.join(r, "README.md"), "# Welcome to GitHub Desktop!\r\n\r\nThis is your README. READMEs are where you can communicate what your project is and how to use it.\r\n\r\nWrite your name on line 6, save it, and then head back to GitHub Desktop.\r\n"), await Bm(["add", "--", "README.md"], r, "tutorial:add"), await Bm(["commit", "-m", "Initial commit"], r, "tutorial:commit");
+								}), await Bm(["-c", `init.defaultBranch=${a}`, "init"], r, "tutorial:init"), await (0, y.writeFile)(e.join(r, "README.md"), "# 欢迎使用GitHub桌面！\r\n\r\nThis is your README. 自述文件是您可以交流项目内容和使用方法的地方。\r\n\r\n在第6行写下您的名字，保存它，然后返回GitHub桌面。\r\n"), await Bm(["add", "--", "README.md"], r, "tutorial:add"), await Bm(["commit", "-m", "Initial commit"], r, "tutorial:commit");
 								const l = {
 									name: "origin",
 									url: s.clone_url
 								};
 								return await Bm(["remote", "add", l.name, l.url], r, "tutorial:add-remote"), await async function(e, t, n, r, i) {
-									const o = `Pushing repository to ${ba(t)}`;
+									const o = `将存储库推送到 ${ba(t)}`;
 									i(o, 0);
 									const s = await ya({
 											env: await xa(t, n.url)
@@ -81713,7 +81713,7 @@
 									await Bm(a, e, "tutorial:push", s)
 								}(r, t, l, a, ((e, t, n) => {
 									i(e, .3 + .6 * t, n)
-								})), i("Finalizing tutorial repository", .9), s
+								})), i("完成教程存储库", .9), s
 							}(t, n, r, ((e, t, n) => {
 								null !== this.currentPopup && this.currentPopup.type === Hr.CreateTutorialRepository && (this.currentPopup = {
 									...this.currentPopup,

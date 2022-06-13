@@ -11203,7 +11203,7 @@
 				click: ae("merge-branch")
 			}];
 			b.push({
-				label: "Squas&h 并合并到当前分支…",
+				label: "&压扁合并到当前分支…",
 				id: "squash-and-merge-branch",
 				accelerator: "CmdOrCtrl+Shift+H",
 				click: ae("squash-and-merge-branch")
@@ -11710,8 +11710,8 @@
 					})), n.onFailedToLoad((async () => {
 						await i.dialog.showMessageBox({
 							type: "error",
-							title: "Unrecoverable error",
-							message: `GitHub Desktop has encountered an unrecoverable error and will need to restart.\n\nThis has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop issue tracker.\n\n${t.stack||t.message}`
+							title: "不可恢复错误",
+							message: `GitHub桌面遇到无法恢复的错误，需要重新启动。\n\n这已报告给团队，但如果您反复遇到此问题，请将此问题报告给GitHub桌面问题跟踪程序。\n\n${t.stack||t.message}`
 						}), i.app.relaunch(), i.app.quit()
 					})), n.onClose((() => {
 						i.app.relaunch(), i.app.quit()
