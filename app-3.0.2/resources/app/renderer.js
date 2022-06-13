@@ -10146,8 +10146,10 @@
 				}), t.supportsNotificationsPermissionRequest = t.supportsNotifications = void 0;
 				const r = n(2037);
 				t.supportsNotifications = function() {
-					const e = r.release().split(".");
-					return parseInt(e[0], 10) >= 10
+					return function() {
+						const e = r.release().split(".");
+						return parseInt(e[0], 10) >= 10
+					}()
 				}, t.supportsNotificationsPermissionRequest = function() {
 					return !1
 				}
@@ -32391,7 +32393,7 @@
 			let c = {
 				Accept: "application/vnd.github.v3+json, application/json",
 				"Content-Type": "application/json",
-				"User-Agent": "GitHubDesktop/3.0.1 (Windows)"
+				"User-Agent": "GitHubDesktop/3.0.2 (Windows)"
 			};
 			t && (c.Authorization = `token ${t}`), c = {
 				...c,
@@ -42914,7 +42916,7 @@
 		}
 		async function qg(e) {
 			const t = await $g(),
-				n = new zt.SemVer(e ?? "3.0.1"),
+				n = new zt.SemVer(e ?? "3.0.2"),
 				r = t.filter((e => zt.gt(new zt.SemVer(e.version), n) && new Date(e.pub_date).getTime() > bs(-90, "days")));
 			return r.length > 0 ? r.map(jg) : [jg(t[0])]
 		}
@@ -42990,7 +42992,7 @@
 				}
 				async checkForUpdates(e) {
 					if (this.status === Zg.UpdateReady) return;
-					let t = "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.1&env=production";
+					let t = "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.2&env=production";
 					if (no() && !0 === await X()) {
 						const e = new URL(t);
 						e.pathname = e.pathname.replace(/\/desktop\/desktop\/(x64\/)?latest/, "/desktop/desktop/arm64/latest"), t = e.toString()
@@ -61425,7 +61427,7 @@
 				}, "restart GitHub Desktop"), ".")
 			};
 			dismissUpdateShowCaseVisibility = () => {
-				const e = null === this.props.newReleases ? "3.0.1" : this.props.newReleases[0].latestVersion;
+				const e = null === this.props.newReleases ? "3.0.2" : this.props.newReleases[0].latestVersion;
 				localStorage.setItem(Yg, e), this.props.dispatcher.setUpdateShowCaseVisibility(!1)
 			};
 			showReleaseNotes = () => {
@@ -70531,7 +70533,7 @@
 			onDismissed = e => {
 				e.preventDefault(), this.props.onDismissed()
 			};
-			renderButtons = () => "3.0.1" === this.props.newReleases[0].latestVersion ? ye.createElement(Mv, {
+			renderButtons = () => "3.0.2" === this.props.newReleases[0].latestVersion ? ye.createElement(Mv, {
 				type: "submit",
 				onClick: this.onDismissed
 			}, "Close") : ye.createElement(zb, {
@@ -73767,7 +73769,7 @@
 				window.clearInterval(this.updateIntervalHandle)
 			}
 			async performDeferredLaunchActions() {
-				this.props.appStore.loadEmoji(), this.props.dispatcher.reportStats(), setInterval((() => this.props.dispatcher.reportStats()), 144e5), this.props.dispatcher.installGlobalLFSFilters(!1), setInterval((() => this.checkForUpdates(!0)), 144e5), this.checkForUpdates(!0), log.info(`launching: 3.0.1 (${tr()})`), log.info(`execPath: '${process.execPath}'`), this.state.askToMoveToApplicationsFolderSetting, this.checkIfThankYouIsInOrder()
+				this.props.appStore.loadEmoji(), this.props.dispatcher.reportStats(), setInterval((() => this.props.dispatcher.reportStats()), 144e5), this.props.dispatcher.installGlobalLFSFilters(!1), setInterval((() => this.checkForUpdates(!0)), 144e5), this.checkForUpdates(!0), log.info(`launching: 3.0.2 (${tr()})`), log.info(`execPath: '${process.execPath}'`), this.state.askToMoveToApplicationsFolderSetting, this.checkIfThankYouIsInOrder()
 			}
 			onMenuEvent(e) {
 				if (!this.state.errors.length) switch (e) {
@@ -74367,7 +74369,7 @@
 							path: e.path
 						});
 					case Hr.About:
-						const s = "3.0.1";
+						const s = "3.0.2";
 						return ye.createElement(PM, {
 							key: "about",
 							onDismissed: t,
@@ -74398,7 +74400,7 @@
 						return ye.createElement(FM, {
 							key: "acknowledgements",
 							onDismissed: t,
-							applicationVersion: "3.0.1"
+							applicationVersion: "3.0.2"
 						});
 					case Hr.RemoveRepository:
 						return ye.createElement(zM, {
@@ -75423,7 +75425,7 @@
 							version: r,
 							checkedUsers: i
 						} = e;
-						return i.includes(t) && "3.0.1" === r
+						return i.includes(t) && "3.0.2" === r
 					}(t, n)) return;
 				const r = void 0 !== t && t.checkedUsers.includes(n),
 					i = await async function(e, t) {
@@ -75446,14 +75448,14 @@
 						}(e), r = n.get(t);
 						return void 0 !== r ? r : null
 					}(r, n);
-				if (null === i) return void SO(this.props.dispatcher, t, n, "3.0.1");
-				const o = r ? "3.0.1" : null,
+				if (null === i) return void SO(this.props.dispatcher, t, n, "3.0.2");
+				const o = r ? "3.0.2" : null,
 					s = {
 						type: Ds.OpenThankYouCard,
 						emoji: this.state.emoji,
 						onOpenCard: () => this.openThankYouCard(i, o),
 						onThrowCardAway: () => {
-							SO(this.props.dispatcher, t, n, "3.0.1")
+							SO(this.props.dispatcher, t, n, "3.0.2")
 						}
 					};
 				this.props.dispatcher.setBanner(s)
@@ -76466,7 +76468,7 @@
 						u = Ga() ? "split" : "unified";
 					return {
 						eventType: "usage",
-						version: "3.0.1",
+						version: "3.0.2",
 						osVersion: tr(),
 						platform: "win32",
 						architecture: await Y(),

@@ -895,6 +895,11 @@
 					get: function() {
 						return r.showNotification
 					}
+				}), Object.defineProperty(t, "pD", {
+					enumerable: !0,
+					get: function() {
+						return r.terminateNotifications
+					}
 				}), Object.defineProperty(t, "X", {
 					enumerable: !0,
 					get: function() {
@@ -1008,8 +1013,10 @@
 				}), t.supportsNotificationsPermissionRequest = t.supportsNotifications = void 0;
 				const r = n(2037);
 				t.supportsNotifications = function() {
-					const e = r.release().split(".");
-					return parseInt(e[0], 10) >= 10
+					return function() {
+						const e = r.release().split(".");
+						return parseInt(e[0], 10) >= 10
+					}()
 				}, t.supportsNotificationsPermissionRequest = function() {
 					return !1
 				}
@@ -10779,7 +10786,7 @@
 				})), V("will-quit", (e => {
 					n = !0, e.returnValue = !0
 				})), this.window.on("close", (e => {
-					i.nativeTheme.removeAllListeners(), i.autoUpdater.removeAllListeners()
+					i.nativeTheme.removeAllListeners(), i.autoUpdater.removeAllListeners(), (0, J.pD)()
 				})), this.window.once("ready-to-show", (() => {
 					this.window.on("unmaximize", (() => {
 						setTimeout((() => {
@@ -11452,7 +11459,7 @@
 				Be = !0
 			}
 			const r = new Map;
-			if (r.set("name", e.name), r.set("message", e.message), e.stack && r.set("stack", e.stack), r.set("platform", "win32"), r.set("architecture", Le(i.app)), r.set("sha", "26b687b177438e2ef1818ece42ca6663e9c8b322"), r.set("version", i.app.getVersion()), r.set("guid", await $e()), t)
+			if (r.set("name", e.name), r.set("message", e.message), e.stack && r.set("stack", e.stack), r.set("platform", "win32"), r.set("architecture", Le(i.app)), r.set("sha", "11fd584c3943369cfe467e20b2df58f44f27034a"), r.set("version", i.app.getVersion()), r.set("guid", await $e()), t)
 				for (const e of Object.keys(t)) r.set(e, t[e]);
 			const o = [...r.entries()].map((([e, t]) => `${encodeURIComponent(e)}=${encodeURIComponent(t)}`)).join("&");
 			try {
