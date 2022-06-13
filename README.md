@@ -1,7 +1,11 @@
 # Github Desktop 3 汉化
 
 #### 介绍
-针对Github Desktop 3.0.0版本的汉化，主要是修改main.js和renderer.js文件，以本地化显示中文。
+
+
+针对Github Desktop 3 版本的汉化，主要是修改main.js和renderer.js文件，以本地化显示中文。
+
+2022-06-13:增加对Github Desktop 3.0.1版本的汉化,完成了部分.
 
 2022-05-20:完成界面和提示信息的大部分汉化工作。
 
