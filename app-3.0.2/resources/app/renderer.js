@@ -10954,22 +10954,22 @@
 					function(e) {
 						e[e.SSHKeyAuditUnverified = 0] = "SSHKeyAuditUnverified", e[e.SSHAuthenticationFailed = 1] = "SSHAuthenticationFailed", e[e.SSHPermissionDenied = 2] = "SSHPermissionDenied", e[e.HTTPSAuthenticationFailed = 3] = "HTTPSAuthenticationFailed", e[e.RemoteDisconnection = 4] = "RemoteDisconnection", e[e.HostDown = 5] = "HostDown", e[e.RebaseConflicts = 6] = "RebaseConflicts", e[e.MergeConflicts = 7] = "MergeConflicts", e[e.HTTPSRepositoryNotFound = 8] = "HTTPSRepositoryNotFound", e[e.SSHRepositoryNotFound = 9] = "SSHRepositoryNotFound", e[e.PushNotFastForward = 10] = "PushNotFastForward", e[e.BranchDeletionFailed = 11] = "BranchDeletionFailed", e[e.DefaultBranchDeletionFailed = 12] = "DefaultBranchDeletionFailed", e[e.RevertConflicts = 13] = "RevertConflicts", e[e.EmptyRebasePatch = 14] = "EmptyRebasePatch", e[e.NoMatchingRemoteBranch = 15] = "NoMatchingRemoteBranch", e[e.NoExistingRemoteBranch = 16] = "NoExistingRemoteBranch", e[e.NothingToCommit = 17] = "NothingToCommit", e[e.NoSubmoduleMapping = 18] = "NoSubmoduleMapping", e[e.SubmoduleRepositoryDoesNotExist = 19] = "SubmoduleRepositoryDoesNotExist", e[e.InvalidSubmoduleSHA = 20] = "InvalidSubmoduleSHA", e[e.LocalPermissionDenied = 21] = "LocalPermissionDenied", e[e.InvalidMerge = 22] = "InvalidMerge", e[e.InvalidRebase = 23] = "InvalidRebase", e[e.NonFastForwardMergeIntoEmptyHead = 24] = "NonFastForwardMergeIntoEmptyHead", e[e.PatchDoesNotApply = 25] = "PatchDoesNotApply", e[e.BranchAlreadyExists = 26] = "BranchAlreadyExists", e[e.BadRevision = 27] = "BadRevision", e[e.NotAGitRepository = 28] = "NotAGitRepository", e[e.CannotMergeUnrelatedHistories = 29] = "CannotMergeUnrelatedHistories", e[e.LFSAttributeDoesNotMatch = 30] = "LFSAttributeDoesNotMatch", e[e.BranchRenameFailed = 31] = "BranchRenameFailed", e[e.PathDoesNotExist = 32] = "PathDoesNotExist", e[e.InvalidObjectName = 33] = "InvalidObjectName", e[e.OutsideRepository = 34] = "OutsideRepository", e[e.LockFileAlreadyExists = 35] = "LockFileAlreadyExists", e[e.NoMergeToAbort = 36] = "NoMergeToAbort", e[e.LocalChangesOverwritten = 37] = "LocalChangesOverwritten", e[e.UnresolvedConflicts = 38] = "UnresolvedConflicts", e[e.GPGFailedToSignData = 39] = "GPGFailedToSignData", e[e.ConflictModifyDeletedInBranch = 40] = "ConflictModifyDeletedInBranch", e[e.PushWithFileSizeExceedingLimit = 41] = "PushWithFileSizeExceedingLimit", e[e.HexBranchNameRejected = 42] = "HexBranchNameRejected", e[e.ForcePushRejected = 43] = "ForcePushRejected", e[e.InvalidRefLength = 44] = "InvalidRefLength", e[e.ProtectedBranchRequiresReview = 45] = "ProtectedBranchRequiresReview", e[e.ProtectedBranchForcePush = 46] = "ProtectedBranchForcePush", e[e.ProtectedBranchDeleteRejected = 47] = "ProtectedBranchDeleteRejected", e[e.ProtectedBranchRequiredStatus = 48] = "ProtectedBranchRequiredStatus", e[e.PushWithPrivateEmail = 49] = "PushWithPrivateEmail", e[e.ConfigLockFileAlreadyExists = 50] = "ConfigLockFileAlreadyExists", e[e.RemoteAlreadyExists = 51] = "RemoteAlreadyExists", e[e.TagAlreadyExists = 52] = "TagAlreadyExists", e[e.MergeWithLocalChanges = 53] = "MergeWithLocalChanges", e[e.RebaseWithLocalChanges = 54] = "RebaseWithLocalChanges", e[e.MergeCommitNoMainlineOption = 55] = "MergeCommitNoMainlineOption", e[e.UnsafeDirectory = 56] = "UnsafeDirectory"
 					}(n = t.GitError || (t.GitError = {})), t.GitErrorRegexes = {
-						"ERROR: ([\\s\\S]+?)\\n+\\[EPOLICYKEYAGE\\]\\n+fatal: Could not read from remote repository.": n.SSHKeyAuditUnverified,
-						"fatal: Authentication failed for 'https://": n.HTTPSAuthenticationFailed,
-						"fatal: Authentication failed": n.SSHAuthenticationFailed,
-						"fatal: Could not read from remote repository.": n.SSHPermissionDenied,
-						"The requested URL returned error: 403": n.HTTPSAuthenticationFailed,
-						"fatal: [Tt]he remote end hung up unexpectedly": n.RemoteDisconnection,
-						"fatal: unable to access '(.+)': Failed to connect to (.+): Host is down": n.HostDown,
-						"Cloning into '(.+)'...\nfatal: unable to access '(.+)': Could not resolve host: (.+)": n.HostDown,
-						"Resolve all conflicts manually, mark them as resolved with": n.RebaseConflicts,
-						"(Merge conflict|Automatic merge failed; fix conflicts and then commit the result)": n.MergeConflicts,
-						"fatal: repository '(.+)' not found": n.HTTPSRepositoryNotFound,
-						"ERROR: Repository not found": n.SSHRepositoryNotFound,
-						"\\((non-fast-forward|fetch first)\\)\nerror: failed to push some refs to '.*'": n.PushNotFastForward,
-						"error: unable to delete '(.+)': remote ref does not exist": n.BranchDeletionFailed,
-						"\\[remote rejected\\] (.+) \\(deletion of the current branch prohibited\\)": n.DefaultBranchDeletionFailed,
-						"error: could not revert .*\nhint: after resolving the conflicts, mark the corrected paths\nhint: with 'git add <paths>' or 'git rm <paths>'\nhint: and commit the result with 'git commit'": n.RevertConflicts,
+						"ERROR: ([\\s\\S]+?)\\n+\\[EPOLICYKEYAGE\\]\\n+fatal: 无法从远程仓库读取。": n.SSHKeyAuditUnverified,
+						"fatal: 的身份验证失败 'https://": n.HTTPSAuthenticationFailed,
+						"fatal: 验证失败": n.SSHAuthenticationFailed,
+						"fatal: 无法从远程仓库读取。": n.SSHPermissionDenied,
+						"请求的URL返回错误: 403": n.HTTPSAuthenticationFailed,
+						"fatal: [Tt]远端意外挂断": n.RemoteDisconnection,
+						"fatal: 无法访问 '(.+)': 无法连接到 (.+): 主机已关闭": n.HostDown,
+						"Cloning into '(.+)'...\nfatal: 无法访问 '(.+)': 无法解析主机: (.+)": n.HostDown,
+						"手动解决所有冲突，将其标记为已解决": n.RebaseConflicts,
+						"(合并冲突|自动合并失败；修复冲突，然后提交结果)": n.MergeConflicts,
+						"fatal: 仓库 '(.+)' 未发现": n.HTTPSRepositoryNotFound,
+						"ERROR: 未找到仓库": n.SSHRepositoryNotFound,
+						"\\((non-fast-forward|fetch first)\\)\nerror: 无法将某些引用推送到'.*'": n.PushNotFastForward,
+						"error: 无法删除 '(.+)': 远程引用不存在": n.BranchDeletionFailed,
+						"\\[remote rejected\\] (.+) \\(禁止删除当前分支\\)": n.DefaultBranchDeletionFailed,
+						"error: 无法还原 .*\nhint: 解决冲突后，标记更正的路径\nhint: with 'git add <paths>' or 'git rm <paths>'\nhint: and commit the result with 'git commit'": n.RevertConflicts,
 						"Applying: .*\nNo changes - did you forget to use 'git add'\\?\nIf there is nothing left to stage, chances are that something else\n.*": n.EmptyRebasePatch,
 						"There are no candidates for (rebasing|merging) among the refs that you just fetched.\nGenerally this means that you provided a wildcard refspec which had no\nmatches on the remote end.": n.NoMatchingRemoteBranch,
 						"Your configuration specifies to merge with the ref '(.+)'\nfrom the remote, but no such ref was fetched.": n.NoExistingRemoteBranch,
@@ -10985,7 +10985,7 @@
 						"fatal: [Aa] branch named '(.+)' already exists.?": n.BranchAlreadyExists,
 						"fatal: bad revision '(.*)'": n.BadRevision,
 						"fatal: [Nn]ot a git repository \\(or any of the parent directories\\): (.*)": n.NotAGitRepository,
-						"fatal: refusing to merge unrelated histories": n.CannotMergeUnrelatedHistories,
+						"fatal: 拒绝合并无关历史记录": n.CannotMergeUnrelatedHistories,
 						"The .+ attribute should be .+ but is .+": n.LFSAttributeDoesNotMatch,
 						"fatal: Branch rename failed": n.BranchRenameFailed,
 						"fatal: path '(.+)' does not exist .+": n.PathDoesNotExist,
@@ -42240,102 +42240,102 @@
 				const h = !!s.successExitCodes && s.successExitCodes.has(c);
 				h || (u = bt.nY.parseError(l.stderr), u || (u = bt.nY.parseError(l.stdout)));
 				const p = u ? function(e) {
-						if (Fm(e)) return "Authentication failed. Some common reasons include:\n\n- You are not logged in to your account: see File > Options.\n- You may need to log out and log back in to refresh your token.\n- You do not have permission to access this repository.\n- The repository is archived on GitHub. Check the repository settings to confirm you are still permitted to push commits.\n- If you use SSH authentication, check that your key is added to the ssh-agent and associated with your account.\n- If you use SSH authentication, ensure the host key verification passes for your repository hosting service.\n- If you used username / password authentication, you might need to use a Personal Access Token instead of your account password. Check the documentation of your repository hosting service.";
+						if (Fm(e)) return "身份验证失败。一些常见原因包括：\n\n-您没有登录到您的帐户：请参阅文件>选项。\n-您可能需要注销并重新登录以刷新您的令牌。\n-您没有访问此仓库的权限。\n-仓库在GitHub上存档。检查仓库设置以确认仍允许您推送提交。\n-如果使用SSH身份验证，请检查您的密钥是否已添加到SSH代理并与您的帐户关联。\n-如果使用SSH身份验证，请确保通过仓库托管服务的主机密钥验证。\n-如果使用用户名/密码身份验证，则可能需要使用个人访问令牌，而不是帐户密码。检查仓库托管服务的文档。";
 						switch (e) {
 							case bt.ko.SSHKeyAuditUnverified:
-								return "The SSH key is unverified.";
+								return "SSH密钥未验证。";
 							case bt.ko.RemoteDisconnection:
-								return "The remote disconnected. Check your Internet connection and try again.";
+								return "遥控器已断开连接。请检查您的Internet连接，然后重试。";
 							case bt.ko.HostDown:
-								return "The host is down. Check your Internet connection and try again.";
+								return "主机已关闭。请检查您的Internet连接，然后重试。";
 							case bt.ko.RebaseConflicts:
-								return "We found some conflicts while trying to rebase. Please resolve the conflicts before continuing.";
+								return "我们在尝试重新变基时发现了一些冲突。请在继续之前解决冲突。";
 							case bt.ko.MergeConflicts:
-								return "We found some conflicts while trying to merge. Please resolve the conflicts and commit the changes.";
+								return "尝试合并时发现一些冲突。请解决冲突并提交更改。";
 							case bt.ko.HTTPSRepositoryNotFound:
 							case bt.ko.SSHRepositoryNotFound:
-								return "The repository does not seem to exist anymore. You may not have access, or it may have been deleted or renamed.";
+								return "仓库似乎不再存在。您可能没有访问权限，或者它可能已被删除或重命名。";
 							case bt.ko.PushNotFastForward:
-								return "The repository has been updated since you last pulled. Try pulling before pushing.";
+								return "自上次提取后，仓库已更新。在推送之前试着拉取。";
 							case bt.ko.BranchDeletionFailed:
-								return "Could not delete the branch. It was probably already deleted.";
+								return "无法删除分支。它可能已被删除。";
 							case bt.ko.DefaultBranchDeletionFailed:
-								return "The branch is the repository's default branch and cannot be deleted.";
+								return "该分支是仓库的默认分支，无法删除。";
 							case bt.ko.RevertConflicts:
-								return "To finish reverting, please merge and commit the changes.";
+								return "要完成还原，请合并并提交更改。";
 							case bt.ko.EmptyRebasePatch:
-								return "There aren’t any changes left to apply.";
+								return "没有要应用的任何更改。";
 							case bt.ko.NoMatchingRemoteBranch:
-								return "There aren’t any remote branches that match the current branch.";
+								return "没有任何与当前分支匹配的远程分支。";
 							case bt.ko.NothingToCommit:
-								return "There are no changes to commit.";
+								return "没有要提交的更改。";
 							case bt.ko.NoSubmoduleMapping:
-								return "A submodule was removed from .gitmodules, but the folder still exists in the repository. Delete the folder, commit the change, then try again.";
+								return "已从中删除子模块。gitmodules，但该文件夹仍存在于仓库中。删除文件夹，提交更改，然后重试。";
 							case bt.ko.SubmoduleRepositoryDoesNotExist:
-								return "A submodule points to a location which does not exist.";
+								return "子模块指向不存在的位置。";
 							case bt.ko.InvalidSubmoduleSHA:
-								return "A submodule points to a commit which does not exist.";
+								return "子模块指向不存在的提交。";
 							case bt.ko.LocalPermissionDenied:
-								return "Permission denied.";
+								return "权限被拒绝。";
 							case bt.ko.InvalidMerge:
-								return "This is not something we can merge.";
+								return "这不是我们可以合并的东西。";
 							case bt.ko.InvalidRebase:
-								return "This is not something we can rebase.";
+								return "这不是我们可以调整的变基。";
 							case bt.ko.NonFastForwardMergeIntoEmptyHead:
-								return "The merge you attempted is not a fast-forward, so it cannot be performed on an empty branch.";
+								return "您尝试的合并不是快进，因此无法在空分支上执行。";
 							case bt.ko.PatchDoesNotApply:
-								return "The requested changes conflict with one or more files in the repository.";
+								return "请求的更改与仓库中的一个或多个文件冲突。";
 							case bt.ko.BranchAlreadyExists:
-								return "A branch with that name already exists.";
+								return "具有该名称的分支已存在。";
 							case bt.ko.BadRevision:
-								return "Bad revision.";
+								return "错误的修订。";
 							case bt.ko.NotAGitRepository:
-								return "This is not a git repository.";
+								return "这不是git仓库。";
 							case bt.ko.ProtectedBranchForcePush:
-								return "This branch is protected from force-push operations.";
+								return "此分支受到强制推送操作的保护。";
 							case bt.ko.ProtectedBranchRequiresReview:
-								return "This branch is protected and any changes requires an approved review. Open a pull request with changes targeting this branch instead.";
+								return "此分支受到保护，任何更改都需要经过批准的审查。打开一个pull请求，更改的目标改为此分支。";
 							case bt.ko.PushWithFileSizeExceedingLimit:
-								return "The push operation includes a file which exceeds GitHub's file size restriction of 100MB. Please remove the file from history and try again.";
+								return "推送操作包括一个超过GitHub的100MB文件大小限制的文件。请从历史记录中删除该文件，然后重试。";
 							case bt.ko.HexBranchNameRejected:
-								return "The branch name cannot be a 40-character string of hexadecimal characters, as this is the format that Git uses for representing objects.";
+								return "分支名称不能是由十六进制字符组成的40个字符的字符串，因为这是Git用于表示对象的格式。";
 							case bt.ko.ForcePushRejected:
-								return "The force push has been rejected for the current branch.";
+								return "当前分支的强制推送已被拒绝。";
 							case bt.ko.InvalidRefLength:
-								return "A ref cannot be longer than 255 characters.";
+								return "引用长度不能超过255个字符。";
 							case bt.ko.CannotMergeUnrelatedHistories:
-								return "Unable to merge unrelated histories in this repository.";
+								return "无法在此仓库中合并不相关的历史记录。";
 							case bt.ko.PushWithPrivateEmail:
-								return 'Cannot push these commits as they contain an email address marked as private on GitHub. To push anyway, visit https://github.com/settings/emails, uncheck "Keep my email address private", then switch back to GitHub Desktop to push your commits. You can then enable the setting again.';
+								return '无法推送这些提交，因为它们包含GitHub上标记为专用的电子邮件地址。要继续推送，请访问https://github.com/settings/emails，取消选中“保持我的电子邮件地址私有”，然后切换回GitHub桌面以推动提交。然后可以再次启用该设置。';
 							case bt.ko.LFSAttributeDoesNotMatch:
-								return "Git LFS attribute found in global Git configuration does not match expected value.";
+								return "在全局Git配置中找到的Git LFS属性与预期值不匹配。";
 							case bt.ko.ProtectedBranchDeleteRejected:
-								return "This branch cannot be deleted from the remote repository because it is marked as protected.";
+								return "无法从远程仓库中删除此分支，因为它被标记为受保护。";
 							case bt.ko.ProtectedBranchRequiredStatus:
-								return "The push was rejected by the remote server because a required status check has not been satisfied.";
+								return "推送被远程服务器拒绝，因为未满足所需的状态检查。";
 							case bt.ko.BranchRenameFailed:
-								return "The branch could not be renamed.";
+								return "无法重命名分支。";
 							case bt.ko.PathDoesNotExist:
-								return "The path does not exist on disk.";
+								return "磁盘上不存在路径。";
 							case bt.ko.InvalidObjectName:
-								return "The object was not found in the Git repository.";
+								return "在Git仓库中找不到该对象。";
 							case bt.ko.OutsideRepository:
-								return "This path is not a valid path inside the repository.";
+								return "此路径不是仓库中的有效路径。";
 							case bt.ko.LockFileAlreadyExists:
-								return "A lock file already exists in the repository, which blocks this operation from completing.";
+								return "仓库中已存在锁定文件，这将阻止此操作完成。";
 							case bt.ko.NoMergeToAbort:
-								return "There is no merge in progress, so there is nothing to abort.";
+								return "没有正在进行的合并，因此没有要中止的内容。";
 							case bt.ko.NoExistingRemoteBranch:
-								return "The remote branch does not exist.";
+								return "远程分支不存在。";
 							case bt.ko.LocalChangesOverwritten:
-								return "Unable to switch branches as there are working directory changes which would be overwritten. Please commit or stash your changes.";
+								return "无法切换分支，因为存在将被覆盖的工作目录更改。请提交或隐藏您的更改。";
 							case bt.ko.UnresolvedConflicts:
-								return "There are unresolved conflicts in the working directory.";
+								return "工作目录中存在未解决的冲突。";
 							case bt.ko.ConfigLockFileAlreadyExists:
 							case bt.ko.RemoteAlreadyExists:
 								return null;
 							case bt.ko.TagAlreadyExists:
-								return "A tag with that name already exists";
+								return "具有该名称的标记已存在";
 							case bt.ko.MergeWithLocalChanges:
 							case bt.ko.RebaseWithLocalChanges:
 							case bt.ko.GPGFailedToSignData:
@@ -53184,7 +53184,7 @@
 			}
 			onShowInFileManagerClicked = () => this.props.dispatcher.recordSuggestedStepOpenWorkingDirectory();
 			renderViewOnGitHub() {
-				return null !== this.props.repository.gitHubRepository ? this.renderMenuBackedAction("view-repository-on-github", "Open the repository page on GitHub in your browser", void 0, this.onViewOnGitHubClicked) : null
+				return null !== this.props.repository.gitHubRepository ? this.renderMenuBackedAction("view-repository-on-github", "在浏览器中的GitHub网站上打开仓库页面", void 0, this.onViewOnGitHubClicked) : null
 			}
 			onViewOnGitHubClicked = () => this.props.dispatcher.recordSuggestedStepViewOnGitHub();
 			openIntegrationPreferences = () => {
@@ -68362,7 +68362,7 @@
 				} catch (e) {
 					return this.setState({
 						creating: !1
-					}), log.error(`createRepository: unable to initialize a Git repository at ${t}`, e), this.props.dispatcher.postError(e)
+					}), log.error(`createRepository: 无法在初始化Git仓库 ${t}`, e), this.props.dispatcher.postError(e)
 				}
 				const n = await this.props.dispatcher.addRepositories([t]);
 				if (n.length < 1) return;
