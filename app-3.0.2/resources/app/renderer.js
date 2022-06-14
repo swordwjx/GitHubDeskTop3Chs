@@ -36590,7 +36590,7 @@
 				if (this.running && null === this.refreshTimeoutId) {
 					const e = null === this.lastRefreshStartedAt ? 1 / 0 : Date.now() - this.lastRefreshStartedAt,
 						t = Math.max(9e5 - e, 0) + Aa,
-						n = isFinite(e) ? `${(e/1e3).toFixed(3)}s ago` : "never",
+						n = isFinite(e) ? `${(e/1e3).toFixed(3)}s 前` : "never",
 						r = `${(t/1e3).toFixed(3)}s`;
 					log.debug(`[RepositoryIndicatorUpdater] Last refresh: ${n}, scheduling in ${r}`), this.refreshTimeoutId = window.setTimeout((() => this.refreshAllRepositories()), t)
 				}
@@ -38096,17 +38096,17 @@
 				case pn.ActionRequired:
 					return "Action required";
 				case pn.Canceled:
-					return "Canceled";
+					return "已取消";
 				case pn.TimedOut:
-					return "Timed out";
+					return "超时";
 				case pn.Failure:
-					return "Failed";
+					return "失败";
 				case pn.Neutral:
 					return "Neutral";
 				case pn.Success:
-					return "Successful";
+					return "成功";
 				case pn.Skipped:
-					return "Skipped";
+					return "跳过";
 				case pn.Stale:
 					return "Marked as stale"
 			}
@@ -48033,7 +48033,7 @@
 					disabled: this.props.okButtonDisabled,
 					tooltip: this.props.okButtonTitle,
 					type: !0 === this.props.destructive ? "button" : "submit"
-				}, this.props.okButtonText || "Ok")
+				}, this.props.okButtonText || "确定")
 			}
 			renderCancelButton() {
 				return !1 === this.props.cancelButtonVisible ? null : ye.createElement(Mv, {
@@ -48041,7 +48041,7 @@
 					disabled: this.props.cancelButtonDisabled,
 					tooltip: this.props.cancelButtonTitle,
 					type: !0 === this.props.destructive ? "submit" : "reset"
-				}, this.props.cancelButtonText || "Cancel")
+				}, this.props.cancelButtonText || "取消")
 			}
 			renderButtons() {
 				return ye.createElement(ye.Fragment, null, this.renderOkButton(), this.renderCancelButton())
@@ -48058,7 +48058,7 @@
 		class Wb extends ye.Component {
 			render() {
 				return ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: this.props.buttonText || "Close",
+					okButtonText: this.props.buttonText || "关闭",
 					okButtonTitle: this.props.buttonTitle,
 					onOkButtonClick: this.props.onButtonClick,
 					okButtonDisabled: this.props.disabled,
@@ -49010,7 +49010,7 @@
 					c = e ? "提交中" : "提交";
 				let u;
 				o ? u = a ? `${l} 上次提交` : null !== t ? `${c} 到 ${t}` : c : r ? u = "提交时需要提交摘要" : !this.props.anyFilesSelected && this.props.anyFilesAvailable ? u = "选择一个或多个要提交的文件" : e && (u = "正在提交更改…");
-				const h = null !== t ? ye.createElement(ye.Fragment, null, c, " to ", ye.createElement("strong", null, t)) : c,
+				const h = null !== t ? ye.createElement(ye.Fragment, null, c, " 到 ", ye.createElement("strong", null, t)) : c,
 					p = ye.createElement(ye.Fragment, null, l, " 上次提交"),
 					d = n || (a ? p : h);
 				return ye.createElement(Mv, {
@@ -60343,7 +60343,7 @@
 					className: "welcome-title"
 				}, "Welcome to GitHub Desktop"), this.props.loadingBrowserAuth ? ye.createElement("p", null, XE) : ye.createElement(ye.Fragment, null, ye.createElement("p", {
 					className: "welcome-text"
-				}, "GitHub Desktop is a seamless way to contribute to projects on GitHub and GitHub Enterprise. Sign in below to get started with your existing projects."), ye.createElement("p", {
+				}, "GitHub Desktop 是为GitHub和GitHub Enterprise上的项目做出贡献的无缝方式，在下面登录以开始现有项目。"), ye.createElement("p", {
 					className: "welcome-text"
 				}, "New to GitHub?", " ", ye.createElement(Sv, {
 					uri: "https://github.com/join?source=github-desktop",
@@ -61796,7 +61796,7 @@
 					onChange: this.onRepositoryIndicatorsEnabledChanged
 				}), ye.createElement("p", {
 					className: "git-settings-description"
-				}, "允许在存储库列表中显示最新状态指示器。禁用此选项可以提高许多存储库的性能。")), this.renderSSHSettings(), this.renderNotificationsSettings(), ye.createElement("div", {
+				}, "允许在存储库列表中显示最新状态指示器。禁用此选项可以提高许多存储库性能。")), this.renderSSHSettings(), this.renderNotificationsSettings(), ye.createElement("div", {
 					className: "advanced-section"
 				}, ye.createElement("h2", null, "使用情况"), ye.createElement(Uv, {
 					label: this.reportDesktopUsageLabel(),
@@ -67914,9 +67914,9 @@
 			}
 			renderOpenPreferencesFooter() {
 				return ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Close",
+					okButtonText: "关闭",
 					onOkButtonClick: this.onCloseButtonClick,
-					cancelButtonText: "Open options",
+					cancelButtonText: "打开选项",
 					onCancelButtonClick: this.showPreferencesDialog
 				}))
 			}
@@ -69548,12 +69548,12 @@
 					suggestDefaultEditor: t
 				} = this.props;
 				return e ? ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Close",
-					cancelButtonText: "Open options",
+					okButtonText: "关闭",
+					cancelButtonText: "打开选项",
 					onCancelButtonClick: this.onShowPreferencesDialog
 				})) : t ? ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "Close",
-					cancelButtonText: "Download Visual Studio Code",
+					okButtonText: "关闭",
+					cancelButtonText: "下载 Visual Studio Code",
 					onCancelButtonClick: this.onExternalLink
 				})) : ye.createElement(Wb, null)
 			}
@@ -69597,7 +69597,7 @@
 					case Zg.UpdateReady:
 						return ye.createElement(Ev, null, ye.createElement(Mv, {
 							onClick: this.onQuitAndInstall
-						}, "Quit and Install Update"));
+						}, "退出并安装更新"));
 					case Zg.UpdateNotAvailable:
 					case Zg.CheckingForUpdates:
 					case Zg.UpdateAvailable:
@@ -69606,33 +69606,33 @@
 						return ye.createElement(Ev, null, ye.createElement(Mv, {
 							disabled: t,
 							onClick: this.props.onCheckForUpdates
-						}, "Check for Updates"));
+						}, "检查更新"));
 					default:
-						return st(0, `Unknown update status ${e}`)
+						return st(0, `未知更新状态 ${e}`)
 				}
 			}
 			renderCheckingForUpdate() {
 				return ye.createElement(Ev, {
 					className: "update-status"
-				}, ye.createElement(Qv, null), ye.createElement("span", null, "Checking for updates…"))
+				}, ye.createElement(Qv, null), ye.createElement("span", null, "检查更新…"))
 			}
 			renderUpdateAvailable() {
 				return ye.createElement(Ev, {
 					className: "update-status"
-				}, ye.createElement(Qv, null), ye.createElement("span", null, "Downloading update…"))
+				}, ye.createElement(Qv, null), ye.createElement("span", null, "下载更新中…"))
 			}
 			renderUpdateNotAvailable() {
 				const e = this.state.updateState.lastSuccessfulCheck;
 				return e ? ye.createElement("p", {
 					className: "update-status"
-				}, "You have the latest version (last checked", " ", ye.createElement(Ow, {
+				}, "您拥有最新版本 (最后检查时间", " ", ye.createElement(Ow, {
 					date: e
 				}), ")") : null
 			}
 			renderUpdateReady() {
 				return ye.createElement("p", {
 					className: "update-status"
-				}, "An update has been downloaded and is ready to be installed.")
+				}, "已下载更新并准备安装。")
 			}
 			renderUpdateDetails() {
 				const e = this.state.updateState;
@@ -69648,28 +69648,28 @@
 					case Zg.UpdateNotChecked:
 						return null;
 					default:
-						return st(e.status, `Unknown update status ${e.status}`)
+						return st(e.status, `未知更新状态 ${e.status}`)
 				}
 			}
 			renderUpdateErrors() {
-				return this.state.updateState.lastSuccessfulCheck ? null : ye.createElement(Hb, null, "Couldn't determine the last time an update check was performed. You may be running an old version. Please try manually checking for updates and contact GitHub Support if the problem persists")
+				return this.state.updateState.lastSuccessfulCheck ? null : ye.createElement(Hb, null, "无法确定上次执行更新检查的时间，您可能正在运行旧版本，请尝试手动检查更新，如果问题仍然存在，请联系GitHub支持")
 			}
 			renderBetaLink() {
 				return ye.createElement("div", null, ye.createElement("p", {
 					className: "no-padding"
-				}, "Looking for the latest features?"), ye.createElement("p", {
+				}, "正在查找最新功能？"), ye.createElement("p", {
 					className: "no-padding"
-				}, "Check out the", " ", ye.createElement(Sv, {
+				}, "查看", " ", ye.createElement(Sv, {
 					uri: "https://desktop.github.com/beta"
-				}, "Beta Channel")))
+				}, "测试版")))
 			}
 			render() {
 				const e = this.props.applicationName,
 					t = this.props.applicationVersion,
 					n = ye.createElement(Sv, {
 						uri: Sx
-					}, "release notes"),
-					r = `Version ${t}`;
+					}, "发行说明"),
+					r = `版本 ${t}`;
 				return ye.createElement(Lb, {
 					id: "about",
 					onSubmit: this.props.onDismissed,
@@ -69689,9 +69689,9 @@
 					className: "no-padding"
 				}, ye.createElement(Sv, {
 					onClick: this.props.onShowTermsAndConditions
-				}, "Terms and Conditions")), ye.createElement("p", null, ye.createElement(Sv, {
+				}, "服务条款")), ye.createElement("p", null, ye.createElement(Sv, {
 					onClick: this.props.onShowAcknowledgements
-				}, "License and Open Source Notices")), this.renderUpdateDetails(), this.renderUpdateButton(), this.renderBetaLink()), ye.createElement(Wb, null))
+				}, "许可证和开源声明")), this.renderUpdateDetails(), this.renderUpdateButton(), this.renderBetaLink()), ye.createElement(Wb, null))
 			}
 		}
 		class IM extends ye.Component {
@@ -70538,8 +70538,8 @@
 				onClick: this.onDismissed
 			}, "Close") : ye.createElement(zb, {
 				destructive: !0,
-				okButtonText: "Install and restart",
-				cancelButtonText: "Close"
+				okButtonText: "安装并重新启动",
+				cancelButtonText: "关闭"
 			});
 			render() {
 				const e = this.getDisplayRelease();
@@ -79583,7 +79583,7 @@
 						o = Qr(e);
 					if (i < 18e5) {
 						const e = Math.floor(i / 1e3);
-						return log.debug(`Skipping background fetch as '${o}' was fetched ${e}s ago`), !1
+						return log.debug(`Skipping background fetch as '${o}' was fetched ${e}s 前`), !1
 					}
 					return null === t || r < t || (log.debug(`Skipping background fetch since nothing has been pushed to '${o}' since the last fetch at ${r}`), !1)
 				}
