@@ -46509,9 +46509,9 @@
 				className: "blankslate-image"
 			}), ye.createElement("div", {
 				className: "title"
-			}, "抱歉，我找不到该存储库"), ye.createElement("div", {
+			}, "抱歉，我找不到该仓库"), ye.createElement("div", {
 				className: "protip"
-			}, "ProTip! Press ", this.renderAddLocalShortcut(), " 快速添加本地存储库，以及 ", this.renderCloneRepositoryShortcut(), " 从应用程序中的任何位置克隆"));
+			}, "ProTip! Press ", this.renderAddLocalShortcut(), " 快速添加本地仓库，以及 ", this.renderCloneRepositoryShortcut(), " 从应用程序中的任何位置克隆"));
 			renderAddLocalShortcut() {
 				return ye.createElement("div", {
 					className: "kbd-shortcut"
@@ -46527,10 +46527,10 @@
 					label: "克隆仓库…",
 					action: this.onCloneRepository
 				}, {
-					label: "创建新存储库…",
+					label: "创建新仓库…",
 					action: this.onCreateNewRepository
 				}, {
-					label: "添加现有存储库…",
+					label: "添加现有仓库…",
 					action: this.onAddExistingRepository
 				}])
 			};
@@ -48069,7 +48069,7 @@
 		class jb extends ye.Component {
 			render() {
 				const e = this.props.remote;
-				return ye.createElement(Bb, null, ye.createElement("p", null, "主远程存储库 (", e.name, ")"), ye.createElement(kv, {
+				return ye.createElement(Bb, null, ye.createElement("p", null, "主远程仓库 (", e.name, ")"), ye.createElement(kv, {
 					placeholder: "远程 URL",
 					value: e.url,
 					onValueChanged: this.props.onRemoteUrlChanged
@@ -48141,9 +48141,9 @@
 				return ye.createElement(Bb, null, ye.createElement(Vb, {
 					actionTitle: "Publish",
 					onAction: this.props.onPublish
-				}, ye.createElement("div", null, "将存储库发布到GitHub，需要帮助?", " ", ye.createElement(Sv, {
+				}, ye.createElement("div", null, "将仓库发布到GitHub，需要帮助?", " ", ye.createElement(Sv, {
 					uri: "https://help.github.com/articles/about-remote-repositories/"
-				}, "了解更多"), " 关于远程存储库。")))
+				}, "了解更多"), " 关于远程仓库。")))
 			}
 		}
 
@@ -48184,7 +48184,7 @@
 				return ye.createElement(Bb, null, ye.createElement("h2", null, "I'll be using this fork…"), ye.createElement(Zb, {
 					value: Or.Parent,
 					checked: this.props.forkContributionTarget === Or.Parent,
-					label: "贡献给父存储库",
+					label: "贡献给父仓库",
 					onSelected: this.onForkContributionTargetChanged
 				}), ye.createElement(Zb, {
 					value: Or.Self,
@@ -48309,7 +48309,7 @@
 					n = e ? this.props.account : null;
 				return ye.createElement(Bb, null, ye.createElement("div", {
 					className: "advanced-section"
-				}, ye.createElement("h2", null, "对于此存储库，我希望"), ye.createElement(Ev, null, ye.createElement("div", null, ye.createElement(Zb, {
+				}, ye.createElement("h2", null, "对于此仓库，我希望"), ye.createElement(Ev, null, ye.createElement("div", null, ye.createElement(Zb, {
 					label: "使用全局Git配置",
 					checked: this.props.gitConfigLocation === tw.Global,
 					value: tw.Global,
@@ -48402,7 +48402,7 @@
 				const e = Jr(this.props.repository);
 				return ye.createElement(Lb, {
 					id: "repository-settings",
-					title: "存储库设置",
+					title: "仓库设置",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit,
 					disabled: this.state.disabled
@@ -49897,7 +49897,7 @@
 		class Nw extends ye.Component {
 			render() {
 				const e = this.props.isPushPullFetchInProgress || this.props.isCommitting,
-					t = e ? "更新存储库时禁用撤消" : void 0,
+					t = e ? "更新仓库时禁用撤消" : void 0,
 					n = this.props.commit.author.date;
 				return ye.createElement("div", {
 					id: "undo-commit",
@@ -53180,7 +53180,7 @@
 			}
 			renderShowInFileManager() {
 				const e = this.getPlatformFileManagerName();
-				return this.renderMenuBackedAction("open-working-directory", `在 ${e}中查看存储库的文件`, void 0, this.onShowInFileManagerClicked)
+				return this.renderMenuBackedAction("open-working-directory", `在 ${e}中查看仓库的文件`, void 0, this.onShowInFileManagerClicked)
 			}
 			onShowInFileManagerClicked = () => this.props.dispatcher.recordSuggestedStepOpenWorkingDirectory();
 			renderViewOnGitHub() {
@@ -53201,7 +53201,7 @@
 				const t = ye.createElement(ye.Fragment, null, "在中选择编辑器", " ", ye.createElement(Sv, {
 					onClick: this.openIntegrationPreferences
 				}, "选项"));
-				return this.renderMenuBackedAction(e, "在外部编辑器中打开存储库", t, this.onOpenInExternalEditorClicked)
+				return this.renderMenuBackedAction(e, "在外部编辑器中打开仓库", t, this.onOpenInExternalEditorClicked)
 			}
 			onOpenInExternalEditorClicked = () => this.props.dispatcher.recordSuggestedStepOpenInExternalEditor();
 			renderRemoteAction() {
@@ -53261,13 +53261,13 @@
 				const e = "push",
 					t = this.getMenuItemInfo(e);
 				if (void 0 === t) return log.error("Could not find matching menu item for push"), null;
-				const n = ye.createElement(ye.Fragment, null, "对于本地存储库或", " ", this.renderDiscoverabilityKeyboardShortcut(t));
+				const n = ye.createElement(ye.Fragment, null, "对于本地仓库或", " ", this.renderDiscoverabilityKeyboardShortcut(t));
 				return ye.createElement(jC, {
 					key: "publish-repository-action",
-					title: "将存储库发布到GitHub",
-					description: "此存储库当前仅在本地计算机上可用。通过在GitHub上发布，您可以共享它，并与其他人协作。",
+					title: "将仓库发布到GitHub",
+					description: "此仓库当前仅在本地计算机上可用。通过在GitHub上发布，您可以共享它，并与其他人协作。",
 					discoverabilityContent: n,
-					buttonText: "发布存储库",
+					buttonText: "发布仓库",
 					menuItemId: e,
 					type: "primary",
 					disabled: !t.enabled,
@@ -53382,7 +53382,7 @@
 					className: "header"
 				}, ye.createElement("div", {
 					className: "text"
-				}, ye.createElement("h1", null, "无本地更改"), ye.createElement("p", null, "此存储库中没有未提交的更改。下面是一些关于下一步行动的建议。")), ye.createElement("img", {
+				}, ye.createElement("h1", null, "无本地更改"), ye.createElement("p", null, "此仓库中没有未提交的更改。下面是一些关于下一步行动建议。")), ye.createElement("img", {
 					src: KC,
 					className: "blankslate-image"
 				})), this.renderActions()))
@@ -54420,7 +54420,7 @@
 				this.props.onRenderCommitDragElement(e, this.lookupCommits(this.props.selectedSHAs))
 			};
 			getUnpushedIndicatorTitle(e, t) {
-				return e ? "此提交尚未推送到远程存储库" : t > 0 ? `此提交具有 ${t} 标记 ${t>1?"s":""} 到推送 ` : void 0
+				return e ? "此提交尚未推送到远程仓库" : t > 0 ? `此提交具有 ${t} 标记 ${t>1?"s":""} 到推送 ` : void 0
 			}
 			onSelectionChanged = e => {
 				const t = [...e].sort(((e, t) => t - e)).map((e => this.props.commitSHAs[e])),
@@ -58427,7 +58427,7 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, '分支允许您同时处理存储库的不同版本创建。\n 进入顶部栏中的“分支”菜单进行分支，然后单击“新建分支”.'), ye.createElement("div", {
+				}, '分支允许您同时处理仓库的不同版本创建。\n 进入顶部栏中的“分支”菜单进行分支，然后单击“新建分支”.'), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "Shift"), ye.createElement("kbd", null, "N")))), ye.createElement(oE, {
 					summaryText: "编辑文件",
@@ -58438,7 +58438,7 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "在首选文本编辑器中打开此存储库。编辑", " ", ye.createElement(qb, null, "README.md"), " ", "文件，保存，然后返回。"), this.props.resolvedExternalEditor && ye.createElement("div", {
+				}, "在首选文本编辑器中打开此仓库。编辑", " ", ye.createElement(qb, null, "README.md"), " ", "文件，保存，然后返回。"), this.props.resolvedExternalEditor && ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(Mv, {
 					onClick: this.openTutorialFileInEditor
@@ -58460,7 +58460,7 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "发布将“推送”或上载您对GitHub上存储库的此分支的提交。使用顶部栏中的第三个按钮发布。"), ye.createElement("div", {
+				}, "发布将“推送”或上载您对GitHub上仓库的此分支的提交。使用顶部栏中的第三个按钮发布。"), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(ye.Fragment, null, ye.createElement("kbd", null, "Ctrl"), ye.createElement("kbd", null, "P")))), ye.createElement(oE, {
 					summaryText: "打开拉取请求",
@@ -58474,7 +58474,7 @@
 					onSummaryClick: this.onStepSummaryClick
 				}, ye.createElement("p", {
 					className: "description"
-				}, "拉取请求允许您对代码提出更改。打开一个，就是要求某人审阅并合并它们。由于这是一个演示存储库，因此该拉取请求将是私有的。"), ye.createElement("div", {
+				}, "拉取请求允许您对代码提出更改。打开一个，就是要求某人审阅并合并它们。由于这是一个演示仓库，因此该拉取请求将是私有的。"), ye.createElement("div", {
 					className: "action"
 				}, ye.createElement(Mv, {
 					onClick: this.openPullRequest
@@ -58557,16 +58557,16 @@
 					type: "normal",
 					image: fE
 				}), ye.createElement(WC, {
-					title: "创建新存储库",
+					title: "创建新仓库",
 					description: "开始一个全新的项目",
-					buttonText: "创建存储库",
+					buttonText: "创建仓库",
 					onClick: this.onCreateNewRepository,
 					type: "normal",
 					image: mE
 				}), ye.createElement(WC, {
-					title: "添加本地存储库",
+					title: "添加本地仓库",
 					description: "在GitHub Desktop中处理现有项目",
-					buttonText: "添加存储库",
+					buttonText: "添加仓库",
 					onClick: this.onAddExistingRepository,
 					type: "normal",
 					image: gE
@@ -59386,8 +59386,8 @@
 				}(e, t);
 				if (null === i) return h = this.push, ye.createElement(DE, {
 					...ME,
-					title: "发布存储库",
-					description: "将此存储库发布到GitHub",
+					title: "发布仓库",
+					description: "将此仓库发布到GitHub",
 					className: "push-pull-button",
 					icon: hh,
 					style: _E.Subtitle,
@@ -61712,12 +61712,12 @@
 						return ye.createElement(Vb, {
 							actionTitle: t,
 							onAction: this.onDotComSignIn
-						}, ye.createElement("div", null, "登录您的GitHub.com帐户访问您的存储库。"));
+						}, ye.createElement("div", null, "登录您的GitHub.com帐户访问您的仓库。"));
 					case Bx.Enterprise:
 						return ye.createElement(Vb, {
 							actionTitle: t,
 							onAction: this.onEnterpriseSignIn
-						}, ye.createElement("div", null, "如果您有GitHub Enterprise或AE帐户，请登录该帐户以访问您的存储库。"));
+						}, ye.createElement("div", null, "如果您有GitHub Enterprise或AE帐户，请登录该帐户以访问您的仓库。"));
 					default:
 						return st(0, `Unknown sign in type: ${e}`)
 				}
@@ -61791,12 +61791,12 @@
 				})), ye.createElement("div", {
 					className: "advanced-section"
 				}, ye.createElement("h2", null, "后台更新"), ye.createElement(Uv, {
-					label: "定期获取和刷新所有存储库的状态",
+					label: "定期获取和刷新所有仓库的状态",
 					value: this.props.repositoryIndicatorsEnabled ? Hv.On : Hv.Off,
 					onChange: this.onRepositoryIndicatorsEnabledChanged
 				}), ye.createElement("p", {
 					className: "git-settings-description"
-				}, "允许在存储库列表中显示最新状态指示器。禁用此选项可以提高许多存储库性能。")), this.renderSSHSettings(), this.renderNotificationsSettings(), ye.createElement("div", {
+				}, "允许在仓库列表中显示最新状态指示器。禁用此选项可以提高许多仓库性能。")), this.renderSSHSettings(), this.renderNotificationsSettings(), ye.createElement("div", {
 					className: "advanced-section"
 				}, ye.createElement("h2", null, "使用情况"), ye.createElement(Uv, {
 					label: this.reportDesktopUsageLabel(),
@@ -61822,7 +61822,7 @@
 					onChange: this.onNotificationsEnabledChanged
 				}), ye.createElement("p", {
 					className: "git-settings-description"
-				}, "允许在当前存储库中发生高级事件时显示通知。", this.renderNotificationHint()))
+				}, "允许在当前仓库中发生高级事件时显示通知。", this.renderNotificationHint()))
 			}
 			onGrantNotificationPermission = async () => {
 				await de(), this.updateNotificationsState()
@@ -61888,7 +61888,7 @@
 				} = this.state;
 				return ye.createElement("div", {
 					className: "default-branch-component"
-				}, ye.createElement("h2", null, "新存储库的默认分支名称"), hs.map((t => ye.createElement(Zb, {
+				}, ye.createElement("h2", null, "新仓库的默认分支名称"), hs.map((t => ye.createElement(Zb, {
 					key: t,
 					checked: !e && this.props.defaultBranch === t,
 					value: t,
@@ -67461,7 +67461,7 @@
 			};
 			render() {
 				return ye.createElement(Bb, null, ye.createElement("h2", null, "在之前显示确认对话框..."), ye.createElement(Uv, {
-					label: "删除存储库",
+					label: "删除仓库",
 					value: this.state.confirmRepositoryRemoval ? Hv.On : Hv.Off,
 					onChange: this.onConfirmRepositoryRemovalChanged
 				}), ye.createElement(Uv, {
@@ -68154,7 +68154,7 @@
 				const e = 0 === this.state.path.length || !this.state.isRepository || this.state.isRepositoryBare;
 				return ye.createElement(Lb, {
 					id: "add-existing-repository",
-					title: "添加本地存储库",
+					title: "添加本地仓库",
 					onSubmit: this.addRepository,
 					onDismissed: this.props.onDismissed,
 					loading: this.state.isTrustingRepository
@@ -68166,7 +68166,7 @@
 				}), ye.createElement(Mv, {
 					onClick: this.showFilePicker
 				}, "选择…")), this.renderWarning()), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "添加存储库",
+					okButtonText: "添加仓库",
 					okButtonDisabled: e
 				})))
 			}
@@ -68540,14 +68540,14 @@
 					n = null === this.state.path;
 				return ye.createElement(Lb, {
 					id: "create-repository",
-					title: "创建新存储库",
+					title: "创建新仓库",
 					loading: this.state.creating,
 					onSubmit: this.createRepository,
 					onDismissed: this.props.onDismissed
 				}, this.renderInvalidPathError(), ye.createElement(Bb, null, ye.createElement(Ev, null, ye.createElement(kv, {
 					value: this.state.name,
 					label: "名称",
-					placeholder: "存储库名称",
+					placeholder: "仓库名称",
 					onValueChanged: this.onNameChanged
 				})), this.renderSanitizedName(), ye.createElement(Ev, null, ye.createElement(kv, {
 					value: this.state.description,
@@ -68556,18 +68556,18 @@
 				})), ye.createElement(Ev, null, ye.createElement(kv, {
 					value: this.state.path ?? "",
 					label: "本地路径",
-					placeholder: "存储库路径",
+					placeholder: "仓库路径",
 					onValueChanged: this.onPathChanged,
 					disabled: t || n
 				}), ye.createElement(Mv, {
 					onClick: this.showFilePicker,
 					disabled: t || n
 				}, "选择…")), this.renderGitRepositoryWarning(), ye.createElement(Ev, null, ye.createElement(Uv, {
-					label: "使用README文件初始化此存储库",
+					label: "使用README文件初始化此仓库",
 					value: this.state.createWithReadme ? Hv.On : Hv.Off,
 					onChange: this.onCreateWithReadmeChange
 				})), this.renderReadmeOverwriteWarning(), this.renderGitIgnores(), this.renderLicenses()), ye.createElement(Ub, null, ye.createElement(zb, {
-					okButtonText: "创建存储库",
+					okButtonText: "创建仓库",
 					okButtonDisabled: e || n
 				})))
 			}
@@ -68607,11 +68607,11 @@
 				return ye.createElement(Bb, {
 					className: "clone-generic-repository-content"
 				}, ye.createElement(Ev, null, ye.createElement(kv, {
-					placeholder: "URL或用户名/存储库",
+					placeholder: "URL或用户名/仓库",
 					value: this.props.url,
 					onValueChanged: this.onUrlChanged,
 					autoFocus: !0,
-					label: ye.createElement("span", null, "存储库URL或GitHub用户名和存储库", ye.createElement("br", null), "(", ye.createElement(qb, null, "hubot/cool-repo"), ")")
+					label: ye.createElement("span", null, "仓库URL或GitHub用户名和仓库", ye.createElement("br", null), "(", ye.createElement(qb, null, "hubot/cool-repo"), ")")
 				})), ye.createElement(Ev, null, ye.createElement(kv, {
 					value: this.props.path,
 					label: "本地路径",
@@ -68705,7 +68705,7 @@
 					renderNoItems: this.renderNoItems,
 					renderPostFilter: this.renderPostFilter,
 					onItemClick: this.props.onItemClicked ? this.onItemClick : void 0,
-					placeholderText: "筛选存储库"
+					placeholderText: "筛选仓库"
 				})
 			}
 			onItemClick = (e, t) => {
@@ -68722,7 +68722,7 @@
 			};
 			renderGroupHeader = e => {
 				let t = e;
-				return e === mM && (t = "您的存储库"), ye.createElement("div", {
+				return e === mM && (t = "您的仓库"), ye.createElement("div", {
 					className: "clone-repository-list-content clone-repository-list-group-header"
 				}, t)
 			};
@@ -68741,7 +68741,7 @@
 			renderPostFilter = () => ye.createElement(Mv, {
 				disabled: this.props.loading,
 				onClick: this.refreshRepositories,
-				tooltip: "刷新存储库列表"
+				tooltip: "刷新仓库列表"
 			}, ye.createElement(hy, {
 				symbol: by,
 				className: this.props.loading ? "spin" : void 0
@@ -68753,13 +68753,13 @@
 				} = this.props, n = this.props.account.endpoint === Cn() ? "GitHub.com" : wn(this.props.account.endpoint);
 				return !e || null !== t && 0 !== t.length ? 0 !== this.props.filterText.length ? ye.createElement("div", {
 					className: "no-items no-results-found"
-				}, ye.createElement("div", null, "抱歉，我找不到任何匹配的存储库", " ", ye.createElement(qb, null, this.props.filterText))) : ye.createElement("div", {
+				}, ye.createElement("div", null, "抱歉，我找不到任何匹配的仓库", " ", ye.createElement(qb, null, this.props.filterText))) : ye.createElement("div", {
 					className: "no-items empty-repository-list"
-				}, ye.createElement("div", null, "看起来没有存储库", " ", ye.createElement(qb, null, this.props.account.login), " on ", n, ".", " ", ye.createElement(Sv, {
+				}, ye.createElement("div", null, "看起来没有仓库", " ", ye.createElement(qb, null, this.props.account.login), " on ", n, ".", " ", ye.createElement(Sv, {
 					onClick: this.refreshRepositories
-				}, "刷新此列表"), " ", "如果您最近创建了存储库。")) : ye.createElement("div", {
+				}, "刷新此列表"), " ", "如果您最近创建了仓库。")) : ye.createElement("div", {
 					className: "no-items loading"
-				}, `从 ${n} 加载存储库…`)
+				}, `从 ${n} 加载仓库…`)
 			}
 		}
 		class CM extends ye.PureComponent {
@@ -68857,7 +68857,7 @@
 				} = this.getSelectedTabState();
 				return ye.createElement(Lb, {
 					className: "clone-repository",
-					title: "克隆存储库",
+					title: "克隆仓库",
 					onSubmit: this.clone,
 					onDismissed: this.props.onDismissed,
 					loading: this.state.loading
@@ -68999,12 +68999,12 @@
 						return ye.createElement(Vb, {
 							actionTitle: t,
 							onAction: this.signInDotCom
-						}, ye.createElement("div", null, "登录您的GitHub.com帐户访问您的存储库。"));
+						}, ye.createElement("div", null, "登录您的GitHub.com帐户访问您的仓库。"));
 					case Er.Enterprise:
 						return ye.createElement(Vb, {
 							actionTitle: t,
 							onAction: this.signInEnterprise
-						}, ye.createElement("div", null, "如果您有GitHub Enterprise或AE帐户，请登录该帐户以访问您的存储库。"));
+						}, ye.createElement("div", null, "如果您有GitHub Enterprise或AE帐户，请登录该帐户以访问您的仓库。"));
 					case Er.Generic:
 						return null;
 					default:
@@ -69287,7 +69287,7 @@
 				if (null === t || t.name === e) return ye.createElement("div", null, "您的新分支将基于您当前签出的分支 (", ye.createElement(qb, null, e), ")", this.renderForkLinkSuffix(), ".", " ", ye.createElement(qb, null, e), " 来自你的仓库的 ", xM, " "); {
 					const n = [{
 							title: t.name,
-							description: "存储库中的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
+							description: "仓库中的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
 							key: Sr.DefaultBranch
 						}, {
 							title: e,
@@ -69302,7 +69302,7 @@
 				if (e === t.nameWithoutRemote) return ye.createElement("div", null, "您的新分支将基于", " ", ye.createElement("strong", null, n), "'s ", xM, " (", ye.createElement(qb, null, t.nameWithoutRemote), ")", this.renderForkLinkSuffix(), "."); {
 					const n = [{
 							title: t.name,
-							description: "上游存储库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
+							description: "上游仓库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
 							key: Sr.UpstreamDefaultBranch
 						}, {
 							title: e,
@@ -69844,7 +69844,7 @@
 				const e = this.getCurrentTabState();
 				return ye.createElement(Lb, {
 					id: "publish-repository",
-					title: "发布存储库",
+					title: "发布仓库",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.publishRepository,
 					disabled: this.state.publishing,
@@ -70205,13 +70205,13 @@
 				return null === this.props.dotComAccount && null === this.props.enterpriseAccount ? null : this.props.tutorialPaused ? this.renderButtonGroupButton(Vu, "Return to in progress tutorial", this.props.onResumeTutorialRepository, "submit") : this.renderButtonGroupButton(Vu, "Create a tutorial repository…", this.props.onCreateTutorialRepository, "submit")
 			}
 			renderCloneButton() {
-				return this.renderButtonGroupButton(Qu, "从Internet克隆存储库…", this.onShowClone)
+				return this.renderButtonGroupButton(Qu, "从Internet克隆仓库…", this.onShowClone)
 			}
 			renderCreateRepositoryButton() {
-				return this.renderButtonGroupButton(Zu, "在硬盘上创建新存储库…", this.props.onCreate)
+				return this.renderButtonGroupButton(Zu, "在硬盘上创建新仓库…", this.props.onCreate)
 			}
 			renderAddExistingRepositoryButton() {
-				return this.renderButtonGroupButton(Du, "从硬盘添加现有存储库…", this.props.onAdd)
+				return this.renderButtonGroupButton(Du, "从硬盘添加现有仓库…", this.props.onAdd)
 			}
 			renderGetStartedActions() {
 				return ye.createElement("div", {
@@ -70222,7 +70222,7 @@
 					className: "drag-drop-info"
 				}, ye.createElement(hy, {
 					symbol: Wu
-				}), ye.createElement("div", null, ye.createElement("strong", null, "ProTip!"), " 您可以将现有存储库文件夹拖放到此处以将其添加到 Desktop")))
+				}), ye.createElement("div", null, ye.createElement("strong", null, "ProTip!"), " 您可以将现有仓库文件夹拖放到此处以将其添加到 Desktop")))
 			}
 		}
 		class zM extends ye.Component {
@@ -70243,16 +70243,16 @@
 					id: "confirm-remove-repository",
 					key: "remove-repository-confirmation",
 					type: "warning",
-					title: "删除存储库",
+					title: "删除仓库",
 					dismissable: !e,
 					loading: e,
 					disabled: e,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSubmit
-				}, ye.createElement(Bb, null, ye.createElement("p", null, '是否确实要删除存储库"', this.props.repository.name, '" 从 GitHub Desktop?'), ye.createElement("p", {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, '是否确实要删除仓库"', this.props.repository.name, '" 从 GitHub Desktop?'), ye.createElement("p", {
 					className: "description"
-				}, "将从GitHub Desktop删除存储库：", ye.createElement("br", null), ye.createElement(qb, null, this.props.repository.path)), ye.createElement("div", null, ye.createElement(Uv, {
-					label: "同时将此存储库移动到回收站",
+				}, "将从GitHub Desktop删除仓库：", ye.createElement("br", null), ye.createElement(qb, null, this.props.repository.path)), ye.createElement("div", null, ye.createElement(Uv, {
+					label: "同时将此仓库移动到回收站",
 					value: this.state.deleteRepoFromDisk ? Hv.On : Hv.Off,
 					onChange: this.onConfirmRepositoryDeletion
 				}))), ye.createElement(Ub, null, ye.createElement(zb, {
@@ -70323,7 +70323,7 @@
 					type: "password",
 					value: this.state.password,
 					onValueChanged: this.onPasswordChange
-				})), ye.createElement(Ev, null, ye.createElement("div", null, "根据存储库的托管服务，您可能需要使用个人访问令牌（PAT）作为密码。了解有关在我们的", " ", ye.createElement(Sv, {
+				})), ye.createElement(Ev, null, ye.createElement("div", null, "根据仓库的托管服务，您可能需要使用个人访问令牌（PAT）作为密码。了解有关在我们的", " ", ye.createElement(Sv, {
 					uri: "https://github.com/desktop/desktop/tree/development/docs/integrations"
 				}, "integration docs"), "."))), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "Save and retry",
@@ -70380,11 +70380,11 @@
 				this.props.onInitialize(this.props.repositories), this.props.onDismissed()
 			};
 			renderRepositories() {
-				if (this.props.repositories.length > 10) return ye.createElement("p", null, this.props.repositories.length, " 存储库使用", " ", ye.createElement(Sv, {
+				if (this.props.repositories.length > 10) return ye.createElement("p", null, this.props.repositories.length, " 仓库使用", " ", ye.createElement(Sv, {
 					uri: VM
 				}, "Git LFS"), ". 要对其作出贡献，必须首先初始化Git LFS。您现在想这样做吗？"); {
 					const e = 1 !== this.props.repositories.length,
-						t = e ? "存储库使用" : "此存储库使用",
+						t = e ? "仓库使用" : "此仓库使用",
 						n = e ? "them" : "it";
 					return ye.createElement("div", null, ye.createElement("p", null, t, " ", ye.createElement(Sv, {
 						uri: VM
@@ -70447,8 +70447,8 @@
 		class ZM extends ye.Component {
 			render() {
 				const e = this.props.repository.name,
-					t = at("存储库必须具有GitHub存储库才能添加上游远程", this.props.repository.gitHubRepository),
-					n = at("存储库必须具有父存储库才能添加上游远程", t.parent),
+					t = at("仓库必须具有GitHub仓库才能添加上游远程", this.props.repository.gitHubRepository),
+					n = at("仓库必须具有父仓库才能添加上游远程", t.parent),
 					r = n.fullName,
 					i = this.props.existingRemote.url,
 					o = n.cloneURL;
@@ -70457,7 +70457,7 @@
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onUpdate,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "存储库 ", ye.createElement(qb, null, e), " 是一个分叉", " ", ye.createElement(qb, null, r), ",但是它 ", ye.createElement(qb, null, Ho), " ", "其他地方的远程点。"), ye.createElement("ul", null, ye.createElement("li", null, "Current: ", ye.createElement(qb, null, i)), ye.createElement("li", null, "Expected: ", ye.createElement(qb, null, o))), ye.createElement("p", null, "是否要更新远程以使用预期的URL？")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "仓库 ", ye.createElement(qb, null, e), " 是一个分叉", " ", ye.createElement(qb, null, r), ",但是它 ", ye.createElement(qb, null, Ho), " ", "其他地方的远程点。"), ye.createElement("ul", null, ye.createElement("li", null, "Current: ", ye.createElement(qb, null, i)), ye.createElement("li", null, "Expected: ", ye.createElement(qb, null, o))), ye.createElement("p", null, "是否要更新远程以使用预期的URL？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
 					okButtonText: "更新",
 					cancelButtonText: "忽略",
@@ -70627,7 +70627,7 @@
 					onSubmit: this.onSubmit,
 					title: "确认提交冲突文件",
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "如果选择提交，则将以下冲突文件提交到存储库中："), this.renderFiles(this.props.files), ye.createElement("p", null, "是否确实要提交这些冲突的文件？")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "如果选择提交，则将以下冲突文件提交到仓库中："), this.renderFiles(this.props.files), ye.createElement("p", null, "是否确实要提交这些冲突的文件？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
 					okButtonText: "是，提交文件"
 				})))
@@ -70708,7 +70708,7 @@
 					onSubmit: this.onSubmit,
 					onDismissed: this.props.onDismissed,
 					type: "warning"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, "T以下文件超过100MB.", " ", ye.createElement("strong", null, "如果提交这些文件，您将无法再将此存储库推送到 GitHub.com.")), this.renderFileList(), ye.createElement("p", {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, "T以下文件超过100MB.", " ", ye.createElement("strong", null, "如果提交这些文件，您将无法再将此仓库推送到 GitHub.com.")), this.renderFileList(), ye.createElement("p", {
 					className: "recommendation"
 				}, "We recommend you avoid committing these files or use", " ", ye.createElement(Sv, {
 					uri: "https://help.github.com/articles/versioning-large-files/"
@@ -70955,9 +70955,9 @@
 					dismissable: !n,
 					loading: n,
 					disabled: n
-				}, ye.createElement(Bb, null, ye.createElement("div", null, "这将在本地计算机上创建存储库，并将其推送到您的帐户 ", ye.createElement(qb, null, "@", this.props.account.login), " on", " ", ye.createElement(Sv, {
+				}, ye.createElement(Bb, null, ye.createElement("div", null, "这将在本地计算机上创建仓库，并将其推送到您的帐户 ", ye.createElement(qb, null, "@", this.props.account.login), " on", " ", ye.createElement(Sv, {
 					uri: wn(e.endpoint)
-				}, ba(e)), ". 此存储库将仅对您可见，而不公开可见。"), this.renderProgress()), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ba(e)), ". 此仓库将仅对您可见，而不公开可见。"), this.renderProgress()), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "继续"
 				})))
 			}
@@ -71006,7 +71006,7 @@
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.onSignIn,
 					type: "error"
-				}, ye.createElement(Bb, null, ye.createElement("p", null, '这个 "', this.props.organizationName, "\" 组织已启用或强制SAML SSO。要访问此存储库，您必须再次登录并授予GitHub Desktop访问组织存储库的权限。"), ye.createElement("p", null, "是否要打开浏览器以授予GitHub桌面访问存储库的权限？")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, '这个 "', this.props.organizationName, "\" 组织已启用或强制SAML SSO。要访问此仓库，您必须再次登录并授予GitHub Desktop访问组织仓库的权限。"), ye.createElement("p", null, "是否要打开浏览器以授予GitHub桌面访问仓库的权限？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: "在浏览器中继续"
 				})))
 			}
@@ -71048,7 +71048,7 @@
 			};
 			render() {
 				return ye.createElement(Lb, {
-					title: "是否要分支此存储库？",
+					title: "是否要分支此仓库？",
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.state.error ? void 0 : this.onSubmit,
 					dismissable: !this.state.loading,
@@ -71063,9 +71063,9 @@
 					return ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("div", null, "创建您的分支  ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " failed. ", r), ye.createElement("details", null, ye.createElement("summary", null, "Error details"), ye.createElement("pre", {
 						className: "error"
 					}, n.message))), ye.createElement(Wb, null))
-				}(this.props.repository, this.props.account, this.state.error) : (e = this.props.repository, t = this.props.account, n = this.state.loading, ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("p", null, "看起来您没有写入权限 ", ye.createElement("strong", null, e.gitHubRepository.fullName), ". 如果需要，请与存储库管理员联系。"), ye.createElement("p", null, " 是否要在中创建此存储库的分支 ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " 要继续吗？")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}(this.props.repository, this.props.account, this.state.error) : (e = this.props.repository, t = this.props.account, n = this.state.loading, ye.createElement(ye.Fragment, null, ye.createElement(Bb, null, ye.createElement("p", null, "看起来您没有写入权限 ", ye.createElement("strong", null, e.gitHubRepository.fullName), ". 如果需要，请与仓库管理员联系。"), ye.createElement("p", null, " 是否要在中创建此仓库的分支 ", ye.createElement("strong", null, `${t.login}/${e.gitHubRepository.name}`), " 要继续吗？")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
-					okButtonText: "分支此存储库",
+					okButtonText: "分支此仓库",
 					okButtonDisabled: n,
 					cancelButtonDisabled: n
 				})))));
@@ -71502,15 +71502,15 @@
 					t = null === e.alias ? "Create" : "Change";
 				return ye.createElement(Lb, {
 					id: "change-repository-alias",
-					title: `${t} 存储库别名`,
+					title: `${t} 仓库别名`,
 					onDismissed: this.props.onDismissed,
 					onSubmit: this.changeAlias
-				}, ye.createElement(Bb, null, ye.createElement("p", null, '为存储库选择新别名 "', Qr(e), '". '), ye.createElement("p", null, ye.createElement(kv, {
+				}, ye.createElement(Bb, null, ye.createElement("p", null, '为仓库选择新别名 "', Qr(e), '". '), ye.createElement("p", null, ye.createElement(kv, {
 					value: this.state.newAlias,
 					onValueChanged: this.onNameChanged
 				})), null !== e.gitHubRepository && ye.createElement("p", {
 					className: "description"
-				}, "这不会影响GitHub上的原始存储库名称。")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, "这不会影响GitHub上的原始仓库名称。")), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: `${t} alias`,
 					okButtonDisabled: 0 === this.state.newAlias.length
 				})))
@@ -72425,7 +72425,7 @@
 				return ve().createElement(ve().Fragment, null, "这将合并", ve().createElement("strong", null, ` ${n} ${r}`), " 自 ", ve().createElement("strong", null, e.name), " 到 ", ve().createElement("strong", null, t.name))
 			}
 			renderInvalidMergeMessage() {
-				return ve().createElement(ve().Fragment, null, "无法在此存储库中合并不相关的历史记录")
+				return ve().createElement(ve().Fragment, null, "无法在此仓库中合并不相关的历史记录")
 			}
 			renderConflictedMergeMessage(e, t, n) {
 				const r = 1 === n ? "file" : "files";
@@ -73200,7 +73200,7 @@
 			}
 			render() {
 				let e = "切换到pull请求";
-				this.props.shouldChangeRepository && (e = "切换到存储库并拉取请求");
+				this.props.shouldChangeRepository && (e = "切换到仓库并拉取请求");
 				const {
 					pullRequest: t
 				} = this.props, n = this.loadingChecksInfo, r = this.state.checks.filter(Yc), i = r.length > 1 ? "checks" : "check", o = ye.createElement("div", {
@@ -73631,7 +73631,7 @@
 					shouldCheckoutBranch: n
 				} = this.props;
 				let r;
-				"APPROVED" === e.state || (t ? r = "切换到存储库并拉取请求" : n && (r = "切换到pull请求"));
+				"APPROVED" === e.state || (t ? r = "切换到仓库并拉取请求" : n && (r = "切换到pull请求"));
 				const i = ye.createElement(zb, {
 					onCancelButtonClick: this.props.onDismissed,
 					cancelButtonText: "Dismiss",
@@ -75050,7 +75050,7 @@
 				return ye.createElement(AE, {
 					icon: n,
 					title: r,
-					description: "当前存储库",
+					description: "当前仓库",
 					tooltip: s,
 					foldoutStyle: l,
 					onDropdownStateChanged: this.onRepositoryDropdownStateChanged,
@@ -80282,7 +80282,7 @@
 				async refreshAfterCheckout(e, t) {
 					return this.updateCheckoutProgress(e, {
 						kind: "checkout",
-						title: "正在刷新存储库",
+						title: "正在刷新仓库",
 						value: 1,
 						targetBranch: t.name
 					}), await this._refreshRepository(e), e
@@ -80492,7 +80492,7 @@
 										value: l + t.value * c
 									})
 								}));
-								const i = "正在刷新存储库",
+								const i = "正在刷新仓库",
 									o = l + c;
 								this.updatePushPullFetchProgress(e, {
 									kind: "generic",
@@ -80629,7 +80629,7 @@
 									retryAction: u
 								});
 								const h = i + a,
-									p = "正在刷新存储库";
+									p = "正在刷新仓库";
 								this.updatePushPullFetchProgress(e, {
 									kind: "generic",
 									title: p,
@@ -80812,7 +80812,7 @@
 									})
 								};
 							void 0 === r ? await i.fetch(t, a, l) : await i.fetchRemotes(t, r, a, l);
-							const c = "正在刷新存储库";
+							const c = "正在刷新仓库";
 							this.updatePushPullFetchProgress(e, {
 								kind: "generic",
 								title: c,
@@ -81684,17 +81684,17 @@
 							r = e.resolve(await _a(), n),
 							i = await async function(t, n, r, i) {
 								const o = ba(t);
-								if (i(`正在上创建存储库 ${o}`, 0), await S(r)) throw new Error(`路径“${r}”已存在。请将其移开，或将其移除，然后重试。`);
+								if (i(`正在上创建仓库 ${o}`, 0), await S(r)) throw new Error(`路径“${r}”已存在。请将其移开，或将其移除，然后重试。`);
 								const s = await async function(e, t) {
 									const n = new yn(e.endpoint, e.token);
 									try {
-										return await n.createRepository(null, t, "GitHub Desktop 教程存储库", !0)
+										return await n.createRepository(null, t, "GitHub Desktop 教程仓库", !0)
 									} catch (n) {
-										if (n instanceof Rt && 422 === n.responseStatus && null !== n.apiError && "存储库创建失败。" === n.apiError.message && n.apiError.errors && n.apiError.errors.some((e => "此帐户上已存在名称" === e.message))) throw new Error(`您在${ba(e)}的帐户上已经有一个名为“${t}”的存储库.\n\n请删除存储库，然后重试。`);
+										if (n instanceof Rt && 422 === n.responseStatus && null !== n.apiError && "仓库创建失败。" === n.apiError.message && n.apiError.errors && n.apiError.errors.some((e => "此帐户上已存在名称" === e.message))) throw new Error(`您在${ba(e)}的帐户上已经有一个名为“${t}”的仓库.\n\n请删除仓库，然后重试。`);
 										throw n
 									}
 								}(t, n), a = s.default_branch ?? await ps();
-								i("正在初始化本地存储库", .2), await (0, y.mkdir)(r, {
+								i("正在初始化本地仓库", .2), await (0, y.mkdir)(r, {
 									recursive: !0
 								}), await Bm(["-c", `init.defaultBranch=${a}`, "init"], r, "tutorial:init"), await (0, y.writeFile)(e.join(r, "README.md"), "# 欢迎使用GitHub桌面！\r\n\r\nThis is your README. 自述文件是您可以交流项目内容和使用方法的地方。\r\n\r\n在第6行写下您的名字，保存它，然后返回GitHub桌面。\r\n"), await Bm(["add", "--", "README.md"], r, "tutorial:add"), await Bm(["commit", "-m", "Initial commit"], r, "tutorial:commit");
 								const l = {
@@ -81702,7 +81702,7 @@
 									url: s.clone_url
 								};
 								return await Bm(["remote", "add", l.name, l.url], r, "tutorial:add-remote"), await async function(e, t, n, r, i) {
-									const o = `将存储库推送到 ${ba(t)}`;
+									const o = `将仓库推送到 ${ba(t)}`;
 									i(o, 0);
 									const s = await ya({
 											env: await xa(t, n.url)
@@ -81713,7 +81713,7 @@
 									await Bm(a, e, "tutorial:push", s)
 								}(r, t, l, a, ((e, t, n) => {
 									i(e, .3 + .6 * t, n)
-								})), i("完成教程存储库", .9), s
+								})), i("完成教程仓库", .9), s
 							}(t, n, r, ((e, t, n) => {
 								null !== this.currentPopup && this.currentPopup.type === Hr.CreateTutorialRepository && (this.currentPopup = {
 									...this.currentPopup,
