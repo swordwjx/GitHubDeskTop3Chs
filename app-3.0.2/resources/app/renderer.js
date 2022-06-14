@@ -54901,26 +54901,26 @@
 			renderTitle() {
 				return this.props.isSearch ? ye.createElement("div", {
 					className: "title"
-				}, "Sorry, I can't find that pull request!") : this.props.isLoadingPullRequests ? ye.createElement("div", {
+				}, "抱歉，我找不到拉取请求！") : this.props.isLoadingPullRequests ? ye.createElement("div", {
 					className: "title"
 				}, "Hang tight") : ye.createElement("div", null, ye.createElement("div", {
 					className: "title"
-				}, "You're all set!"), ye.createElement("div", {
+				}, "你都准备好了！"), ye.createElement("div", {
 					className: "no-prs"
-				}, "No open pull requests in ", ye.createElement(qb, null, this.props.repositoryName)))
+				}, "没有打开的拉取请求 ", ye.createElement(qb, null, this.props.repositoryName)))
 			}
 			renderCallToAction() {
 				return this.props.isLoadingPullRequests ? ye.createElement("div", {
 					className: "call-to-action"
-				}, "Loading pull requests as fast as I can!") : this.props.isOnDefaultBranch ? ye.createElement("div", {
+				}, "尽快加载拉取请求！") : this.props.isOnDefaultBranch ? ye.createElement("div", {
 					className: "call-to-action"
-				}, "Would you like to", " ", ye.createElement(Sv, {
+				}, "你想", " ", ye.createElement(Sv, {
 					onClick: this.props.onCreateBranch
-				}, "create a new branch"), " ", "and get going on your next project?") : ye.createElement("div", {
+				}, "创建新分支"), " ", "然后开始你的下一个项目？") : ye.createElement("div", {
 					className: "call-to-action"
-				}, "Would you like to", " ", ye.createElement(Sv, {
+				}, "你想", " ", ye.createElement(Sv, {
 					onClick: this.props.onCreatePullRequest
-				}, "create a pull request"), " ", "from the current branch?")
+				}, "创建拉取请求"), " ", "从当前分支？")
 			}
 		}
 
@@ -57178,9 +57178,9 @@
 					onTabClicked: this.onTabClicked,
 					selectedIndex: this.props.selectedTab,
 					allowDragOverSwitching: !0
-				}, ye.createElement("span", null, "Branches"), ye.createElement("span", {
+				}, ye.createElement("span", null, "分支"), ye.createElement("span", {
 					className: "pull-request-tab"
-				}, "Pull requests", this.renderOpenPullRequestsBubble())) : null
+				}, "合并请求", this.renderOpenPullRequestsBubble())) : null
 			}
 			renderBranch = (e, t) => BS(e, t, this.props.currentBranch, this.onRenameBranch, this.onDeleteBranch, this.onDropOntoBranch, this.onDropOntoCurrentBranch);
 			renderSelectedTab() {
@@ -57206,7 +57206,7 @@
 					case kr.PullRequests:
 						return this.renderPullRequests();
 					default:
-						return st(0, `Unknown Branches tab: ${e}`)
+						return st(0, `未知分支选项卡: ${e}`)
 				}
 			}
 			renderPreList = () => Ag.isDragOfTypeInProgress(Rg.Commit) ? ye.createElement("div", {
