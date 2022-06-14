@@ -10983,7 +10983,7 @@
 				const r = n.reduce(((e, t) => (t >= "︀" && t <= "️" ? e.length && e.push(`${e.pop()}${t}`) : e.push(t), e)), []);
 				return r.length <= 25 ? e : `${r.slice(0,25).join("")}…`
 			}(a);
-			const f = r ? "&Remove(删除)…" : "&Remove(删除)",
+			const f = r ? "&删除…" : "&删除",
 				h = o ? "&在GitHub上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
 				d = new Array,
 				p = {
@@ -11021,7 +11021,7 @@
 				label: "&编辑",
 				submenu: [{
 					role: "undo",
-					label: "&撤销"
+					label: "&撤消"
 				}, {
 					role: "redo",
 					label: "&恢复"
@@ -11109,7 +11109,7 @@
 				}]
 			});
 			const v = function(e, t) {
-					return e ? t ? "Force P&ush…" : "Force P&ush" : "P&ush"
+					return e ? t ? "&强制推送…" : "&强制推送" : "&推送"
 				}(u, n),
 				y = u ? "force-push" : "push";
 			d.push({
@@ -11122,7 +11122,7 @@
 					click: ae(y)
 				}, {
 					id: "pull",
-					label: "Pu&ll",
+					label: "&拉取",
 					accelerator: "CmdOrCtrl+Shift+P",
 					click: ae("pull")
 				}, {

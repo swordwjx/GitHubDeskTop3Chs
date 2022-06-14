@@ -34218,13 +34218,13 @@
 			const n = t ? ` from ${t}` : "";
 			switch (e) {
 				case Nr.Added:
-					return `Using the added file${n}`;
+					return `使用添加的文件${n}`;
 				case Nr.UpdatedButUnmerged:
-					return `Using the modified file${n}`;
+					return `使用修改后的文件${n}`;
 				case Nr.Deleted:
-					return `Using the deleted file${n}`;
+					return `使用已删除的文件${n}`;
 				default:
-					return st(0, "Unknown status entry to format")
+					return st(0, "要格式化的未知状态条目")
 			}
 		}
 
@@ -34232,13 +34232,13 @@
 			const n = t ? ` from ${t}` : "";
 			switch (e) {
 				case Nr.Added:
-					return `Use the added file${n}`;
+					return `使用添加的文件${n}`;
 				case Nr.UpdatedButUnmerged:
-					return `Use the modified file${n}`;
+					return `使用修改后的文件${n}`;
 				case Nr.Deleted:
-					return "Do not include this file" + (t ? ` on ${t}` : "");
+					return "不包括此文件" + (t ? ` 在 ${t}` : "");
 				default:
-					return st(0, "Unknown status entry to format")
+					return st(0, "要格式化的未知状态条目")
 			}
 		}
 
@@ -72834,7 +72834,7 @@
 				return ve().createElement(ve().Fragment, null, "Unable to start rebase. Check you have chosen a valid branch.")
 			}
 			renderCleanRebaseMessage(e, t, n) {
-				if (n <= 0) return ve().createElement(ve().Fragment, null, "This branch is up to date with", " ", ve().createElement("strong", null, e.name));
+				if (n <= 0) return ve().createElement(ve().Fragment, null, "此分支是最新的", " ", ve().createElement("strong", null, e.name));
 				const r = 1 === n ? "commit" : "commits";
 				return ve().createElement(ve().Fragment, null, "This will update ", ve().createElement("strong", null, e.name), " by applying its ", ve().createElement("strong", null, ` ${n} ${r}`), " on top of ", ve().createElement("strong", null, t.name))
 			}
