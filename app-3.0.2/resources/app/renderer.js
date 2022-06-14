@@ -53300,7 +53300,7 @@
 					i = this.getMenuItemInfo(r);
 				if (void 0 === i) return log.error("Could not find matching menu item for pull"), null;
 				const o = null !== this.props.repository.gitHubRepository,
-					s = ye.createElement(ye.Fragment, null, "当前分支 (", ye.createElement(qb, null, e.branch.name), ") 有", " ", 1 === n.behind ? "提交" : "提交", " 在", " ", o ? "GitHub" : "远程", " 那", " ", 1 === n.behind ? "不是" : "不要", " 存在于您的计算机上。"),
+					s = ye.createElement(ye.Fragment, null, "当前分支 (", ye.createElement(qb, null, e.branch.name), ") 有", " ", 1 === n.behind ? "提交" : "提交", "在", " ", o ? "GitHub" : "远程", " 那", " ", 1 === n.behind ? "不是" : "不要", " 存在于您的计算机上。"),
 					a = ye.createElement(ye.Fragment, null, "当有远程更改或", " ", this.renderDiscoverabilityKeyboardShortcut(i)),
 					l = `拉取 ${n.behind} ${1===n.behind?"提交":"提交"} 从 ${t.name} 远程`,
 					c = `拉取 ${t.name}`;
@@ -57952,7 +57952,7 @@
 				if (e.kind === Xe.History) n = "No history";
 				else {
 					const t = e.comparisonBranch.name;
-					n = e.comparisonMode === Je.Ahead ? ye.createElement("p", null, "The compared branch (", ye.createElement(qb, null, t), ") is up to date with your branch") : ye.createElement("p", null, "Your branch is up to date with the compared branch (", ye.createElement(qb, null, t), ")")
+					n = e.comparisonMode === Je.Ahead ? ye.createElement("p", null, "比较的分支 (", ye.createElement(qb, null, t), ") 是您分支的最新信息") : ye.createElement("p", null, "您的分支与比较的分支是最新的(", ye.createElement(qb, null, t), ")")
 				}
 				return ye.createElement(dS, {
 					gitHubRepository: this.props.repository.gitHubRepository,
@@ -58061,7 +58061,7 @@
 				}, ye.createElement(Nb, {
 					selectedIndex: t,
 					onTabClicked: this.onTabClicked
-				}, ye.createElement("span", null, `Behind (${e.aheadBehind.behind})`), ye.createElement("span", null, `Ahead (${e.aheadBehind.ahead})`)), this.renderActiveTab(e))
+				}, ye.createElement("span", null, `之后的 (${e.aheadBehind.behind})`), ye.createElement("span", null, `之前的 (${e.aheadBehind.ahead})`)), this.renderActiveTab(e))
 			}
 			renderCompareBranchListItem = (e, t) => ye.createElement(Vk, {
 				branch: e.branch,
@@ -68005,37 +68005,37 @@
 					onClick: this.onTrustDirectory,
 					type: "submit",
 					disabled: this.state.isTrustingPath
-				}, this.state.isTrustingPath && ye.createElement(Qv, null), "Trust repository")) : (e.push(ye.createElement(Mv, {
+				}, this.state.isTrustingPath && ye.createElement(Qv, null), "信任仓库")) : (e.push(ye.createElement(Mv, {
 					key: "locate",
 					onClick: this.locate,
 					type: "submit"
-				}, "Locate…")), this.canCloneAgain() && e.push(ye.createElement(Mv, {
+				}, "定位…")), this.canCloneAgain() && e.push(ye.createElement(Mv, {
 					key: "clone-again",
 					onClick: this.cloneAgain
-				}, "Clone Again"))), e.push(ye.createElement(Mv, {
+				}, "再次克隆"))), e.push(ye.createElement(Mv, {
 					key: "remove",
 					onClick: this.remove
-				}, "Remove")), t ? ye.createElement(Lv, {
+				}, "删除")), t ? ye.createElement(Lv, {
 					id: "missing-repository-view"
 				}, ye.createElement("div", {
 					className: "title-container"
 				}, ye.createElement("div", {
 					className: "title"
-				}, this.props.repository.name, " is potentially unsafe"), ye.createElement("div", {
+				}, this.props.repository.name, " 可能不安全"), ye.createElement("div", {
 					className: "details"
-				}, ye.createElement("p", null, "The Git repository at ", ye.createElement(qb, null, n), " appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository."), ye.createElement("p", null, "If you trust the owner of the directory you can add an exception for this directory in order to continue."))), ye.createElement(Ev, null, e)) : ye.createElement(Lv, {
+				}, ye.createElement("p", null, "Git仓库位于 ", ye.createElement(qb, null, n), " 似乎属于您计算机上的其他用户。添加不受信任的仓库可能会自动执行仓库中的文件。"), ye.createElement("p", null, "如果您信任该目录的所有者，则可以为此目录添加异常以继续。"))), ye.createElement(Ev, null, e)) : ye.createElement(Lv, {
 					id: "missing-repository-view"
 				}, ye.createElement("div", {
 					className: "title-container"
 				}, ye.createElement("div", {
 					className: "title"
-				}, "Can't find \"", this.props.repository.name, '"'), ye.createElement("div", {
+				}, "找不到 \"", this.props.repository.name, '"'), ye.createElement("div", {
 					className: "details"
-				}, "It was last seen at", " ", ye.createElement("span", {
+				}, "最后一次见到它是在", " ", ye.createElement("span", {
 					className: "path"
 				}, this.props.repository.path), ".", " ", ye.createElement(Sv, {
 					onClick: this.checkAgain
-				}, "Check again."))), ye.createElement(Ev, null, e))
+				}, "再次 检查."))), ye.createElement(Ev, null, e))
 			}
 			canCloneAgain() {
 				const e = this.props.repository.gitHubRepository;
@@ -70712,7 +70712,7 @@
 					className: "recommendation"
 				}, "We recommend you avoid committing these files or use", " ", ye.createElement(Sv, {
 					uri: "https://help.github.com/articles/versioning-large-files/"
-				}, "Git LFS"), " 在GitHub上存储大型文件.")), ye.createElement(Ub, null, ye.createElement(zb, {
+				}, "Git LFS"), "在GitHub上存储大型文件.")), ye.createElement(Ub, null, ye.createElement(zb, {
 					destructive: !0,
 					okButtonText: "无论如何提交"
 				})))
