@@ -9,6 +9,8 @@
 
 GitHub Desktop 原版下载：https://desktop.github.com/
 
+2022-07-03: 增加3.03版本的主菜单汉化，由于无法格式化renderer.js文件，无法进一步汉化。
+
 2022-06-14:增加GitHub Desktop3.0.2汉化，基本完成界面汉化。
 
 2022-06-13:增加对GitHub Desktop 3.0.1版本的汉化,完成了部分.
