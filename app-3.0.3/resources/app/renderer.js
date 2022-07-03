@@ -70787,13 +70787,7 @@
         return ve.createElement(
           Jw,
           null,
-          ve.createElement(
-            "p",
-            null,
-            "主远程仓库 (",
-            e.name,
-            ")"
-          ),
+          ve.createElement("p", null, "主远程仓库 (", e.name, ")"),
           ve.createElement(Hb, {
             placeholder: "远程 URL",
             value: e.url,
@@ -72608,10 +72602,7 @@
         }
       };
       getDiscardChangesMenuItemLabel = (e) => {
-        const t =
-          1 === e.length
-            ? "放弃更改"
-            : `放弃 ${e.length} 选择的更改`;
+        const t = 1 === e.length ? "放弃更改" : `放弃 ${e.length} 选择的更改`;
         return this.props.askForConfirmationOnDiscardChanges ? `${t}…` : t;
       };
       onContextMenu = (e) => {
@@ -73151,9 +73142,7 @@
       render() {
         const e =
             this.props.isPushPullFetchInProgress || this.props.isCommitting,
-          t = e
-            ? "更新仓库时禁用撤消"
-            : void 0,
+          t = e ? "更新仓库时禁用撤消" : void 0,
           n = this.props.commit.author.date;
         return ve.createElement(
           "div",
@@ -77217,7 +77206,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `View the files of your repository in ${e}`,
+          `在 ${e} 中查看存储库的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -78350,10 +78339,7 @@
           } = this.props,
           a = e.join(o.path, t.path),
           l = await S(a);
-        if (!l)
-          return void Fv([
-            { label: "磁盘上不存在文件", enabled: !1 },
-          ]);
+        if (!l) return void Fv([{ label: "磁盘上不存在文件", enabled: !1 }]);
         const c = qa(e.extname(t.path)),
           u = [
             { label: Wa, action: () => it(o, t.path), enabled: l },
@@ -79067,11 +79053,7 @@
           return ve.createElement(
             Jw,
             null,
-            ve.createElement(
-              "p",
-              null,
-              "在打开请求之前，必须先发布分支。"
-            ),
+            ve.createElement("p", null, "在打开请求之前，必须先发布分支。"),
             ve.createElement(
               "p",
               null,
@@ -79087,13 +79069,7 @@
         return ve.createElement(
           Jw,
           null,
-          ve.createElement(
-            "p",
-            null,
-            "你有 ",
-            e,
-            " 还没有推到远程上。"
-          ),
+          ve.createElement("p", null, "你有 ", e, " 还没有推到远程上。"),
           ve.createElement(
             "p",
             null,
@@ -85849,9 +85825,7 @@
           })(a);
         if (null === n)
           return (function (e, t, n) {
-            const r = e
-                ? "将此分支发布到GitHub"
-                : "将此分支发布到远程",
+            const r = e ? "将此分支发布到GitHub" : "将此分支发布到远程",
               i = pl()(Xx.className, "nudge-arrow", { "nudge-arrow-up": n });
             return ve.createElement(Vx, {
               ...Xx,
@@ -85865,7 +85839,7 @@
         const { ahead: p, behind: d } = n;
         return 0 === p && 0 === d && 0 === r
           ? (function (e, t, n, r, i) {
-              const o = `Fetch ${e}`;
+              const o = `获取 ${e}`;
               return ve.createElement(
                 Vx,
                 { ...Xx, title: o, description: Zx(r), icon: Nv, onClick: i },
@@ -86997,11 +86971,7 @@
             ? ve.createElement(
                 ve.Fragment,
                 null,
-                ve.createElement(
-                  "p",
-                  null,
-                  "GitHub现在要求您使用浏览器登录。"
-                ),
+                ve.createElement("p", null, "GitHub现在要求您使用浏览器登录。"),
                 ve.createElement("p", null, mR)
               )
             : ve.createElement(
@@ -89042,11 +89012,7 @@
           ve.createElement(
             "div",
             { className: "advanced-section" },
-            ve.createElement(
-              "h2",
-              null,
-              "如果我有更改并切换分支..."
-            ),
+            ve.createElement("h2", null, "如果我有更改并切换分支..."),
             ve.createElement(pC, {
               value: Is.AskForConfirmation,
               checked:
@@ -89075,8 +89041,7 @@
             { className: "advanced-section" },
             ve.createElement("h2", null, "后台更新"),
             ve.createElement(nw, {
-              label:
-                "定期获取和刷新所有仓库的状态",
+              label: "定期获取和刷新所有仓库的状态",
               value: this.props.repositoryIndicatorsEnabled ? tw.On : tw.Off,
               onChange: this.onRepositoryIndicatorsEnabledChanged,
             }),
@@ -89247,11 +89212,7 @@
         return ve.createElement(
           "div",
           { className: "default-branch-component" },
-          ve.createElement(
-            "h2",
-            null,
-            "新仓库的默认分支名称"
-          ),
+          ve.createElement("h2", null, "新仓库的默认分支名称"),
           ps.map((t) =>
             ve.createElement(pC, {
               key: t,
@@ -95579,7 +95540,7 @@
           ? ve.createElement(
               Jw,
               null,
-              ve.createElement(Ub, null, "Loading system theme")
+              ve.createElement(Ub, null, "加载系统主题")
             )
           : ve.createElement(
               Jw,
@@ -95848,7 +95809,7 @@
                 "span",
                 null,
                 ve.createElement(Tv, { className: "icon", symbol: eh }),
-                "Appearance"
+                "主题"
               ),
               ve.createElement(
                 "span",
@@ -97947,11 +97908,11 @@
           return ve.createElement(
             "p",
             null,
-            "Your new branch will be based on the commit '",
+            "您的新分支将基于提交 '",
             n.summary,
             "' (",
             n.sha.substring(0, 7),
-            ") from your repository."
+            ") 从您的存储库。"
           );
         if (e.kind === Ar.Detached)
           return ve.createElement(
@@ -98008,7 +97969,7 @@
             Jw,
             null,
             ve.createElement(Ux, {
-              label: "Name",
+              label: "名称",
               initialValue: this.props.initialName,
               onValueChange: this.onBranchNameChange,
             }),
@@ -98045,9 +98006,7 @@
         );
       }
       getHeaderText = () =>
-        void 0 !== this.props.headerText
-          ? this.props.headerText
-          : "创建分支";
+        void 0 !== this.props.headerText ? this.props.headerText : "创建分支";
       getOkButtonText = () =>
         void 0 !== this.props.okButtonText
           ? this.props.okButtonText
@@ -98104,29 +98063,29 @@
           return ve.createElement(
             "div",
             null,
-            "Your new branch will be based on your currently checked out branch (",
+            "您的新分支将基于您当前签出的分支 (",
             ve.createElement(aC, null, e),
             ")",
             this.renderForkLinkSuffix(),
             ".",
             " ",
             ve.createElement(aC, null, e),
-            " is the ",
+            " 的 ",
             qO,
-            " for your repository."
+            " 从你的仓库."
           );
         {
           const n = [
               {
                 title: t.name,
                 description:
-                  "The default branch in your repository. Pick this to start on something new that's not dependent on your current branch.",
+                  "存储库中的默认分支，选择此选项可以开始一些不依赖于当前分支的新内容。",
                 key: fr.DefaultBranch,
               },
               {
                 title: e,
                 description:
-                  "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+                  "当前签出的分支。如果您需要在此分支上完成的工作基础上进行构建，请选择此选项。",
                 key: fr.CurrentBranch,
               },
             ],
@@ -98147,7 +98106,7 @@
           return ve.createElement(
             "div",
             null,
-            "Your new branch will be based on",
+            "您的新分支将基于",
             " ",
             ve.createElement("strong", null, n),
             "'s ",
@@ -98163,13 +98122,13 @@
               {
                 title: t.name,
                 description:
-                  "The default branch of the upstream repository. Pick this to start on something new that's not dependent on your current branch.",
+                  "上游存储库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
                 key: fr.UpstreamDefaultBranch,
               },
               {
                 title: e,
                 description:
-                  "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+                  "当前签出的分支。如果您需要在此分支上完成的工作基础上进行构建，请选择此选项。",
                 key: fr.CurrentBranch,
               },
             ],
@@ -98190,12 +98149,12 @@
           ? ve.createElement(
               "div",
               { className: "secondary-text" },
-              "Your default branch source is determined by your",
+              "您的默认分支源由您的",
               " ",
               ve.createElement(
                 Lb,
                 { onClick: this.onForkSettingsClick },
-                "fork behavior settings"
+                "分支行为设置"
               ),
               "."
             )
@@ -99219,11 +99178,7 @@
               "."
             ),
             t,
-            ve.createElement(
-              "p",
-              null,
-              "GitHub Desktop还分发以下库："
-            ),
+            ve.createElement("p", null, "GitHub Desktop还分发以下库："),
             e ? this.renderLicenses(e) : ve.createElement(mw, null)
           ),
           ve.createElement(iC, null)
@@ -100083,10 +100038,7 @@
             "仓库必须具有GitHub仓库才能添加上游远程",
             this.props.repository.gitHubRepository
           ),
-          n = at(
-            "仓库必须具有父仓库才能添加上游远程",
-            t.parent
-          ),
+          n = at("仓库必须具有父仓库才能添加上游远程", t.parent),
           r = n.fullName,
           i = this.props.existingRemote.url,
           o = n.cloneURL;
@@ -100691,14 +100643,12 @@
           t = [
             {
               title: `保留我的更改 ${this.state.currentBranchName}`,
-              description:
-                "您正在进行的工作将保存在此分支上，以便您稍后返回",
+              description: "您正在进行的工作将保存在此分支上，以便您稍后返回",
               key: xN.StashOnCurrentBranch,
             },
             {
               title: `将我的更改带到 ${e.name}`,
-              description:
-                "您正在进行的工作将跟随您进入新的分支机构",
+              description: "您正在进行的工作将跟随您进入新的分支机构",
               key: xN.MoveToNewBranch,
             },
           ];
@@ -100706,8 +100656,7 @@
           Ub,
           null,
           ve.createElement(oT, {
-            label:
-              "您对此分支进行了更改。你想用它们做什么？",
+            label: "您对此分支进行了更改。你想用它们做什么？",
             items: t,
             selectedKey: this.state.selectedStashAction,
             onSelectionChanged: this.onSelectionChanged,
@@ -100816,11 +100765,7 @@
           ve.createElement(
             Jw,
             null,
-            ve.createElement(
-              Ub,
-              null,
-              "是否确实要放弃这些隐藏的更改?"
-            )
+            ve.createElement(Ub, null, "是否确实要放弃这些隐藏的更改?")
           ),
           ve.createElement(
             nC,
