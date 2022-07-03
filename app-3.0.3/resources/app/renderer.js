@@ -68472,7 +68472,7 @@
           ref: this.onTextBoxRef,
           type: "search",
           autoFocus: !0,
-          placeholder: this.props.placeholderText || "Filter",
+          placeholder: this.props.placeholderText || "筛选",
           className: "filter-list-filter-field",
           onValueChanged: this.onFilterValueChanged,
           onEnterPressed: this.onEnterPressed,
@@ -68884,7 +68884,7 @@
             className: "new-repository-button",
             onClick: this.onNewRepositoryButtonClick,
           },
-          "Add",
+          "添加",
           ve.createElement(Tv, { symbol: dh })
         );
       renderNoItems = () =>
@@ -88918,7 +88918,7 @@
             ve.createElement("div", { className: "name" }, e.name),
             ve.createElement("div", { className: "login" }, "@", e.login)
           ),
-          ve.createElement(Yb, { onClick: this.logout(e) }, "Sign out")
+          ve.createElement(Yb, { onClick: this.logout(e) }, "注销")
         );
       }
       onDotComSignIn = () => {
@@ -88928,7 +88928,7 @@
         this.props.onEnterpriseSignIn();
       };
       renderSignIn(e) {
-        const t = "Sign in";
+        const t = "登陆";
         switch (e) {
           case eT.DotCom:
             return ve.createElement(
@@ -97315,7 +97315,7 @@
           renderNoItems: this.renderNoItems,
           renderPostFilter: this.renderPostFilter,
           onItemClick: this.props.onItemClicked ? this.onItemClick : void 0,
-          placeholderText: "Filter your repositories",
+          placeholderText: "筛选仓库",
         });
       }
       onItemClick = (e, t) => {
@@ -97332,7 +97332,7 @@
       renderGroupHeader = (e) => {
         let t = e;
         return (
-          e === NO && (t = "Your repositories"),
+          e === NO && (t = "您的仓库"),
           ve.createElement(
             "div",
             {
@@ -97657,7 +97657,7 @@
         }
       }
       renderSignIn(e) {
-        const t = "Sign in";
+        const t = "登陆";
         switch (e) {
           case gr.DotCom:
             return ve.createElement(
@@ -98269,16 +98269,16 @@
         const r = e.kind;
         switch (e.kind) {
           case rg.EndpointEntry:
-            (n = 0 === this.state.endpoint.length), (t = "Continue");
+            (n = 0 === this.state.endpoint.length), (t = "继续");
             break;
           case rg.TwoFactorAuthentication:
-            (n = !/\S+/.test(this.state.otpToken)), (t = "Sign in");
+            (n = !/\S+/.test(this.state.otpToken)), (t = "登陆");
             break;
           case rg.Authentication:
             if (e.supportsBasicAuth) {
               const e = this.state.username.length > 0,
                 r = this.state.password.length > 0;
-              (n = !e || !r), (t = "Sign in");
+              (n = !e || !r), (t = "登陆");
             } else t = "Continue with browser";
             break;
           default:
@@ -98439,7 +98439,7 @@
             this.props.signInState.kind === rg.Authentication &&
             !this.props.signInState.supportsBasicAuth
               ? "Sign in using your browser"
-              : "Sign in";
+              : "登陆";
         return ve.createElement(
           eC,
           {
@@ -99005,7 +99005,7 @@
         }
       }
       renderSignInTab(e) {
-        const t = "Sign in";
+        const t = "登陆";
         switch (e) {
           case eN.DotCom:
             return ve.createElement(
