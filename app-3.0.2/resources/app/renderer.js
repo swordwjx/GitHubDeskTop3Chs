@@ -50807,9 +50807,9 @@
 					className: "whitespace-hint",
 					style: this.props.style,
 					appearEffect: Eb.Shake
-				}, ye.createElement("h3", null, "Show whitespace changes?"), ye.createElement("p", {
+				}, ye.createElement("h3", null, "是否显示空白更改？"), ye.createElement("p", {
 					className: "byline"
-				}, "Selecting lines is disabled when hiding whitespace changes."), ye.createElement("footer", null, ye.createElement(zb, {
+				}, "隐藏空白更改时，将禁用选择行。"), ye.createElement("footer", null, ye.createElement(zb, {
 					okButtonText: "Yes",
 					cancelButtonText: "No",
 					onCancelButtonClick: this.onDismissed,
@@ -50829,9 +50829,9 @@
 					className: "hidden-bidi-chars-warning"
 				}, ve().createElement(hy, {
 					symbol: cu
-				}), "This diff contains bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters.", " ", ve().createElement(Sv, {
+				}), "此差异包含双向Unicode文本，其解释或编译方式可能与下面显示的不同。要查看，请在显示隐藏Unicode字符的编辑器中打开该文件。", " ", ve().createElement(Sv, {
 					uri: "https://github.co/hiddenchars"
-				}, "Learn more about bidirectional Unicode characters"))
+				}, "了解有关双向Unicode字符的详细信息"))
 			}
 		}
 		const sC = {
@@ -53949,7 +53949,7 @@
 				}, ye.createElement("img", {
 					src: e,
 					className: "blankslate-image"
-				}), ye.createElement("div", null, ye.createElement("p", null, "Unable to display diff when multiple commits are selected."), ye.createElement("div", null, "You can:"), ye.createElement("ul", null, ye.createElement("li", null, "Select a single commit to view a diff."), ye.createElement("li", null, "Drag the commits to the branch menu to cherry-pick them."), ye.createElement("li", null, "Right click on multiple commits to see options.")))), this.renderDragOverlay())
+				}), ye.createElement("div", null, ye.createElement("p", null, "选择多个提交时无法显示差异。"), ye.createElement("div", null, "You can:"), ye.createElement("ul", null, ye.createElement("li", null, "Select a single commit to view a diff."), ye.createElement("li", null, "Drag the commits to the branch menu to cherry-pick them."), ye.createElement("li", null, "Right click on multiple commits to see options.")))), this.renderDragOverlay())
 			}
 			onContextMenu = async (t, n) => {
 				n.preventDefault();
@@ -54521,13 +54521,13 @@
 				}, this.renderDialogContent(), ye.createElement(Ub, null, this.renderButtonGroup()))
 			}
 			renderDialogContent() {
-				if (gS(this.props.unPushedCommits)) return ye.createElement(Bb, null, ye.createElement("p", null, "Your branch must be published before opening a pull request."), ye.createElement("p", null, "Would you like to publish ", ye.createElement(qb, null, this.props.branch.name), " now and open a pull request?"));
+				if (gS(this.props.unPushedCommits)) return ye.createElement(Bb, null, ye.createElement("p", null, "在打开请求之前，必须先发布分支。"), ye.createElement("p", null, "是否要发布 ", ye.createElement(qb, null, this.props.branch.name), " 现在打开pull请求？"));
 				const e = (n = "local commit", 1 === (t = this.props.unPushedCommits) ? `${t} ${n}` : `${t} ${n}s`);
 				var t, n;
-				return ye.createElement(Bb, null, ye.createElement("p", null, "You have ", e, " that haven't been pushed to the remote yet."), ye.createElement("p", null, "Would you like to push your changes to", " ", ye.createElement(qb, null, this.props.branch.name), " before creating your pull request?"))
+				return ye.createElement(Bb, null, ye.createElement("p", null, "你有 ", e, " 还没有推到远程上。"), ye.createElement("p", null, "是否将更改推送到", " ", ye.createElement(qb, null, this.props.branch.name), " 在创建拉取请求之前？"))
 			}
 			renderDialogTitle() {
-				return gS(this.props.unPushedCommits) ? "Publish branch?" : "Push local changes?"
+				return gS(this.props.unPushedCommits) ? "是否发布分支？" : "推送本地更改？"
 			}
 			renderButtonGroup() {
 				return gS(this.props.unPushedCommits) ? ye.createElement(zb, {
@@ -68126,7 +68126,7 @@
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "This directory appears to be a bare repository. Bare repositories are not currently supported."));
+				}), ye.createElement("p", null, "此目录似乎是一个空存储库，当前不支持空存储库。"));
 				const {
 					isRepositoryUnsafe: e,
 					repositoryUnsafePath: t,
@@ -68138,17 +68138,17 @@
 						className: "warning-helper-text"
 					}, ye.createElement(hy, {
 						symbol: cu
-					}), ye.createElement("div", null, ye.createElement("p", null, "The Git repository", t !== e && ye.createElement(ye.Fragment, null, " at ", ye.createElement(qb, null, t)), " ", "appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository."), ye.createElement("p", null, "If you trust the owner of the directory you can", ye.createElement(Sv, {
+					}), ye.createElement("div", null, ye.createElement("p", null, "Git存储库", t !== e && ye.createElement(ye.Fragment, null, " 在 ", ye.createElement(qb, null, t)), " ", "似乎属于您计算机上的其他用户。添加不受信任的存储库可能会自动执行存储库中的文件。"), ye.createElement("p", null, "如果您信任目录的所有者，则可以", ye.createElement(Sv, {
 						onClick: this.onTrustDirectory
-					}, "add an exception for this directory"), " ", "in order to continue.")))
+					}, "为此目录添加异常"), " ", "以便继续。")))
 				}
 				return ye.createElement(Ev, {
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "This directory does not appear to be a Git repository.", ye.createElement("br", null), "Would you like to", " ", ye.createElement(Sv, {
+				}), ye.createElement("p", null, "此目录似乎不是Git存储库。", ye.createElement("br", null), "你想", " ", ye.createElement(Sv, {
 					onClick: this.onCreateRepositoryClicked
-				}, "create a repository"), " ", "here instead?"))
+				}, "创建存储库"), " ", "在这里？"))
 			}
 			render() {
 				const e = 0 === this.state.path.length || !this.state.isRepository || this.state.isRepositoryBare;
@@ -68505,7 +68505,7 @@
 			}
 			renderInvalidPathError() {
 				const e = this.state.isValidPath;
-				return null === e || e ? null : ye.createElement(Hb, null, "Directory could not be created at this path. You may not have permissions to create a directory here.")
+				return null === e || e ? null : ye.createElement(Hb, null, "无法在此路径上创建目录，您可能没有在此处创建目录的权限。")
 			}
 			renderGitRepositoryWarning() {
 				const e = this.state.isRepository;
@@ -68513,16 +68513,16 @@
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "This directory appears to be a Git repository. Would you like to", " ", ye.createElement(Sv, {
+				}), ye.createElement("p", null, "此目录似乎是Git存储库，你愿意", " ", ye.createElement(Sv, {
 					onClick: this.onAddRepositoryClicked
-				}, "add this repository"), " ", "instead?")) : null
+				}, "添加此存储库"), " ", "相反?")) : null
 			}
 			renderReadmeOverwriteWarning() {
 				return io() ? !1 === this.state.createWithReadme || !1 === this.state.readMeExists ? null : ye.createElement(Ev, {
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "This directory contains a ", ye.createElement(qb, null, "README.md"), " file already. Checking this box will result in the existing file being overwritten.")) : null
+				}), ye.createElement("p", null, "此目录包含 ", ye.createElement(qb, null, "README.md"), " 文件已存在，选中此框将导致覆盖现有文件。")) : null
 			}
 			onAddRepositoryClicked = () => {
 				const {
@@ -69202,9 +69202,9 @@
 				const e = this.state.isCreatingBranch ? this.state.tipAtCreateStart : this.props.tip,
 					t = e.kind,
 					n = this.props.targetCommit;
-				if (void 0 !== n) return ye.createElement("p", null, "Your new branch will be based on the commit '", n.summary, "' (", n.sha.substring(0, 7), ") from your repository.");
-				if (e.kind === Lr.Detached) return ye.createElement("p", null, "You do not currently have any branch checked out (your HEAD reference is detached). As such your new branch will be based on your currently checked out commit (", e.currentSha.substring(0, 7), ").");
-				if (e.kind === Lr.Unborn) return ye.createElement("p", null, "Your current branch is unborn (does not contain any commits). Creating a new branch will rename the current branch.");
+				if (void 0 !== n) return ye.createElement("p", null, "您的新分支将基于提交 '", n.summary, "' (", n.sha.substring(0, 7), ") 从您的存储库。");
+				if (e.kind === Lr.Detached) return ye.createElement("p", null, "您当前没有签出任何分支（您的头引用已分离). 因此，您的新分支将基于您当前签出的提交(", e.currentSha.substring(0, 7), ").");
+				if (e.kind === Lr.Unborn) return ye.createElement("p", null, "当前分支未绑定（不包含任何提交）。创建新分支将重命名当前分支。");
 				if (e.kind === Lr.Valid) {
 					if (null !== this.props.upstreamGitHubRepository && null !== this.props.upstreamDefaultBranch) return this.renderForkBranchSelection(e.branch.name, this.props.upstreamDefaultBranch, this.props.upstreamGitHubRepository.fullName);
 					const t = this.state.isCreatingBranch ? this.props.defaultBranch : this.state.defaultBranchAtCreateStart;
@@ -69235,7 +69235,7 @@
 					className: "warning-helper-text"
 				}, ye.createElement(hy, {
 					symbol: cu
-				}), ye.createElement("p", null, "A branch named ", ye.createElement(qb, null, n), " already exists on the remote."))), this.renderBranchSelection()), ye.createElement(Ub, null, ye.createElement(zb, {
+				}), ye.createElement("p", null, "名为的分支 ", ye.createElement(qb, null, n), " 远程上已存在。"))), this.renderBranchSelection()), ye.createElement(Ub, null, ye.createElement(zb, {
 					okButtonText: this.getOkButtonText(),
 					okButtonDisabled: e
 				})));
