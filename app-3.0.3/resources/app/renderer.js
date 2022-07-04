@@ -69765,7 +69765,7 @@
         t.preventDefault();
         const n = [
           {
-            label: "撤销",
+            label: "撤消",
             action: () => e.getDoc().undo(),
           },
           {
@@ -73146,7 +73146,7 @@
           n = this.props.commit.author.date;
         return ve.createElement(
           "div",
-          { id: "undo-commit", role: "group", "aria-label": "Undo commit" },
+          { id: "undo-commit", role: "group", "aria-label": "撤消提交" },
           ve.createElement(
             "div",
             { className: "commit-info" },
@@ -73169,7 +73169,7 @@
             ve.createElement(
               Yb,
               { size: "small", disabled: e, onClick: this.props.onUndo },
-              "Undo"
+              "撤消"
             )
           )
         );
@@ -85874,7 +85874,7 @@
                 Vx,
                 {
                   ...Xx,
-                  title: `Push ${e}`,
+                  title: `推送 ${e}`,
                   description: Zx(r),
                   icon: vu,
                   onClick: i,
@@ -88568,7 +88568,7 @@
       };
       renderUndo = () => {
         if (void 0 !== this.props.onUndo)
-          return ve.createElement(Lb, { onClick: this.undo }, "Undo");
+          return ve.createElement(Lb, { onClick: this.undo }, "撤消");
       };
       render() {
         return ve.createElement(
@@ -102015,7 +102015,7 @@
         ve.createElement(
           Lb,
           { onClick: GN(e.path, e.repository, e.dispatcher) },
-          "Undo"
+          "撤消"
         )
       );
     };
