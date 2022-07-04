@@ -74287,18 +74287,18 @@
             style: this.props.style,
             appearEffect: Uw.Shake,
           },
-          ve.createElement("h3", null, "Show whitespace changes?"),
+          ve.createElement("h3", null, "显示空白更改?"),
           ve.createElement(
             "p",
             { className: "byline" },
-            "Selecting lines is disabled when hiding whitespace changes."
+            "隐藏空白更改时，将禁用选择行。"
           ),
           ve.createElement(
             "footer",
             null,
             ve.createElement(rC, {
-              okButtonText: "Yes",
-              cancelButtonText: "No",
+              okButtonText: "确定",
+              cancelButtonText: "取消",
               onCancelButtonClick: this.onDismissed,
               onOkButtonClick: this.onShowWhitespaceChanges,
             })
@@ -77206,7 +77206,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `在 ${e} 中查看存储库的文件`,
+          `在 ${e} 中查看仓库的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -79087,10 +79087,10 @@
       }
       renderButtonGroup() {
         return Mk(this.props.unPushedCommits)
-          ? ve.createElement(rC, { okButtonText: "Publish branch" })
+          ? ve.createElement(rC, { okButtonText: "发布分支" })
           : ve.createElement(rC, {
-              okButtonText: "Push commits",
-              cancelButtonText: "Create without pushing",
+              okButtonText: "推送提交",
+              cancelButtonText: "创建而不推送",
               onCancelButtonClick: this.onCreateWithoutPushButtonClick,
             });
       }
@@ -84129,7 +84129,7 @@
             "div",
             { className: "row" },
             ve.createElement(rC, {
-              okButtonText: "Restore",
+              okButtonText: "恢复",
               okButtonDisabled: t || !e,
               onOkButtonClick: this.onRestoreClick,
               cancelButtonText: "Discard",
@@ -85248,7 +85248,7 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: `Rename ${this.props.branch.name}`,
+              okButtonText: `重命名 ${this.props.branch.name}`,
               okButtonDisabled: 0 === this.state.newName.length,
             })
           )
@@ -86929,7 +86929,7 @@
                 Yb,
                 { type: "submit", disabled: e },
                 this.props.loading ? ve.createElement(mw, null) : null,
-                " 登陆"
+                " 登录"
               )
             : null,
           this.props.additionalButtons,
@@ -87517,7 +87517,7 @@
               ve.createElement(
                 Yb,
                 { type: "submit" },
-                this.props.saveLabel || "Save"
+                this.props.saveLabel || "保存"
               ),
               this.props.children
             )
@@ -87551,7 +87551,7 @@
             ve.createElement(
               Yb,
               { type: "submit" },
-              this.props.saveLabel || "Save"
+              this.props.saveLabel || "保存"
             ),
             this.props.children
           )
@@ -88928,7 +88928,7 @@
         this.props.onEnterpriseSignIn();
       };
       renderSignIn(e) {
-        const t = "登陆";
+        const t = "登录";
         switch (e) {
           case eT.DotCom:
             return ve.createElement(
@@ -96016,7 +96016,7 @@
               nC,
               null,
               ve.createElement(rC, {
-                okButtonText: "Save",
+                okButtonText: "保存",
                 okButtonDisabled: e,
               })
             );
@@ -96225,7 +96225,7 @@
           nC,
           null,
           ve.createElement(rC, {
-            okButtonText: "Retry clone",
+            okButtonText: "重试克隆",
             onOkButtonClick: this.onRetryAction,
             onCancelButtonClick: this.onCloseButtonClick,
           })
@@ -96504,7 +96504,7 @@
             ve.createElement(
               "p",
               null,
-              "此目录似乎是一个空存储库，当前不支持空存储库。"
+              "此目录似乎是一个空仓库，当前不支持空仓库。"
             )
           );
         const {
@@ -96524,7 +96524,7 @@
               ve.createElement(
                 "p",
                 null,
-                "The Git repository",
+                "Git存储库",
                 t !== e &&
                   ve.createElement(
                     ve.Fragment,
@@ -97033,12 +97033,12 @@
               ve.createElement(
                 "p",
                 null,
-                "此目录似乎是Git存储库，你愿意",
+                "此目录似乎是Git仓库，你愿意",
                 " ",
                 ve.createElement(
                   Lb,
                   { onClick: this.onAddRepositoryClicked },
-                  "添加此存储库"
+                  "添加此仓库"
                 ),
                 " ",
                 "相反?"
@@ -97657,7 +97657,7 @@
         }
       }
       renderSignIn(e) {
-        const t = "登陆";
+        const t = "登录";
         switch (e) {
           case gr.DotCom:
             return ve.createElement(
@@ -97727,8 +97727,8 @@
       onChooseWithSaveDialog = async () => {
         const e = this.getSelectedTabState(),
           t = await le({
-            buttonLabel: "Select",
-            nameFieldLabel: "Clone As:",
+            buttonLabel: "选择",
+            nameFieldLabel: "克隆为:",
             showsTagField: !1,
             defaultPath: e.path ?? "",
             properties: ["createDirectory"],
@@ -97912,7 +97912,7 @@
             n.summary,
             "' (",
             n.sha.substring(0, 7),
-            ") 从您的存储库。"
+            ") 从您的仓库。"
           );
         if (e.kind === Ar.Detached)
           return ve.createElement(
@@ -98079,7 +98079,7 @@
               {
                 title: t.name,
                 description:
-                  "存储库中的默认分支，选择此选项可以开始一些不依赖于当前分支的新内容。",
+                  "仓库中的默认分支，选择此选项可以开始一些不依赖于当前分支的新内容。",
                 key: fr.DefaultBranch,
               },
               {
@@ -98122,7 +98122,7 @@
               {
                 title: t.name,
                 description:
-                  "上游存储库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
+                  "上游仓库的默认分支。选择此选项可以开始一些不依赖于当前分支的新内容。",
                 key: fr.UpstreamDefaultBranch,
               },
               {
@@ -98272,14 +98272,14 @@
             (n = 0 === this.state.endpoint.length), (t = "继续");
             break;
           case rg.TwoFactorAuthentication:
-            (n = !/\S+/.test(this.state.otpToken)), (t = "登陆");
+            (n = !/\S+/.test(this.state.otpToken)), (t = "登录");
             break;
           case rg.Authentication:
             if (e.supportsBasicAuth) {
               const e = this.state.username.length > 0,
                 r = this.state.password.length > 0;
-              (n = !e || !r), (t = "登陆");
-            } else t = "Continue with browser";
+              (n = !e || !r), (t = "登录");
+            } else t = "继续使用浏览器";
             break;
           default:
             return st(0, `Unknown sign in step ${r}`);
@@ -98439,7 +98439,7 @@
             this.props.signInState.kind === rg.Authentication &&
             !this.props.signInState.supportsBasicAuth
               ? "Sign in using your browser"
-              : "登陆";
+              : "登录";
         return ve.createElement(
           eC,
           {
@@ -98502,8 +98502,8 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: "Open without Git",
-              cancelButtonText: "Install Git",
+              okButtonText: "无Git打开",
+              cancelButtonText: "安装 Git",
               onCancelButtonClick: this.onExternalLink,
             })
           )
@@ -99005,7 +99005,7 @@
         }
       }
       renderSignInTab(e) {
-        const t = "登陆";
+        const t = "登录";
         switch (e) {
           case eN.DotCom:
             return ve.createElement(
@@ -99039,7 +99039,7 @@
               nC,
               null,
               ve.createElement(rC, {
-                okButtonText: "Publish repository",
+                okButtonText: "发布仓库",
                 okButtonDisabled: e,
               })
             )
@@ -99827,7 +99827,7 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: "Save and retry",
+              okButtonText: "保存并重试",
               okButtonDisabled: e,
             })
           )
@@ -100572,7 +100572,7 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: "Fetch",
+              okButtonText: "获取",
               okButtonDisabled: this.state.isLoading,
             })
           )
@@ -100927,7 +100927,7 @@
           ve.createElement(
             nC,
             null,
-            ve.createElement(rC, { okButtonText: "Continue in browser" })
+            ve.createElement(rC, { okButtonText: "在浏览器中继续" })
           )
         );
       }
@@ -101064,7 +101064,7 @@
                   null,
                   ve.createElement(rC, {
                     destructive: !0,
-                    okButtonText: "Fork this repository",
+                    okButtonText: "分支此仓库",
                     okButtonDisabled: n,
                     cancelButtonDisabled: n,
                   })
@@ -101688,10 +101688,10 @@
           nC,
           null,
           ve.createElement(rC, {
-            okButtonText: "Move and Restart",
+            okButtonText: "移动并重新启动",
             okButtonTitle:
-              "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
-            cancelButtonText: "Not Now",
+              "这会将GitHub Desktop 移动到您机器中的Applications文件夹，并重新启动应用程序。",
+            cancelButtonText: "不是现在",
             onCancelButtonClick: this.onNotNow,
           })
         );
@@ -101727,20 +101727,14 @@
           eC,
           {
             id: "change-repository-alias",
-            title: `${t} repository alias`,
+            title: `${t} 仓库别名`,
             onDismissed: this.props.onDismissed,
             onSubmit: this.changeAlias,
           },
           ve.createElement(
             Jw,
             null,
-            ve.createElement(
-              "p",
-              null,
-              'Choose a new alias for the repository "',
-              qr(e),
-              '". '
-            ),
+            ve.createElement("p", null, '为仓库选择新别名 "', qr(e), '". '),
             ve.createElement(
               "p",
               null,
@@ -101753,14 +101747,14 @@
               ve.createElement(
                 "p",
                 { className: "description" },
-                "This will not affect the original repository name on GitHub."
+                "这不会影响GitHub上的原始仓库名称。"
               )
           ),
           ve.createElement(
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: `${t} alias`,
+              okButtonText: `${t} 别名`,
               okButtonDisabled: 0 === this.state.newAlias.length,
             })
           )
@@ -102261,8 +102255,7 @@
               ve.Fragment,
               null,
               (function (e) {
-                const t =
-                  1 === e ? "1 conflicted file" : `${e} conflicted files`;
+                const t = 1 === e ? "1 冲突文件" : `${e} 冲突文件`;
                 return ve.createElement("h3", { className: "summary" }, t);
               })(t),
               this.renderUnmergedFiles(e),
@@ -102364,7 +102357,7 @@
             null,
             ve.createElement(rC, {
               destructive: !0,
-              okButtonText: `Abort ${e.toLowerCase()}`,
+              okButtonText: `中止 ${e.toLowerCase()}`,
             })
           )
         );
@@ -102447,25 +102440,19 @@
           ve.createElement(
             Jw,
             null,
+            ve.createElement("p", null, "你确定要吗 ", e.toLowerCase(), "?"),
             ve.createElement(
               "p",
               null,
-              "Are you sure you want to ",
+              "在 ",
               e.toLowerCase(),
-              "?"
-            ),
-            ve.createElement(
-              "p",
-              null,
-              "At the end of the ",
-              e.toLowerCase(),
-              " flow, GitHub Desktop will enable you to force push the branch to update the upstream branch. Force pushing will alter the history on the remote and potentially cause problems for others collaborating on this branch."
+              " 流程结束时，GitHub Desktop 将使您能够强制推送分支以更新上游分支，强制推送将改变远程上的历史记录，并可能给在该分支上协作的其他人带来问题。"
             ),
             ve.createElement(
               "div",
               null,
               ve.createElement(nw, {
-                label: "Do not show this message again",
+                label: "不再显示此消息",
                 value: this.state.askForConfirmationOnForcePush
                   ? tw.Off
                   : tw.On,
@@ -102477,7 +102464,7 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: `Begin ${e.toLowerCase()}`,
+              okButtonText: `开始 ${e.toLowerCase()}`,
               onCancelButtonClick: this.props.onDismissed,
             })
           )
@@ -103087,9 +103074,9 @@
       };
       render() {
         const e = this.selectedBranchIsCurrentBranch()
-            ? "You are not able to cherry-pick from and to the same branch"
+            ? "你不能从同一分支优选"
             : void 0,
-          t = this.props.commitCount > 1 ? "commits" : "commit";
+          t = this.props.commitCount > 1 ? "提交" : "提交";
         return ve.createElement(
           eC,
           {
@@ -103100,11 +103087,11 @@
             title: ve.createElement(
               "strong",
               null,
-              "Cherry-pick ",
+              "优选 ",
               this.props.commitCount,
               " ",
               t,
-              " to a branch"
+              " 到分支"
             ),
           },
           ve.createElement(
@@ -103233,8 +103220,8 @@
           dispatcher: t,
           initialName: c,
           createBranch: this.onCreateBranchAndCherryPick,
-          okButtonText: "Create branch and cherry-pick",
-          headerText: "Cherry-pick to new branch",
+          okButtonText: "创建分支和优选",
+          headerText: "优选到新分支",
         });
       };
       onChooseBranch = (e) => {
@@ -103578,7 +103565,7 @@
           ve.createElement(
             nC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "Continue" })
+            ve.createElement(rC, { destructive: !0, okButtonText: "继续" })
           )
         );
       }
@@ -103625,8 +103612,8 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: "Yes",
-              cancelButtonText: "No",
+              okButtonText: "确定",
+              cancelButtonText: "取消",
             })
           )
         );
@@ -103678,8 +103665,8 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: "Yes",
-              cancelButtonText: "No",
+              okButtonText: "确定",
+              cancelButtonText: "取消",
               onCancelButtonClick: this.onCancel,
             })
           )
@@ -103788,13 +103775,13 @@
               "强制推送将重写上的历史",
               " ",
               ve.createElement(aC, null, this.props.upstreamBranch),
-              ". Any collaborators working on this branch will need to reset their own local branch to match the history of the remote."
+              ". 在此分支上工作的任何协作者都需要重置自己的本地分支，以匹配远程分支的历史记录。"
             ),
             ve.createElement(
               "div",
               null,
               ve.createElement(nw, {
-                label: "Do not show this message again",
+                label: "不再显示此消息",
                 value: this.state.askForConfirmationOnForcePush
                   ? tw.Off
                   : tw.On,
@@ -103805,7 +103792,7 @@
           ve.createElement(
             nC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "I'm sure" })
+            ve.createElement(rC, { destructive: !0, okButtonText: "我肯定" })
           )
         );
       }
@@ -103923,7 +103910,7 @@
               this.renderSummary(),
               ve.createElement(rC, {
                 onCancelButtonClick: this.props.onDismissed,
-                cancelButtonText: "Dismiss",
+                cancelButtonText: "取消",
                 okButtonText: e,
                 okButtonDisabled: this.state.switchingToPullRequest,
                 onOkButtonClick: this.onSubmit,
@@ -103940,7 +103927,7 @@
           ve.createElement(
             "span",
             null,
-            "Do you want to switch to that Pull Request now and start fixing",
+            "你想现在切换到拉请求并开始修复吗",
             " ",
             e,
             "?"
@@ -104226,7 +104213,7 @@
                 src: SB,
                 className: "blankslate-image",
               }),
-              ve.createElement("div", { className: "title" }, "Please wait"),
+              ve.createElement("div", { className: "title" }, "请稍等"),
               ve.createElement(
                 "div",
                 { className: "call-to-action" },
@@ -104334,10 +104321,9 @@
           nC,
           null,
           ve.createElement(rC, {
-            okButtonText: "Permanently discard changes",
-            okButtonTitle:
-              "This will discard changes and they will be unrecoverable.",
-            cancelButtonText: "Cancel",
+            okButtonText: "永久放弃更改",
+            okButtonTitle: "这将丢弃更改，并且这些更改将不可恢复。",
+            cancelButtonText: "取消",
             destructive: !0,
           })
         );
@@ -104488,12 +104474,10 @@
         } = this.props;
         let r;
         "APPROVED" === e.state ||
-          (t
-            ? (r = "Switch to repository and pull request")
-            : n && (r = "Switch to pull request"));
+          (t ? (r = "切换到仓库并请求拉取") : n && (r = "切换到pull请求"));
         const i = ve.createElement(rC, {
           onCancelButtonClick: this.props.onDismissed,
-          cancelButtonText: "Dismiss",
+          cancelButtonText: "取消",
           cancelButtonVisible: void 0 !== r,
           okButtonText: r,
           okButtonDisabled: this.state.switchingToPullRequest,
