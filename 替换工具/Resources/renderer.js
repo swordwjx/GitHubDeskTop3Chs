@@ -63431,7 +63431,7 @@
           const p = u
               ? (function (e) {
                   if (ny(e))
-                    return "Authentication failed. Some common reasons include:\n\n- You are not logged in to your account: see File > Options.\n- You may need to log out and log back in to refresh your token.\n- You do not have permission to access this repository.\n- The repository is archived on GitHub. Check the repository settings to confirm you are still permitted to push commits.\n- If you use SSH authentication, check that your key is added to the ssh-agent and associated with your account.\n- If you use SSH authentication, ensure the host key verification passes for your repository hosting service.\n- If you used username / password authentication, you might need to use a Personal Access Token instead of your account password. Check the documentation of your repository hosting service.";
+                    return "身份验证失败。一些常见原因包括：\n\n- 您尚未登录到您的帐户：请参阅文件>选项。\n- 您可能需要注销并重新登录才能刷新令牌。\n- 您没有访问此存储库的权限。\n- 存储库存档在 GitHub 上。检查存储库设置以确认您仍可以推送提交。\n- 如果您使用 SSH 身份验证，请检查您的密钥是否已添加到 ssh 代理并与您的帐户关联。\n- 如果使用 SSH 身份验证，请确保存储库托管服务的主机密钥验证通过。\n- 如果使用了用户名/密码身份验证，则可能需要使用个人访问令牌而不是帐户密码。请查看存储库托管服务的文档。";
                   switch (e) {
                     case bt.ko.SSHKeyAuditUnverified:
                       return "SSH密钥未验证。";
@@ -108788,7 +108788,7 @@
               })
               .catch((e) =>
                 log.error(
-                  "Failed resolving whether GitHub.com supports password authentication",
+                  "解决 GitHub.com 是否支持密码身份验证失败",
                   e
                 )
               );
@@ -108829,7 +108829,7 @@
             else if (i.kind === wn.Error)
               this.emitError(
                 new Error(
-                  `The server responded with an error while attempting to authenticate (${i.response.status})\n\n${i.response.statusText}`
+                  `服务器在尝试进行身份验证时响应错误 (${i.response.status})\n\n${i.response.statusText}`
                 )
               ),
                 this.setState({ ...n, loading: !1 });
@@ -108838,12 +108838,12 @@
                 ? this.setState({
                     ...n,
                     loading: !1,
-                    error: new Error("Incorrect email or password."),
+                    error: new Error("电子邮件或密码不正确"),
                   })
                 : this.setState({
                     ...n,
                     loading: !1,
-                    error: new Error("Incorrect username or password."),
+                    error: new Error("用户名或密码不正确"),
                   });
             else if (i.kind === wn.UserRequiresVerification)
               this.setState({ ...n, loading: !1, error: new Error(tg(e)) });
@@ -108852,14 +108852,14 @@
                 ...n,
                 loading: !1,
                 error: new Error(
-                  "A personal access token cannot be used to login to GitHub Desktop."
+                  "个人访问令牌不能用于登录到 GitHub Desktop"
                 ),
               });
             else if (i.kind === wn.EnterpriseTooOld)
               this.setState({ ...n, loading: !1, error: new Error(ng) });
             else {
               if (i.kind !== wn.WebFlowRequired)
-                return st(0, `Unsupported response: ${i}`);
+                return st(0, `不支持的响应： ${i}`);
               this.setState({
                 ...n,
                 loading: !1,
@@ -108872,14 +108872,14 @@
           const e = this.state;
           if (!e || e.kind !== rg.Authentication)
             return ot(
-              `Sign in step '${
+              `登录步骤'${
                 e ? e.kind : "null"
-              }' not compatible with browser authentication`
+              }'与浏览器身份验证不兼容`
             );
           let t;
           this.setState({ ...e, loading: !0 });
           try {
-            log.info("[SignInStore] initializing OAuth flow"),
+            log.info("[登录存储] 初始化 OAuth 流"),
               (t = await ((n = e.endpoint),
               new Promise((e, t) => {
                 Zm = { state: jt(), endpoint: n, resolve: e, reject: t };
@@ -108890,10 +108890,10 @@
                 })(n, Zm.state);
                 rt.openExternal(r);
               }))),
-              log.info("[SignInStore] account resolved");
+              log.info("[SignInStore] 帐户已解析");
           } catch (t) {
             return (
-              log.info("[SignInStore] error with OAuth flow", t),
+              log.info("[SignInStore] OAuth 流出错", t),
               void this.setState({ ...e, error: t, loading: !1 })
             );
           }
@@ -108942,11 +108942,11 @@
             return (
               e.name === Qm
                 ? (n = new Error(
-                    "The GitHub Enterprise instance address doesn't appear to be a valid URL. We're expecting something like https://github.example.com."
+                    "GitHub 企业的实例地址似乎不是一个有效的 URL。我们期待的是类似于https://github.example.com"
                   ))
                 : e.name === eg &&
                   (n = new Error(
-                    "Unsupported protocol. Only http or https is supported when authenticating with GitHub Enterprise instances."
+                    "不支持的协议。使用 GitHub 企业版实例进行身份验证时，仅支持 http 或 https"
                   )),
               void this.setState({ ...t, loading: !1, error: n })
             );
@@ -108970,7 +108970,7 @@
             let n = e;
             "ENOTFOUND" === e.code &&
               (n = new Error(
-                "The server could not be found. Please verify that the URL is correct and that you have a stable internet connection."
+                "找不到服务器。请验证 URL 是否正确，以及您是否具有稳定的互联网连接。"
               )),
               this.setState({ ...t, loading: !1, error: n });
           }
@@ -109021,7 +109021,7 @@
                 case wn.PersonalAccessTokenBlocked:
                   this.emitError(
                     new Error(
-                      "A personal access token cannot be used to login to GitHub Desktop."
+                      "个人访问令牌不能用于登录到 GitHub Desktop"
                     )
                   );
                   break;
@@ -109401,7 +109401,7 @@
             e.workflowPreferences,
             e.isTutorialRepository
           );
-          return jr(n) || ot("Repository must be GitHub repository"), n;
+          return jr(n) || ot("存储库必须是 GitHub 存储库"), n;
         }
         async _upsertGitHubRepository(e, t, n = !1) {
           const r =
@@ -109510,7 +109510,7 @@
             (setImmediate(() => {
               this.getAll()
                 .then((e) => this.emitUpdate(e))
-                .catch((e) => log.error("Failed emitting update", e))
+                .catch((e) => log.error("发出更新失败", e))
                 .finally(() => (this.emitQueued = !1));
             }),
             (this.emitQueued = !0));
