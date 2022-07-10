@@ -77445,11 +77445,11 @@
             l.push(1 === r.length ? "1 标记" : `${r.length} 标记`));
         const c = `你有 ${l.join(" and ")} 正在等待推送到 ${
             s ? "GitHub" : "远程"
-          }.`,
+          }`,
           u = ve.createElement(
             ve.Fragment,
             null,
-            "当有等待推送的本地提交或 ",
+            "当有本地提交等待推送或 ",
             this.renderDiscoverabilityKeyboardShortcut(o)
           ),
           h = `推送 ${a.join(" and ")} 到 ${t.name} 远程`,
