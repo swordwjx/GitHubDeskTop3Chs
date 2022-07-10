@@ -65299,7 +65299,7 @@
           { type: "separator" },
           {
             label: this.props.askForConfirmationOnRemoveRepository
-              ? "删除…"
+              ? "删除"
               : "删除",
             action: this.removeRepository,
           },
@@ -70921,25 +70921,25 @@
         ve.createElement(
           "li",
           null,
-          "拉取请求目标 ",
+          "针对 ",
           ve.createElement("strong", null, t.fullName),
           " ",
-          "将显示在拉取请求列表中。"
+          "的拉取请求将显示在拉取请求列表中"
         ),
         ve.createElement(
           "li",
           null,
-          "Issues 将在中创建 ",
+          "Issues 将在 ",
           ve.createElement("strong", null, t.fullName),
-          "."
+          " 中创建"
         ),
         ve.createElement(
           "li",
           null,
-          '"在 Github 显示" 将打开 ',
+          '"在 Github 显示"选项将在浏览器中打开 ',
           ve.createElement("strong", null, t.fullName),
-          " ",
-          "在浏览器中."
+          "",
+          ""
         ),
         ve.createElement(
           "li",
@@ -70947,15 +70947,15 @@
           "新分支将基于",
           " ",
           ve.createElement("strong", null, t.fullName),
-          "'s default branch."
+          "'的默认分支"
         ),
         ve.createElement(
           "li",
           null,
-          "Autocompletion of user and issues will be based on",
+          "用户和问题的自动完成将基于",
           " ",
           ve.createElement("strong", null, t.fullName),
-          "."
+          ""
         )
       );
     }
@@ -70994,11 +70994,11 @@
         return ve.createElement(
           Jw,
           null,
-          ve.createElement("h2", null, "I'll be using this fork…"),
+          ve.createElement("h2", null, "我会用这个分支"),
           ve.createElement(pC, {
             value: Rr.Parent,
             checked: this.props.forkContributionTarget === Rr.Parent,
-            label: "贡献给父仓库",
+            label: "向父存储库贡献内容",
             onSelected: this.onForkContributionTargetChanged,
           }),
           ve.createElement(pC, {
@@ -71320,8 +71320,8 @@
               },
               ve.createElement("span", null, "远程"),
               ve.createElement("span", null, "忽略文件"),
-              ve.createElement("span", null, "Git 设置"),
-              e && ve.createElement("span", null, "分叉行为")
+              ve.createElement("span", null, "Git 配置"),
+              e && ve.createElement("span", null, "分支行为")
             ),
             ve.createElement(
               "div",
@@ -77206,7 +77206,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `在 ${e} 中查看仓库的文件`,
+          `在${e}中查看仓库的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -77217,7 +77217,7 @@
         return null !== this.props.repository.gitHubRepository
           ? this.renderMenuBackedAction(
               "view-repository-on-github",
-              "在浏览器中的GitHub网站上打开仓库页面",
+              "在浏览器中的 GitHub 网站上打开仓库页面",
               void 0,
               this.onViewOnGitHubClicked
             )
@@ -99282,11 +99282,11 @@
           ve.createElement(
             "header",
             null,
-            ve.createElement("h1", null, "Let's get started!"),
+            ve.createElement("h1", null, "让我们开始吧！"),
             ve.createElement(
               "p",
               null,
-              "Add a repository to GitHub Desktop to start collaborating"
+              "将存储库添加到 GitHub Desktop 以开始协作"
             )
           ),
           ve.createElement(
@@ -99454,7 +99454,7 @@
             )
           : this.renderButtonGroupButton(
               Qu,
-              "Create a tutorial repository…",
+              "创建教程存储库",
               this.props.onCreateTutorialRepository,
               "submit"
             );
@@ -99462,14 +99462,14 @@
       renderCloneButton() {
         return this.renderButtonGroupButton(
           oh,
-          "从Internet克隆仓库…",
+          "从Internet克隆仓库",
           this.onShowClone
         );
       }
       renderCreateRepositoryButton() {
         return this.renderButtonGroupButton(
           nh,
-          "在硬盘上创建新仓库…",
+          "在硬盘上创建新仓库",
           this.props.onCreate
         );
       }
@@ -99500,7 +99500,7 @@
               "div",
               null,
               ve.createElement("strong", null, "ProTip!"),
-              " 您可以将现有仓库文件夹拖放到此处以将其添加到 Desktop"
+              " 您可以将现有仓库文件夹拖放到此处以将其添加到 Github Desktop 中"
             )
           )
         );
@@ -100608,7 +100608,7 @@
           eC,
           {
             id: "stash-changes",
-            title: "Switch branch",
+            title: "切换分支",
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
             loading: e,
@@ -100623,7 +100623,7 @@
           ve.createElement(
             nC,
             null,
-            ve.createElement(rC, { okButtonText: "转换分支" })
+            ve.createElement(rC, { okButtonText: "切换分支" })
           )
         );
       }
@@ -100634,7 +100634,7 @@
               Ub,
               null,
               ve.createElement(Tv, { symbol: mu }),
-              " 创建新的存储将覆盖当前的存储"
+              "创建新的存储将覆盖当前的存储"
             )
           : null;
       }
