@@ -77178,7 +77178,7 @@
           ve.Fragment,
           null,
           t,
-          " 菜单或快捷键：",
+          " 菜单或",
           " ",
           this.renderDiscoverabilityKeyboardShortcut(e)
         );
@@ -77241,12 +77241,12 @@
         const t = ve.createElement(
           ve.Fragment,
           null,
-          "在中选择编辑器",
+          "在",
           " ",
           ve.createElement(
             Lb,
             { onClick: this.openIntegrationPreferences },
-            "选项"
+            " 中选择编辑器选项"
           )
         );
         return this.renderMenuBackedAction(
