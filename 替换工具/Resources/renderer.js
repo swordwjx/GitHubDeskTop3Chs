@@ -64107,14 +64107,14 @@
       return await t.presentError(n), null;
     }
     const Zy =
-        /^ ! \[remote rejected\] .*? -> .*? \(refusing to allow an OAuth App to create or update workflow `(.*?)` without `workflow` scope\)/m,
+        /^ ! \[远程拒绝\] .*? -> .*? \(拒绝允许 OAuth 应用程序创建或更新工作流 `(.*?)` 没有 `工作流` scope\)/m,
       Xy =
-        /`([^']+)' organization has enabled or enforced SAML SSO.*?you must re-authorize/s,
+        /`([^']+)' 组织已启用或强制实施 SAML SSO.*?您必须重新授权/s,
       Jy = /^Can not find Squirrel$/,
       Qy =
-        /System\.Net\.WebException: The remote name could not be resolved: 'central\.github\.com'/,
+        /System\.Net\.WebException: 无法解析远程名称: 'central\.github\.com'/,
       ev =
-        /A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond/,
+        /连接尝试失败，因为被连接方在一段时间后没有正确的回应，或者建立的连接失败，因为被连接的主机没有回应/,
       tv = Ss()(Intl.DateTimeFormat, {
         cache: new (Es())({ maxSize: 100 }),
         cacheKey: (...e) => JSON.stringify(e),
@@ -64134,7 +64134,7 @@
               if (null === n)
                 return (
                   log.debug(
-                    `[ReleaseNotes] unable to convert text into entry: ${e}`
+                    `[发布说明] 无法将文本转换为输入: ${e}`
                   ),
                   null
                 );
@@ -64148,7 +64148,7 @@
                 "removed" === r
                 ? { kind: r, message: i }
                 : (log.debug(
-                    `[ReleaseNotes] kind ${r} was found but is not a valid entry`
+                    `[发布说明] 找到种类 ${r} 但不是有效条目`
                   ),
                   { kind: "other", message: i });
             })(e)
@@ -64230,15 +64230,15 @@
             const e = (function (e) {
               return Jy.test(e.message)
                 ? new Error(
-                    "The application is missing a dependency it needs to check and install updates. This is very, very bad."
+                    "应用程序缺少检查和安装更新所需的依赖项。这是非常非常糟糕的。"
                   )
                 : Qy.test(e.message)
                 ? new Error(
-                    "GitHub Desktop was not able to contact the update server. Ensure you have internet connectivity and try again."
+                    "GitHub Desktop 无法联系更新服务器。确保您有互联网连接，然后重试。"
                   )
                 : ev.test(e.message)
                 ? new Error(
-                    "GitHub Desktop was not able to check for updates due to a timeout. Ensure you have internet connectivity and try again."
+                    "由于超时，GitHub Desktop 无法检查更新。确保您有互联网连接，然后重试。"
                   )
                 : null;
             })(t);
