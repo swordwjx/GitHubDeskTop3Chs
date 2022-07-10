@@ -77245,7 +77245,7 @@
           ve.createElement(
             Lb,
             { onClick: this.openIntegrationPreferences },
-            "'选项'"
+            "选项"
           ),
           "中选择编辑器"
         );
