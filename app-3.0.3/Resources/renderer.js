@@ -77242,12 +77242,12 @@
           ve.Fragment,
           null,
           "在",
-          " ",
           ve.createElement(
             Lb,
             { onClick: this.openIntegrationPreferences },
-            " 中选择编辑器选项"
-          )
+            "'选项'"
+          ),
+          "中选择编辑器"
         );
         return this.renderMenuBackedAction(
           e,
