@@ -11104,7 +11104,7 @@
 					visible: !1
 				}, {
 					id: "show-devtools",
-					label: "&打开开发者工具",
+					label: "&开发者工具",
 					accelerator: "Ctrl+Shift+I",
 					click(e, t) {
 						t && t.webContents.toggleDevTools()

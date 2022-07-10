@@ -52539,7 +52539,7 @@
         });
     var yo;
     !(function (e) {
-      (e.Cmd = "Command Prompt"),
+      (e.Cmd = "命令提示符"),
         (e.PowerShell = "PowerShell"),
         (e.PowerShellCore = "PowerShell Core"),
         (e.Hyper = "Hyper"),
@@ -65281,16 +65281,16 @@
           n = t instanceof Wr && t.missing,
           r = t instanceof Wr && null != t.gitHubRepository,
           i = this.props.externalEditorLabel
-            ? `Open in ${this.props.externalEditorLabel}`
+            ? `在${this.props.externalEditorLabel}中打开`
             : za;
         Fv([
           ...this.buildAliasMenuItems(),
-          { label: "Copy repo name", action: this.copyNameToClipboard },
-          { label: "Copy repo path", action: this.copyPathToClipboard },
+          { label: "复制存储库名称", action: this.copyNameToClipboard },
+          { label: "复制存储库路径", action: this.copyPathToClipboard },
           { type: "separator" },
-          { label: "View on GitHub", action: this.viewOnGitHub, enabled: r },
+          { label: "在GitHub上查看", action: this.viewOnGitHub, enabled: r },
           {
-            label: `Open in ${this.props.shellLabel}`,
+            label: `在${this.props.shellLabel}中打开`,
             action: this.openInShell,
             enabled: !n,
           },
@@ -65300,7 +65300,7 @@
           {
             label: this.props.askForConfirmationOnRemoveRepository
               ? "删除…"
-              : "删除 ",
+              : "删除",
             action: this.removeRepository,
           },
         ]);
@@ -65310,7 +65310,7 @@
         if (!(e instanceof Wr)) return [];
         const t = [
           {
-            label: (null == e.alias ? "创建" : "更改") + " 别名",
+            label: (null == e.alias ? "创建" : "更改") + "别名",
             action: this.changeAlias,
           },
         ];
@@ -101722,12 +101722,12 @@
       }
       render() {
         const e = this.props.repository,
-          t = null === e.alias ? "Create" : "Change";
+          t = null === e.alias ? "创建" : "更改";
         return ve.createElement(
           eC,
           {
             id: "change-repository-alias",
-            title: `${t} 仓库别名`,
+            title: `${t}仓库别名`,
             onDismissed: this.props.onDismissed,
             onSubmit: this.changeAlias,
           },
@@ -101754,7 +101754,7 @@
             nC,
             null,
             ve.createElement(rC, {
-              okButtonText: `${t} 别名`,
+              okButtonText: `${t}别名`,
               okButtonDisabled: 0 === this.state.newAlias.length,
             })
           )
@@ -110173,7 +110173,7 @@
               void 0 !== t &&
                 this.cache.set(r, {
                   ...t,
-                  fetchedAt: new Date(ws(-61, "minutes")),
+                  fetchedAt: new Date(ws(-61, "分钟")),
                 }),
               e
             );
