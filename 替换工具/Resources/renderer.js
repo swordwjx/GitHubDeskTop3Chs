@@ -77438,7 +77438,7 @@
           l = [];
         n.ahead > 0 &&
           (a.push("commits"),
-          l.push(1 === n.ahead ? "1 本地提交" : `${n.ahead} 本地提交`)),
+          l.push(1 === n.ahead ? "1个本地提交" : `${n.ahead}个本地提交`)),
           null !== r &&
             r.length > 0 &&
             (a.push("tags"),
