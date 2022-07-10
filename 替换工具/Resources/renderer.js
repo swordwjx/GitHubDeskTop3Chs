@@ -73153,8 +73153,8 @@
             ve.createElement(
               "div",
               { className: "ago" },
-              "提交的 ",
-              ve.createElement(ZC, { date: n })
+              ve.createElement(ZC, { date: n }),
+              "提交"
             ),
             ve.createElement(GC, {
               emoji: this.props.emoji,

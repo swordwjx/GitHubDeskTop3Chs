@@ -73153,8 +73153,8 @@
             ve.createElement(
               "div",
               { className: "ago" },
-              "提交的 ",
-              ve.createElement(ZC, { date: n })
+              ve.createElement(ZC, { date: n }),
+              "提交"
             ),
             ve.createElement(GC, {
               emoji: this.props.emoji,
@@ -78709,12 +78709,12 @@
         const n = [];
         this.props.canBeAmended &&
           n.push({
-            label: "修改提交…",
+            label: "修改提交",
             action: this.onAmendCommit,
           }),
           this.props.canBeUndone &&
             n.push({
-              label: "撤消提交…",
+              label: "撤消提交",
               action: () => {
                 this.props.onUndoCommit &&
                   this.props.onUndoCommit(this.props.commit);
@@ -78723,7 +78723,7 @@
             }),
           to() &&
             n.push({
-              label: "重置以提交…",
+              label: "重置以提交",
               action: () => {
                 this.props.onResetToCommit &&
                   this.props.onResetToCommit(this.props.commit);
@@ -78749,7 +78749,7 @@
             },
           }),
           n.push({
-            label: "创建标记…",
+            label: "创建标记",
             action: this.onCreateTag,
             enabled: void 0 !== this.props.onCreateTag,
           });
@@ -78757,7 +78757,7 @@
         return (
           null !== r && n.push({ type: "separator" }, r),
           n.push({
-            label: "优选提交…",
+            label: "优选提交",
             action: this.onCherryPick,
             enabled: this.canCherryPick(),
           }),
