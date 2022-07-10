@@ -99540,9 +99540,9 @@
             ve.createElement(
               "p",
               null,
-              '是否确实要删除仓库"',
+              '是否确实从GitHub Desktop中删除仓库"',
               this.props.repository.name,
-              '" 从 GitHub Desktop?'
+              '"？'
             ),
             ve.createElement(
               "p",
