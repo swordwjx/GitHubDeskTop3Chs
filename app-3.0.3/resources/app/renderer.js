@@ -77168,7 +77168,7 @@
         return this.getMenuInfoMap(this.props.appMenu).get(e);
       }
       getPlatformFileManagerName() {
-        return "Explorer";
+        return "文件管理器";
       }
       renderDiscoverabilityElements(e) {
         const t = (function (e) {
@@ -78788,7 +78788,7 @@
             enabled: this.canCherryPick(),
           }),
           e.push({
-            label: `压扁 ${t} 提交…`,
+            label: `Squash ${t} 提交…`,
             action: this.onSquash,
           }),
           e
@@ -83476,7 +83476,7 @@
       ];
       return (
         e.push({
-          label: "压扁和合并",
+          label: "Squash合并",
           description: "选定分支中的提交将合并为当前分支中的一个提交。",
           value: "Squash",
         }),
@@ -89002,7 +89002,7 @@
           null,
           "通过提交帮助GitHub Desktop改进",
           " ",
-          ve.createElement(Lb, { uri: gg }, "usage stats")
+          ve.createElement(Lb, { uri: gg }, "GitHub Desktop使用情况网页")
         );
       }
       render() {
@@ -89050,7 +89050,7 @@
               {
                 className: "git-settings-description",
               },
-              "允许在仓库列表中显示最新状态指示器。禁用此选项可以提高许多仓库性能。"
+              "允许在仓库列表中显示最新状态，禁用此选项可以大量提高仓库性能。"
             )
           ),
           this.renderSSHSettings(),
@@ -89143,19 +89143,19 @@
             ve.createElement("span", { className: "warning-icon" }, "⚠️"),
             " GitHub DeskTop没有显示通知的权限。请在设置中启用它们",
             " ",
-            ve.createElement(Lb, { uri: r }, "Notifications Settings"),
+            ve.createElement(Lb, { uri: r }, "通知设置"),
             "."
           );
-        const i = n ? "properly configured" : "开启";
+        const i = n ? "properly configured" : "能够";
         return ve.createElement(
           ve.Fragment,
           null,
           " ",
-          "确保通知 ",
+          "确保GitHub DeskTop",
           i,
-          " 对于GitHub DeskTop",
+          "向你发出通知",
           " ",
-          ve.createElement(Lb, { uri: r }, "Notifications Settings"),
+          ve.createElement(Lb, { uri: r }, "通知设置"),
           "."
         );
       }
@@ -95483,19 +95483,19 @@
       }
     }
     const oO = {
-        title: "系统",
-        description: "自动切换主题以匹配系统主题",
+        title: "跟随系统",
+        description: "跟随系统自动切换主题",
         key: Zn.System,
       },
       sO = [
         {
-          title: "亮",
+          title: "亮色主题",
           description: "GitHub Desktop 的默认主题",
           key: Zn.Light,
         },
         {
-          title: "暗",
-          description: "GitHub Desktop 夜晚的使用",
+          title: "暗色主题",
+          description: "GitHub Desktop 黑夜模式",
           key: Zn.Dark,
         },
         ...(no()
@@ -96977,7 +96977,7 @@
           ve.createElement(
             Lw,
             {
-              label: "Git忽略",
+              label: "Git Ignore",
               value: this.state.gitIgnore,
               onChange: this.onGitIgnoreChange,
             },
@@ -97033,7 +97033,7 @@
               ve.createElement(
                 "p",
                 null,
-                "此目录似乎是Git仓库，你愿意",
+                "此目录似乎是Git仓库，是否改为",
                 " ",
                 ve.createElement(
                   Lb,
@@ -97041,7 +97041,7 @@
                   "添加此仓库"
                 ),
                 " ",
-                "相反?"
+                "?"
               )
             )
           : null;
@@ -102832,7 +102832,7 @@
           classNamePrefix: "merge-status",
         });
       getDialogTitle = (e) => {
-        const t = "Squash" === this.props.operation ? "压扁和 " : null;
+        const t = "Squash" === this.props.operation ? "Squash " : null;
         return be().createElement(
           be().Fragment,
           null,
