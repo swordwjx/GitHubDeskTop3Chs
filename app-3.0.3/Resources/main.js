@@ -10986,8 +10986,8 @@
 				const r = n.reduce(((e, t) => (t >= "︀" && t <= "️" ? e.length && e.push(`${e.pop()}${t}`) : e.push(t), e)), []);
 				return r.length <= 25 ? e : `${r.slice(0,25).join("")}…`
 			}(a);
-			const f = r ? "&删除…" : "&删除",
-				h = o ? "&在GitHub上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
+			const f = r ? "&删除" : "&删除",
+				h = o ? "&在 GitHub 上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
 				d = new Array,
 				p = {
 					type: "separator"
@@ -10995,24 +10995,24 @@
 				m = {
 					label: "&文件",
 					submenu: [{
-						label: "新建&仓库…",
+						label: "新建&仓库",
 						id: "new-repository",
 						click: ae("create-repository"),
 						accelerator: "CmdOrCtrl+N"
 					}, p, {
-						label: "导入&本地仓库…",
+						label: "导入&本地仓库",
 						id: "add-local-repository",
 						accelerator: "CmdOrCtrl+O",
 						click: ae("add-local-repository")
 					}, {
-						label: "&克隆仓库…",
+						label: "&克隆仓库",
 						id: "clone-repository",
 						accelerator: "CmdOrCtrl+Shift+O",
 						click: ae("clone-repository")
 					}]
 				};
 			m.submenu.push(p, {
-				label: "&选项…",
+				label: "&选项",
 				id: "preferences",
 				accelerator: "CmdOrCtrl+,",
 				click: ae("show-preferences")
@@ -11104,7 +11104,7 @@
 					visible: !1
 				}, {
 					id: "show-devtools",
-					label: "&打开开发者工具",
+					label: "&开发者工具",
 					accelerator: "Ctrl+Shift+I",
 					click(e, t) {
 						t && t.webContents.toggleDevTools()
@@ -11135,21 +11135,21 @@
 					click: ae("remove-repository")
 				}, p, {
 					id: "view-repository-on-github",
-					label: "&在 github 上查看",
+					label: "&在 GitHub 上查看",
 					accelerator: "CmdOrCtrl+Shift+G",
 					click: ae("view-repository-on-github")
 				}, {
-					label: `&在 ${t??""}中打开`,
+					label: `&在${t??""}中打开`,
 					id: "open-in-shell",
 					accelerator: "Ctrl+`",
 					click: ae("open-in-shell")
 				}, {
-					label: "&在文件资源管理器中显示",
+					label: "&在资源管理器中显示",
 					id: "open-working-directory",
 					accelerator: "CmdOrCtrl+Shift+F",
 					click: ae("open-working-directory")
 				}, {
-					label: `&在 ${e??""}编辑器中打开`,
+					label: `&在 ${e??""}中打开`,
 					id: "open-external-editor",
 					accelerator: "CmdOrCtrl+Shift+A",
 					click: ae("open-external-editor")
@@ -11159,38 +11159,38 @@
 					accelerator: "CmdOrCtrl+I",
 					click: ae("create-issue-in-repository-on-github")
 				}, p, {
-					label: "仓库&设置…",
+					label: "仓库&设置",
 					id: "show-repository-settings",
 					click: ae("show-repository-settings")
 				}]
 			});
 			const b = [{
-				label: "新建&分支…",
+				label: "新建&分支",
 				id: "create-branch",
 				accelerator: "CmdOrCtrl+Shift+N",
 				click: ae("create-branch")
 			}, {
-				label: "&重命名当前分支…",
+				label: "&重命名当前分支",
 				id: "rename-branch",
 				accelerator: "CmdOrCtrl+Shift+R",
 				click: ae("rename-branch")
 			}, {
-				label: "&删除当前分支…",
+				label: "&删除当前分支",
 				id: "delete-branch",
 				accelerator: "CmdOrCtrl+Shift+D",
 				click: ae("delete-branch")
 			}, p, {
-				label: "放弃所有更改…",
+				label: "放弃所有更改",
 				id: "discard-all-changes",
 				accelerator: "CmdOrCtrl+Shift+Backspace",
 				click: ae("discard-all-changes")
 			}, {
-				label: c ? "&暂存所有更改(stash)…" : "&暂存所有更改(stash)",
+				label: c ? "&暂存所有更改(stash)" : "&暂存所有更改(stash)",
 				id: "stash-all-changes",
 				accelerator: "CmdOrCtrl+Shift+S",
 				click: ae("stash-all-changes")
 			}, p, {
-				label: `&从 ${a}更新`,
+				label: `&从${a}中拉取更新`,
 				id: "update-branch",
 				accelerator: "CmdOrCtrl+Shift+U",
 				click: ae("update-branch")
@@ -11200,18 +11200,18 @@
 				accelerator: "CmdOrCtrl+Shift+B",
 				click: ae("compare-to-branch")
 			}, {
-				label: "&合并到当前分支…",
+				label: "&合并到当前分支",
 				id: "merge-branch",
 				accelerator: "CmdOrCtrl+Shift+M",
 				click: ae("merge-branch")
 			}];
 			b.push({
-				label: "&压扁合并到当前分支…",
+				label: "&挤压合并到当前分支",
 				id: "squash-and-merge-branch",
 				accelerator: "CmdOrCtrl+Shift+H",
 				click: ae("squash-and-merge-branch")
 			}), b.push({
-				label: "&将当前分支变基…",
+				label: "&将当前分支变基",
 				id: "rebase-branch",
 				accelerator: "CmdOrCtrl+Shift+E",
 				click: ae("rebase-branch")
@@ -11221,7 +11221,7 @@
 				accelerator: "CmdOrCtrl+Shift+C",
 				click: ae("compare-on-github")
 			}, {
-				label: "查看GitHub上的分支",
+				label: "查看 GitHub 上的分支",
 				id: "branch-on-github",
 				accelerator: "CmdOrCtrl+Alt+B",
 				click: ae("branch-on-github")
@@ -11236,12 +11236,12 @@
 				submenu: b
 			});
 			const _ = [{
-				label: "报告问题…",
+				label: "报告问题",
 				click() {
 					i.shell.openExternal("https://github.com/desktop/desktop/issues/new/choose").catch((e => log.error("Failed opening issue creation page", e)))
 				}
 			}, {
-				label: "&联系GitHub支持…",
+				label: "&联系GitHub支持",
 				click() {
 					i.shell.openExternal(`https://github.com/contact?from_desktop_app=1&app_version=${i.app.getVersion()}`).catch((e => log.error("Failed opening contact support page", e)))
 				}
