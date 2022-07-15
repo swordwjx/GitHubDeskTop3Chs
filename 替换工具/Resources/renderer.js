@@ -17632,7 +17632,8 @@
               (e[(e.RebaseWithLocalChanges = 54)] = "RebaseWithLocalChanges"),
               (e[(e.MergeCommitNoMainlineOption = 55)] =
                 "MergeCommitNoMainlineOption"),
-              (e[(e.UnsafeDirectory = 56)] = "UnsafeDirectory");
+              (e[(e.UnsafeDirectory = 56)] = "UnsafeDirectory"),
+              (e[(e.PathExistsButNotInRef = 57)] = "PathExistsButNotInRef");
           })((n = t.GitError || (t.GitError = {}))),
           (t.GitErrorRegexes = {
             "ERROR: ([\\s\\S]+?)\\n+\\[EPOLICYKEYAGE\\]\\n+fatal: 无法从远程仓库读取。":
@@ -17725,8 +17726,10 @@
               n.RebaseWithLocalChanges,
             "error: commit (.+) is a merge but no -m option was given":
               n.MergeCommitNoMainlineOption,
-            "fatal: unsafe repository \\('(.+)' is owned by someone else\\)":
+            "fatal: detected dubious ownership in repository at (.+)":
               n.UnsafeDirectory,
+            "fatal: path '(.+)' exists on disk, but not in '(.+)'":
+              n.PathExistsButNotInRef,
           }),
           (t.GitNotFoundErrorCode = "git-not-found-error"),
           (t.RepositoryDoesNotExistErrorCode =
@@ -50019,7 +50022,7 @@
       let c = {
         Accept: "application/vnd.github.v3+json, application/json",
         "Content-Type": "application/json",
-        "User-Agent": "GitHubDesktop/3.0.3 (Windows)",
+        "User-Agent": "GitHubDesktop/3.0.5 (Windows)",
       };
       t && (c.Authorization = `token ${t}`), (c = { ...c, ...s });
       const u = { headers: c, method: n, body: JSON.stringify(i) };
@@ -63533,6 +63536,7 @@
                     case bt.ko.ConflictModifyDeletedInBranch:
                     case bt.ko.MergeCommitNoMainlineOption:
                     case bt.ko.UnsafeDirectory:
+                    case bt.ko.PathExistsButNotInRef:
                       return null;
                     default:
                       return st(0, `Unknown error: ${e}`);
@@ -63899,7 +63903,7 @@
               };
         }
         const r =
-          /fatal: unsafe repository \('(.+)\' is owned by someone else\)/.exec(
+          /fatal: detected dubious ownership in repository at '(.+)'/.exec(
             n.stderr
           );
         return r ? { kind: "unsafe", path: r[1] } : { kind: "missing" };
@@ -64181,7 +64185,7 @@
     }
     async function av(e) {
       const t = await sv(),
-        n = new Kt.SemVer(e ?? "3.0.3"),
+        n = new Kt.SemVer(e ?? "3.0.5"),
         r = t.filter(
           (e) =>
             Kt.gt(new Kt.SemVer(e.version), n) &&
@@ -64296,12 +64300,12 @@
           let e = null;
           try {
             e = new URL(
-              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.3&env=production"
+              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.5&env=production"
             );
           } catch (e) {
             return (
               log.error("Error parsing updates url", e),
-              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.3&env=production"
+              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.0.5&env=production"
             );
           }
           return (
@@ -78709,12 +78713,12 @@
         const n = [];
         this.props.canBeAmended &&
           n.push({
-            label: "修改提交…",
+            label: "修改提交",
             action: this.onAmendCommit,
           }),
           this.props.canBeUndone &&
             n.push({
-              label: "撤消提交…",
+              label: "撤消提交",
               action: () => {
                 this.props.onUndoCommit &&
                   this.props.onUndoCommit(this.props.commit);
@@ -78723,7 +78727,7 @@
             }),
           to() &&
             n.push({
-              label: "重置以提交…",
+              label: "重置以提交",
               action: () => {
                 this.props.onResetToCommit &&
                   this.props.onResetToCommit(this.props.commit);
@@ -78749,7 +78753,7 @@
             },
           }),
           n.push({
-            label: "创建标记…",
+            label: "创建标记",
             action: this.onCreateTag,
             enabled: void 0 !== this.props.onCreateTag,
           });
@@ -78757,7 +78761,7 @@
         return (
           null !== r && n.push({ type: "separator" }, r),
           n.push({
-            label: "优选提交…",
+            label: "优选提交",
             action: this.onCherryPick,
             enabled: this.canCherryPick(),
           }),
@@ -96977,7 +96981,7 @@
           ve.createElement(
             Lw,
             {
-              label: "Git Ignore",
+              label: "Git ignore",
               value: this.state.gitIgnore,
               onChange: this.onGitIgnoreChange,
             },
@@ -104692,7 +104696,7 @@
           this.props.dispatcher.installGlobalLFSFilters(!1),
           setInterval(() => this.checkForUpdates(!0), 144e5),
           this.checkForUpdates(!0),
-          log.info(`launching: 3.0.3 (${Vn()})`),
+          log.info(`launching: 3.0.5 (${Vn()})`),
           log.info(`execPath: '${process.execPath}'`),
           this.state.askToMoveToApplicationsFolderSetting,
           this.checkIfThankYouIsInOrder();
@@ -105412,7 +105416,7 @@
               path: e.path,
             });
           case Pr.About:
-            const s = "3.0.3";
+            const s = "3.0.5";
             return ve.createElement(XO, {
               key: "about",
               onDismissed: t,
@@ -105443,7 +105447,7 @@
             return ve.createElement(rN, {
               key: "acknowledgements",
               onDismissed: t,
-              applicationVersion: "3.0.3",
+              applicationVersion: "3.0.5",
             });
           case Pr.RemoveRepository:
             return ve.createElement(aN, {
@@ -106519,7 +106523,7 @@
           (function (e, t, n) {
             if (void 0 === e) return !1;
             const { version: r, checkedUsers: i } = e;
-            return i.includes(t) && "3.0.3" === r;
+            return i.includes(t) && "3.0.5" === r;
           })(t, n)
         )
           return;
@@ -106548,14 +106552,14 @@
               r = n.get(t);
             return void 0 !== r ? r : null;
           })(r, n);
-        if (null === i) return void WN(this.props.dispatcher, t, n, "3.0.3");
-        const o = r ? "3.0.3" : null,
+        if (null === i) return void WN(this.props.dispatcher, t, n, "3.0.5");
+        const o = r ? "3.0.5" : null,
           s = {
             type: As.OpenThankYouCard,
             emoji: this.state.emoji,
             onOpenCard: () => this.openThankYouCard(i, o),
             onThrowCardAway: () => {
-              WN(this.props.dispatcher, t, n, "3.0.3");
+              WN(this.props.dispatcher, t, n, "3.0.5");
             },
           };
         this.props.dispatcher.setBanner(s);
@@ -107719,7 +107723,7 @@
             u = Va() ? "split" : "unified";
           return {
             eventType: "usage",
-            version: "3.0.3",
+            version: "3.0.5",
             osVersion: Vn(),
             platform: "win32",
             architecture: await Z(),
