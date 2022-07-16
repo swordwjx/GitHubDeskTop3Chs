@@ -64112,8 +64112,7 @@
     }
     const Zy =
         /^ ! \[远程拒绝\] .*? -> .*? \(拒绝允许 OAuth 应用程序创建或更新工作流 `(.*?)` 没有 `工作流` scope\)/m,
-      Xy =
-        /`([^']+)' 组织已启用或强制实施 SAML SSO.*?您必须重新授权/s,
+      Xy = /`([^']+)' 组织已启用或强制实施 SAML SSO.*?您必须重新授权/s,
       Jy = /^Can not find Squirrel$/,
       Qy =
         /System\.Net\.WebException: 无法解析远程名称: 'central\.github\.com'/,
@@ -64136,12 +64135,7 @@
               const t = e.trim(),
                 n = rv.exec(t);
               if (null === n)
-                return (
-                  log.debug(
-                    `[发布说明] 无法将文本转换为输入: ${e}`
-                  ),
-                  null
-                );
+                return log.debug(`[发布说明] 无法将文本转换为输入: ${e}`), null;
               const r = n[1].toLowerCase(),
                 i = n[2];
               return "new" === r ||
@@ -64151,9 +64145,7 @@
                 "pretext" === r ||
                 "removed" === r
                 ? { kind: r, message: i }
-                : (log.debug(
-                    `[发布说明] 找到种类 ${r} 但不是有效条目`
-                  ),
+                : (log.debug(`[发布说明] 找到种类 ${r} 但不是有效条目`),
                   { kind: "other", message: i });
             })(e)
           )
@@ -77399,16 +77391,16 @@
             null,
             "当前分支 (",
             ve.createElement(aC, null, e.branch.name),
-            ") has",
+            ") 有",
             " ",
             1 === n.behind ? "提交" : "提交",
-            " 有",
+            " 在",
             " ",
             o ? "GitHub" : "远程",
-            " 那",
             " ",
-            1 === n.behind ? "不是" : "不要",
-            " 存在于您的计算机上。"
+            " ",
+            1 === n.behind ? "不" : "不",
+            "存在于您的计算机上。"
           ),
           a = ve.createElement(
             ve.Fragment,
@@ -77417,10 +77409,10 @@
             " ",
             this.renderDiscoverabilityKeyboardShortcut(i)
           ),
-          l = `Pull ${n.behind} ${
-            1 === n.behind ? "commit" : "commits"
-          } from the ${t.name} remote`,
-          c = `Pull ${t.name}`;
+          l = `拉取 ${n.behind} ${1 === n.behind ? "提交" : "提交"} 来自远程 ${
+            t.name
+          } `,
+          c = `拉取 ${t.name}`;
         return ve.createElement(sk, {
           key: "pull-branch-action",
           title: l,
@@ -108791,10 +108783,7 @@
                   this.setState({ ...this.state, supportsBasicAuth: t });
               })
               .catch((e) =>
-                log.error(
-                  "解决 GitHub.com 是否支持密码身份验证失败",
-                  e
-                )
+                log.error("解决 GitHub.com 是否支持密码身份验证失败", e)
               );
         }
         async authenticateWithBasicAuth(e, t) {
@@ -108855,9 +108844,7 @@
               this.setState({
                 ...n,
                 loading: !1,
-                error: new Error(
-                  "个人访问令牌不能用于登录到 GitHub Desktop"
-                ),
+                error: new Error("个人访问令牌不能用于登录到 GitHub Desktop"),
               });
             else if (i.kind === wn.EnterpriseTooOld)
               this.setState({ ...n, loading: !1, error: new Error(ng) });
@@ -108875,11 +108862,7 @@
         async authenticateWithBrowser() {
           const e = this.state;
           if (!e || e.kind !== rg.Authentication)
-            return ot(
-              `登录步骤'${
-                e ? e.kind : "null"
-              }'与浏览器身份验证不兼容`
-            );
+            return ot(`登录步骤'${e ? e.kind : "null"}'与浏览器身份验证不兼容`);
           let t;
           this.setState({ ...e, loading: !0 });
           try {
@@ -109024,9 +109007,7 @@
                   break;
                 case wn.PersonalAccessTokenBlocked:
                   this.emitError(
-                    new Error(
-                      "个人访问令牌不能用于登录到 GitHub Desktop"
-                    )
+                    new Error("个人访问令牌不能用于登录到 GitHub Desktop")
                   );
                   break;
                 case wn.EnterpriseTooOld:
