@@ -53763,7 +53763,7 @@
                 env: await Ra(t, n.url),
               };
               if (r) {
-                const e = `Fetching ${n.name}`,
+                const e = `获取中 ${n.name}`,
                   t = "fetch";
                 (i = await va({ ...i, trackLFSProgress: !0 }, new sa(), (i) => {
                   if (
@@ -112870,7 +112870,7 @@
                   theirBranch: i.branch.upstream,
                   currentBranch: i.branch.name,
                 }));
-              const a = `Pulling ${r.name}`,
+              const a = `拉取中 ${r.name}`,
                 l = "pull";
               this.updatePushPullFetchProgress(e, {
                 kind: l,
@@ -112893,7 +112893,7 @@
                       (async function (e, t, n, r) {
                         let i = { env: await Ra(t, n.url), expectedErrors: Sa };
                         if (r) {
-                          const e = `Pulling ${n.name}`,
+                          const e = `拉取中 ${n.name}`,
                             t = "pull";
                           (i = await va(
                             { ...i, trackLFSProgress: !0 },
