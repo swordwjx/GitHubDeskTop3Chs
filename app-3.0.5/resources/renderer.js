@@ -96320,7 +96320,7 @@
                 ve.createElement(
                   Yb,
                   { key: "locate", onClick: this.locate, type: "submit" },
-                  "Locate…"
+                  "查找"
                 )
               ),
               this.canCloneAgain() &&
@@ -96379,14 +96379,14 @@
                   ve.createElement(
                     "div",
                     { className: "title" },
-                    "Can't find \"",
+                    "找不到\"",
                     this.props.repository.name,
                     '"'
                   ),
                   ve.createElement(
                     "div",
                     { className: "details" },
-                    "It was last seen at",
+                    "它最后一次出现是在",
                     " ",
                     ve.createElement(
                       "span",
@@ -101225,11 +101225,11 @@
       render() {
         const e = [
           {
-            title: "To contribute to the parent project",
+            title: "为父项目做出贡献",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为",
               " ",
               ve.createElement(
                 "strong",
@@ -101237,16 +101237,16 @@
                 this.props.repository.gitHubRepository.parent.fullName
               ),
               " ",
-              "repository"
+              "存储库做出贡献"
             ),
             key: Rr.Parent,
           },
           {
-            title: "For my own purposes",
+            title: "为了我自己的目的",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为",
               " ",
               ve.createElement(
                 "strong",
@@ -101254,7 +101254,7 @@
                 this.props.repository.gitHubRepository.fullName
               ),
               " ",
-              "repository"
+              "存储库做出贡献"
             ),
             key: Rr.Self,
           },
@@ -101263,7 +101263,7 @@
           eC,
           {
             id: "fork-settings",
-            title: "How are you planning to use this fork?",
+            title: "你打算如何使用这个分支？",
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
           },
@@ -101275,7 +101275,7 @@
               null,
               ve.createElement(oT, {
                 label:
-                  "You have changes on this branch. What would you like to do with them?",
+                  "您在此分支上有更改。您想用它们做什么？",
                 items: e,
                 selectedKey: this.state.forkContributionTarget,
                 onSelectionChanged: this.onSelectionChanged,
@@ -101838,9 +101838,9 @@
           n = ve.createElement(
             ve.Fragment,
             null,
-            "Thanks so much for all your hard work on GitHub Desktop",
+            "非常感谢您在GitHub Desktop",
             t,
-            ". We're so grateful for your willingness to contribute and make the app better for everyone!"
+            "上的所有辛勤工作。我们非常感谢您愿意做出贡献，并使应用程序更好地为每个人服务！"
           );
         return ve.createElement(
           eC,
