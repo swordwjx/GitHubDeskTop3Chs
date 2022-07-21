@@ -53763,7 +53763,7 @@
                 env: await Ra(t, n.url),
               };
               if (r) {
-                const e = `Fetching ${n.name}`,
+                const e = `获取中 ${n.name}`,
                   t = "fetch";
                 (i = await va({ ...i, trackLFSProgress: !0 }, new sa(), (i) => {
                   if (
@@ -64112,8 +64112,7 @@
     }
     const Zy =
         /^ ! \[远程拒绝\] .*? -> .*? \(拒绝允许 OAuth 应用程序创建或更新工作流 `(.*?)` 没有 `工作流` scope\)/m,
-      Xy =
-        /`([^']+)' 组织已启用或强制实施 SAML SSO.*?您必须重新授权/s,
+      Xy = /`([^']+)' 组织已启用或强制实施 SAML SSO.*?您必须重新授权/s,
       Jy = /^Can not find Squirrel$/,
       Qy =
         /System\.Net\.WebException: 无法解析远程名称: 'central\.github\.com'/,
@@ -64136,12 +64135,7 @@
               const t = e.trim(),
                 n = rv.exec(t);
               if (null === n)
-                return (
-                  log.debug(
-                    `[发布说明] 无法将文本转换为输入: ${e}`
-                  ),
-                  null
-                );
+                return log.debug(`[发布说明] 无法将文本转换为输入: ${e}`), null;
               const r = n[1].toLowerCase(),
                 i = n[2];
               return "new" === r ||
@@ -64151,9 +64145,7 @@
                 "pretext" === r ||
                 "removed" === r
                 ? { kind: r, message: i }
-                : (log.debug(
-                    `[发布说明] 找到种类 ${r} 但不是有效条目`
-                  ),
+                : (log.debug(`[发布说明] 找到种类 ${r} 但不是有效条目`),
                   { kind: "other", message: i });
             })(e)
           )
@@ -77399,16 +77391,16 @@
             null,
             "当前分支 (",
             ve.createElement(aC, null, e.branch.name),
-            ") has",
+            ") 有",
             " ",
             1 === n.behind ? "提交" : "提交",
-            " 有",
+            " 在",
             " ",
             o ? "GitHub" : "远程",
-            " 那",
             " ",
-            1 === n.behind ? "不是" : "不要",
-            " 存在于您的计算机上。"
+            " ",
+            1 === n.behind ? "不" : "不",
+            "存在于您的计算机上。"
           ),
           a = ve.createElement(
             ve.Fragment,
@@ -77417,10 +77409,10 @@
             " ",
             this.renderDiscoverabilityKeyboardShortcut(i)
           ),
-          l = `Pull ${n.behind} ${
-            1 === n.behind ? "commit" : "commits"
-          } from the ${t.name} remote`,
-          c = `Pull ${t.name}`;
+          l = `拉取 ${n.behind} ${1 === n.behind ? "提交" : "提交"} 来自远程 ${
+            t.name
+          } `,
+          c = `拉取 ${t.name}`;
         return ve.createElement(sk, {
           key: "pull-branch-action",
           title: l,
@@ -96328,7 +96320,7 @@
                 ve.createElement(
                   Yb,
                   { key: "locate", onClick: this.locate, type: "submit" },
-                  "Locate…"
+                  "查找"
                 )
               ),
               this.canCloneAgain() &&
@@ -96387,14 +96379,14 @@
                   ve.createElement(
                     "div",
                     { className: "title" },
-                    "Can't find \"",
+                    "找不到\"",
                     this.props.repository.name,
                     '"'
                   ),
                   ve.createElement(
                     "div",
                     { className: "details" },
-                    "It was last seen at",
+                    "它最后一次出现是在",
                     " ",
                     ve.createElement(
                       "span",
@@ -101233,11 +101225,11 @@
       render() {
         const e = [
           {
-            title: "To contribute to the parent project",
+            title: "为父项目做出贡献",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为",
               " ",
               ve.createElement(
                 "strong",
@@ -101245,16 +101237,16 @@
                 this.props.repository.gitHubRepository.parent.fullName
               ),
               " ",
-              "repository"
+              "存储库做出贡献"
             ),
             key: Rr.Parent,
           },
           {
-            title: "For my own purposes",
+            title: "为了我自己的目的",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为",
               " ",
               ve.createElement(
                 "strong",
@@ -101262,7 +101254,7 @@
                 this.props.repository.gitHubRepository.fullName
               ),
               " ",
-              "repository"
+              "存储库做出贡献"
             ),
             key: Rr.Self,
           },
@@ -101271,7 +101263,7 @@
           eC,
           {
             id: "fork-settings",
-            title: "How are you planning to use this fork?",
+            title: "你打算如何使用这个分支？",
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
           },
@@ -101283,7 +101275,7 @@
               null,
               ve.createElement(oT, {
                 label:
-                  "You have changes on this branch. What would you like to do with them?",
+                  "您在此分支上有更改。您想用它们做什么？",
                 items: e,
                 selectedKey: this.state.forkContributionTarget,
                 onSelectionChanged: this.onSelectionChanged,
@@ -101846,9 +101838,9 @@
           n = ve.createElement(
             ve.Fragment,
             null,
-            "Thanks so much for all your hard work on GitHub Desktop",
+            "非常感谢您在GitHub Desktop",
             t,
-            ". We're so grateful for your willingness to contribute and make the app better for everyone!"
+            "上的所有辛勤工作。我们非常感谢您愿意做出贡献，并使应用程序更好地为每个人服务！"
           );
         return ve.createElement(
           eC,
@@ -108791,10 +108783,7 @@
                   this.setState({ ...this.state, supportsBasicAuth: t });
               })
               .catch((e) =>
-                log.error(
-                  "解决 GitHub.com 是否支持密码身份验证失败",
-                  e
-                )
+                log.error("解决 GitHub.com 是否支持密码身份验证失败", e)
               );
         }
         async authenticateWithBasicAuth(e, t) {
@@ -108855,9 +108844,7 @@
               this.setState({
                 ...n,
                 loading: !1,
-                error: new Error(
-                  "个人访问令牌不能用于登录到 GitHub Desktop"
-                ),
+                error: new Error("个人访问令牌不能用于登录到 GitHub Desktop"),
               });
             else if (i.kind === wn.EnterpriseTooOld)
               this.setState({ ...n, loading: !1, error: new Error(ng) });
@@ -108875,11 +108862,7 @@
         async authenticateWithBrowser() {
           const e = this.state;
           if (!e || e.kind !== rg.Authentication)
-            return ot(
-              `登录步骤'${
-                e ? e.kind : "null"
-              }'与浏览器身份验证不兼容`
-            );
+            return ot(`登录步骤'${e ? e.kind : "null"}'与浏览器身份验证不兼容`);
           let t;
           this.setState({ ...e, loading: !0 });
           try {
@@ -109024,9 +109007,7 @@
                   break;
                 case wn.PersonalAccessTokenBlocked:
                   this.emitError(
-                    new Error(
-                      "个人访问令牌不能用于登录到 GitHub Desktop"
-                    )
+                    new Error("个人访问令牌不能用于登录到 GitHub Desktop")
                   );
                   break;
                 case wn.EnterpriseTooOld:
@@ -112889,7 +112870,7 @@
                   theirBranch: i.branch.upstream,
                   currentBranch: i.branch.name,
                 }));
-              const a = `Pulling ${r.name}`,
+              const a = `拉取中 ${r.name}`,
                 l = "pull";
               this.updatePushPullFetchProgress(e, {
                 kind: l,
@@ -112912,7 +112893,7 @@
                       (async function (e, t, n, r) {
                         let i = { env: await Ra(t, n.url), expectedErrors: Sa };
                         if (r) {
-                          const e = `Pulling ${n.name}`,
+                          const e = `拉取中 ${n.name}`,
                             t = "pull";
                           (i = await va(
                             { ...i, trackLFSProgress: !0 },
