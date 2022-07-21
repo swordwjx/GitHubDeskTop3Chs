@@ -96320,7 +96320,7 @@
                 ve.createElement(
                   Yb,
                   { key: "locate", onClick: this.locate, type: "submit" },
-                  "Locate…"
+                  "查找"
                 )
               ),
               this.canCloneAgain() &&
@@ -96379,14 +96379,14 @@
                   ve.createElement(
                     "div",
                     { className: "title" },
-                    "Can't find \"",
+                    "找不到\"",
                     this.props.repository.name,
                     '"'
                   ),
                   ve.createElement(
                     "div",
                     { className: "details" },
-                    "It was last seen at",
+                    "它最后一次出现是在",
                     " ",
                     ve.createElement(
                       "span",
