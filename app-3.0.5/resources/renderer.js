@@ -70887,7 +70887,7 @@
           null,
           ve.createElement(
             cC,
-            { actionTitle: "Publish", onAction: this.props.onPublish },
+            { actionTitle: "发布", onAction: this.props.onPublish },
             ve.createElement(
               "div",
               null,
@@ -75780,7 +75780,7 @@
           e.noNewLineIndicator &&
             ve.createElement(Tv, {
               symbol: SS,
-              title: "No newline at end of file",
+              title: "文件末尾没有换行符",
             })
         );
       }
@@ -77925,7 +77925,7 @@
                 "li",
                 {
                   className: "commit-summary-meta-item without-truncation",
-                  title: "Diff Options",
+                  title: "差异选项",
                 },
                 ve.createElement(eS, {
                   sourceTab: Ye.History,
@@ -84389,7 +84389,7 @@
                         Lb,
                         {
                           uri: oi,
-                          title: "Open the Visual Studio Code website",
+                          title: "打开Visual Studio Code网站",
                         },
                         ii
                       ),
@@ -84398,7 +84398,7 @@
                         Lb,
                         {
                           uri: "https://atom.io",
-                          title: "Open the Atom website",
+                          title: "打开Atom网站",
                         },
                         "Atom"
                       ),
@@ -85201,7 +85201,7 @@
           eC,
           {
             id: "rename-branch",
-            title: "Rename branch",
+            title: "重命名分支",
             onDismissed: this.props.onDismissed,
             onSubmit: this.renameBranch,
           },
@@ -86728,7 +86728,7 @@
         const e = this.props.progress,
           t = e.title || "Hang on…";
         return ve.createElement(Vx, {
-          title: "Reverting…",
+          title: "还原…",
           description: t,
           progressValue: e.value,
           className: "revert-progress",
@@ -98473,7 +98473,7 @@
           {
             id: "install-git",
             type: "warning",
-            title: "Unable to locate Git",
+            title: "无法找到Git",
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
           },
@@ -99010,7 +99010,7 @@
               ve.createElement(
                 "div",
                 null,
-                "Sign in to your GitHub.com account to access your repositories."
+                "登录您的GitHub.com帐户访问您的存储库."
               )
             );
           case eN.Enterprise:
@@ -99020,7 +99020,7 @@
               ve.createElement(
                 "div",
                 null,
-                "If you have a GitHub Enterprise or AE account at work, sign in to it to get access to your repositories."
+                "如果您有GitHub Enterprise或AE帐户，请登录以访问您的存储库。"
               )
             );
           default:
@@ -100041,7 +100041,7 @@
         return ve.createElement(
           eC,
           {
-            title: "Upstream already exists",
+            title: "上游已经存在",
             onDismissed: this.props.onDismissed,
             onSubmit: this.onUpdate,
             type: "warning",
@@ -100863,12 +100863,12 @@
               null,
               "由于包含对工作流文件的修改，推送被服务器拒绝 ",
               ve.createElement(aC, null, this.props.rejectedPath),
-              ". In order to be able to push to workflow files GitHub Desktop needs to request additional permissions."
+              ", 为了能够推送工作流文件，GitHub Desktop需要请求额外的权限。"
             ),
             ve.createElement(
               "p",
               null,
-              "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?"
+              "是否打开浏览器以授予GitHub Desktop更新工作流文件的权限?"
             )
           ),
           ve.createElement(
@@ -100912,12 +100912,12 @@
               null,
               'The "',
               this.props.organizationName,
-              "\" organization has enabled or enforced SAML SSO. To access this repository, you must sign in again and grant GitHub Desktop permission to access the organization's repositories."
+              '" 组织已启用或强制SAML SSO。要访问此存储库，您必须再次登录并授予GitHub Desktop访问组织存储库的权限。'
             ),
             ve.createElement(
               "p",
               null,
-              "Would you like to open a browser to grant GitHub Desktop permission to access the repository?"
+              "是否打开浏览器授予GitHub Desktop访问存储库的权限?"
             )
           ),
           ve.createElement(
@@ -101225,11 +101225,11 @@
       render() {
         const e = [
           {
-            title: "To contribute to the parent project",
+            title: "为父项目做出贡献",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为项目做出贡献",
               " ",
               ve.createElement(
                 "strong",
@@ -101242,11 +101242,11 @@
             key: Rr.Parent,
           },
           {
-            title: "For my own purposes",
+            title: "为了我自己的目的",
             description: ve.createElement(
               ve.Fragment,
               null,
-              "We will help you contribute to the",
+              "我们将帮助您为项目做出贡献",
               " ",
               ve.createElement(
                 "strong",
@@ -101263,7 +101263,7 @@
           eC,
           {
             id: "fork-settings",
-            title: "How are you planning to use this fork?",
+            title: "你打算怎么用这个分支?",
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
           },
@@ -101274,8 +101274,7 @@
               Ub,
               null,
               ve.createElement(oT, {
-                label:
-                  "You have changes on this branch. What would you like to do with them?",
+                label: "您对此分支进行了更改,你想用它们做什么?",
                 items: e,
                 selectedKey: this.state.forkContributionTarget,
                 onSelectionChanged: this.onSelectionChanged,
@@ -101396,7 +101395,7 @@
         return ve.createElement(
           eC,
           {
-            title: "Error",
+            title: "错误",
             id: "local-changes-overwritten",
             loading: this.state.stashingAndRetrying,
             disabled: this.state.stashingAndRetrying,
@@ -101646,7 +101645,7 @@
         return ve.createElement(
           eC,
           {
-            title: "Move GitHub Desktop to the Applications folder?",
+            title: "将GitHub Desktop移动到应用程序文件夹?",
             id: "move-to-applications-folder",
             dismissable: !1,
             onDismissed: this.props.onDismissed,
@@ -101659,10 +101658,10 @@
             ve.createElement(
               "p",
               null,
-              "We've detected that you're not running GitHub Desktop from the Applications folder of your machine. This could cause problems with the app, including impacting your ability to sign in.",
+              "我们检测到您没有从计算机的应用程序文件夹运行GitHub Desktop,这可能会导致应用程序出现问题，包括影响您的登录能力。",
               ve.createElement("br", null),
               ve.createElement("br", null),
-              "Do you want to move GitHub Desktop to the Applications folder now? This will also restart the app."
+              "是否要立即将GitHub Desktop移动到应用程序文件夹？这也将重新启动应用程序。"
             ),
             ve.createElement(
               "div",
@@ -102322,7 +102321,7 @@
           eC,
           {
             id: "abort-warning",
-            title: `Confirm abort ${e.toLowerCase()}`,
+            title: `确认中止 ${e.toLowerCase()}`,
             onDismissed: this.onCancel,
             onSubmit: this.onSubmit,
             disabled: this.state.isAborting,
@@ -102577,7 +102576,7 @@
               ourBranch: h,
               theirBranch: p,
               manualResolutions: u,
-              headerTitle: `Resolve conflicts before ${c.kind}`,
+              headerTitle: `解决冲突之前 ${c.kind}`,
               submitButton: f,
               abortButton: m,
               onSubmit: this.onContinueAfterConflicts,
@@ -103543,7 +103542,7 @@
           {
             id: "warning-before-reset",
             type: "warning",
-            title: "Reset to commit",
+            title: "重置以提交",
             loading: this.state.isLoading,
             disabled: this.state.isLoading,
             onSubmit: this.onSubmit,
@@ -104254,7 +104253,7 @@
         return ve.createElement(
           eC,
           {
-            title: "Error",
+            title: "错误",
             id: "discard-changes-retry",
             loading: e,
             disabled: e,
@@ -104265,17 +104264,11 @@
           ve.createElement(
             Jw,
             null,
-            ve.createElement(
-              "p",
-              null,
-              "Failed to discard changes to ",
-              ja,
-              "."
-            ),
+            ve.createElement("p", null, "未能放弃对的更改 ", ja, "."),
             ve.createElement(
               "div",
               null,
-              "Common reasons are:",
+              "常见的原因有：:",
               ve.createElement(
                 "ul",
                 null,
@@ -104284,13 +104277,9 @@
                   null,
                   "The ",
                   ja,
-                  " is configured to delete items immediately."
+                  " 配置为立即删除项目."
                 ),
-                ve.createElement(
-                  "li",
-                  null,
-                  "Restricted access to move the file(s)."
-                )
+                ve.createElement("li", null, "移动文件的访问受限.")
               )
             ),
             ve.createElement(
@@ -104561,7 +104550,7 @@
           {
             id: "ssh-user-password",
             type: "normal",
-            title: "SSH User Password",
+            title: "SSH用户密码",
             dismissable: !1,
             onSubmit: this.onSubmit,
             onDismissed: this.props.onDismissed,
@@ -107466,7 +107455,7 @@
         async clone(e, t, n) {
           const r = new br(t, e);
           this._repositories.push(r);
-          const i = `Cloning into ${t}`;
+          const i = `克隆到 ${t}`;
           this.stateByID.set(r.id, { kind: "clone", title: i, value: 0 }),
             this.emitUpdate();
           let o = !0;
