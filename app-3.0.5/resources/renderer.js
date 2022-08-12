@@ -63434,7 +63434,7 @@
           const p = u
               ? (function (e) {
                   if (ny(e))
-                    return "身份验证失败。一些常见原因包括：\n\n- 您尚未登录到您的帐户：请参阅文件>选项。\n- 您可能需要注销并重新登录才能刷新令牌。\n- 您没有访问此存储库的权限。\n- 存储库存档在 GitHub 上。检查存储库设置以确认您仍可以推送提交。\n- 如果您使用 SSH 身份验证，请检查您的密钥是否已添加到 ssh 代理并与您的帐户关联。\n- 如果使用 SSH 身份验证，请确保存储库托管服务的主机密钥验证通过。\n- 如果使用了用户名/密码身份验证，则可能需要使用个人访问令牌而不是帐户密码。请查看存储库托管服务的文档。";
+                    return "身份验证失败。一些常见原因包括：\n\n- 您尚未登录到您的帐户：请参阅文件>选项。\n- 您可能需要注销并重新登录才能刷新令牌。\n- 您没有访问此仓库的权限。\n- 仓库存档在 GitHub 上。检查仓库设置以确认您仍可以推送提交。\n- 如果您使用 SSH 身份验证，请检查您的密钥是否已添加到 ssh 代理并与您的帐户关联。\n- 如果使用 SSH 身份验证，请确保仓库托管服务的主机密钥验证通过。\n- 如果使用了用户名/密码身份验证，则可能需要使用个人访问令牌而不是帐户密码。请查看仓库托管服务的文档。";
                   switch (e) {
                     case bt.ko.SSHKeyAuditUnverified:
                       return "SSH密钥未验证。";
@@ -65281,8 +65281,8 @@
             : za;
         Fv([
           ...this.buildAliasMenuItems(),
-          { label: "复制存储库名称", action: this.copyNameToClipboard },
-          { label: "复制存储库路径", action: this.copyPathToClipboard },
+          { label: "复制仓库名称", action: this.copyNameToClipboard },
+          { label: "复制仓库路径", action: this.copyPathToClipboard },
           { type: "separator" },
           { label: "在GitHub上查看", action: this.viewOnGitHub, enabled: r },
           {
@@ -70994,7 +70994,7 @@
           ve.createElement(pC, {
             value: Rr.Parent,
             checked: this.props.forkContributionTarget === Rr.Parent,
-            label: "向父存储库贡献内容",
+            label: "向父仓库贡献内容",
             onSelected: this.onForkContributionTargetChanged,
           }),
           ve.createElement(pC, {
@@ -77174,7 +77174,7 @@
           ve.Fragment,
           null,
           t,
-          " 菜单或",
+          "菜单或",
           " ",
           this.renderDiscoverabilityKeyboardShortcut(e)
         );
@@ -77286,7 +77286,7 @@
           o = ve.createElement(
             ve.Fragment,
             null,
-            "You have ",
+            "您有 ",
             i,
             " ",
             1 === i ? "更改" : "更改",
@@ -96520,7 +96520,7 @@
               ve.createElement(
                 "p",
                 null,
-                "Git存储库",
+                "Git仓库",
                 t !== e &&
                   ve.createElement(
                     ve.Fragment,
@@ -99010,7 +99010,7 @@
               ve.createElement(
                 "div",
                 null,
-                "登录您的GitHub.com帐户访问您的存储库."
+                "登录您的GitHub.com帐户访问您的仓库."
               )
             );
           case eN.Enterprise:
@@ -99020,7 +99020,7 @@
               ve.createElement(
                 "div",
                 null,
-                "如果您有GitHub Enterprise或AE帐户，请登录以访问您的存储库。"
+                "如果您有GitHub Enterprise或AE帐户，请登录以访问您的仓库。"
               )
             );
           default:
@@ -99282,7 +99282,7 @@
             ve.createElement(
               "p",
               null,
-              "将存储库添加到 GitHub Desktop 以开始协作"
+              "将仓库添加到 GitHub Desktop 以开始协作"
             )
           ),
           ve.createElement(
@@ -99450,7 +99450,7 @@
             )
           : this.renderButtonGroupButton(
               Qu,
-              "创建教程存储库",
+              "创建教程仓库",
               this.props.onCreateTutorialRepository,
               "submit"
             );
@@ -100912,12 +100912,12 @@
               null,
               'The "',
               this.props.organizationName,
-              '" 组织已启用或强制SAML SSO。要访问此存储库，您必须再次登录并授予GitHub Desktop访问组织存储库的权限。'
+              '" 组织已启用或强制SAML SSO。要访问此仓库，您必须再次登录并授予GitHub Desktop访问组织仓库的权限。'
             ),
             ve.createElement(
               "p",
               null,
-              "是否打开浏览器授予GitHub Desktop访问存储库的权限?"
+              "是否打开浏览器授予GitHub Desktop访问仓库的权限?"
             )
           ),
           ve.createElement(
@@ -109375,7 +109375,7 @@
             e.workflowPreferences,
             e.isTutorialRepository
           );
-          return jr(n) || ot("存储库必须是 GitHub 存储库"), n;
+          return jr(n) || ot("仓库必须是 GitHub 仓库"), n;
         }
         async _upsertGitHubRepository(e, t, n = !1) {
           const r =
