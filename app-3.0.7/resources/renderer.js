@@ -78109,22 +78109,19 @@
         t && t.endpoint !== _n() && (e = "查看 GitHub Enterprise");
         const n = [];
         this.props.canBeAmended &&
-          n.push({
-            label: "修改提交",
-            action: this.onAmendCommit,
-          }),
+          n.push({ label: "修改提交…", action: this.onAmendCommit }),
           this.props.canBeUndone &&
             n.push({
-              label: "撤消提交",
+              label: "撤消提交…",
               action: () => {
                 this.props.onUndoCommit &&
                   this.props.onUndoCommit(this.props.commit);
               },
               enabled: void 0 !== this.props.onUndoCommit,
             }),
-          to() &&
+          uo() &&
             n.push({
-              label: "重置以提交",
+              label: "重置以提交…",
               action: () => {
                 this.props.onResetToCommit &&
                   this.props.onResetToCommit(this.props.commit);
@@ -78133,43 +78130,40 @@
                 this.props.canBeResetTo &&
                 void 0 !== this.props.onResetToCommit,
             }),
-          n.push({
-            label: "在提交中还原更改",
-            action: () => {
-              this.props.onRevertCommit &&
-                this.props.onRevertCommit(this.props.commit);
+          n.push(
+            {
+              label: "在提交中还原更改",
+              action: () => {
+                this.props.onRevertCommit &&
+                  this.props.onRevertCommit(this.props.commit);
+              },
+              enabled: void 0 !== this.props.onRevertCommit,
             },
-            enabled: void 0 !== this.props.onRevertCommit,
-          }),
-          n.push({ type: "separator" }),
-          n.push({
-            label: "从提交创建分支",
-            action: () => {
-              this.props.onCreateBranch &&
-                this.props.onCreateBranch(this.props.commit);
+            { type: "separator" },
+            {
+              label: "从提交创建分支",
+              action: () => {
+                this.props.onCreateBranch &&
+                  this.props.onCreateBranch(this.props.commit);
+              },
             },
-          }),
-          n.push({
-            label: "创建标记",
-            action: this.onCreateTag,
-            enabled: void 0 !== this.props.onCreateTag,
-          });
+            {
+              label: "创建标记…",
+              action: this.onCreateTag,
+              enabled: void 0 !== this.props.onCreateTag,
+            }
+          );
         const r = this.getDeleteTagsMenuItem();
         return (
           null !== r && n.push({ type: "separator" }, r),
-          n.push({
-            label: "优选提交",
-            action: this.onCherryPick,
-            enabled: this.canCherryPick(),
-          }),
           n.push(
             {
-              type: "separator",
+              label: "优选提交…",
+              action: this.onCherryPick,
+              enabled: this.canCherryPick(),
             },
-            {
-              label: "复制 SHA",
-              action: this.onCopySHA,
-            },
+            { type: "separator" },
+            { label: "复制 SHA", action: this.onCopySHA },
             {
               label: e,
               action: this.onViewOnGitHub,
@@ -78180,20 +78174,15 @@
         );
       }
       getContextMenuMultipleCommits() {
-        const e = [],
-          t = this.props.selectedCommits.length;
-        return (
-          e.push({
-            label: `优选 ${t} 提交…`,
+        const e = this.props.selectedCommits.length;
+        return [
+          {
+            label: `优选 ${e} 提交…`,
             action: this.onCherryPick,
             enabled: this.canCherryPick(),
-          }),
-          e.push({
-            label: `Squash ${t} 提交…`,
-            action: this.onSquash,
-          }),
-          e
-        );
+          },
+          { label: `优选 ${e} 提交…`, action: this.onSquash },
+        ];
       }
       canCherryPick() {
         const { onCherryPick: e, isCherryPickInProgress: t } = this.props;
@@ -78205,7 +78194,7 @@
         if (1 === n.tags.length) {
           const r = n.tags[0];
           return {
-            label: `删除标记 ${r}`,
+            label: `删除标记${r}`,
             action: () => t(r),
             enabled: e.includes(r),
           };
@@ -78223,8 +78212,8 @@
       onDragStart = () => {
         document.activeElement instanceof HTMLElement &&
           document.activeElement.blur(),
-          Gy.setDragData({
-            type: Wy.Commit,
+          Yy.setDragData({
+            type: Gy.Commit,
             commits: this.props.selectedCommits,
           });
       };
@@ -78251,7 +78240,7 @@
         const t = this.props.commitSHAs[e],
           n = this.props.commitLookup.get(t);
         if (null == n) return null;
-        const r = new Set(this.props.tagsToPush || []),
+        const r = new Set(this.props.tagsToPush ?? []),
           i = this.props.localCommitSHAs.includes(n.sha),
           o = n.tags.filter((e) => r.has(e)),
           s = (i || o.length > 0) && !1 === this.props.isLocalRepository,
@@ -78260,9 +78249,9 @@
           key: n.sha,
           gitHubRepository: this.props.gitHubRepository,
           isLocal: i,
-          canBeUndone: this.props.canUndoCommits && i && 0 === e,
-          canBeAmended: this.props.canAmendCommits && 0 === e,
-          canBeResetTo: this.props.canResetToCommits && a,
+          canBeUndone: !0 === this.props.canUndoCommits && i && 0 === e,
+          canBeAmended: !0 === this.props.canAmendCommits && 0 === e,
+          canBeResetTo: !0 === this.props.canResetToCommits && a,
           showUnpushedIndicator: s,
           unpushedIndicatorTitle: this.getUnpushedIndicatorTitle(i, o.length),
           unpushedTags: o,
@@ -78295,10 +78284,10 @@
         const r = [...e, t].map((e) =>
           this.props.commitSHAs.findIndex((t) => t === e.sha)
         );
-        this.props.onSquash(e, t, this.getLastRetainedCommitRef(r), n);
+        this.props.onSquash?.(e, t, this.getLastRetainedCommitRef(r), n);
       };
       onRenderCommitDragElement = (e) => {
-        this.props.onRenderCommitDragElement(
+        this.props.onRenderCommitDragElement?.(
           e,
           this.lookupCommits(this.props.selectedSHAs)
         );
@@ -78307,14 +78296,14 @@
         return e
           ? "此提交尚未推送到远程仓库"
           : t > 0
-          ? `此提交具有 ${t} 标记 ${t > 1 ? "s" : ""} 到推送 `
+          ? `此提交具有 ${t} 标记${t > 1 ? "s" : ""} 到推送`
           : void 0;
       }
       onSelectionChanged = (e) => {
         const t = [...e].sort((e, t) => t - e),
           n = t.map((e) => this.props.commitSHAs[e]),
           r = this.lookupCommits(n);
-        this.props.onCommitsSelected(r, this.isContiguous(t));
+        this.props.onCommitsSelected?.(r, this.isContiguous(t));
       };
       isContiguous(e) {
         if (e.length <= 1) return !0;
@@ -78327,7 +78316,7 @@
       onSelectedRowChanged = (e) => {
         const t = this.props.commitSHAs[e],
           n = this.props.commitLookup.get(t);
-        n && this.props.onCommitsSelected([n], !0);
+        n && this.props.onCommitsSelected?.([n], !0);
       };
       lookupCommits(e) {
         const t = [];
@@ -78347,51 +78336,65 @@
         const n = Math.ceil(t / 50),
           r = Math.floor(e / 50),
           i = r + n;
-        this.props.onScroll(r, i),
-          null != this.props.onCompareListScrolled &&
-            this.props.onCompareListScrolled(e);
+        this.props.onScroll?.(r, i), this.props.onCompareListScrolled?.(e);
       };
       rowForSHA(e) {
         const t = e;
         return t ? this.props.commitSHAs.findIndex((e) => e === t) : -1;
       }
+      getRowCustomClassMap = () => {
+        const { commitSHAs: e, shasToHighlight: t } = this.props;
+        if (void 0 === t || 0 === t.length) return;
+        const n = e.filter((e) => t.includes(e)).map((e) => this.rowForSHA(e));
+        if (0 === n.length) return;
+        const r = new Map();
+        return r.set("highlighted", n), r;
+      };
       render() {
-        return 0 === this.props.commitSHAs.length
-          ? ve.createElement(
-              "div",
-              { className: "panel blankslate" },
-              this.props.emptyListMessage
-            )
-          : ve.createElement(
-              "div",
-              { id: "commit-list" },
-              ve.createElement(Fb, {
-                rowCount: this.props.commitSHAs.length,
-                rowHeight: 50,
-                selectedRows: this.props.selectedSHAs.map((e) =>
-                  this.rowForSHA(e)
-                ),
-                rowRenderer: this.renderCommit,
-                onDropDataInsertion: this.onDropDataInsertion,
-                onSelectionChanged: this.onSelectionChanged,
-                onSelectedRowChanged: this.onSelectedRowChanged,
-                selectionMode: "multi",
-                onScroll: this.onScroll,
-                insertionDragType: this.props.reorderingEnabled
-                  ? Wy.Commit
-                  : void 0,
-                invalidationProps: {
-                  commits: this.props.commitSHAs,
-                  localCommitSHAs: this.props.localCommitSHAs,
-                  commitLookupHash: this.commitsHash(this.getVisibleCommits()),
-                  tagsToPush: this.props.tagsToPush,
-                },
-                setScrollTop: this.props.compareListScrollTop,
-              })
-            );
+        const {
+          commitSHAs: e,
+          selectedSHAs: t,
+          shasToHighlight: n,
+          emptyListMessage: r,
+        } = this.props;
+        if (0 === e.length)
+          return ve.createElement(
+            "div",
+            { className: "panel blankslate" },
+            r ?? "No commits to list"
+          );
+        const i = pl()({
+          "has-highlighted-commits": void 0 !== n && n.length > 0,
+        });
+        return ve.createElement(
+          "div",
+          { id: "commit-list", className: i },
+          ve.createElement(Wb, {
+            rowCount: e.length,
+            rowHeight: 50,
+            selectedRows: t.map((e) => this.rowForSHA(e)),
+            rowRenderer: this.renderCommit,
+            onDropDataInsertion: this.onDropDataInsertion,
+            onSelectionChanged: this.onSelectionChanged,
+            onSelectedRowChanged: this.onSelectedRowChanged,
+            selectionMode: "multi",
+            onScroll: this.onScroll,
+            insertionDragType:
+              !0 === this.props.reorderingEnabled ? Gy.Commit : void 0,
+            invalidationProps: {
+              commits: this.props.commitSHAs,
+              localCommitSHAs: this.props.localCommitSHAs,
+              commitLookupHash: this.commitsHash(this.getVisibleCommits()),
+              tagsToPush: this.props.tagsToPush,
+              shasToHighlight: this.props.shasToHighlight,
+            },
+            setScrollTop: this.props.compareListScrollTop,
+            rowCustomClassNameMap: this.getRowCustomClassMap(),
+          })
+        );
       }
       onDropDataInsertion = (e, t) => {
-        if (void 0 === this.props.onDropCommitInsertion || t.type !== Wy.Commit)
+        if (void 0 === this.props.onDropCommitInsertion || t.type !== Gy.Commit)
           return;
         const n = 0 === e ? null : e - 1;
         if (
@@ -78426,16 +78429,905 @@
     function Ik(e) {
       return e.map(Pk).join(" ");
     }
-    function Mk(e) {
+    var Mk;
+    !(function (e) {
+      (e[(e.Unreachable = 0)] = "Unreachable"),
+        (e[(e.Reachable = 1)] = "Reachable");
+    })(Mk || (Mk = {}));
+    class Ok extends ve.Component {
+      constructor(e) {
+        super(e), (this.state = { selectedTab: e.selectedTab });
+      }
+      componentWillUpdate(e) {
+        const t = this.props.selectedTab,
+          n = e.selectedTab;
+        t !== n && this.setState({ selectedTab: n });
+      }
+      onTabClicked = (e) => {
+        this.setState({ selectedTab: e });
+      };
+      getShasToDisplay = () => {
+        const { selectedTab: e } = this.state,
+          { shasInDiff: t, selectedShas: n } = this.props;
+        return e === Mk.Reachable ? t : n.filter((e) => !t.includes(e));
+      };
+      renderTabs() {
+        return ve.createElement(
+          nC,
+          {
+            onTabClicked: this.onTabClicked,
+            selectedIndex: this.state.selectedTab,
+          },
+          ve.createElement("span", null, "Unreachable"),
+          ve.createElement("span", null, "Reachable")
+        );
+      }
+      renderActiveTab() {
+        const { commitLookup: e, emoji: t } = this.props;
+        return ve.createElement(
+          ve.Fragment,
+          null,
+          this.renderUnreachableCommitsMessage(),
+          ve.createElement(
+            "div",
+            { className: "unreachable-commit-list" },
+            ve.createElement(Ak, {
+              gitHubRepository: null,
+              isLocalRepository: !0,
+              commitLookup: e,
+              commitSHAs: this.getShasToDisplay(),
+              selectedSHAs: [],
+              localCommitSHAs: [],
+              emoji: t,
+            })
+          )
+        );
+      }
+      renderFooter() {
+        return ve.createElement(
+          aC,
+          null,
+          ve.createElement(lC, { cancelButtonVisible: !1 })
+        );
+      }
+      renderUnreachableCommitsMessage = () => {
+        const e = this.getShasToDisplay().length,
+          t = e > 1 ? "commits" : "commit",
+          n = e > 1 ? "they're" : "it's";
+        return ve.createElement(
+          "div",
+          { className: "message" },
+          "You will",
+          " ",
+          this.state.selectedTab === Mk.Unreachable ? "not" : "",
+          " ",
+          "see changes from the following ",
+          t,
+          " because",
+          " ",
+          n,
+          " ",
+          this.state.selectedTab === Mk.Unreachable ? "not" : "",
+          " ",
+          "in the ancestry path of the most recent commit in your selection."
+        );
+      };
+      render() {
+        return ve.createElement(
+          oC,
+          {
+            className: "unreachable-commits",
+            title: "Commit reachability",
+            onSubmit: this.props.onDismissed,
+            onDismissed: this.props.onDismissed,
+          },
+          this.renderTabs(),
+          this.renderActiveTab(),
+          this.renderFooter()
+        );
+      }
+    }
+    function Nk(e, t) {
+      const { emoji: n, repository: r, selectedCommits: i } = t,
+        o = new AC(n, r),
+        { summary: s, body: a } = (function (e, t, n, r = 72) {
+          const i = n.tokenize(e.trimRight()),
+            o = new Array(),
+            s = new Array();
+          let a = r;
+          for (const e of i) {
+            const t = e.kind === _C.Emoji ? 2 : e.text.length;
+            if (a <= 0) s.push(e);
+            else if (a >= t) o.push(e), (a -= t);
+            else {
+              if (e.kind === _C.Text)
+                o.push(IC(e.text.substring(0, a))),
+                  s.push(IC(e.text.substring(a)));
+              else if (e.kind === _C.Emoji) s.push(e);
+              else {
+                if (e.kind !== _C.Link) return st(0, "Unknown token type");
+                !e.text.startsWith("#") && a > 5
+                  ? (o.push(MC(e.text.substring(0, a), e.text)),
+                    s.push(MC(e.text.substring(a), e.text)))
+                  : s.push(e);
+              }
+              a = 0;
+            }
+          }
+          let l = n.tokenize(t.trimRight());
+          return (
+            s.length > 0 &&
+              (o.push(PC()),
+              (l =
+                l.length > 0 ? [PC(), ...s, IC("\n\n"), ...l] : [PC(), ...s])),
+            { summary: o, body: l }
+          );
+        })(
+          (function (e) {
+            return 0 === e[0].summary.length
+              ? "Empty commit message"
+              : e[0].summary;
+          })(i),
+          i[0].body,
+          o
+        ),
+        l = 1 === i.length && 0 === i[0].summary.length,
+        c = i.flatMap((e) => Ww(r.gitHubRepository, e)),
+        u = C().uniqWith(c, (e, t) => e.email === t.email && e.name === t.name);
+      return {
+        isOverflowed: e,
+        summary: s,
+        body: a,
+        avatarUsers: u,
+        hasEmptySummary: l,
+      };
+    }
+    function Bk(e, t) {
+      return 1 === e.length
+        ? 0
+        : e.filter(({ sha: e }) => !t.includes(e)).length;
+    }
+    class Fk extends ve.Component {
+      descriptionScrollViewRef = null;
+      resizeObserver = null;
+      updateOverflowTimeoutId = null;
+      descriptionRef = null;
+      constructor(e) {
+        super(e), (this.state = Nk(!1, e));
+        const t = window.ResizeObserver;
+        t &&
+          (this.resizeObserver = new t((e) => {
+            for (const t of e)
+              t.target === this.descriptionScrollViewRef &&
+                (null !== this.updateOverflowTimeoutId &&
+                  clearImmediate(this.updateOverflowTimeoutId),
+                (this.updateOverflowTimeoutId = setImmediate(this.onResized)));
+          }));
+      }
+      onResized = () => {
+        if (this.descriptionRef) {
+          const e = this.descriptionRef.getBoundingClientRect().bottom;
+          this.props.onDescriptionBottomChanged(e);
+        }
+        this.props.isExpanded || this.updateOverflow();
+      };
+      onDescriptionScrollViewRef = (e) => {
+        (this.descriptionScrollViewRef = e),
+          this.resizeObserver &&
+            (this.resizeObserver.disconnect(),
+            e
+              ? this.resizeObserver.observe(e)
+              : this.setState({ isOverflowed: !1 }));
+      };
+      onDescriptionRef = (e) => {
+        this.descriptionRef = e;
+      };
+      renderExpander() {
+        if (
+          !this.state.body.length ||
+          (!this.props.isExpanded && !this.state.isOverflowed)
+        )
+          return null;
+        const e = this.props.isExpanded,
+          t = e ? this.onCollapse : this.onExpand,
+          n = e ? Fu : yh;
+        return ve.createElement(
+          "a",
+          { onClick: t, className: "expander" },
+          ve.createElement(Av, { symbol: n }),
+          e ? "Collapse" : "Expand"
+        );
+      }
+      onExpand = () => {
+        this.props.onExpandChanged(!0);
+      };
+      onCollapse = () => {
+        this.descriptionScrollViewRef &&
+          (this.descriptionScrollViewRef.scrollTop = 0),
+          this.props.onExpandChanged(!1);
+      };
+      updateOverflow() {
+        const e = this.descriptionScrollViewRef;
+        e
+          ? this.setState({ isOverflowed: e.scrollHeight > e.offsetHeight })
+          : this.state.isOverflowed && this.setState({ isOverflowed: !1 });
+      }
+      componentDidMount() {
+        this.props.isExpanded || this.updateOverflow();
+      }
+      componentWillUpdate(e) {
+        (e.selectedCommits.length === this.props.selectedCommits.length &&
+          e.selectedCommits.every((e, t) =>
+            (function (e, t) {
+              return e.summary === t.summary && e.body === t.body;
+            })(e, this.props.selectedCommits[t])
+          )) ||
+          this.setState(Nk(!1, e));
+      }
+      componentDidUpdate(e, t) {
+        this.props.isExpanded
+          ? this.state.isOverflowed && this.setState({ isOverflowed: !1 })
+          : (t.body !== this.state.body || e.isExpanded) &&
+            this.updateOverflow();
+      }
+      renderDescription() {
+        return 0 === this.state.body.length
+          ? null
+          : ve.createElement(
+              "div",
+              {
+                className: "commit-summary-description-container",
+                ref: this.onDescriptionRef,
+              },
+              ve.createElement(
+                "div",
+                {
+                  className: "commit-summary-description-scroll-view",
+                  ref: this.onDescriptionScrollViewRef,
+                },
+                ve.createElement(XC, {
+                  className: "commit-summary-description",
+                  emoji: this.props.emoji,
+                  repository: this.props.repository,
+                  text: this.state.body,
+                })
+              ),
+              this.renderExpander()
+            );
+      }
+      getShaRef = (e) => {
+        const { selectedCommits: t } = this.props;
+        return e ? t[0].shortSha : t[0].sha;
+      };
+      onHighlightShasInDiff = () => {
+        this.props.onHighlightShas(this.props.shasInDiff);
+      };
+      onHighlightShasNotInDiff = () => {
+        const {
+          onHighlightShas: e,
+          selectedCommits: t,
+          shasInDiff: n,
+        } = this.props;
+        e(t.filter((e) => !n.includes(e.sha)).map((e) => e.sha));
+      };
+      onRemoveHighlightOfShas = () => {
+        this.props.onHighlightShas([]);
+      };
+      showUnreachableCommits = () => {
+        this.props.showUnreachableCommits(Mk.Unreachable);
+      };
+      showReachableCommits = () => {
+        this.props.showUnreachableCommits(Mk.Reachable);
+      };
+      renderCommitsNotReachable = () => {
+        const { selectedCommits: e, shasInDiff: t } = this.props;
+        if (1 === e.length) return;
+        const n = Bk(e, t);
+        if (0 === n) return;
+        const r = n > 1 ? "commits" : "commit";
+        return ve.createElement(
+          "div",
+          {
+            className: "commit-unreachable-info",
+            onMouseOver: this.onHighlightShasNotInDiff,
+            onMouseOut: this.onRemoveHighlightOfShas,
+          },
+          ve.createElement(Av, { symbol: Vu }),
+          ve.createElement(
+            Hw,
+            { onClick: this.showUnreachableCommits },
+            n,
+            " unreachable ",
+            r
+          ),
+          " ",
+          "not included."
+        );
+      };
+      renderAuthors = () => {
+        const { selectedCommits: e, repository: t } = this.props,
+          { avatarUsers: n } = this.state;
+        if (!(e.length > 1))
+          return ve.createElement(
+            "li",
+            {
+              className: "commit-summary-meta-item without-truncation",
+              "aria-label": "Author",
+            },
+            ve.createElement(xk, { users: n }),
+            ve.createElement(Rk, {
+              gitHubRepository: t.gitHubRepository,
+              commits: e,
+            })
+          );
+      };
+      renderCommitRef = () => {
+        const { selectedCommits: e } = this.props;
+        if (!(e.length > 1))
+          return ve.createElement(
+            "li",
+            {
+              className: "commit-summary-meta-item without-truncation",
+              "aria-label": "SHA",
+            },
+            ve.createElement(Av, { symbol: Wu }),
+            ve.createElement(
+              jv,
+              {
+                className: "sha",
+                tooltip: this.renderShaTooltip(),
+                tooltipClassName: "sha-hint",
+                interactive: !0,
+                direction: xv.SOUTH,
+              },
+              this.getShaRef(!0)
+            )
+          );
+      };
+      renderSummary = () => {
+        const { selectedCommits: e, shasInDiff: t } = this.props,
+          { summary: n, hasEmptySummary: r } = this.state,
+          i = pl()("commit-summary-title", { "empty-summary": r });
+        if (1 === e.length)
+          return ve.createElement(XC, {
+            className: i,
+            emoji: this.props.emoji,
+            repository: this.props.repository,
+            text: n,
+          });
+        const o = Bk(e, t),
+          s = e.length - o,
+          a = s > 1 ? "commits" : "commit";
+        return ve.createElement(
+          "div",
+          { className: i },
+          "Showing changes from",
+          " ",
+          o > 0
+            ? ve.createElement(
+                Hw,
+                {
+                  onMouseOver: this.onHighlightShasInDiff,
+                  onMouseOut: this.onRemoveHighlightOfShas,
+                  onClick: this.showReachableCommits,
+                },
+                s,
+                " ",
+                a
+              )
+            : ve.createElement(ve.Fragment, null, " ", s, " ", a)
+        );
+      };
+      render() {
+        const e = pl()({
+          expanded: this.props.isExpanded,
+          collapsed: !this.props.isExpanded,
+          "has-expander": this.props.isExpanded || this.state.isOverflowed,
+          "hide-description-border": this.props.hideDescriptionBorder,
+        });
+        return ve.createElement(
+          "div",
+          { id: "commit-summary", className: e },
+          ve.createElement(
+            "div",
+            { className: "commit-summary-header" },
+            this.renderSummary(),
+            ve.createElement(
+              "ul",
+              { className: "commit-summary-meta" },
+              this.renderAuthors(),
+              this.renderCommitRef(),
+              this.renderChangedFilesDescription(),
+              this.renderLinesChanged(),
+              this.renderTags(),
+              ve.createElement(
+                "li",
+                {
+                  className: "commit-summary-meta-item without-truncation",
+                  title: "Diff Options",
+                },
+                ve.createElement(oS, {
+                  sourceTab: Ye.History,
+                  hideWhitespaceChanges: this.props.hideWhitespaceInDiff,
+                  onHideWhitespaceChangesChanged:
+                    this.props.onHideWhitespaceInDiffChanged,
+                  showSideBySideDiff: this.props.showSideBySideDiff,
+                  onShowSideBySideDiffChanged:
+                    this.props.onShowSideBySideDiffChanged,
+                  onDiffOptionsOpened: this.props.onDiffOptionsOpened,
+                })
+              )
+            )
+          ),
+          this.renderDescription(),
+          this.renderCommitsNotReachable()
+        );
+      }
+      renderShaTooltip() {
+        return ve.createElement(
+          ve.Fragment,
+          null,
+          ve.createElement("code", null, this.getShaRef()),
+          ve.createElement(
+            "button",
+            { onClick: this.onCopyShaButtonClick },
+            "Copy"
+          )
+        );
+      }
+      onCopyShaButtonClick = (e) => {
+        e.preventDefault(), f.clipboard.writeText(this.getShaRef());
+      };
+      renderChangedFilesDescription = () => {
+        const e = this.props.changesetData.files.length,
+          t = `${e} changed ${1 === e ? "file" : "files"}`;
+        let n = 0,
+          r = 0,
+          i = 0;
+        for (const e of this.props.changesetData.files)
+          switch (e.status.kind) {
+            case _r.New:
+              n += 1;
+              break;
+            case _r.Modified:
+              r += 1;
+              break;
+            case _r.Deleted:
+              i += 1;
+          }
+        const o = ve.createElement(
+          ve.Fragment,
+          null,
+          n > 0
+            ? ve.createElement(
+                "span",
+                null,
+                ve.createElement(Av, {
+                  className: "files-added-icon",
+                  symbol: _u,
+                }),
+                n,
+                " added"
+              )
+            : null,
+          r > 0
+            ? ve.createElement(
+                "span",
+                null,
+                ve.createElement(Av, {
+                  className: "files-modified-icon",
+                  symbol: Du,
+                }),
+                r,
+                " modified"
+              )
+            : null,
+          i > 0
+            ? ve.createElement(
+                "span",
+                null,
+                ve.createElement(Av, {
+                  className: "files-deleted-icon",
+                  symbol: Au,
+                }),
+                i,
+                " deleted"
+              )
+            : null
+        );
+        return ve.createElement(
+          jv,
+          {
+            className: "commit-summary-meta-item without-truncation",
+            tooltipClassName: "changed-files-description-tooltip",
+            tooltip: e > 0 ? o : void 0,
+          },
+          ve.createElement(Av, { symbol: Tu }),
+          t
+        );
+      };
+      renderLinesChanged() {
+        const e = this.props.changesetData.linesAdded,
+          t = this.props.changesetData.linesDeleted;
+        if (e + t === 0) return null;
+        const n = `${e} ${1 === e ? "line" : "lines"} added`,
+          r = `${t} ${1 === t ? "line" : "lines"} deleted`;
+        return ve.createElement(
+          ve.Fragment,
+          null,
+          ve.createElement(
+            jv,
+            {
+              tagName: "li",
+              className:
+                "commit-summary-meta-item without-truncation lines-added",
+              tooltip: n,
+            },
+            "+",
+            e
+          ),
+          ve.createElement(
+            jv,
+            {
+              tagName: "li",
+              className:
+                "commit-summary-meta-item without-truncation lines-deleted",
+              tooltip: r,
+            },
+            "-",
+            t
+          )
+        );
+      }
+      renderTags() {
+        const { selectedCommits: e } = this.props;
+        if (e.length > 1) return;
+        const t = e[0].tags;
+        return 0 !== t.length
+          ? ve.createElement(
+              "li",
+              { className: "commit-summary-meta-item", title: t.join("\n") },
+              ve.createElement(
+                "span",
+                { "aria-label": "Tags" },
+                ve.createElement(Av, { symbol: dh })
+              ),
+              ve.createElement("span", { className: "tags" }, t.join(", "))
+            )
+          : void 0;
+      }
+    }
+    class Lk extends ve.Component {
+      onContextMenu = (e) => {
+        void 0 !== this.props.onContextMenu &&
+          this.props.onContextMenu(this.props.file, e);
+      };
+      render() {
+        const { file: e } = this.props,
+          t = e.status,
+          n = Vi(t),
+          r = this.props.availableWidth - 20 - 5 - 16;
+        return ve.createElement(
+          "div",
+          { className: "file", onContextMenu: this.onContextMenu },
+          ve.createElement(WC, {
+            path: e.path,
+            status: e.status,
+            availableWidth: r,
+          }),
+          ve.createElement(Av, {
+            symbol: Fv(t),
+            className: "status status-" + n.toLowerCase(),
+            title: n,
+          })
+        );
+      }
+    }
+    class Hk extends ve.Component {
+      onSelectedRowChanged = (e) => {
+        const t = this.props.files[e];
+        this.props.onSelectedFileChanged(t);
+      };
+      renderFile = (e) =>
+        ve.createElement(Lk, {
+          file: this.props.files[e],
+          availableWidth: this.props.availableWidth,
+          onContextMenu: this.props.onContextMenu,
+        });
+      rowForFile(e) {
+        return e ? this.props.files.findIndex((t) => t.path === e.path) : -1;
+      }
+      render() {
+        return ve.createElement(
+          "div",
+          { className: "file-list" },
+          ve.createElement(Wb, {
+            rowRenderer: this.renderFile,
+            rowCount: this.props.files.length,
+            rowHeight: 29,
+            selectedRows: [this.rowForFile(this.props.selectedFile)],
+            onSelectedRowChanged: this.onSelectedRowChanged,
+          })
+        );
+      }
+    }
+    class Uk extends ve.Component {
+      loadChangedFilesScheduler = new fw(200);
+      historyRef = null;
+      constructor(e) {
+        super(e), (this.state = { isExpanded: !1, hideDescriptionBorder: !1 });
+      }
+      onFileSelected = (e) => {
+        this.props.dispatcher.changeFileSelection(this.props.repository, e);
+      };
+      onHistoryRef = (e) => {
+        this.historyRef = e;
+      };
+      componentWillUpdate(e) {
+        const t = this.props.selectedCommits.map((e) => e.sha).join(""),
+          n = e.selectedCommits.map((e) => e.sha).join("");
+        t !== n && this.state.isExpanded && this.setState({ isExpanded: !1 });
+      }
+      componentWillUnmount() {
+        this.loadChangedFilesScheduler.clear();
+      }
+      renderDiff() {
+        const e = this.props.selectedFile,
+          t = this.props.currentDiff;
+        if (null == e) {
+          const e =
+            0 === this.props.changesetData.files.length
+              ? ""
+              : "No file selected";
+          return ve.createElement(
+            "div",
+            { className: "panel blankslate", id: "diff" },
+            e
+          );
+        }
+        return ve.createElement(ck, {
+          repository: this.props.repository,
+          imageDiffType: this.props.selectedDiffType,
+          file: e,
+          diff: t,
+          readOnly: !0,
+          hideWhitespaceInDiff: this.props.hideWhitespaceInDiff,
+          showSideBySideDiff: this.props.showSideBySideDiff,
+          onOpenBinaryFile: this.props.onOpenBinaryFile,
+          onChangeImageDiffType: this.props.onChangeImageDiffType,
+          onHideWhitespaceInDiffChanged: this.onHideWhitespaceInDiffChanged,
+        });
+      }
+      renderCommitSummary(e) {
+        return ve.createElement(Fk, {
+          selectedCommits: e,
+          shasInDiff: this.props.shasInDiff,
+          changesetData: this.props.changesetData,
+          emoji: this.props.emoji,
+          repository: this.props.repository,
+          onExpandChanged: this.onExpandChanged,
+          isExpanded: this.state.isExpanded,
+          onDescriptionBottomChanged: this.onDescriptionBottomChanged,
+          hideDescriptionBorder: this.state.hideDescriptionBorder,
+          hideWhitespaceInDiff: this.props.hideWhitespaceInDiff,
+          showSideBySideDiff: this.props.showSideBySideDiff,
+          onHideWhitespaceInDiffChanged: this.onHideWhitespaceInDiffChanged,
+          onShowSideBySideDiffChanged: this.onShowSideBySideDiffChanged,
+          onDiffOptionsOpened: this.props.onDiffOptionsOpened,
+          onHighlightShas: this.onHighlightShas,
+          showUnreachableCommits: this.showUnreachableCommits,
+        });
+      }
+      showUnreachableCommits = (e) => {
+        this.props.dispatcher.showUnreachableCommits(e);
+      };
+      onHighlightShas = (e) => {
+        this.props.dispatcher.updateShasToHighlight(this.props.repository, e);
+      };
+      onExpandChanged = (e) => {
+        this.setState({ isExpanded: e });
+      };
+      onDescriptionBottomChanged = (e) => {
+        if (this.historyRef) {
+          const t = this.historyRef.getBoundingClientRect().bottom;
+          this.setState({ hideDescriptionBorder: e >= t });
+        }
+      };
+      onHideWhitespaceInDiffChanged = (e) =>
+        this.props.dispatcher.onHideWhitespaceInHistoryDiffChanged(
+          e,
+          this.props.repository,
+          this.props.selectedFile
+        );
+      onShowSideBySideDiffChanged = (e) => {
+        this.props.dispatcher.onShowSideBySideDiffChanged(e);
+      };
+      onCommitSummaryReset = () => {
+        this.props.dispatcher.resetCommitSummaryWidth();
+      };
+      onCommitSummaryResize = (e) => {
+        this.props.dispatcher.setCommitSummaryWidth(e);
+      };
+      renderFileList() {
+        const e = this.props.changesetData.files;
+        if (0 === e.length)
+          return ve.createElement(
+            "div",
+            { className: "fill-window" },
+            "No files in commit"
+          );
+        const t = oo(this.props.commitSummaryWidth) - 1;
+        return ve.createElement(Hk, {
+          files: e,
+          onSelectedFileChanged: this.onFileSelected,
+          selectedFile: this.props.selectedFile,
+          availableWidth: t,
+          onContextMenu: this.onContextMenu,
+        });
+      }
+      onOpenItem = (t) => {
+        rS(e.join(this.props.repository.path, t), this.props.dispatcher);
+      };
+      render() {
+        const { selectedCommits: e, isContiguous: t } = this.props;
+        if (e.length > 1 && (!t || !mo()))
+          return this.renderMultipleCommitsBlankSlate();
+        if (0 === e.length) return ve.createElement(zk, null);
+        const n = this.state.isExpanded ? "expanded" : "collapsed",
+          { commitSummaryWidth: r } = this.props;
+        return ve.createElement(
+          "div",
+          { id: "history", ref: this.onHistoryRef, className: n },
+          this.renderCommitSummary(e),
+          ve.createElement(
+            "div",
+            { className: "commit-details" },
+            ve.createElement(
+              Ek,
+              {
+                width: r.value,
+                minimumWidth: r.min,
+                maximumWidth: r.max,
+                onResize: this.onCommitSummaryResize,
+                onReset: this.onCommitSummaryReset,
+              },
+              this.renderFileList()
+            ),
+            this.renderDiff()
+          ),
+          this.renderDragOverlay()
+        );
+      }
+      renderDragOverlay() {
+        return this.props.showDragOverlay
+          ? ve.createElement("div", { id: "drag-overlay-background" })
+          : null;
+      }
+      renderMultipleCommitsBlankSlate() {
+        const e = Po(__dirname, "static/empty-no-commit.svg");
+        return ve.createElement(
+          "div",
+          { id: "multiple-commits-selected", className: "blankslate" },
+          ve.createElement(
+            "div",
+            { className: "panel blankslate" },
+            ve.createElement("img", { src: e, className: "blankslate-image" }),
+            ve.createElement(
+              "div",
+              null,
+              ve.createElement(
+                "p",
+                null,
+                "Unable to display diff when multiple",
+                " ",
+                mo() ? "non-consecutive " : " ",
+                "commits are selected."
+              ),
+              ve.createElement("div", null, "You can:"),
+              ve.createElement(
+                "ul",
+                null,
+                ve.createElement(
+                  "li",
+                  null,
+                  "Select a single commit",
+                  " ",
+                  mo() ? "or a range of consecutive commits " : " ",
+                  "to view a diff."
+                ),
+                ve.createElement(
+                  "li",
+                  null,
+                  "Drag the commits to the branch menu to cherry-pick them."
+                ),
+                ve.createElement(
+                  "li",
+                  null,
+                  "Drag the commits to squash or reorder them."
+                ),
+                ve.createElement(
+                  "li",
+                  null,
+                  "Right click on multiple commits to see options."
+                )
+              )
+            )
+          ),
+          this.renderDragOverlay()
+        );
+      }
+      onContextMenu = async (t, n) => {
+        n.preventDefault();
+        const {
+            selectedCommits: r,
+            localCommitSHAs: i,
+            repository: o,
+            externalEditorLabel: s,
+          } = this.props,
+          a = e.join(o.path, t.path),
+          l = await S(a);
+        if (!l)
+          return void Uv([
+            { label: "File does not exist on disk", enabled: !1 },
+          ]);
+        const c = qa(e.extname(t.path)),
+          u = [
+            { label: Wa, action: () => it(o, t.path), enabled: l },
+            {
+              label: s ? `Open in ${s}` : za,
+              action: () => this.props.onOpenInExternalEditor(a),
+              enabled: l,
+            },
+            {
+              label: $a,
+              action: () => this.onOpenItem(t.path),
+              enabled: c && l,
+            },
+            { type: "separator" },
+            { label: Ha, action: () => f.clipboard.writeText(a) },
+            {
+              label: Ua,
+              action: () => f.clipboard.writeText(e.normalize(t.path)),
+            },
+            { type: "separator" },
+          ];
+        let h = "View on GitHub";
+        const p = o.gitHubRepository;
+        p && p.endpoint !== _n() && (h = "View on GitHub Enterprise"),
+          u.push({
+            label: h,
+            action: () => this.onViewOnGitHub(r[0].sha, t),
+            enabled:
+              1 === r.length &&
+              !i.includes(r[0].sha) &&
+              !!p &&
+              this.props.selectedCommits.length > 0,
+          }),
+          Uv(u);
+      };
+      onViewOnGitHub = (e, t) => {
+        this.props.onViewCommitOnGitHub(e, t.path);
+      };
+    }
+    function zk() {
+      const e = Po(__dirname, "static/empty-no-commit.svg");
+      return ve.createElement(
+        "div",
+        { className: "panel blankslate" },
+        ve.createElement("img", { src: e, className: "blankslate-image" }),
+        "No commit selected"
+      );
+    }
+    function Wk(e) {
       return void 0 === e;
     }
-    class Ok extends ve.Component {
+    class jk extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isPushingOrPublishing: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "push-branch-commits",
             key: "push-branch-commits",
@@ -78446,21 +79338,25 @@
             disabled: this.state.isPushingOrPublishing,
           },
           this.renderDialogContent(),
-          ve.createElement(nC, null, this.renderButtonGroup())
+          ve.createElement(aC, null, this.renderButtonGroup())
         );
       }
       renderDialogContent() {
-        if (Mk(this.props.unPushedCommits))
+        if (Wk(this.props.unPushedCommits))
           return ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement("p", null, "在打开请求之前，必须先发布分支。"),
+            ve.createElement(
+              "p",
+              null,
+              "在打开请求之前，必须先发布分支。"
+            ),
             ve.createElement(
               "p",
               null,
               "是否要发布 ",
-              ve.createElement(aC, null, this.props.branch.name),
-              " 现在打开pull请求？"
+              ve.createElement(pC, null, this.props.branch.name),
+              " 现在打开pull请求?"
             )
           );
         const e =
@@ -78468,28 +79364,34 @@
           1 === (t = this.props.unPushedCommits) ? `${t} ${n}` : `${t} ${n}s`);
         var t, n;
         return ve.createElement(
-          Jw,
+          rC,
           null,
-          ve.createElement("p", null, "你有 ", e, " 还没有推到远程上。"),
+          ve.createElement(
+            "p",
+            null,
+            "你有 ",
+            e,
+            " 还没有推到远程上."
+          ),
           ve.createElement(
             "p",
             null,
             "是否将更改推送到",
             " ",
-            ve.createElement(aC, null, this.props.branch.name),
-            " 在创建拉取请求之前？"
+            ve.createElement(pC, null, this.props.branch.name),
+            " 在创建拉取请求之前?"
           )
         );
       }
       renderDialogTitle() {
-        return Mk(this.props.unPushedCommits)
+        return Wk(this.props.unPushedCommits)
           ? "是否发布分支?"
           : "推送本地更改?";
       }
       renderButtonGroup() {
-        return Mk(this.props.unPushedCommits)
-          ? ve.createElement(rC, { okButtonText: "发布分支" })
-          : ve.createElement(rC, {
+        return Wk(this.props.unPushedCommits)
+          ? ve.createElement(lC, { okButtonText: "发布分支" })
+          : ve.createElement(lC, {
               okButtonText: "推送提交",
               cancelButtonText: "创建而不推送",
               onCancelButtonClick: this.onCreateWithoutPushButtonClick,
@@ -78511,33 +79413,29 @@
         this.props.onConfirm(e, t), this.props.onDismissed();
       };
     }
-    const Nk = Po(__dirname, "static/empty-no-branches.svg");
-    class Bk extends ve.Component {
+    const $k = Po(__dirname, "static/empty-no-branches.svg");
+    class qk extends ve.Component {
       render() {
         return this.props.canCreateNewBranch
           ? ve.createElement(
               "div",
               { className: "no-branches" },
               ve.createElement("img", {
-                src: Nk,
+                src: $k,
                 className: "blankslate-image",
               }),
               ve.createElement(
                 "div",
-                {
-                  className: "title",
-                },
+                { className: "title" },
                 "对不起，我找不到那分支"
               ),
               ve.createElement(
                 "div",
-                {
-                  className: "subtitle",
-                },
-                "是否要创建新分支？"
+                { className: "subtitle" },
+                "是否要创建新分支?"
               ),
               ve.createElement(
-                Yb,
+                Qb,
                 {
                   className: "create-branch-button",
                   onClick: this.props.onCreateNewBranch,
@@ -78555,9 +79453,7 @@
             )
           : ve.createElement(
               "div",
-              {
-                className: "no-branches",
-              },
+              { className: "no-branches" },
               "对不起，我找不到那分支"
             );
       }
@@ -78573,7 +79469,7 @@
         );
       }
     }
-    function Fk(e) {
+    function Gk(e) {
       const t = (function (e, t, n, r) {
         const i = new Array();
         e &&
@@ -78605,20 +79501,20 @@
             break;
       return { groups: t, selectedItem: n };
     }
-    class Lk extends ve.Component {
+    class Vk extends ve.Component {
       branchFilterList = null;
       constructor(e) {
-        super(e), (this.state = Fk(e));
+        super(e), (this.state = Gk(e));
       }
       componentWillReceiveProps(e) {
-        this.setState(Fk(e));
+        this.setState(Gk(e));
       }
       selectNextItem(e = !1, t) {
         null !== this.branchFilterList &&
           this.branchFilterList.selectNextItem(e, t);
       }
       render() {
-        return ve.createElement($b, {
+        return ve.createElement(Kb, {
           ref: this.onBranchesFilterListRef,
           className: "branches-list",
           rowHeight: 30,
@@ -78675,14 +79571,14 @@
           : st(0, `未知标识符: ${e}`);
       }
       onRenderNoItems = () =>
-        ve.createElement(Bk, {
+        ve.createElement(qk, {
           onCreateNewBranch: this.onCreateNewBranch,
           canCreateNewBranch: this.props.canCreateNewBranch,
         });
       onRenderNewButton = () =>
         this.props.canCreateNewBranch
           ? ve.createElement(
-              Yb,
+              Qb,
               {
                 className: "new-branch-button",
                 onClick: this.onCreateNewBranch,
@@ -78702,7 +79598,7 @@
           this.props.onCreateNewBranch(this.props.filterText);
       };
     }
-    class Hk extends ve.PureComponent {
+    class Kk extends ve.PureComponent {
       statusSubscription = null;
       constructor(e) {
         super(e);
@@ -78750,38 +79646,38 @@
         const { check: e } = this.state;
         return null === e || 0 === e.checks.length
           ? null
-          : ve.createElement(Tv, {
+          : ve.createElement(Av, {
               className: pl()(
                 "ci-status",
-                `ci-status-${zk(e)}`,
+                `ci-status-${Zk(e)}`,
                 this.props.className
               ),
-              symbol: Uk(e),
-              title: jk(e),
+              symbol: Yk(e),
+              title: Jk(e),
             });
       }
     }
-    function Uk(e) {
+    function Yk(e) {
       switch (e.conclusion) {
         case "timed_out":
         case "failure":
-          return vh;
+          return bh;
         case "neutral":
-          return ch;
-        case "success":
-          return bu;
-        case "cancelled":
           return uh;
+        case "success":
+          return wu;
+        case "cancelled":
+          return hh;
         case "action_required":
-          return mu;
+          return gu;
         case "skipped":
-          return lh;
+          return ch;
         case "stale":
-          return Vu;
+          return Ku;
       }
-      return Pu;
+      return Iu;
     }
-    function zk(e) {
+    function Zk(e) {
       switch (e.conclusion) {
         case "timed_out":
           return "timed-out";
@@ -78797,25 +79693,25 @@
       }
       return "pending";
     }
-    function Wk(e) {
+    function Xk(e) {
       switch (e.conclusion) {
         case "success":
-          return wu;
+          return Cu;
         case "failure":
-          return bh;
+          return wh;
       }
-      return Uk(e);
+      return Yk(e);
     }
-    function jk(e) {
+    function Jk(e) {
       if (1 === e.checks.length) {
         const { name: t, description: n } = e.checks[0];
         return `${t}: ${n}`;
       }
-      return `${e.checks.reduce((e, t) => e + (nu(t) ? 1 : 0), 0)}/${
+      return `${e.checks.reduce((e, t) => e + (ru(t) ? 1 : 0), 0)}/${
         e.checks.length
       } checks OK`;
     }
-    class $k extends ve.Component {
+    class Qk extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isDragInProgress: !1 });
       }
@@ -78826,22 +79722,22 @@
         return this.props.draft ? `${t} • Draft` : t;
       }
       onMouseEnter = (e) => {
-        Gy.isDragInProgress &&
+        Yy.isDragInProgress &&
           (this.setState({ isDragInProgress: !0 }),
-          Gy.emitEnterDropTarget({
-            type: jy.Branch,
+          Yy.emitEnterDropTarget({
+            type: Vy.Branch,
             branchName: this.props.title,
           }));
         const { top: t } = e.currentTarget.getBoundingClientRect();
         this.props.onMouseEnter(this.props.number, t);
       };
       onMouseLeave = (e) => {
-        Gy.isDragInProgress &&
-          (this.setState({ isDragInProgress: !1 }), Gy.emitLeaveDropTarget()),
+        Yy.isDragInProgress &&
+          (this.setState({ isDragInProgress: !1 }), Yy.emitLeaveDropTarget()),
           this.props.onMouseLeave(e);
       };
       onMouseUp = () => {
-        Gy.isDragInProgress &&
+        Yy.isDragInProgress &&
           (this.setState({ isDragInProgress: !1 }),
           this.props.onDropOntoPullRequest(this.props.number));
       };
@@ -78866,9 +79762,9 @@
           ve.createElement(
             "div",
             null,
-            ve.createElement(Tv, {
+            ve.createElement(Av, {
               className: "icon",
-              symbol: this.props.draft ? $u : ju,
+              symbol: this.props.draft ? qu : $u,
             })
           ),
           ve.createElement(
@@ -78877,23 +79773,23 @@
             ve.createElement(
               "div",
               { className: "title", title: e },
-              ve.createElement(Hv, { text: e || "", highlight: n.title })
+              ve.createElement(Wv, { text: e || "", highlight: n.title })
             ),
             ve.createElement(
               "div",
               { className: "subtitle", title: t },
-              ve.createElement(Hv, { text: t || "", highlight: n.subtitle })
+              ve.createElement(Wv, { text: t || "", highlight: n.subtitle })
             )
           ),
           this.renderPullRequestStatus()
         );
       }
       renderPullRequestStatus() {
-        const e = sg(this.props.number);
+        const e = lg(this.props.number);
         return ve.createElement(
           "div",
           { className: "ci-status-container" },
-          ve.createElement(Hk, {
+          ve.createElement(Kk, {
             dispatcher: this.props.dispatcher,
             repository: this.props.repository,
             commitRef: e,
@@ -78901,13 +79797,13 @@
         );
       }
     }
-    const qk = Po(__dirname, "static/empty-no-pull-requests.svg");
-    class Gk extends ve.Component {
+    const eE = Po(__dirname, "static/empty-no-pull-requests.svg");
+    class tE extends ve.Component {
       render() {
         return ve.createElement(
           "div",
           { className: "no-pull-requests" },
-          ve.createElement("img", { src: qk, className: "blankslate-image" }),
+          ve.createElement("img", { src: eE, className: "blankslate-image" }),
           this.renderTitle(),
           this.renderCallToAction()
         );
@@ -78916,10 +79812,8 @@
         return this.props.isSearch
           ? ve.createElement(
               "div",
-              {
-                className: "title",
-              },
-              "抱歉，我找不到拉取请求！"
+              { className: "title" },
+              "抱歉，我找不到拉取请求!"
             )
           : this.props.isLoadingPullRequests
           ? ve.createElement("div", { className: "title" }, "Hang tight")
@@ -78928,16 +79822,14 @@
               null,
               ve.createElement(
                 "div",
-                {
-                  className: "title",
-                },
-                "你都准备好了！"
+                { className: "title" },
+                "你都准备好了!"
               ),
               ve.createElement(
                 "div",
                 { className: "no-prs" },
                 "没有打开的拉取请求 ",
-                ve.createElement(aC, null, this.props.repositoryName)
+                ve.createElement(pC, null, this.props.repositoryName)
               )
             );
       }
@@ -78955,7 +79847,7 @@
               "尽快加载拉取请求",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.props.onCreateBranch },
                 "创建新分支"
               ),
@@ -78968,7 +79860,7 @@
               "你想",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.props.onCreatePullRequest },
                 "创建拉取请求"
               ),
@@ -78977,28 +79869,28 @@
             );
       }
     }
-    function Vk(e, t, n) {
+    function nE(e, t, n) {
       let r = null;
       return (
-        null != t.selectedPullRequest && (r = Xk(e, t.selectedPullRequest)),
-        null == r && null != n && (r = Xk(e, n.pullRequest)),
+        null != t.selectedPullRequest && (r = sE(e, t.selectedPullRequest)),
+        null == r && null != n && (r = sE(e, n.pullRequest)),
         r
       );
     }
-    class Kk extends ve.Component {
+    class rE extends ve.Component {
       constructor(e) {
         super(e);
-        const t = Zk(e.pullRequests),
-          n = Vk(t, e, null);
+        const t = oE(e.pullRequests),
+          n = nE(t, e, null);
         this.state = { filterText: "", groupedItems: [t], selectedItem: n };
       }
       componentWillReceiveProps(e) {
-        const t = Zk(e.pullRequests),
-          n = Vk(t, e, this.state.selectedItem);
+        const t = oE(e.pullRequests),
+          n = nE(t, e, this.state.selectedItem);
         this.setState({ groupedItems: [t], selectedItem: n });
       }
       render() {
-        return ve.createElement($b, {
+        return ve.createElement(Kb, {
           className: "pull-request-list",
           rowHeight: 47,
           groups: this.state.groupedItems,
@@ -79016,7 +79908,7 @@
         });
       }
       renderNoItems = () =>
-        ve.createElement(Gk, {
+        ve.createElement(tE, {
           isSearch: this.state.filterText.length > 0,
           isLoadingPullRequests: this.props.isLoadingPullRequests,
           repositoryName: this.getRepositoryName(),
@@ -79026,7 +79918,7 @@
         });
       renderPullRequest = (e, t) => {
         const n = e.pullRequest;
-        return ve.createElement($k, {
+        return ve.createElement(Qk, {
           title: n.title,
           number: n.pullRequestNumber,
           created: n.created,
@@ -79059,7 +79951,7 @@
           dispatcher: r,
           pullRequests: i,
         } = this.props;
-        if (!Gy.isDragOfTypeInProgress(Wy.Commit)) return;
+        if (!Yy.isDragOfTypeInProgress(Gy.Commit)) return;
         if (null !== n && e === n.pullRequestNumber)
           return (
             r.endMultiCommitOperation(t), void r.recordDragStartedAndCanceled()
@@ -79075,7 +79967,7 @@
       onItemClick = (e, t) => {
         const n = e.pullRequest;
         this.props.dispatcher.closeFoldout(Ke.Branch);
-        const r = Iw("checkout pull request from list", this.props.repository);
+        const r = Bw("checkout pull request from list", this.props.repository);
         this.props.dispatcher
           .checkoutPullRequest(this.props.repository, n)
           .then(() => r.done()),
@@ -79099,14 +79991,14 @@
       };
       renderPostFilter = () =>
         ve.createElement(
-          Yb,
+          Qb,
           {
             disabled: this.props.isLoadingPullRequests,
             onClick: this.onRefreshPullRequests,
             tooltip: "Refresh the list of pull requests",
           },
-          ve.createElement(Tv, {
-            symbol: Nv,
+          ve.createElement(Av, {
+            symbol: Lv,
             className: this.props.isLoadingPullRequests ? "spin" : void 0,
           })
         );
@@ -79118,28 +80010,43 @@
           this.props.dispatcher.createPullRequest(this.props.repository);
       };
     }
-    function Yk(e) {
+    function iE(e) {
       const t = Rs(e.created.getTime() - Date.now());
       return `#${e.pullRequestNumber} opened ${t} by ${e.author}`;
     }
-    function Zk(e) {
+    function oE(e) {
       return {
         identifier: "pull-requests",
         items: e.map((e) => ({
-          text: [e.title, Yk(e)],
+          text: [e.title, iE(e)],
           id: e.pullRequestNumber.toString(),
           pullRequest: e,
         })),
       };
     }
-    function Xk(e, t) {
+    function sE(e, t) {
       return (
         e.items.find(
           (e) => e.pullRequest.pullRequestNumber === t.pullRequestNumber
         ) || null
       );
     }
-    class Jk extends ve.Component {
+    function aE(e) {
+      const { name: t, isLocal: n, onRenameBranch: r, onDeleteBranch: i } = e,
+        o = new Array();
+      return (
+        void 0 !== r &&
+          o.push({ label: "Rename…", action: () => r(t), enabled: n }),
+        o.push({
+          label: "Copy branch name",
+          action: () => f.clipboard.writeText(t),
+        }),
+        o.push({ type: "separator" }),
+        void 0 !== i && o.push({ label: "Delete…", action: () => i(t) }),
+        o
+      );
+    }
+    class lE extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isDragInProgress: !1 });
       }
@@ -79151,33 +80058,20 @@
           name: r,
           isLocal: i,
         } = this.props;
-        if (void 0 === t && void 0 === n) return;
-        const o = [];
-        void 0 !== t &&
-          o.push({
-            label: "重命名…",
-            action: () => t(r),
-            enabled: i,
-          }),
-          o.push({
-            label: "复制分支名称",
-            action: () => f.clipboard.writeText(r),
-          }),
-          o.push({ type: "separator" }),
-          void 0 !== n && o.push({ label: "删除…", action: () => n(r) }),
-          Fv(o);
+        (void 0 === t && void 0 === n) ||
+          Uv(aE({ name: r, isLocal: i, onRenameBranch: t, onDeleteBranch: n }));
       };
       onMouseEnter = () => {
-        Gy.isDragInProgress && this.setState({ isDragInProgress: !0 }),
-          Gy.isDragOfTypeInProgress(Wy.Commit) &&
-            Gy.emitEnterDropTarget({
-              type: jy.Branch,
+        Yy.isDragInProgress && this.setState({ isDragInProgress: !0 }),
+          Yy.isDragOfTypeInProgress(Gy.Commit) &&
+            Yy.emitEnterDropTarget({
+              type: Vy.Branch,
               branchName: this.props.name,
             });
       };
       onMouseLeave = () => {
         this.setState({ isDragInProgress: !1 }),
-          Gy.isDragOfTypeInProgress(Wy.Commit) && Gy.emitLeaveDropTarget();
+          Yy.isDragOfTypeInProgress(Gy.Commit) && Yy.emitLeaveDropTarget();
       };
       onMouseUp = () => {
         const {
@@ -79187,12 +80081,12 @@
           isCurrentBranch: r,
         } = this.props;
         this.setState({ isDragInProgress: !1 }),
-          Gy.isDragOfTypeInProgress(Wy.Commit) &&
+          Yy.isDragOfTypeInProgress(Gy.Commit) &&
             (void 0 === e || r || e(n), void 0 !== t && r && t());
       };
       render() {
         const { lastCommitDate: e, isCurrentBranch: t, name: n } = this.props,
-          r = t ? bu : Uu,
+          r = t ? wu : zu,
           i = pl()("branches-list-item", {
             "drop-target": this.state.isDragInProgress,
           });
@@ -79205,22 +80099,22 @@
             onMouseLeave: this.onMouseLeave,
             onMouseUp: this.onMouseUp,
           },
-          ve.createElement(Tv, { className: "icon", symbol: r }),
+          ve.createElement(Av, { className: "icon", symbol: r }),
           ve.createElement(
-            Uv,
+            jv,
             {
               className: "name",
               tooltip: n,
               onlyWhenOverflowed: !0,
               tagName: "div",
             },
-            ve.createElement(Hv, {
+            ve.createElement(Wv, {
               text: n,
               highlight: this.props.matches.title,
             })
           ),
           e &&
-            ve.createElement(ZC, {
+            ve.createElement(tS, {
               className: "description",
               date: e,
               onlyRelative: !0,
@@ -79228,11 +80122,11 @@
         );
       }
     }
-    function Qk(e, t, n, r, i, o, s) {
+    function cE(e, t, n, r, i, o, s) {
       const a = e.branch,
         l = a.tip,
         c = n ? n.name : null;
-      return ve.createElement(Jk, {
+      return ve.createElement(lE, {
         name: a.name,
         isCurrentBranch: a.name === c,
         isLocal: a.type === dr.Local,
@@ -79244,18 +80138,18 @@
         onDropOntoCurrentBranch: s,
       });
     }
-    const eE = new WeakMap();
-    function tE(e) {
-      let t = eE.get(e);
+    const uE = new WeakMap();
+    function hE(e) {
+      let t = uE.get(e);
       return (
         void 0 === t &&
-          ((t = (0, Se.randomBytes)(8).toString("base64url")), eE.set(e, t)),
+          ((t = (0, Se.randomBytes)(8).toString("base64url")), uE.set(e, t)),
         t
       );
     }
-    var nE = n(746),
-      rE = n.n(nE);
-    let iE = {
+    var pE = n(746),
+      dE = n.n(pE);
+    let fE = {
       baseUrl: null,
       breaks: !1,
       extensions: null,
@@ -79276,27 +80170,27 @@
       walkTokens: null,
       xhtml: !1,
     };
-    const oE = /[&<>"']/,
-      sE = /[&<>"']/g,
-      aE = /[<>"']|&(?!#?\w+;)/,
-      lE = /[<>"']|&(?!#?\w+;)/g,
-      cE = {
+    const mE = /[&<>"']/,
+      gE = /[&<>"']/g,
+      yE = /[<>"']|&(?!#?\w+;)/,
+      vE = /[<>"']|&(?!#?\w+;)/g,
+      bE = {
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;",
       },
-      uE = (e) => cE[e];
-    function hE(e, t) {
+      wE = (e) => bE[e];
+    function CE(e, t) {
       if (t) {
-        if (oE.test(e)) return e.replace(sE, uE);
-      } else if (aE.test(e)) return e.replace(lE, uE);
+        if (mE.test(e)) return e.replace(gE, wE);
+      } else if (yE.test(e)) return e.replace(vE, wE);
       return e;
     }
-    const pE = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi;
-    function dE(e) {
-      return e.replace(pE, (e, t) =>
+    const SE = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi;
+    function kE(e) {
+      return e.replace(SE, (e, t) =>
         "colon" === (t = t.toLowerCase())
           ? ":"
           : "#" === t.charAt(0)
@@ -79306,24 +80200,24 @@
           : ""
       );
     }
-    const fE = /(^|[^\[])\^/g;
-    function mE(e, t) {
+    const EE = /(^|[^\[])\^/g;
+    function xE(e, t) {
       (e = e.source || e), (t = t || "");
       const n = {
         replace: (t, r) => (
-          (r = (r = r.source || r).replace(fE, "$1")), (e = e.replace(t, r)), n
+          (r = (r = r.source || r).replace(EE, "$1")), (e = e.replace(t, r)), n
         ),
         getRegex: () => new RegExp(e, t),
       };
       return n;
     }
-    const gE = /[^\w:]/g,
-      yE = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
-    function vE(e, t, n) {
+    const RE = /[^\w:]/g,
+      TE = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
+    function _E(e, t, n) {
       if (e) {
         let e;
         try {
-          e = decodeURIComponent(dE(n)).replace(gE, "").toLowerCase();
+          e = decodeURIComponent(kE(n)).replace(RE, "").toLowerCase();
         } catch (e) {
           return null;
         }
@@ -79335,21 +80229,21 @@
           return null;
       }
       t &&
-        !yE.test(n) &&
+        !TE.test(n) &&
         (n = (function (e, t) {
-          bE[" " + e] ||
-            (wE.test(e)
-              ? (bE[" " + e] = e + "/")
-              : (bE[" " + e] = RE(e, "/", !0)));
-          const n = -1 === (e = bE[" " + e]).indexOf(":");
+          DE[" " + e] ||
+            (AE.test(e)
+              ? (DE[" " + e] = e + "/")
+              : (DE[" " + e] = BE(e, "/", !0)));
+          const n = -1 === (e = DE[" " + e]).indexOf(":");
           return "//" === t.substring(0, 2)
             ? n
               ? t
-              : e.replace(CE, "$1") + t
+              : e.replace(PE, "$1") + t
             : "/" === t.charAt(0)
             ? n
               ? t
-              : e.replace(SE, "$1") + t
+              : e.replace(IE, "$1") + t
             : e + t;
         })(t, n));
       try {
@@ -79359,12 +80253,12 @@
       }
       return n;
     }
-    const bE = {},
-      wE = /^[^:]+:\/*[^/]*$/,
-      CE = /^([^:]+:)[\s\S]*$/,
-      SE = /^([^:]+:\/*[^/]*)[\s\S]*$/,
-      kE = { exec: function () {} };
-    function EE(e) {
+    const DE = {},
+      AE = /^[^:]+:\/*[^/]*$/,
+      PE = /^([^:]+:)[\s\S]*$/,
+      IE = /^([^:]+:\/*[^/]*)[\s\S]*$/,
+      ME = { exec: function () {} };
+    function OE(e) {
       let t,
         n,
         r = 1;
@@ -79373,7 +80267,7 @@
           Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
       return e;
     }
-    function xE(e, t) {
+    function NE(e, t) {
       const n = e
         .replace(/\|/g, (e, t, n) => {
           let r = !1,
@@ -79393,7 +80287,7 @@
       for (; r < n.length; r++) n[r] = n[r].trim().replace(/\\\|/g, "|");
       return n;
     }
-    function RE(e, t, n) {
+    function BE(e, t, n) {
       const r = e.length;
       if (0 === r) return "";
       let i = 0;
@@ -79406,7 +80300,7 @@
       }
       return e.substr(0, r - i);
     }
-    function TE(e) {
+    function FE(e) {
       e &&
         e.sanitize &&
         !e.silent &&
@@ -79414,15 +80308,15 @@
           "marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options"
         );
     }
-    function _E(e, t) {
+    function LE(e, t) {
       if (t < 1) return "";
       let n = "";
       for (; t > 1; ) 1 & t && (n += e), (t >>= 1), (e += e);
       return n + e;
     }
-    function DE(e, t, n, r) {
+    function HE(e, t, n, r) {
       const i = t.href,
-        o = t.title ? hE(t.title) : null,
+        o = t.title ? CE(t.title) : null,
         s = e[1].replace(/\\([\[\]])/g, "$1");
       if ("!" !== e[0].charAt(0)) {
         r.state.inLink = !0;
@@ -79436,11 +80330,11 @@
         };
         return (r.state.inLink = !1), e;
       }
-      return { type: "image", raw: n, href: i, title: o, text: hE(s) };
+      return { type: "image", raw: n, href: i, title: o, text: CE(s) };
     }
-    class AE {
+    class UE {
       constructor(e) {
-        this.options = e || iE;
+        this.options = e || fE;
       }
       space(e) {
         const t = this.rules.block.newline.exec(e);
@@ -79454,7 +80348,7 @@
             type: "code",
             raw: t[0],
             codeBlockStyle: "indented",
-            text: this.options.pedantic ? e : RE(e, "\n"),
+            text: this.options.pedantic ? e : BE(e, "\n"),
           };
         }
       }
@@ -79489,7 +80383,7 @@
         if (t) {
           let e = t[2].trim();
           if (/#$/.test(e)) {
-            const t = RE(e, "#");
+            const t = BE(e, "#");
             this.options.pedantic
               ? (e = t.trim())
               : (t && !/ $/.test(t)) || (e = t.trim());
@@ -79647,7 +80541,7 @@
               ((e.type = "paragraph"),
               (e.text = this.options.sanitizer
                 ? this.options.sanitizer(t[0])
-                : hE(t[0])),
+                : CE(t[0])),
               (e.tokens = []),
               this.lexer.inline(e.text, e.tokens)),
             e
@@ -79673,7 +80567,7 @@
         if (t) {
           const e = {
             type: "table",
-            header: xE(t[1]).map((e) => ({ text: e })),
+            header: NE(t[1]).map((e) => ({ text: e })),
             align: t[2].replace(/^ *|\| *$/g, "").split(/ *\| */),
             rows: t[3] ? t[3].replace(/\n[ \t]*$/, "").split("\n") : [],
           };
@@ -79693,7 +80587,7 @@
                 ? (e.align[n] = "left")
                 : (e.align[n] = null);
             for (s = e.rows.length, n = 0; n < s; n++)
-              e.rows[n] = xE(e.rows[n], e.header.length).map((e) => ({
+              e.rows[n] = NE(e.rows[n], e.header.length).map((e) => ({
                 text: e,
               }));
             for (s = e.header.length, r = 0; r < s; r++)
@@ -79742,7 +80636,7 @@
       }
       escape(e) {
         const t = this.rules.inline.escape.exec(e);
-        if (t) return { type: "escape", raw: t[0], text: hE(t[1]) };
+        if (t) return { type: "escape", raw: t[0], text: CE(t[1]) };
       }
       tag(e) {
         const t = this.rules.inline.tag.exec(e);
@@ -79767,7 +80661,7 @@
               text: this.options.sanitize
                 ? this.options.sanitizer
                   ? this.options.sanitizer(t[0])
-                  : hE(t[0])
+                  : CE(t[0])
                 : t[0],
             }
           );
@@ -79778,7 +80672,7 @@
           const e = t[2].trim();
           if (!this.options.pedantic && /^</.test(e)) {
             if (!/>$/.test(e)) return;
-            const t = RE(e.slice(0, -1), "\\");
+            const t = BE(e.slice(0, -1), "\\");
             if ((e.length - t.length) % 2 == 0) return;
           } else {
             const e = (function (e, t) {
@@ -79812,7 +80706,7 @@
                 this.options.pedantic && !/>$/.test(e)
                   ? n.slice(1)
                   : n.slice(1, -1)),
-            DE(
+            HE(
               t,
               {
                 href: n ? n.replace(this.rules.inline._escapes, "$1") : n,
@@ -79835,7 +80729,7 @@
             const e = n[0].charAt(0);
             return { type: "text", raw: e, text: e };
           }
-          return DE(n, e, n[0], this.lexer);
+          return HE(n, e, n[0], this.lexer);
         }
       }
       emStrong(e, t, n = "") {
@@ -79896,7 +80790,7 @@
             r = /^ /.test(e) && / $/.test(e);
           return (
             n && r && (e = e.substring(1, e.length - 1)),
-            (e = hE(e, !0)),
+            (e = CE(e, !0)),
             { type: "codespan", raw: t[0], text: e }
           );
         }
@@ -79921,9 +80815,9 @@
           let e, r;
           return (
             "@" === n[2]
-              ? ((e = hE(this.options.mangle ? t(n[1]) : n[1])),
+              ? ((e = CE(this.options.mangle ? t(n[1]) : n[1])),
                 (r = "mailto:" + e))
-              : ((e = hE(n[1])), (r = e)),
+              : ((e = CE(n[1])), (r = e)),
             {
               type: "link",
               raw: n[0],
@@ -79939,13 +80833,13 @@
         if ((n = this.rules.inline.url.exec(e))) {
           let e, r;
           if ("@" === n[2])
-            (e = hE(this.options.mangle ? t(n[0]) : n[0])), (r = "mailto:" + e);
+            (e = CE(this.options.mangle ? t(n[0]) : n[0])), (r = "mailto:" + e);
           else {
             let t;
             do {
               (t = n[0]), (n[0] = this.rules.inline._backpedal.exec(n[0])[0]);
             } while (t !== n[0]);
-            (e = hE(n[0])), (r = "www." === n[1] ? "http://" + e : e);
+            (e = CE(n[0])), (r = "www." === n[1] ? "http://" + e : e);
           }
           return {
             type: "link",
@@ -79965,15 +80859,15 @@
               ? this.options.sanitize
                 ? this.options.sanitizer
                   ? this.options.sanitizer(n[0])
-                  : hE(n[0])
+                  : CE(n[0])
                 : n[0]
-              : hE(this.options.smartypants ? t(n[0]) : n[0])),
+              : CE(this.options.smartypants ? t(n[0]) : n[0])),
             { type: "text", raw: n[0], text: e }
           );
         }
       }
     }
-    const PE = {
+    const zE = {
       newline: /^(?: *(?:\n|$))+/,
       code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
       fences:
@@ -79984,7 +80878,7 @@
       list: /^( {0,3}bull)( [^\n]+?)?(?:\n|$)/,
       html: "^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>\\n*|$)|<![A-Z][\\s\\S]*?(?:>\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n *)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$))",
       def: /^ {0,3}\[(label)\]: *(?:\n *)?<?([^\s>]+)>?(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
-      table: kE,
+      table: ME,
       lheading: /^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,
       _paragraph:
         /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,
@@ -79992,35 +80886,35 @@
       _label: /(?!\s*\])(?:\\.|[^\[\]\\])+/,
       _title: /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/,
     };
-    (PE.def = mE(PE.def)
-      .replace("label", PE._label)
-      .replace("title", PE._title)
+    (zE.def = xE(zE.def)
+      .replace("label", zE._label)
+      .replace("title", zE._title)
       .getRegex()),
-      (PE.bullet = /(?:[*+-]|\d{1,9}[.)])/),
-      (PE.listItemStart = mE(/^( *)(bull) */)
-        .replace("bull", PE.bullet)
+      (zE.bullet = /(?:[*+-]|\d{1,9}[.)])/),
+      (zE.listItemStart = xE(/^( *)(bull) */)
+        .replace("bull", zE.bullet)
         .getRegex()),
-      (PE.list = mE(PE.list)
-        .replace(/bull/g, PE.bullet)
+      (zE.list = xE(zE.list)
+        .replace(/bull/g, zE.bullet)
         .replace(
           "hr",
           "\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))"
         )
-        .replace("def", "\\n+(?=" + PE.def.source + ")")
+        .replace("def", "\\n+(?=" + zE.def.source + ")")
         .getRegex()),
-      (PE._tag =
+      (zE._tag =
         "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul"),
-      (PE._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/),
-      (PE.html = mE(PE.html, "i")
-        .replace("comment", PE._comment)
-        .replace("tag", PE._tag)
+      (zE._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/),
+      (zE.html = xE(zE.html, "i")
+        .replace("comment", zE._comment)
+        .replace("tag", zE._tag)
         .replace(
           "attribute",
           / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/
         )
         .getRegex()),
-      (PE.paragraph = mE(PE._paragraph)
-        .replace("hr", PE.hr)
+      (zE.paragraph = xE(zE._paragraph)
+        .replace("hr", zE.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("|lheading", "")
         .replace("|table", "")
@@ -80031,18 +80925,18 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", PE._tag)
+        .replace("tag", zE._tag)
         .getRegex()),
-      (PE.blockquote = mE(PE.blockquote)
-        .replace("paragraph", PE.paragraph)
+      (zE.blockquote = xE(zE.blockquote)
+        .replace("paragraph", zE.paragraph)
         .getRegex()),
-      (PE.normal = EE({}, PE)),
-      (PE.gfm = EE({}, PE.normal, {
+      (zE.normal = OE({}, zE)),
+      (zE.gfm = OE({}, zE.normal, {
         table:
           "^ *([^\\n ].*\\|.*)\\n {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)",
       })),
-      (PE.gfm.table = mE(PE.gfm.table)
-        .replace("hr", PE.hr)
+      (zE.gfm.table = xE(zE.gfm.table)
+        .replace("hr", zE.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("blockquote", " {0,3}>")
         .replace("code", " {4}[^\\n]")
@@ -80052,13 +80946,13 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", PE._tag)
+        .replace("tag", zE._tag)
         .getRegex()),
-      (PE.gfm.paragraph = mE(PE._paragraph)
-        .replace("hr", PE.hr)
+      (zE.gfm.paragraph = xE(zE._paragraph)
+        .replace("hr", zE.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("|lheading", "")
-        .replace("table", PE.gfm.table)
+        .replace("table", zE.gfm.table)
         .replace("blockquote", " {0,3}>")
         .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n")
         .replace("list", " {0,3}(?:[*+-]|1[.)]) ")
@@ -80066,13 +80960,13 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", PE._tag)
+        .replace("tag", zE._tag)
         .getRegex()),
-      (PE.pedantic = EE({}, PE.normal, {
-        html: mE(
+      (zE.pedantic = OE({}, zE.normal, {
+        html: xE(
           "^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:\"[^\"]*\"|'[^']*'|\\s[^'\"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))"
         )
-          .replace("comment", PE._comment)
+          .replace("comment", zE._comment)
           .replace(
             /tag/g,
             "(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b"
@@ -80080,21 +80974,21 @@
           .getRegex(),
         def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
         heading: /^(#{1,6})(.*)(?:\n+|$)/,
-        fences: kE,
-        paragraph: mE(PE.normal._paragraph)
-          .replace("hr", PE.hr)
+        fences: ME,
+        paragraph: xE(zE.normal._paragraph)
+          .replace("hr", zE.hr)
           .replace("heading", " *#{1,6} *[^\n]")
-          .replace("lheading", PE.lheading)
+          .replace("lheading", zE.lheading)
           .replace("blockquote", " {0,3}>")
           .replace("|fences", "")
           .replace("|list", "")
           .replace("|html", "")
           .getRegex(),
       }));
-    const IE = {
+    const WE = {
       escape: /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,
       autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/,
-      url: kE,
+      url: ME,
       tag: "^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",
       link: /^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,
       reflink: /^!?\[(label)\]\[(ref)\]/,
@@ -80109,11 +81003,11 @@
       },
       code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
       br: /^( {2,}|\\)\n(?!\s*$)/,
-      del: kE,
+      del: ME,
       text: /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/,
       punctuation: /^([\spunctuation])/,
     };
-    function ME(e) {
+    function jE(e) {
       return e
         .replace(/---/g, "—")
         .replace(/--/g, "–")
@@ -80123,7 +81017,7 @@
         .replace(/"/g, "”")
         .replace(/\.{3}/g, "…");
     }
-    function OE(e) {
+    function $E(e) {
       let t,
         n,
         r = "";
@@ -80134,58 +81028,58 @@
           (r += "&#" + n + ";");
       return r;
     }
-    (IE._punctuation = "!\"#$%&'()+\\-.,/:;<=>?@\\[\\]`^{|}~"),
-      (IE.punctuation = mE(IE.punctuation)
-        .replace(/punctuation/g, IE._punctuation)
+    (WE._punctuation = "!\"#$%&'()+\\-.,/:;<=>?@\\[\\]`^{|}~"),
+      (WE.punctuation = xE(WE.punctuation)
+        .replace(/punctuation/g, WE._punctuation)
         .getRegex()),
-      (IE.blockSkip = /\[[^\]]*?\]\([^\)]*?\)|`[^`]*?`|<[^>]*?>/g),
-      (IE.escapedEmSt = /\\\*|\\_/g),
-      (IE._comment = mE(PE._comment)
+      (WE.blockSkip = /\[[^\]]*?\]\([^\)]*?\)|`[^`]*?`|<[^>]*?>/g),
+      (WE.escapedEmSt = /\\\*|\\_/g),
+      (WE._comment = xE(zE._comment)
         .replace("(?:--\x3e|$)", "--\x3e")
         .getRegex()),
-      (IE.emStrong.lDelim = mE(IE.emStrong.lDelim)
-        .replace(/punct/g, IE._punctuation)
+      (WE.emStrong.lDelim = xE(WE.emStrong.lDelim)
+        .replace(/punct/g, WE._punctuation)
         .getRegex()),
-      (IE.emStrong.rDelimAst = mE(IE.emStrong.rDelimAst, "g")
-        .replace(/punct/g, IE._punctuation)
+      (WE.emStrong.rDelimAst = xE(WE.emStrong.rDelimAst, "g")
+        .replace(/punct/g, WE._punctuation)
         .getRegex()),
-      (IE.emStrong.rDelimUnd = mE(IE.emStrong.rDelimUnd, "g")
-        .replace(/punct/g, IE._punctuation)
+      (WE.emStrong.rDelimUnd = xE(WE.emStrong.rDelimUnd, "g")
+        .replace(/punct/g, WE._punctuation)
         .getRegex()),
-      (IE._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g),
-      (IE._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/),
-      (IE._email =
+      (WE._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g),
+      (WE._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/),
+      (WE._email =
         /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/),
-      (IE.autolink = mE(IE.autolink)
-        .replace("scheme", IE._scheme)
-        .replace("email", IE._email)
+      (WE.autolink = xE(WE.autolink)
+        .replace("scheme", WE._scheme)
+        .replace("email", WE._email)
         .getRegex()),
-      (IE._attribute =
+      (WE._attribute =
         /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/),
-      (IE.tag = mE(IE.tag)
-        .replace("comment", IE._comment)
-        .replace("attribute", IE._attribute)
+      (WE.tag = xE(WE.tag)
+        .replace("comment", WE._comment)
+        .replace("attribute", WE._attribute)
         .getRegex()),
-      (IE._label = /(?:\[(?:\\.|[^\[\]\\])*\]|\\.|`[^`]*`|[^\[\]\\`])*?/),
-      (IE._href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/),
-      (IE._title =
+      (WE._label = /(?:\[(?:\\.|[^\[\]\\])*\]|\\.|`[^`]*`|[^\[\]\\`])*?/),
+      (WE._href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/),
+      (WE._title =
         /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/),
-      (IE.link = mE(IE.link)
-        .replace("label", IE._label)
-        .replace("href", IE._href)
-        .replace("title", IE._title)
+      (WE.link = xE(WE.link)
+        .replace("label", WE._label)
+        .replace("href", WE._href)
+        .replace("title", WE._title)
         .getRegex()),
-      (IE.reflink = mE(IE.reflink)
-        .replace("label", IE._label)
-        .replace("ref", PE._label)
+      (WE.reflink = xE(WE.reflink)
+        .replace("label", WE._label)
+        .replace("ref", zE._label)
         .getRegex()),
-      (IE.nolink = mE(IE.nolink).replace("ref", PE._label).getRegex()),
-      (IE.reflinkSearch = mE(IE.reflinkSearch, "g")
-        .replace("reflink", IE.reflink)
-        .replace("nolink", IE.nolink)
+      (WE.nolink = xE(WE.nolink).replace("ref", zE._label).getRegex()),
+      (WE.reflinkSearch = xE(WE.reflinkSearch, "g")
+        .replace("reflink", WE.reflink)
+        .replace("nolink", WE.nolink)
         .getRegex()),
-      (IE.normal = EE({}, IE)),
-      (IE.pedantic = EE({}, IE.normal, {
+      (WE.normal = OE({}, WE)),
+      (WE.pedantic = OE({}, WE.normal, {
         strong: {
           start: /^__|\*\*/,
           middle:
@@ -80199,15 +81093,15 @@
           endAst: /\*(?!\*)/g,
           endUnd: /_(?!_)/g,
         },
-        link: mE(/^!?\[(label)\]\((.*?)\)/)
-          .replace("label", IE._label)
+        link: xE(/^!?\[(label)\]\((.*?)\)/)
+          .replace("label", WE._label)
           .getRegex(),
-        reflink: mE(/^!?\[(label)\]\s*\[([^\]]*)\]/)
-          .replace("label", IE._label)
+        reflink: xE(/^!?\[(label)\]\s*\[([^\]]*)\]/)
+          .replace("label", WE._label)
           .getRegex(),
       })),
-      (IE.gfm = EE({}, IE.normal, {
-        escape: mE(IE.escape).replace("])", "~|])").getRegex(),
+      (WE.gfm = OE({}, WE.normal, {
+        escape: xE(WE.escape).replace("])", "~|])").getRegex(),
         _extended_email:
           /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
         url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
@@ -80216,43 +81110,43 @@
         del: /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/,
         text: /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/,
       })),
-      (IE.gfm.url = mE(IE.gfm.url, "i")
-        .replace("email", IE.gfm._extended_email)
+      (WE.gfm.url = xE(WE.gfm.url, "i")
+        .replace("email", WE.gfm._extended_email)
         .getRegex()),
-      (IE.breaks = EE({}, IE.gfm, {
-        br: mE(IE.br).replace("{2,}", "*").getRegex(),
-        text: mE(IE.gfm.text)
+      (WE.breaks = OE({}, WE.gfm, {
+        br: xE(WE.br).replace("{2,}", "*").getRegex(),
+        text: xE(WE.gfm.text)
           .replace("\\b_", "\\b_| {2,}\\n")
           .replace(/\{2,\}/g, "*")
           .getRegex(),
       }));
-    class NE {
+    class qE {
       constructor(e) {
         (this.tokens = []),
           (this.tokens.links = Object.create(null)),
-          (this.options = e || iE),
-          (this.options.tokenizer = this.options.tokenizer || new AE()),
+          (this.options = e || fE),
+          (this.options.tokenizer = this.options.tokenizer || new UE()),
           (this.tokenizer = this.options.tokenizer),
           (this.tokenizer.options = this.options),
           (this.tokenizer.lexer = this),
           (this.inlineQueue = []),
           (this.state = { inLink: !1, inRawBlock: !1, top: !0 });
-        const t = { block: PE.normal, inline: IE.normal };
+        const t = { block: zE.normal, inline: WE.normal };
         this.options.pedantic
-          ? ((t.block = PE.pedantic), (t.inline = IE.pedantic))
+          ? ((t.block = zE.pedantic), (t.inline = WE.pedantic))
           : this.options.gfm &&
-            ((t.block = PE.gfm),
-            this.options.breaks ? (t.inline = IE.breaks) : (t.inline = IE.gfm)),
+            ((t.block = zE.gfm),
+            this.options.breaks ? (t.inline = WE.breaks) : (t.inline = WE.gfm)),
           (this.tokenizer.rules = t);
       }
       static get rules() {
-        return { block: PE, inline: IE };
+        return { block: zE, inline: WE };
       }
       static lex(e, t) {
-        return new NE(t).lex(e);
+        return new qE(t).lex(e);
       }
       static lexInline(e, t) {
-        return new NE(t).inlineTokens(e);
+        return new qE(t).inlineTokens(e);
       }
       lex(e) {
         let t;
@@ -80391,7 +81285,7 @@
                 (l =
                   l.slice(0, o.index) +
                   "[" +
-                  _E("a", o[0].length - 2) +
+                  LE("a", o[0].length - 2) +
                   "]" +
                   l.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex));
         }
@@ -80399,7 +81293,7 @@
           l =
             l.slice(0, o.index) +
             "[" +
-            _E("a", o[0].length - 2) +
+            LE("a", o[0].length - 2) +
             "]" +
             l.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
         for (; null != (o = this.tokenizer.rules.inline.escapedEmSt.exec(l)); )
@@ -80445,9 +81339,9 @@
               (e = e.substring(n.raw.length)), t.push(n);
             else if ((n = this.tokenizer.del(e)))
               (e = e.substring(n.raw.length)), t.push(n);
-            else if ((n = this.tokenizer.autolink(e, OE)))
+            else if ((n = this.tokenizer.autolink(e, $E)))
               (e = e.substring(n.raw.length)), t.push(n);
-            else if (this.state.inLink || !(n = this.tokenizer.url(e, OE))) {
+            else if (this.state.inLink || !(n = this.tokenizer.url(e, $E))) {
               if (
                 ((i = e),
                 this.options.extensions && this.options.extensions.startInline)
@@ -80461,7 +81355,7 @@
                 }),
                   t < 1 / 0 && t >= 0 && (i = e.substring(0, t + 1));
               }
-              if ((n = this.tokenizer.inlineText(i, ME)))
+              if ((n = this.tokenizer.inlineText(i, jE)))
                 (e = e.substring(n.raw.length)),
                   "_" !== n.raw.slice(-1) && (a = n.raw.slice(-1)),
                   (s = !0),
@@ -80481,9 +81375,9 @@
         return t;
       }
     }
-    class BE {
+    class GE {
       constructor(e) {
-        this.options = e || iE;
+        this.options = e || fE;
       }
       code(e, t, n) {
         const r = (t || "").match(/\S*/)[0];
@@ -80496,11 +81390,11 @@
           r
             ? '<pre><code class="' +
               this.options.langPrefix +
-              hE(r, !0) +
+              CE(r, !0) +
               '">' +
-              (n ? e : hE(e, !0)) +
+              (n ? e : CE(e, !0)) +
               "</code></pre>\n"
-            : "<pre><code>" + (n ? e : hE(e, !0)) + "</code></pre>\n"
+            : "<pre><code>" + (n ? e : CE(e, !0)) + "</code></pre>\n"
         );
       }
       blockquote(e) {
@@ -80589,13 +81483,13 @@
         return "<del>" + e + "</del>";
       }
       link(e, t, n) {
-        if (null === (e = vE(this.options.sanitize, this.options.baseUrl, e)))
+        if (null === (e = _E(this.options.sanitize, this.options.baseUrl, e)))
           return n;
-        let r = '<a href="' + hE(e) + '"';
+        let r = '<a href="' + CE(e) + '"';
         return t && (r += ' title="' + t + '"'), (r += ">" + n + "</a>"), r;
       }
       image(e, t, n) {
-        if (null === (e = vE(this.options.sanitize, this.options.baseUrl, e)))
+        if (null === (e = _E(this.options.sanitize, this.options.baseUrl, e)))
           return n;
         let r = '<img src="' + e + '" alt="' + n + '"';
         return (
@@ -80608,7 +81502,7 @@
         return e;
       }
     }
-    class FE {
+    class VE {
       strong(e) {
         return e;
       }
@@ -80637,7 +81531,7 @@
         return "";
       }
     }
-    class LE {
+    class KE {
       constructor() {
         this.seen = {};
       }
@@ -80668,20 +81562,20 @@
         return this.getNextSafeSlug(n, t.dryrun);
       }
     }
-    class HE {
+    class YE {
       constructor(e) {
-        (this.options = e || iE),
-          (this.options.renderer = this.options.renderer || new BE()),
+        (this.options = e || fE),
+          (this.options.renderer = this.options.renderer || new GE()),
           (this.renderer = this.options.renderer),
           (this.renderer.options = this.options),
-          (this.textRenderer = new FE()),
-          (this.slugger = new LE());
+          (this.textRenderer = new VE()),
+          (this.slugger = new KE());
       }
       static parse(e, t) {
-        return new HE(t).parse(e);
+        return new YE(t).parse(e);
       }
       static parseInline(e, t) {
-        return new HE(t).parseInline(e);
+        return new YE(t).parseInline(e);
       }
       parse(e, t = !0) {
         let n,
@@ -80741,7 +81635,7 @@
                 C += this.renderer.heading(
                   this.parseInline(h.tokens),
                   h.depth,
-                  dE(this.parseInline(h.tokens, this.textRenderer)),
+                  kE(this.parseInline(h.tokens, this.textRenderer)),
                   this.slugger
                 );
                 continue;
@@ -80902,7 +81796,7 @@
         return o;
       }
     }
-    function UE(e, t, n) {
+    function ZE(e, t, n) {
       if (null == e)
         throw new Error("marked(): input parameter is undefined or null");
       if ("string" != typeof e)
@@ -80913,13 +81807,13 @@
         );
       if (
         ("function" == typeof t && ((n = t), (t = null)),
-        TE((t = EE({}, UE.defaults, t || {}))),
+        FE((t = OE({}, ZE.defaults, t || {}))),
         n)
       ) {
         const r = t.highlight;
         let i;
         try {
-          i = NE.lex(e, t);
+          i = qE.lex(e, t);
         } catch (e) {
           return n(e);
         }
@@ -80927,8 +81821,8 @@
           let o;
           if (!e)
             try {
-              t.walkTokens && UE.walkTokens(i, t.walkTokens),
-                (o = HE.parse(i, t));
+              t.walkTokens && ZE.walkTokens(i, t.walkTokens),
+                (o = YE.parse(i, t));
             } catch (t) {
               e = t;
             }
@@ -80938,7 +81832,7 @@
         if ((delete t.highlight, !i.length)) return o();
         let s = 0;
         return (
-          UE.walkTokens(i, function (e) {
+          ZE.walkTokens(i, function (e) {
             "code" === e.type &&
               (s++,
               setTimeout(() => {
@@ -80954,8 +81848,8 @@
         );
       }
       try {
-        const n = NE.lex(e, t);
-        return t.walkTokens && UE.walkTokens(n, t.walkTokens), HE.parse(n, t);
+        const n = qE.lex(e, t);
+        return t.walkTokens && ZE.walkTokens(n, t.walkTokens), YE.parse(n, t);
       } catch (e) {
         if (
           ((e.message +=
@@ -80963,17 +81857,17 @@
           t.silent)
         )
           return (
-            "<p>An error occurred:</p><pre>" + hE(e.message + "", !0) + "</pre>"
+            "<p>An error occurred:</p><pre>" + CE(e.message + "", !0) + "</pre>"
           );
         throw e;
       }
     }
-    (UE.options = UE.setOptions =
+    (ZE.options = ZE.setOptions =
       function (e) {
         var t;
-        return EE(UE.defaults, e), (t = UE.defaults), (iE = t), UE;
+        return OE(ZE.defaults, e), (t = ZE.defaults), (fE = t), ZE;
       }),
-      (UE.getDefaults = function () {
+      (ZE.getDefaults = function () {
         return {
           baseUrl: null,
           breaks: !1,
@@ -80996,10 +81890,10 @@
           xhtml: !1,
         };
       }),
-      (UE.defaults = iE),
-      (UE.use = function (...e) {
-        const t = EE({}, ...e),
-          n = UE.defaults.extensions || { renderers: {}, childTokens: {} };
+      (ZE.defaults = fE),
+      (ZE.use = function (...e) {
+        const t = OE({}, ...e),
+          n = ZE.defaults.extensions || { renderers: {}, childTokens: {} };
         let r;
         e.forEach((e) => {
           if (
@@ -81038,7 +81932,7 @@
               })),
             e.renderer)
           ) {
-            const n = UE.defaults.renderer || new BE();
+            const n = ZE.defaults.renderer || new GE();
             for (const t in e.renderer) {
               const r = n[t];
               n[t] = (...i) => {
@@ -81049,7 +81943,7 @@
             t.renderer = n;
           }
           if (e.tokenizer) {
-            const n = UE.defaults.tokenizer || new AE();
+            const n = ZE.defaults.tokenizer || new UE();
             for (const t in e.tokenizer) {
               const r = n[t];
               n[t] = (...i) => {
@@ -81060,38 +81954,38 @@
             t.tokenizer = n;
           }
           if (e.walkTokens) {
-            const n = UE.defaults.walkTokens;
+            const n = ZE.defaults.walkTokens;
             t.walkTokens = function (t) {
               e.walkTokens.call(this, t), n && n.call(this, t);
             };
           }
-          r && (t.extensions = n), UE.setOptions(t);
+          r && (t.extensions = n), ZE.setOptions(t);
         });
       }),
-      (UE.walkTokens = function (e, t) {
+      (ZE.walkTokens = function (e, t) {
         for (const n of e)
-          switch ((t.call(UE, n), n.type)) {
+          switch ((t.call(ZE, n), n.type)) {
             case "table":
-              for (const e of n.header) UE.walkTokens(e.tokens, t);
+              for (const e of n.header) ZE.walkTokens(e.tokens, t);
               for (const e of n.rows)
-                for (const n of e) UE.walkTokens(n.tokens, t);
+                for (const n of e) ZE.walkTokens(n.tokens, t);
               break;
             case "list":
-              UE.walkTokens(n.items, t);
+              ZE.walkTokens(n.items, t);
               break;
             default:
-              UE.defaults.extensions &&
-              UE.defaults.extensions.childTokens &&
-              UE.defaults.extensions.childTokens[n.type]
-                ? UE.defaults.extensions.childTokens[n.type].forEach(function (
+              ZE.defaults.extensions &&
+              ZE.defaults.extensions.childTokens &&
+              ZE.defaults.extensions.childTokens[n.type]
+                ? ZE.defaults.extensions.childTokens[n.type].forEach(function (
                     e
                   ) {
-                    UE.walkTokens(n[e], t);
+                    ZE.walkTokens(n[e], t);
                   })
-                : n.tokens && UE.walkTokens(n.tokens, t);
+                : n.tokens && ZE.walkTokens(n.tokens, t);
           }
       }),
-      (UE.parseInline = function (e, t) {
+      (ZE.parseInline = function (e, t) {
         if (null == e)
           throw new Error(
             "marked.parseInline(): input parameter is undefined or null"
@@ -81102,11 +81996,11 @@
               Object.prototype.toString.call(e) +
               ", string expected"
           );
-        TE((t = EE({}, UE.defaults, t || {})));
+        FE((t = OE({}, ZE.defaults, t || {})));
         try {
-          const n = NE.lexInline(e, t);
+          const n = qE.lexInline(e, t);
           return (
-            t.walkTokens && UE.walkTokens(n, t.walkTokens), HE.parseInline(n, t)
+            t.walkTokens && ZE.walkTokens(n, t.walkTokens), YE.parseInline(n, t)
           );
         } catch (e) {
           if (
@@ -81116,29 +82010,29 @@
           )
             return (
               "<p>An error occurred:</p><pre>" +
-              hE(e.message + "", !0) +
+              CE(e.message + "", !0) +
               "</pre>"
             );
           throw e;
         }
       }),
-      (UE.Parser = HE),
-      (UE.parser = HE.parse),
-      (UE.Renderer = BE),
-      (UE.TextRenderer = FE),
-      (UE.Lexer = NE),
-      (UE.lexer = NE.lex),
-      (UE.Tokenizer = AE),
-      (UE.Slugger = LE),
-      (UE.parse = UE),
-      UE.options,
-      UE.setOptions,
-      UE.use,
-      UE.walkTokens,
-      UE.parseInline,
-      HE.parse,
-      NE.lex;
-    class zE {
+      (ZE.Parser = YE),
+      (ZE.parser = YE.parse),
+      (ZE.Renderer = GE),
+      (ZE.TextRenderer = VE),
+      (ZE.Lexer = qE),
+      (ZE.lexer = qE.lex),
+      (ZE.Tokenizer = UE),
+      (ZE.Slugger = KE),
+      (ZE.parse = ZE),
+      ZE.options,
+      ZE.setOptions,
+      ZE.use,
+      ZE.walkTokens,
+      ZE.parseInline,
+      YE.parse,
+      qE.lex;
+    class XE {
       emojiRegex;
       emojiFilePath;
       emojiBase64URICache = new Map();
@@ -81200,7 +82094,7 @@
         return new RegExp("(" + t + ")", "g");
       }
     }
-    function WE(e) {
+    function JE(e) {
       const t = Tn(e.endpoint);
       return new RegExp(
         (0, w.escapeRegExp)(t) +
@@ -81212,7 +82106,7 @@
           /(?<refNumber>\d+)(?<anchor>#[\w-]+)?\b/.source
       );
     }
-    class jE {
+    class QE {
       repository;
       constructor(e) {
         this.repository = e;
@@ -81234,13 +82128,13 @@
           !!/(issue|pull|discussion)/.test(e.href) &&
           !/\d+\/(files|commits|conflicts|checks)/.test(e.href) &&
           !/\.[a-z]+\z/.test(e.href) &&
-          WE(this.repository).test(e.href)
+          JE(this.repository).test(e.href)
         );
       }
       async filter(e) {
         const { textContent: t } = e;
         if (!(e instanceof HTMLAnchorElement) || null === t) return null;
-        const n = t.match(WE(this.repository));
+        const n = t.match(JE(this.repository));
         if (null === n || void 0 === n.groups) return null;
         const { refNumber: r, anchor: i } = n.groups,
           o = e.cloneNode(!0);
@@ -81266,7 +82160,7 @@
         return "(comment)";
       }
     }
-    function $E(e, t) {
+    function ex(e, t) {
       if (void 0 === e) return [];
       const n = e.split("/");
       return n.length > 3 || (1 === n.length && n[0] !== t.owner.login)
@@ -81275,17 +82169,17 @@
         ? []
         : n;
     }
-    const qE = /(?<marker>#|gh-|\/(?:issues|pull|discussions)\/)(?=\d)/i,
-      GE = /(?<=^|\W)/,
-      VE = new RegExp(
+    const tx = /(?<marker>#|gh-|\/(?:issues|pull|discussions)\/)(?=\d)/i,
+      nx = /(?<=^|\W)/,
+      rx = new RegExp(
         /(?<ownerOrOwnerRepo>\w+(?:-\w+)*(?:\/[.\w-]+)?)/.source +
           "?" +
-          qE.source +
+          tx.source +
           /(?<refNumber>\d+)\b/.source,
         "i"
       );
-    class KE {
-      issueReferenceWithLeader = new RegExp(GE.source + VE.source, "ig");
+    class ix {
+      issueReferenceWithLeader = new RegExp(nx.source + rx.source, "ig");
       repository;
       constructor(e) {
         this.repository = e;
@@ -81302,7 +82196,7 @@
       }
       async filter(e) {
         const { textContent: t } = e;
-        if (e.nodeType !== e.TEXT_NODE || null === t || !qE.test(t))
+        if (e.nodeType !== e.TEXT_NODE || null === t || !tx.test(t))
           return null;
         let n = 0;
         const r = [],
@@ -81324,7 +82218,7 @@
       }
       createLinkElement(e, t, n) {
         let r = `${e}${t}`;
-        const i = $E(n, this.repository);
+        const i = ex(n, this.repository);
         if (null === i) return null;
         let [o, s] = i;
         void 0 !== o && void 0 !== s
@@ -81335,7 +82229,7 @@
         return (l.textContent = r), (l.href = a), l;
       }
     }
-    class YE {
+    class ox {
       repository;
       beginStringNonWord = /(^|[^a-zA-Z0-9_`])/;
       userNameRef =
@@ -81396,14 +82290,14 @@
         return (n.textContent = e), (n.href = t), n;
       }
     }
-    const ZE = new RegExp(
+    const sx = new RegExp(
       "^" +
         (0, w.escapeRegExp)("https://user-images.githubusercontent.com") +
         ".+" +
         /(mp4|webm|ogg|mov|qt|avi|wmv|3gp|mpg|mpeg|)$/.source,
       "i"
     );
-    class XE {
+    class ax {
       createFilterTreeWalker(e) {
         return e.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
           acceptNode: (e) =>
@@ -81422,26 +82316,26 @@
         return e instanceof HTMLParagraphElement &&
           1 === e.childElementCount &&
           e.firstChild instanceof HTMLAnchorElement &&
-          ZE.test(e.firstChild.href)
+          sx.test(e.firstChild.href)
           ? e.firstChild.href
           : null;
       }
     }
-    class JE {
+    class lx {
       createFilterTreeWalker(e) {
         return e.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
           acceptNode: function (e) {
-            return e instanceof HTMLVideoElement && !ZE.test(e.src)
+            return e instanceof HTMLVideoElement && !sx.test(e.src)
               ? NodeFilter.FILTER_ACCEPT
               : NodeFilter.FILTER_SKIP;
           },
         });
       }
       async filter(e) {
-        return e instanceof HTMLVideoElement && !ZE.test(e.src) ? [] : null;
+        return e instanceof HTMLVideoElement && !sx.test(e.src) ? [] : null;
       }
     }
-    class QE {
+    class cx {
       repository;
       beginStringNonWordRegix = /(^|\W)/;
       orgRegix = /(?<org>@[a-z0-9][a-z0-9-]*)/;
@@ -81502,7 +82396,7 @@
         return (r.textContent = `@${e}/${t}`), (r.href = n), r;
       }
     }
-    class ex {
+    class ux {
       repository;
       sharedLeader = /^|[\s({\[]/;
       sharedLeaderWithAt = new RegExp(this.sharedLeader.source + "|@");
@@ -81610,7 +82504,7 @@
         );
       }
       createOwnerSpecifiedCommitLinkElement(e, t) {
-        const n = $E(e, this.repository);
+        const n = ex(e, this.repository);
         if (null === n) return;
         const r = this.trimCommitSha(t);
         if (n.length < 2) return this.createCommitMentionLinkElement(r);
@@ -81638,14 +82532,14 @@
         return e.length >= 30 ? e.slice(0, 7) : e;
       }
     }
-    const tx = ["Commit", "PullRequest"];
-    class nx {
+    const hx = ["Commit", "PullRequest"];
+    class px {
       markdownContext;
       repository;
       closesWithTextReference = new RegExp(
         this.closeText("closeTextWIssue").source +
           "(?<issueReference>" +
-          VE.source +
+          rx.source +
           ")"
       );
       closesAtEndOfText = new RegExp(
@@ -81714,7 +82608,7 @@
           e.href !== e.innerText
         )
           return;
-        const t = e.href.match(WE(this.repository));
+        const t = e.href.match(JE(this.repository));
         return null !== t &&
           void 0 !== t.groups &&
           void 0 !== t.groups.refNumber
@@ -81733,7 +82627,7 @@
         );
       }
     }
-    class rx {
+    class dx {
       nameWithOwner =
         /(?<owner>-?[a-z0-9][a-z0-9\-\_]*)\/(?<name>(?:\w|\.|\-)+)/;
       commitPath = /^commit\/(?<pathFragment>.+)$/;
@@ -81847,24 +82741,24 @@
         return e.length >= 30 ? e.slice(0, 7) : e;
       }
     }
-    const ix = qn((e) => {
+    const fx = qn((e) => {
       const { emoji: t, repository: n, markdownContext: r } = e,
         i = [];
       return (
         void 0 !== n &&
           (void 0 !== r &&
             (function (e) {
-              return tx.includes(e);
+              return hx.includes(e);
             })(r) &&
-            i.push(new nx(r, n)),
-          i.push(new KE(n), new jE(n))),
-        i.push(new zE(t)),
-        void 0 !== n && i.push(new QE(n), new YE(n), new ex(n), new rx(n)),
-        i.push(new JE(), new XE()),
+            i.push(new px(r, n)),
+          i.push(new ix(n), new QE(n))),
+        i.push(new XE(t)),
+        void 0 !== n && i.push(new cx(n), new ox(n), new ux(n), new dx(n)),
+        i.push(new lx(), new ax()),
         i
       );
     });
-    async function ox(e, t) {
+    async function mx(e, t) {
       const n = e.createFilterTreeWalker(t);
       let r = n.nextNode();
       for (; null !== r; ) {
@@ -81876,7 +82770,7 @@
         }
       }
     }
-    class sx extends nt.Emitter {
+    class gx extends nt.Emitter {
       markdown;
       constructor(e = null) {
         super(), (this.markdown = e);
@@ -81893,7 +82787,7 @@
         return this.markdown;
       }
     }
-    class ax extends ve.PureComponent {
+    class yx extends ve.PureComponent {
       frameRef = null;
       frameContainingDivRef = null;
       contentDivRef = null;
@@ -81940,9 +82834,9 @@
           "string" != typeof this.props.markdown
             ? this.props.markdown
             : (function (e, t) {
-                const n = UE(e, { gfm: !0, breaks: !0 }),
-                  r = rE().sanitize(n),
-                  i = new sx(r);
+                const n = ZE(e, { gfm: !0, breaks: !0 }),
+                  r = dE().sanitize(n),
+                  i = new gx(r);
                 return (
                   void 0 !== t &&
                     (function (e, t) {
@@ -81953,10 +82847,10 @@
                           "text/html"
                         );
                         for (const r of e) {
-                          if ((await ox(r, n), t.disposed)) break;
+                          if ((await mx(r, n), t.disposed)) break;
                           t.emit(n.documentElement.innerHTML);
                         }
-                      })(ix(t), e);
+                      })(fx(t), e);
                     })(i, t),
                   i
                 );
@@ -82092,15 +82986,15 @@
           }),
           e.map((e) =>
             ve.createElement(
-              kv,
-              { target: yv(e), key: tE(e), tooltipOffset: t },
+              Rv,
+              { target: wv(e), key: hE(e), tooltipOffset: t },
               e.ariaLabel
             )
           )
         );
       }
     }
-    class lx extends ve.Component {
+    class vx extends ve.Component {
       quickViewRef = ve.createRef();
       get quickViewHeight() {
         return this.quickViewRef.current?.clientHeight ?? 556;
@@ -82146,8 +83040,8 @@
         const n = this.getTopPRList(),
           r = window.innerHeight - n - t;
         return window.innerHeight - e > t
-          ? uo(e - n, 0, r)
-          : uo(e - t > 0 ? e - n - t + 47 : e + 23.5 - t / 2, 0, r);
+          ? oo(e - n, 0, r)
+          : oo(e - t > 0 ? e - n - t + 47 : e + 23.5 - t / 2, 0, r);
       }
       getPointerPosition(e) {
         return {
@@ -82161,24 +83055,24 @@
         ve.createElement(
           "header",
           { className: "header" },
-          ve.createElement(Tv, { symbol: Zu }),
+          ve.createElement(Av, { symbol: Xu }),
           ve.createElement(
             "div",
             { className: "action-needed" },
             "Review requested"
           ),
           ve.createElement(
-            Yb,
+            Qb,
             { className: "button-with-icon", onClick: this.onViewOnGitHub },
             "View on GitHub",
-            ve.createElement(Tv, { symbol: Yu })
+            ve.createElement(Av, { symbol: Zu })
           )
         );
       renderPRStatus(e) {
         return ve.createElement(
           "div",
           { className: pl()("status", { draft: e }) },
-          ve.createElement(Tv, { className: "icon", symbol: e ? $u : ju }),
+          ve.createElement(Av, { className: "icon", symbol: e ? qu : $u }),
           ve.createElement("span", { className: "state" }, e ? "Draft" : "Open")
         );
       }
@@ -82199,13 +83093,13 @@
             "div",
             { className: "title" },
             ve.createElement("h2", null, e),
-            ve.createElement(ux, {
+            ve.createElement(wx, {
               number: t,
               dispatcher: this.props.dispatcher,
               repository: n.gitHubRepository,
             })
           ),
-          ve.createElement(ax, {
+          ve.createElement(yx, {
             markdown: o,
             emoji: this.props.emoji,
             baseHref: n.gitHubRepository.htmlURL ?? void 0,
@@ -82240,7 +83134,7 @@
         );
       }
     }
-    class cx extends ve.Component {
+    class bx extends ve.Component {
       static getDerivedStateFromProps(e, t) {
         return t.currentPullRequest !== e.currentPullRequest
           ? {
@@ -82274,9 +83168,9 @@
         );
       }
       renderPullRequestQuickView = () => {
-        if (!to() || null === this.state.pullRequestBeingViewed) return null;
+        if (!uo() || null === this.state.pullRequestBeingViewed) return null;
         const { pr: e, prListItemTop: t } = this.state.pullRequestBeingViewed;
-        return ve.createElement(lx, {
+        return ve.createElement(vx, {
           dispatcher: this.props.dispatcher,
           emoji: this.props.emoji,
           pullRequest: e,
@@ -82297,12 +83191,12 @@
         return null === e
           ? null
           : ve.createElement(
-              Ub,
+              $b,
               { className: "merge-button-row" },
               ve.createElement(
-                Yb,
+                Qb,
                 { className: "merge-button", onClick: this.onMergeClick },
-                ve.createElement(Tv, { className: "icon", symbol: Wu }),
+                ve.createElement(Av, { className: "icon", symbol: ju }),
                 ve.createElement(
                   "span",
                   { title: `将分支合并到 ${e.name}` },
@@ -82321,7 +83215,7 @@
       renderTabBar() {
         return this.props.repository.gitHubRepository
           ? ve.createElement(
-              Xw,
+              nC,
               {
                 onTabClicked: this.onTabClicked,
                 selectedIndex: this.props.selectedTab,
@@ -82338,12 +83232,12 @@
           : null;
       }
       renderBranch = (e, t) =>
-        Qk(
+        cE(
           e,
           t,
           this.props.currentBranch,
-          this.onRenameBranch,
-          this.onDeleteBranch,
+          this.props.onRenameBranch,
+          this.props.onDeleteBranch,
           this.onDropOntoBranch,
           this.onDropOntoCurrentBranch
         );
@@ -82353,7 +83247,7 @@
           (this.props.repository.gitHubRepository || (e = mr.Branches), e)
         ) {
           case mr.Branches:
-            return ve.createElement(Lk, {
+            return ve.createElement(Vk, {
               defaultBranch: this.props.defaultBranch,
               currentBranch: this.props.currentBranch,
               allBranches: this.props.allBranches,
@@ -82366,7 +83260,7 @@
               canCreateNewBranch: !0,
               onCreateNewBranch: this.onCreateBranchWithName,
               renderBranch: this.renderBranch,
-              hideFilterRow: Gy.isDragOfTypeInProgress(Wy.Commit),
+              hideFilterRow: Yy.isDragOfTypeInProgress(Gy.Commit),
               renderPreList: this.renderPreList,
             });
           case mr.PullRequests:
@@ -82376,7 +83270,7 @@
         }
       }
       renderPreList = () =>
-        Gy.isDragOfTypeInProgress(Wy.Commit)
+        Yy.isDragOfTypeInProgress(Gy.Commit)
           ? ve.createElement(
               "div",
               {
@@ -82385,13 +83279,13 @@
                 onMouseLeave: this.onMouseLeaveNewBranchDrop,
                 onMouseUp: this.onMouseUpNewBranchDrop,
               },
-              ve.createElement(Tv, { className: "icon", symbol: nh }),
+              ve.createElement(Av, { className: "icon", symbol: rh }),
               ve.createElement("div", { className: "name" }, "New branch")
             )
           : null;
       onMouseUpNewBranchDrop = async () => {
-        const { dragData: e } = Gy;
-        if (null === e || e.type !== Wy.Commit) return;
+        const { dragData: e } = Yy;
+        if (null === e || e.type !== Gy.Commit) return;
         const { dispatcher: t, repository: n, currentBranch: r } = this.props;
         await t.setCherryPickCreateBranchFlowStep(n, "", e.commits, r),
           this.props.dispatcher.showPopup({
@@ -82400,10 +83294,10 @@
           });
       };
       onMouseEnterNewBranchDrop = () => {
-        Gy.emitEnterDropTarget({ type: jy.Branch, branchName: "a new branch" });
+        Yy.emitEnterDropTarget({ type: Vy.Branch, branchName: "a new branch" });
       };
       onMouseLeaveNewBranchDrop = () => {
-        Gy.emitLeaveDropTarget();
+        Yy.emitLeaveDropTarget();
       };
       renderPullRequests() {
         const e = this.props.repository;
@@ -82412,7 +83306,7 @@
           this.props.defaultBranch &&
           this.props.currentBranch &&
           this.props.defaultBranch.name === this.props.currentBranch.name;
-        return ve.createElement(Kk, {
+        return ve.createElement(rE, {
           key: "pr-list",
           pullRequests: this.props.pullRequests,
           selectedPullRequest: this.state.selectedPullRequest,
@@ -82460,7 +83354,7 @@
       onBranchItemClick = (e) => {
         const { repository: t, dispatcher: n } = this.props;
         n.closeFoldout(Ke.Branch);
-        const r = Iw("checkout branch from list", t);
+        const r = Bw("checkout branch from list", t);
         n.checkoutBranch(t, e).then(() => r.done());
       };
       onBranchSelectionChanged = (e) => {
@@ -82480,42 +83374,10 @@
       onPullRequestSelectionChanged = (e) => {
         this.setState({ selectedPullRequest: e });
       };
-      getBranchWithName(e) {
-        return this.props.allBranches.find((t) => t.name === e);
-      }
-      onRenameBranch = (e) => {
-        const t = this.getBranchWithName(e);
-        void 0 !== t &&
-          this.props.dispatcher.showPopup({
-            type: Pr.RenameBranch,
-            repository: this.props.repository,
-            branch: t,
-          });
-      };
-      onDeleteBranch = async (e) => {
-        const t = this.getBranchWithName(e);
-        if (void 0 === t) return;
-        if (t.type === dr.Remote)
-          return void this.props.dispatcher.showPopup({
-            type: Pr.DeleteRemoteBranch,
-            repository: this.props.repository,
-            branch: t,
-          });
-        const n = await this.props.dispatcher.getBranchAheadBehind(
-          this.props.repository,
-          t
-        );
-        this.props.dispatcher.showPopup({
-          type: Pr.DeleteBranch,
-          repository: this.props.repository,
-          branch: t,
-          existsOnRemote: null !== n,
-        });
-      };
       onDropOntoBranch = (e) => {
         const t = this.props.allBranches.find((t) => t.name === e);
         void 0 !== t
-          ? Gy.isDragOfType(Wy.Commit) &&
+          ? Yy.isDragOfType(Gy.Commit) &&
             this.props.dispatcher.startCherryPickWithBranch(
               this.props.repository,
               t
@@ -82525,7 +83387,7 @@
             );
       };
       onDropOntoCurrentBranch = () => {
-        Gy.isDragOfType(Wy.Commit) &&
+        Yy.isDragOfType(Gy.Commit) &&
           this.props.dispatcher.recordDragStartedAndCanceled();
       };
       clearPullRequestQuickViewTimer = () => {
@@ -82534,7 +83396,7 @@
           (this.pullRequestQuickViewTimerId = null));
       };
     }
-    class ux extends ve.Component {
+    class wx extends ve.Component {
       badgeRef = null;
       badgeBoundingBottom = 0;
       constructor(e) {
@@ -82559,7 +83421,7 @@
         this.setState({ isStatusShowing: null !== e });
       };
       render() {
-        const e = sg(this.props.number);
+        const e = lg(this.props.number);
         return ve.createElement(
           "div",
           {
@@ -82573,7 +83435,7 @@
             "#",
             this.props.number
           ),
-          ve.createElement(Hk, {
+          ve.createElement(Kk, {
             commitRef: e,
             dispatcher: this.props.dispatcher,
             repository: this.props.repository,
@@ -82582,7 +83444,7 @@
         );
       }
     }
-    class hx extends ve.Component {
+    class Cx extends ve.Component {
       static getDerivedStateFromProps(e, t) {
         const { repository: n, aheadBehindStore: r } = e,
           i = e.currentBranch?.tip.sha,
@@ -82630,7 +83492,7 @@
       render() {
         const { currentBranch: e, branch: t } = this.props,
           { aheadBehind: n } = this.state,
-          r = t.name === e?.name ? bu : Uu,
+          r = t.name === e?.name ? wu : zu,
           i = n
             ? ve.createElement(
                 "div",
@@ -82639,24 +83501,24 @@
                   "span",
                   { className: "branch-commit-counter-item" },
                   n.behind,
-                  ve.createElement(Tv, { className: "icon", symbol: gu })
+                  ve.createElement(Av, { className: "icon", symbol: yu })
                 ),
                 ve.createElement(
                   "span",
                   { className: "branch-commit-counter-item" },
                   n.ahead,
-                  ve.createElement(Tv, { className: "icon", symbol: vu })
+                  ve.createElement(Av, { className: "icon", symbol: bu })
                 )
               )
             : null;
         return ve.createElement(
           "div",
           { className: "branches-list-item" },
-          ve.createElement(Tv, { className: "icon", symbol: r }),
+          ve.createElement(Av, { className: "icon", symbol: r }),
           ve.createElement(
             "div",
             { className: "name", title: t.name },
-            ve.createElement(Hv, {
+            ve.createElement(Wv, {
               text: t.name,
               highlight: this.props.matches.title,
             })
@@ -82665,7 +83527,7 @@
         );
       }
     }
-    class px extends ve.Component {
+    class Sx extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isFocused: !1 });
       }
@@ -82680,8 +83542,8 @@
         return ve.createElement(
           "div",
           { className: e },
-          ve.createElement(Tv, { className: t, symbol: this.props.symbol }),
-          ve.createElement(Hb, {
+          ve.createElement(Av, { className: t, symbol: this.props.symbol }),
+          ve.createElement(jb, {
             value: this.props.value,
             onFocus: this.onFocus,
             onBlur: this.onBlur,
@@ -82706,7 +83568,7 @@
           this.setState({ isFocused: !1 });
       };
     }
-    class dx extends ve.Component {
+    class kx extends ve.Component {
       render() {
         const { status: e, classNamePrefix: t } = this.props;
         if (null === e) return null;
@@ -82715,28 +83577,28 @@
         return ve.createElement(
           "div",
           { className: r },
-          ve.createElement(Tv, {
+          ve.createElement(Av, {
             className: pl()(t, `${t}-${n}`, this.props.className),
-            symbol: fx(n),
+            symbol: Ex(n),
           })
         );
       }
     }
-    function fx(e) {
+    function Ex(e) {
       switch (e) {
         case Ps.Loading:
-          return Pu;
+          return Iu;
         case Ps.Conflicts:
-          return mu;
+          return gu;
         case Ps.Invalid:
-          return vh;
+          return bh;
         case Ps.Clean:
-          return bu;
+          return wu;
         default:
           return st(0, `Unknown state: ${JSON.stringify(e)}`);
       }
     }
-    class mx extends be().Component {
+    class xx extends be().Component {
       invokeButtonRef = null;
       optionsContainerRef = null;
       constructor(e) {
@@ -82782,9 +83644,9 @@
       renderSelectedIcon(e) {
         const { selectedOption: t } = this.state;
         if (null !== t && e.value === t.value)
-          return be().createElement(Tv, {
+          return be().createElement(Av, {
             className: "selected-option-indicator",
-            symbol: bu,
+            symbol: wu,
           });
       }
       renderSplitButtonOptions() {
@@ -82843,7 +83705,7 @@
           "div",
           { className: s },
           be().createElement(
-            Yb,
+            Qb,
             {
               className: "invoke-button",
               disabled: t,
@@ -82855,41 +83717,19 @@
             n.label
           ),
           be().createElement(
-            Yb,
+            Qb,
             {
               className: a,
               onClick: this.openSplitButtonDropdown,
               type: "button",
             },
-            be().createElement(Tv, { symbol: dh })
+            be().createElement(Av, { symbol: fh })
           ),
           this.renderSplitButtonOptions()
         );
       }
     }
-    function gx() {
-      const e = [
-        {
-          label: "创建合并提交",
-          description: "来自所选分支的提交将通过合并提交添加到当前分支。",
-          value: "Merge",
-        },
-      ];
-      return (
-        e.push({
-          label: "Squash合并",
-          description: "选定分支中的提交将合并为当前分支中的一个提交。",
-          value: "Squash",
-        }),
-        e.push({
-          label: "变基",
-          description: "来自所选分支的提交将重新设置基础并添加到当前分支。",
-          value: "Rebase",
-        }),
-        e
-      );
-    }
-    async function yx(e, t, n, r) {
+    async function Rx(e, t, n, r) {
       const i = e.name;
       r({ kind: Ps.Loading });
       const { commits: o, base: s } = await xo(
@@ -82904,7 +83744,7 @@
       const a = s === e.tip.sha ? [] : o;
       r({ kind: Ps.Clean, commits: a });
     }
-    class vx extends ve.Component {
+    class Tx extends ve.Component {
       get computedAction() {
         return "Rebase" === this.state.selectedOperation
           ? null !== this.state.rebasePreview
@@ -82936,7 +83776,7 @@
       }
       updateRebasePreview = async (e) => {
         const { currentBranch: t, repository: n } = this.props;
-        yx(e, t, n, (e) => {
+        Rx(e, t, n, (e) => {
           this.setState({ rebasePreview: e });
         });
       };
@@ -82989,9 +83829,28 @@
           "div",
           { className: "merge-cta" },
           t,
-          ve.createElement(mx, {
+          ve.createElement(xx, {
             selectedValue: this.state.selectedOperation,
-            options: gx(),
+            options: [
+              {
+                label: "Create a merge commit",
+                description:
+                  "The commits from the selected branch will be added to the current branch via a merge commit.",
+                value: "Merge",
+              },
+              {
+                label: "Squash and merge",
+                description:
+                  "The commits in the selected branch will be combined into one commit in the current branch.",
+                value: "Squash",
+              },
+              {
+                label: "Rebase",
+                description:
+                  "The commits from the selected branch will be rebased and added to the current branch.",
+                value: "Rebase",
+              },
+            ],
             disabled: e,
             onSelectChange: this.onOperationChange,
             onSubmit: this.onOperationInvoked,
@@ -83004,7 +83863,7 @@
           : ve.createElement(
               "div",
               { className: "merge-status-component" },
-              ve.createElement(dx, {
+              ve.createElement(kx, {
                 status: { kind: this.computedAction },
                 classNamePrefix: "merge-status",
               }),
@@ -83093,9 +83952,9 @@
         );
       }
     }
-    class bx extends ve.Component {
+    class _x extends ve.Component {
       textbox = null;
-      loadChangedFilesScheduler = new uw(200);
+      loadChangedFilesScheduler = new fw(200);
       branchList = null;
       loadingMoreCommitsPromise = null;
       resultCount = 0;
@@ -83148,8 +84007,8 @@
           ve.createElement(
             "div",
             { className: "compare-form" },
-            ve.createElement(px, {
-              symbol: Uu,
+            ve.createElement(Sx, {
+              symbol: zu,
               type: "search",
               placeholder: r,
               onFocus: this.onTextBoxFocused,
@@ -83198,14 +84057,14 @@
                   "p",
                   null,
                   "比较的分支 (",
-                  ve.createElement(aC, null, t),
+                  ve.createElement(pC, null, t),
                   ") 是您分支的最新信息"
                 )
               : ve.createElement(
                   "p",
                   null,
                   "您的分支与比较的分支是最新的 (",
-                  ve.createElement(aC, null, t),
+                  ve.createElement(pC, null, t),
                   ")"
                 );
         }
@@ -83215,6 +84074,7 @@
           commitLookup: this.props.commitLookup,
           commitSHAs: t,
           selectedSHAs: this.props.selectedCommitShas,
+          shasToHighlight: this.props.shasToHighlight,
           localCommitSHAs: this.props.localCommitSHAs,
           canResetToCommits: e.kind === Xe.History,
           canUndoCommits: e.kind === Xe.History,
@@ -83224,7 +84084,7 @@
           onViewCommitOnGitHub: this.props.onViewCommitOnGitHub,
           onUndoCommit: this.onUndoCommit,
           onResetToCommit: this.onResetToCommit,
-          onRevertCommit: wx(this.props.compareState.formState)
+          onRevertCommit: Dx(this.props.compareState.formState)
             ? this.props.onRevertCommit
             : void 0,
           onAmendCommit: this.props.onAmendCommit,
@@ -83239,7 +84099,7 @@
           emptyListMessage: n,
           onCompareListScrolled: this.props.onCompareListScrolled,
           compareListScrollTop: this.props.compareListScrollTop,
-          tagsToPush: this.props.tagsToPush,
+          tagsToPush: this.props.tagsToPush ?? [],
           isCherryPickInProgress: this.props.isCherryPickInProgress,
           onRenderCommitDragElement: this.onRenderCommitDragElement,
           onRemoveCommitDragElement: this.onRemoveCommitDragElement,
@@ -83247,14 +84107,14 @@
         });
       }
       onDropCommitInsertion = async (e, t, n) => {
-        if (!(await Xo(this.props.repository, n)))
+        if (!(await Jo(this.props.repository, n)))
           return this.props.dispatcher.reorderCommits(
             this.props.repository,
             t,
             e,
             n
           );
-        Yy(
+        Jy(
           new Error(
             "Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits."
           ),
@@ -83263,7 +84123,7 @@
       };
       onRenderCommitDragElement = (e, t) => {
         this.props.dispatcher.setDragElement({
-          type: Wy.Commit,
+          type: Gy.Commit,
           commit: e,
           selectedCommits: t,
           gitHubRepository: this.props.repository.gitHubRepository,
@@ -83289,7 +84149,7 @@
           recentBranches: n,
           filterText: r,
         } = this.props.compareState;
-        return ve.createElement(Lk, {
+        return ve.createElement(Vk, {
           ref: this.onBranchesListRef,
           defaultBranch: e,
           currentBranch: this.props.currentBranch,
@@ -83309,7 +84169,7 @@
       renderMergeCallToAction(e) {
         return null == this.props.currentBranch
           ? null
-          : ve.createElement(vx, {
+          : ve.createElement(Tx, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               mergeStatus: this.props.compareState.mergeStatus,
@@ -83335,7 +84195,7 @@
           "div",
           { className: "compare-content" },
           ve.createElement(
-            Xw,
+            nC,
             { selectedIndex: t, onTabClicked: this.onTabClicked },
             ve.createElement("span", null, `之后的 (${e.aheadBehind.behind})`),
             ve.createElement("span", null, `之前的 (${e.aheadBehind.ahead})`)
@@ -83344,7 +84204,7 @@
         );
       }
       renderCompareBranchListItem = (e, t) =>
-        ve.createElement(hx, {
+        ve.createElement(Cx, {
           branch: e.branch,
           currentBranch: this.props.currentBranch,
           matches: t,
@@ -83488,8 +84348,8 @@
               );
             return r.join("\n\n");
           })(i, t);
-        (await Xo(this.props.repository, n))
-          ? Yy(
+        (await Jo(this.props.repository, n))
+          ? Jy(
               new Error(
                 "Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits."
               ),
@@ -83512,10 +84372,10 @@
             }));
       };
     }
-    function wx(e) {
+    function Dx(e) {
       return e.kind === Xe.History || e.comparisonMode === Je.Ahead;
     }
-    class Cx extends ve.Component {
+    class Ax extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isRestoring: !1 });
       }
@@ -83529,7 +84389,7 @@
           ve.createElement(
             "div",
             { className: "row" },
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "恢复",
               okButtonDisabled: t || !e,
               onOkButtonClick: this.onRestoreClick,
@@ -83557,7 +84417,7 @@
           : ve.createElement(
               "div",
               { className: "explanatory-text" },
-              ve.createElement(Tv, { symbol: mu }),
+              ve.createElement(Av, { symbol: gu }),
               ve.createElement(
                 "span",
                 { className: "text" },
@@ -83576,7 +84436,7 @@
         });
       };
     }
-    class Sx extends ve.PureComponent {
+    class Px extends ve.PureComponent {
       onSelectedFileChanged = (e) =>
         this.props.dispatcher.selectStashedFile(this.props.repository, e);
       onResize = (e) => this.props.dispatcher.setStashedFilesWidth(e);
@@ -83597,7 +84457,7 @@
           u = e.files.kind === jo.Loaded ? e.files.files : new Array(),
           h =
             null !== t
-              ? ve.createElement(rk, {
+              ? ve.createElement(ck, {
                   repository: r,
                   readOnly: !0,
                   file: t,
@@ -83611,11 +84471,11 @@
                     this.props.onHideWhitespaceInDiffChanged,
                 })
               : null,
-          p = uo(a);
+          p = oo(a);
         return ve.createElement(
           "section",
           { id: "stash-diff-viewer" },
-          ve.createElement(Cx, {
+          ve.createElement(Ax, {
             stashEntry: e,
             repository: r,
             dispatcher: i,
@@ -83625,7 +84485,7 @@
             "div",
             { className: "commit-details" },
             ve.createElement(
-              vk,
+              Ek,
               {
                 width: a.value,
                 minimumWidth: a.min,
@@ -83633,7 +84493,7 @@
                 onResize: this.onResize,
                 onReset: this.onReset,
               },
-              ve.createElement(Ek, {
+              ve.createElement(Hk, {
                 files: u,
                 onSelectedFileChanged: this.onSelectedFileChanged,
                 selectedFile: t,
@@ -83645,7 +84505,7 @@
         );
       }
     }
-    class kx extends ve.Component {
+    class Ix extends ve.Component {
       render() {
         return ve.createElement(
           "li",
@@ -83682,7 +84542,7 @@
           ve.createElement(
             "span",
             { className: "hang-right" },
-            e ? this.props.skipLinkButton : ve.createElement(Tv, { symbol: Cu })
+            e ? this.props.skipLinkButton : ve.createElement(Av, { symbol: Su })
           )
         );
       };
@@ -83691,7 +84551,7 @@
           return ve.createElement(
             "div",
             { className: "green-circle" },
-            ve.createElement(Tv, { symbol: bu })
+            ve.createElement(Av, { symbol: wu })
           );
         const e = js.indexOf(this.props.sectionId) + 1;
         return this.props.isNextStepTodo(this.props.sectionId)
@@ -83702,8 +84562,8 @@
         e.preventDefault(), this.props.onSummaryClick(this.props.sectionId);
       };
     }
-    const Ex = Po(__dirname, "static/required-status-check.svg");
-    class xx extends ve.Component {
+    const Mx = Po(__dirname, "static/required-status-check.svg");
+    class Ox extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -83741,20 +84601,20 @@
             "div",
             { className: "titleArea" },
             ve.createElement("h3", null, "Get started"),
-            ve.createElement("img", { src: Ex })
+            ve.createElement("img", { src: Mx })
           ),
           ve.createElement(
             "ol",
             null,
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "Install a text editor",
                 isComplete: this.isStepComplete,
                 isNextStepTodo: this.isStepNextTodo,
                 sectionId: Os.PickEditor,
                 currentlyOpenSectionId: this.state.currentlyOpenSectionId,
-                skipLinkButton: ve.createElement(Rx, {
+                skipLinkButton: ve.createElement(Nx, {
                   onClick: this.skipEditorInstall,
                 }),
                 onSummaryClick: this.onStepSummaryClick,
@@ -83762,9 +84622,7 @@
               this.isStepComplete(Os.PickEditor)
                 ? ve.createElement(
                     "p",
-                    {
-                      className: "description",
-                    },
+                    { className: "description" },
                     "默认编辑器为",
                     " ",
                     ve.createElement(
@@ -83775,7 +84633,7 @@
                     ". 您可以在中更改首选编辑器",
                     " ",
                     ve.createElement(
-                      Lb,
+                      Hw,
                       { onClick: this.onPreferencesClick },
                       "选项"
                     )
@@ -83785,13 +84643,11 @@
                     null,
                     ve.createElement(
                       "p",
-                      {
-                        className: "description",
-                      },
+                      { className: "description" },
                       "看起来您没有安装文本编辑器。我们可以推荐",
                       " ",
                       ve.createElement(
-                        Lb,
+                        Hw,
                         {
                           uri: oi,
                           title: "打开Visual Studio Code网站",
@@ -83800,7 +84656,7 @@
                       ),
                       " or ",
                       ve.createElement(
-                        Lb,
+                        Hw,
                         {
                           uri: "https://atom.io",
                           title: "打开Atom网站",
@@ -83813,7 +84669,7 @@
                       "div",
                       { className: "action" },
                       ve.createElement(
-                        Lb,
+                        Hw,
                         { onClick: this.skipEditorInstall },
                         "我有一个编辑器"
                       )
@@ -83821,7 +84677,7 @@
                   )
             ),
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "创建分支",
                 isComplete: this.isStepComplete,
@@ -83850,7 +84706,7 @@
               )
             ),
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "编辑文件",
                 isComplete: this.isStepComplete,
@@ -83866,7 +84722,7 @@
                 },
                 "在首选文本编辑器中打开此仓库。编辑",
                 " ",
-                ve.createElement(aC, null, "README.md"),
+                ve.createElement(pC, null, "README.md"),
                 " ",
                 "文件，保存，然后返回。"
               ),
@@ -83875,7 +84731,7 @@
                   "div",
                   { className: "action" },
                   ve.createElement(
-                    Yb,
+                    Qb,
                     { onClick: this.openTutorialFileInEditor },
                     "打开编辑器"
                   ),
@@ -83889,7 +84745,7 @@
                 )
             ),
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "作出提交",
                 isComplete: this.isStepComplete,
@@ -83907,7 +84763,7 @@
               )
             ),
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "推送到 GitHub",
                 isComplete: this.isStepComplete,
@@ -83935,14 +84791,14 @@
               )
             ),
             ve.createElement(
-              kx,
+              Ix,
               {
                 summaryText: "打开拉取请求",
                 isComplete: this.isStepComplete,
                 isNextStepTodo: this.isStepNextTodo,
                 sectionId: Os.OpenPullRequest,
                 currentlyOpenSectionId: this.state.currentlyOpenSectionId,
-                skipLinkButton: ve.createElement(Rx, {
+                skipLinkButton: ve.createElement(Nx, {
                   onClick: this.skipCreatePR,
                 }),
                 onSummaryClick: this.onStepSummaryClick,
@@ -83958,10 +84814,10 @@
                 "div",
                 { className: "action" },
                 ve.createElement(
-                  Yb,
+                  Qb,
                   { onClick: this.openPullRequest },
                   "打开拉取请求",
-                  ve.createElement(Tv, { symbol: Yu })
+                  ve.createElement(Av, { symbol: Zu })
                 ),
                 ve.createElement(
                   ve.Fragment,
@@ -83976,7 +84832,7 @@
             "div",
             { className: "footer" },
             ve.createElement(
-              Yb,
+              Qb,
               { onClick: this.props.onExitTutorial },
               "Exit tutorial"
             )
@@ -83989,15 +84845,15 @@
       onPreferencesClick = () => {
         this.props.dispatcher.showPopup({
           type: Pr.Preferences,
-          initialSelectedTab: mv.Advanced,
+          initialSelectedTab: vv.Advanced,
         });
       };
     }
-    const Rx = (e) => ve.createElement(Lb, { onClick: e.onClick }, "Skip"),
-      Tx = Po(__dirname, "static/code.svg"),
-      _x = Po(__dirname, "static/github-for-teams.svg"),
-      Dx = Po(__dirname, "static/github-for-business.svg");
-    class Ax extends ve.Component {
+    const Nx = (e) => ve.createElement(Hw, { onClick: e.onClick }, "Skip"),
+      Bx = Po(__dirname, "static/code.svg"),
+      Fx = Po(__dirname, "static/github-for-teams.svg"),
+      Lx = Po(__dirname, "static/github-for-business.svg");
+    class Hx extends ve.Component {
       render() {
         return ve.createElement(
           "div",
@@ -84018,7 +84874,7 @@
             ve.createElement(
               "li",
               null,
-              ve.createElement("img", { src: Tx }),
+              ve.createElement("img", { src: Bx }),
               ve.createElement(
                 "p",
                 null,
@@ -84029,7 +84885,7 @@
             ve.createElement(
               "li",
               null,
-              ve.createElement("img", { src: _x }),
+              ve.createElement("img", { src: Fx }),
               ve.createElement(
                 "p",
                 null,
@@ -84040,7 +84896,7 @@
             ve.createElement(
               "li",
               null,
-              ve.createElement("img", { src: Dx }),
+              ve.createElement("img", { src: Lx }),
               ve.createElement(
                 "p",
                 null,
@@ -84052,8 +84908,8 @@
         );
       }
     }
-    const Px = Po(__dirname, "static/admin-mentoring.svg"),
-      Ix = ve.createElement(Tv, {
+    const Ux = Po(__dirname, "static/admin-mentoring.svg"),
+      zx = ve.createElement(Av, {
         symbol: {
           w: 16,
           h: 16,
@@ -84061,9 +84917,9 @@
           fr: "evenodd",
         },
       }),
-      Mx = ve.createElement(Tv, { symbol: nh }),
-      Ox = ve.createElement(Tv, { symbol: Nu });
-    class Nx extends ve.Component {
+      Wx = ve.createElement(Av, { symbol: rh }),
+      jx = ve.createElement(Av, { symbol: Bu });
+    class $x extends ve.Component {
       render() {
         return ve.createElement(
           "div",
@@ -84084,34 +84940,34 @@
                   "You’ve learned the basics on how to use GitHub Desktop. Here are some suggestions for what to do next."
                 )
               ),
-              ve.createElement("img", { src: Px, className: "image" })
+              ve.createElement("img", { src: Ux, className: "image" })
             ),
             ve.createElement(
-              ck,
+              mk,
               null,
-              ve.createElement(ok, {
+              ve.createElement(hk, {
                 title: "在GitHub上浏览项目",
                 description: "为您感兴趣的项目做出贡献",
                 buttonText: "在浏览器中打开",
                 onClick: this.openDotcomExplore,
                 type: "normal",
-                image: Ix,
+                image: zx,
               }),
-              ve.createElement(ok, {
+              ve.createElement(hk, {
                 title: "创建新仓库",
                 description: "开始一个全新的项目",
                 buttonText: "创建仓库",
                 onClick: this.onCreateNewRepository,
                 type: "normal",
-                image: Mx,
+                image: Wx,
               }),
-              ve.createElement(ok, {
+              ve.createElement(hk, {
                 title: "添加本地仓库",
                 description: "在GitHub Desktop中处理现有项目",
                 buttonText: "添加仓库",
                 onClick: this.onAddExistingRepository,
                 type: "normal",
-                image: Ox,
+                image: jx,
               })
             )
           )
@@ -84127,29 +84983,29 @@
         this.props.dispatcher.showPopup({ type: Pr.AddRepository });
       };
     }
-    class Bx extends ve.Component {
+    class qx extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
-            title: "退出教程",
+            title: "Exit tutorial",
             onDismissed: this.props.onDismissed,
             onSubmit: this.onContinue,
             type: "normal",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
-              "是否确实要退出教程？这将使您返回主屏幕。"
+              "Are you sure you want to leave the tutorial? This will bring you back to the home screen."
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "退出教程" })
+            ve.createElement(lC, { okButtonText: "Exit tutorial" })
           )
         );
       }
@@ -84157,7 +85013,7 @@
         this.props.onContinue() && this.props.onDismissed();
       };
     }
-    class Fx extends ve.Component {
+    class Gx extends ve.Component {
       previousSection = this.props.state.selectedSection;
       forceCompareListScrollTop = !1;
       constructor(e) {
@@ -84176,12 +85032,12 @@
       };
       renderChangesBadge() {
         const e = this.props.state.changesState.workingDirectory.files.length;
-        return e <= 0 ? null : ve.createElement(yk, { filesChangedCount: e });
+        return e <= 0 ? null : ve.createElement(kk, { filesChangedCount: e });
       }
       renderTabs() {
         const e = this.props.state.selectedSection === Ye.Changes ? 0 : 1;
         return ve.createElement(
-          Xw,
+          nC,
           { selectedIndex: e, onTabClicked: this.onTabClicked },
           ve.createElement(
             "span",
@@ -84205,14 +85061,14 @@
         const n = this.props.state.localCommitSHAs,
           r = n.length > 0 ? n[0] : null,
           i = (r ? this.props.state.commitLookup.get(r) : null) || null,
-          o = uo(this.props.sidebarWidth) - 1,
+          o = oo(this.props.sidebarWidth) - 1,
           s =
             this.previousSection === Ye.History
               ? this.state.changesListScrollTop
               : void 0;
         return (
           (this.previousSection = Ye.Changes),
-          ve.createElement(QC, {
+          ve.createElement(iS, {
             repository: this.props.repository,
             dispatcher: this.props.dispatcher,
             changes: this.props.state.changesState,
@@ -84231,6 +85087,8 @@
             askForConfirmationOnDiscardChanges:
               this.props.askForConfirmationOnDiscardChanges,
             accounts: this.props.accounts,
+            isShowingModal: this.props.isShowingModal,
+            isShowingFoldout: this.props.isShowingFoldout,
             externalEditorLabel: this.props.externalEditorLabel,
             onOpenInExternalEditor: this.props.onOpenInExternalEditor,
             onChangesListScrolled: this.onChangesListScrolled,
@@ -84271,11 +85129,12 @@
         return (
           (this.previousSection = Ye.History),
           (this.forceCompareListScrollTop = !1),
-          ve.createElement(bx, {
+          ve.createElement(_x, {
             repository: e,
             isLocalRepository: null === o,
             compareState: s,
             selectedCommitShas: l,
+            shasToHighlight: s.shasToHighlight,
             currentBranch: m,
             emoji: i,
             commitLookup: c,
@@ -84310,10 +85169,10 @@
       };
       renderSidebar() {
         return ve.createElement(
-          Ab,
+          Nb,
           { onFocusWithinChanged: this.onSidebarFocusWithinChanged },
           ve.createElement(
-            vk,
+            Ek,
             {
               id: "repository-sidebar",
               width: this.props.sidebarWidth.value,
@@ -84341,7 +85200,7 @@
         return t.kind !== Ze.Stash || null === n
           ? null
           : n.files.kind === jo.Loaded
-          ? ve.createElement(Sx, {
+          ? ve.createElement(Px, {
               stashEntry: n,
               selectedStashedFile: t.selectedStashedFile,
               stashedFileDiff: t.selectedStashedFileDiff,
@@ -84368,19 +85227,27 @@
             commitLookup: t,
             localCommitSHAs: n,
           } = this.props.state,
-          { changesetData: r, file: i, diff: o, shas: s, isContiguous: a } = e,
-          l = [];
+          {
+            changesetData: r,
+            file: i,
+            diff: o,
+            shas: s,
+            shasInDiff: a,
+            isContiguous: l,
+          } = e,
+          c = [];
         for (const e of s) {
           const n = t.get(e);
-          void 0 !== n && l.push(n);
+          void 0 !== n && c.push(n);
         }
-        const c = Gy.isDragOfTypeInProgress(Wy.Commit);
-        return ve.createElement(xk, {
+        const u = Yy.isDragOfTypeInProgress(Gy.Commit);
+        return ve.createElement(Uk, {
           repository: this.props.repository,
           isLocalRepository: null === this.props.state.remote,
           dispatcher: this.props.dispatcher,
-          selectedCommits: l,
-          isContiguous: a,
+          selectedCommits: c,
+          shasInDiff: a,
+          isContiguous: l,
           localCommitSHAs: n,
           changesetData: r,
           selectedFile: i,
@@ -84396,7 +85263,7 @@
           onOpenBinaryFile: this.onOpenBinaryFile,
           onChangeImageDiffType: this.onChangeImageDiffType,
           onDiffOptionsOpened: this.onDiffOptionsOpened,
-          showDragOverlay: c,
+          showDragOverlay: u,
         });
       }
       onDiffOptionsOpened = () => {
@@ -84404,22 +85271,22 @@
       };
       renderTutorialPane() {
         return this.props.currentTutorialStep === Os.AllDone
-          ? ve.createElement(Nx, {
+          ? ve.createElement($x, {
               dispatcher: this.props.dispatcher,
               repository: this.props.repository,
             })
-          : ve.createElement(Ax, null);
+          : ve.createElement(Hx, null);
       }
       renderContentForChanges() {
         const { changesState: e } = this.props.state,
           { workingDirectory: t, selection: n } = e;
         if (n.kind === Ze.Stash) return this.renderStashedChangesContent();
         const { selectedFileIDs: r, diff: i } = n;
-        if (r.length > 1) return ve.createElement(gk, { count: r.length });
+        if (r.length > 1) return ve.createElement(Sk, { count: r.length });
         if (0 === t.files.length)
           return this.props.currentTutorialStep !== Os.NotApplicable
             ? this.renderTutorialPane()
-            : ve.createElement(fk, {
+            : ve.createElement(wk, {
                 key: this.props.repository.id,
                 appMenu: this.props.appMenu,
                 repository: this.props.repository,
@@ -84433,7 +85300,7 @@
           const e = t.findFileWithID(r[0]);
           return null === e
             ? null
-            : ve.createElement(ik, {
+            : ve.createElement(uk, {
                 repository: this.props.repository,
                 dispatcher: this.props.dispatcher,
                 file: e,
@@ -84451,7 +85318,7 @@
         }
       }
       onOpenBinaryFile = (e) => {
-        JC(e, this.props.dispatcher);
+        rS(e, this.props.dispatcher);
       };
       onChangeImageDiffType = (e) => {
         this.props.dispatcher.changeImageDiffType(e);
@@ -84466,7 +85333,7 @@
       }
       render() {
         return ve.createElement(
-          ew,
+          iw,
           { id: "repository" },
           this.renderSidebar(),
           this.renderContent(),
@@ -84514,7 +85381,7 @@
       };
       maybeRenderTutorialPanel() {
         return Ws(this.props.currentTutorialStep)
-          ? ve.createElement(xx, {
+          ? ve.createElement(Ox, {
               dispatcher: this.props.dispatcher,
               repository: this.props.repository,
               resolvedExternalEditor: this.props.resolvedExternalEditor,
@@ -84524,16 +85391,16 @@
           : null;
       }
     }
-    const Lx = /[\x00-\x20\x7F~^:?*\[\\|""<>]+|@{|\.\.+|^\.|\.$|\.lock$|\/$/g;
-    function Hx(e) {
-      return e.replace(Lx, "-").replace(/^[-\+]*/g, "");
+    const Vx = /[\x00-\x20\x7F~^:?*\[\\|""<>]+|@{|\.\.+|^\.|\.$|\.lock$|\/$/g;
+    function Kx(e) {
+      return e.replace(Vx, "-").replace(/^[-\+]*/g, "");
     }
-    class Ux extends ve.Component {
+    class Yx extends ve.Component {
       textBoxRef = ve.createRef();
       constructor(e) {
         super(e);
         const t = e.initialValue || "";
-        this.state = { proposedValue: t, sanitizedValue: Hx(t) };
+        this.state = { proposedValue: t, sanitizedValue: Kx(t) };
       }
       componentDidMount() {
         this.state.sanitizedValue !== this.props.initialValue &&
@@ -84544,7 +85411,7 @@
         return ve.createElement(
           "div",
           { className: "ref-name-text-box" },
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             label: this.props.label,
             value: this.state.proposedValue,
             ref: this.textBoxRef,
@@ -84558,7 +85425,7 @@
         null !== this.textBoxRef.current && this.textBoxRef.current.focus();
       }
       onValueChange = (e) => {
-        const t = Hx(e),
+        const t = Kx(e),
           n = this.state.sanitizedValue;
         this.setState({ proposedValue: e, sanitizedValue: t }),
           t !== n &&
@@ -84566,7 +85433,7 @@
             this.props.onValueChange(t);
       };
       onBlur = (e) => {
-        void 0 !== this.props.onBlur && this.props.onBlur(Hx(e));
+        void 0 !== this.props.onBlur && this.props.onBlur(Kx(e));
       };
       renderRefValueWarning() {
         const { proposedValue: e, sanitizedValue: t } = this.state;
@@ -84576,7 +85443,7 @@
         return ve.createElement(
           "div",
           { className: "warning-helper-text" },
-          ve.createElement(Tv, { symbol: mu }),
+          ve.createElement(Av, { symbol: gu }),
           ve.createElement("p", null, n(t, e))
         );
       }
@@ -84585,25 +85452,25 @@
           ? ve.createElement(
               ve.Fragment,
               null,
-              ve.createElement(aC, null, t),
+              ve.createElement(pC, null, t),
               " is not a valid name."
             )
           : ve.createElement(
               ve.Fragment,
               null,
               "Will be created as ",
-              ve.createElement(aC, null, e),
+              ve.createElement(pC, null, e),
               "."
             );
       }
     }
-    class zx extends ve.Component {
+    class Zx extends ve.Component {
       constructor(e) {
         super(e), (this.state = { newName: e.branch.name });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "rename-branch",
             title: "重命名分支",
@@ -84611,23 +85478,23 @@
             onSubmit: this.renameBranch,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Ux, {
+            ve.createElement(Yx, {
               label: "Name",
               initialValue: this.props.branch.name,
               onValueChange: this.onNameChange,
             }),
             null != (e = this.props.branch).upstream
               ? ve.createElement(
-                  Ub,
+                  $b,
                   { className: "warning-helper-text" },
-                  ve.createElement(Tv, { symbol: mu }),
+                  ve.createElement(Av, { symbol: gu }),
                   ve.createElement(
                     "p",
                     null,
                     "此分支正在跟踪 ",
-                    ve.createElement(aC, null, e.upstream),
+                    ve.createElement(pC, null, e.upstream),
                     " 重命名此分支不会更改远程上的分支名称。"
                   )
                 )
@@ -84635,9 +85502,9 @@
             null === this.props.stash
               ? null
               : ve.createElement(
-                  Ub,
+                  $b,
                   { className: "warning-helper-text" },
-                  ve.createElement(Tv, { symbol: mu }),
+                  ve.createElement(Av, { symbol: gu }),
                   ve.createElement(
                     "p",
                     null,
@@ -84646,9 +85513,9 @@
                 )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: `重命名 ${this.props.branch.name}`,
               okButtonDisabled: 0 === this.state.newName.length,
             })
@@ -84668,13 +85535,13 @@
           this.props.onDismissed();
       };
     }
-    class Wx extends ve.Component {
+    class Xx extends ve.Component {
       constructor(e) {
         super(e), (this.state = { includeRemoteBranch: !1, isDeleting: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "delete-branch",
             title: "删除分支",
@@ -84685,13 +85552,13 @@
             loading: this.state.isDeleting,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "删除分支 ",
-              ve.createElement(aC, null, this.props.branch.name),
+              ve.createElement(pC, null, this.props.branch.name),
               "?",
               ve.createElement("br", null),
               "此操作无法撤消"
@@ -84699,9 +85566,9 @@
             this.renderDeleteOnRemote()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "删除" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -84719,7 +85586,7 @@
                   "远程上也存在分支，是否也要将其删除？"
                 )
               ),
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "是，删除远程上的此分支",
                 value: this.state.includeRemoteBranch ? tw.On : tw.Off,
                 onChange: this.onIncludeRemoteChanged,
@@ -84739,13 +85606,13 @@
           this.props.onDismissed();
       };
     }
-    class jx extends ve.Component {
+    class Jx extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isDeleting: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "delete-branch",
             title: "删除远程分支",
@@ -84756,13 +85623,13 @@
             loading: this.state.isDeleting,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "删除远程分支 ",
-              ve.createElement(aC, null, this.props.branch.name),
+              ve.createElement(pC, null, this.props.branch.name),
               "?",
               ve.createElement("br", null),
               "此操作无法撤消"
@@ -84774,7 +85641,7 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
             ve.createElement(rC, { destructive: !0, okButtonText: "删除" })
           )
@@ -84788,16 +85655,16 @@
           this.props.onDismissed();
       };
     }
-    class $x extends ve.Component {
+    class Qx extends ve.Component {
       render() {
         const e = this.props.progress.value || void 0;
         return ve.createElement(
-          ew,
+          iw,
           { id: "cloning-repository-view" },
           ve.createElement(
             "div",
             { className: "title-container" },
-            ve.createElement(Tv, { symbol: Eu }),
+            ve.createElement(Av, { symbol: xu }),
             ve.createElement(
               "div",
               { className: "title" },
@@ -84814,7 +85681,7 @@
         );
       }
     }
-    class qx extends ve.Component {
+    class eR extends ve.Component {
       render() {
         return ve.createElement(
           "div",
@@ -84823,12 +85690,12 @@
         );
       }
     }
-    var Gx;
+    var tR;
     !(function (e) {
       (e[(e.Standard = 0)] = "Standard"), (e[(e.Subtitle = 1)] = "Subtitle");
-    })(Gx || (Gx = {}));
-    class Vx extends ve.Component {
-      wrapperRef = yv();
+    })(tR || (tR = {}));
+    class nR extends ve.Component {
+      wrapperRef = wv();
       innerButton = null;
       onClick = (e) => {
         this.props.onClick && this.props.onClick(e);
@@ -84844,7 +85711,7 @@
       render() {
         const { tooltip: e } = this.props,
           t = this.props.icon
-            ? ve.createElement(Tv, {
+            ? ve.createElement(Av, {
                 symbol: this.props.icon,
                 className: pl()("icon", this.props.iconClassName),
               })
@@ -84856,7 +85723,7 @@
           ),
           r =
             void 0 !== this.props.progressValue
-              ? Math.round(100 * uo(this.props.progressValue, 0, 1)) / 100
+              ? Math.round(100 * oo(this.props.progressValue, 0, 1)) / 100
               : void 0,
           i =
             void 0 !== r
@@ -84874,19 +85741,20 @@
           },
           e &&
             ve.createElement(
-              kv,
+              Rv,
               {
                 target: this.wrapperRef,
-                direction: Sv.SOUTH,
+                direction: xv.SOUTH,
                 onlyWhenOverflowed: this.props.onlyShowTooltipWhenOverflowed,
                 isTargetOverflowed: this.props.isOverflowed,
               },
               e
             ),
           ve.createElement(
-            Yb,
+            Qb,
             {
               onClick: this.onClick,
+              onContextMenu: this.props.onContextMenu,
               ref: this.onButtonRef,
               disabled: this.props.disabled,
               onMouseEnter: this.props.onMouseEnter,
@@ -84920,11 +85788,11 @@
                   this.props.description
                 )
               : null,
-          n = this.props.style || Gx.Standard;
+          n = this.props.style || tR.Standard;
         switch (n) {
-          case Gx.Standard:
+          case tR.Standard:
             return ve.createElement("div", { className: "text" }, t, e);
-          case Gx.Subtitle:
+          case tR.Subtitle:
             return ve.createElement(
               "div",
               { className: "text" },
@@ -84936,7 +85804,7 @@
         }
       }
     }
-    class Kx extends ve.Component {
+    class rR extends ve.Component {
       innerButton = null;
       focusTrapOptions;
       constructor(e) {
@@ -84953,15 +85821,15 @@
       }
       dropdownIcon(e) {
         return "open" === e
-          ? mh
+          ? gh
           : "closed" === e
-          ? dh
+          ? fh
           : st(0, `Unknown dropdown state ${e}`);
       }
       renderDropdownArrow() {
         if (!1 === this.props.showDisclosureArrow) return null;
         const e = this.props.dropdownState;
-        return ve.createElement(Tv, {
+        return ve.createElement(Av, {
           symbol: this.dropdownIcon(e),
           className: "dropdownArrow",
         });
@@ -84971,12 +85839,15 @@
           n = e.clientX || e.clientY ? "pointer" : "keyboard";
         this.props.onDropdownStateChanged(t, n);
       };
+      onContextMenu = (e) => {
+        this.props.onContextMenu?.(e);
+      };
       updateClientRectIfNecessary() {
         if ("open" === this.props.dropdownState && this.innerButton) {
           const e = this.innerButton.getButtonBoundingClientRect();
           if (e) {
             const t = this.state.clientRect;
-            (t && Cv(t, e)) || this.setState({ clientRect: e });
+            (t && Ev(t, e)) || this.setState({ clientRect: e });
           }
         }
       }
@@ -85027,7 +85898,7 @@
         "open" !== this.props.dropdownState
           ? null
           : ve.createElement(
-              Ww(),
+              Vw(),
               {
                 active: this.props.enableFocusTrap ?? !0,
                 focusTrapOptions: this.focusTrapOptions,
@@ -85079,7 +85950,7 @@
           },
           this.renderDropdownContents(),
           ve.createElement(
-            Vx,
+            nR,
             {
               className: this.props.buttonClassName,
               ref: this.onRef,
@@ -85088,6 +85959,7 @@
               description: this.props.description,
               tooltip: this.props.tooltip,
               onClick: this.onClick,
+              onContextMenu: this.onContextMenu,
               onMouseEnter: this.props.onMouseEnter,
               style: this.props.style,
               iconClassName: this.props.iconClassName,
@@ -85105,7 +85977,7 @@
         );
       }
     }
-    function Yx(e, t) {
+    function iR(e, t) {
       const { ahead: n, behind: r } = e;
       if (0 === n && 0 === r && 0 === t) return null;
       const i = new Array();
@@ -85116,7 +85988,7 @@
               "span",
               { key: "ahead" },
               n + t,
-              ve.createElement(Tv, { symbol: vu })
+              ve.createElement(Av, { symbol: bu })
             )
           ),
         r > 0 &&
@@ -85125,30 +85997,30 @@
               "span",
               { key: "behind" },
               r,
-              ve.createElement(Tv, { symbol: gu })
+              ve.createElement(Av, { symbol: yu })
             )
           ),
         ve.createElement("div", { className: "ahead-behind" }, i)
       );
     }
-    function Zx(e) {
+    function oR(e) {
       return e
         ? ve.createElement(
             "span",
             null,
             "上次获取 ",
-            ve.createElement(ZC, { date: e })
+            ve.createElement(tS, { date: e })
           )
         : "从未获取";
     }
-    const Xx = { className: "push-pull-button", style: Gx.Subtitle },
-      Jx = {
+    const sR = { className: "push-pull-button", style: tR.Subtitle },
+      aR = {
         w: 10,
         h: 16,
         d: "M0 6a.75.75 0 0 0 .974.714L4.469 3.22a.75.75 0 0 1 1.06 0l3.478 3.478a.75.75 0 0 0 .772-1.228L5.53 1.22a.75.75 0 0 0-1.06 0L.22 5.47A.75.75 0 0 0 0 6zm0 3a.75.75 0 0 0 1.28.53l2.97-2.97V14a.75.75 0 1 0 1.5 0V6.56l2.97 2.97a.75.75 0 0 0 1.06-1.06L5.53 4.22a.75.75 0 0 0-1.06 0L.22 8.47A.75.75 0 0 0 0 9z",
         fr: "evenodd",
       };
-    class Qx extends ve.Component {
+    class lR extends ve.Component {
       push = () => {
         this.props.dispatcher.push(this.props.repository);
       };
@@ -85180,12 +86052,12 @@
         } = this.props;
         if (null !== e)
           return (function (e, t) {
-            return ve.createElement(Vx, {
-              ...Xx,
+            return ve.createElement(nR, {
+              ...sR,
               title: e.title,
               description: e.description || "稍等…",
               progressValue: e.value,
-              icon: Nv,
+              icon: Lv,
               iconClassName: t ? "spin" : "",
               tooltip: e.description,
               disabled: !0,
@@ -85194,45 +86066,47 @@
         if (null === i)
           return (
             (h = this.push),
-            ve.createElement(Vx, {
-              ...Xx,
+            ve.createElement(nR, {
+              ...sR,
               title: "发布仓库",
               description: "将此仓库发布到GitHub",
               className: "push-pull-button",
-              icon: yh,
-              style: Gx.Subtitle,
+              icon: vh,
+              style: tR.Subtitle,
               onClick: h,
             })
           );
         var h;
         if (s === Ar.Unborn)
-          return ve.createElement(Vx, {
-            ...Xx,
+          return ve.createElement(nR, {
+            ...sR,
             title: "发布分支",
             description: "无法发布 unborn HEAD",
-            icon: yh,
+            icon: vh,
             disabled: !0,
           });
         if (s === Ar.Detached)
           return (function (e) {
             const t = e ? "正在重设变基" : "无法发布游离的 HEAD";
-            return ve.createElement(Vx, {
-              ...Xx,
+            return ve.createElement(nR, {
+              ...sR,
               title: "发布分支",
               description: t,
-              icon: yh,
+              icon: vh,
               disabled: !0,
             });
           })(a);
         if (null === n)
           return (function (e, t, n) {
-            const r = e ? "将此分支发布到GitHub" : "将此分支发布到远程",
-              i = pl()(Xx.className, "nudge-arrow", { "nudge-arrow-up": n });
-            return ve.createElement(Vx, {
-              ...Xx,
+            const r = e
+                ? "将此分支发布到GitHub"
+                : "将此分支发布到远程",
+              i = pl()(sR.className, "nudge-arrow", { "nudge-arrow-up": n });
+            return ve.createElement(nR, {
+              ...sR,
               title: "发布分支",
               description: r,
-              icon: yh,
+              icon: vh,
               onClick: t,
               className: i,
             });
@@ -85242,50 +86116,50 @@
           ? (function (e, t, n, r, i) {
               const o = `获取 ${e}`;
               return ve.createElement(
-                Vx,
-                { ...Xx, title: o, description: Zx(r), icon: Nv, onClick: i },
-                Yx(t, n)
+                nR,
+                { ...sR, title: o, description: oR(r), icon: Lv, onClick: i },
+                iR(t, n)
               );
             })(i, n, r, l, this.fetch)
           : u
           ? (function (e, t, n, r, i) {
               return ve.createElement(
-                Vx,
+                nR,
                 {
-                  ...Xx,
+                  ...sR,
                   title: `强制推送 ${e}`,
-                  description: Zx(r),
-                  icon: Jx,
+                  description: oR(r),
+                  icon: aR,
                   onClick: i,
                 },
-                Yx(t, n)
+                iR(t, n)
               );
             })(i, n, r, l, this.forcePushWithLease)
           : d > 0
           ? (function (e, t, n, r, i, o) {
               const s = i ? `拉取 ${e} 至变基` : `拉取 ${e}`;
               return ve.createElement(
-                Vx,
-                { ...Xx, title: s, description: Zx(r), icon: gu, onClick: o },
-                Yx(t, n)
+                nR,
+                { ...sR, title: s, description: oR(r), icon: yu, onClick: o },
+                iR(t, n)
               );
             })(i, n, r, l, c || !1, this.pull)
           : (function (e, t, n, r, i) {
               return ve.createElement(
-                Vx,
+                nR,
                 {
-                  ...Xx,
+                  ...sR,
                   title: `推送 ${e}`,
-                  description: Zx(r),
-                  icon: vu,
+                  description: oR(r),
+                  icon: bu,
                   onClick: i,
                 },
-                Yx(t, n)
+                iR(t, n)
               );
             })(i, n, r, l, this.push);
       }
     }
-    class eR extends ve.PureComponent {
+    class cR extends ve.PureComponent {
       onViewJobStepExternally = () => {
         this.props.onViewJobStepExternally(this.props.step);
       };
@@ -85306,19 +86180,19 @@
           ve.createElement(
             "div",
             { className: "job-step-status-symbol" },
-            ve.createElement(Tv, {
-              className: pl()("ci-status", `ci-status-${zk(e)}`),
-              symbol: Wk(e),
+            ve.createElement(Av, {
+              className: pl()("ci-status", `ci-status-${Zk(e)}`),
+              symbol: Xk(e),
             })
           ),
           ve.createElement(
-            Uv,
+            jv,
             {
               className: "job-step-name",
               tooltip: e.name,
               onlyWhenOverflowed: !0,
               tagName: "div",
-              direction: Sv.NORTH,
+              direction: xv.NORTH,
             },
             ve.createElement(
               "span",
@@ -85330,24 +86204,24 @@
             "div",
             { className: "job-step-duration" },
             (function (e) {
-              const t = Xc(e);
+              const t = Jc(e);
               return isNaN(t) ? "" : Vc(t);
             })(e)
           )
         );
       }
     }
-    class tR extends ve.PureComponent {
+    class uR extends ve.PureComponent {
       constructor(e) {
-        super(e), (this.state = { firstFailedStep: this.props.steps.find(tu) });
+        super(e), (this.state = { firstFailedStep: this.props.steps.find(nu) });
       }
       componentDidUpdate() {
-        this.setState({ firstFailedStep: this.props.steps.find(tu) });
+        this.setState({ firstFailedStep: this.props.steps.find(nu) });
       }
       render() {
         const { steps: e } = this.props,
           t = e.map((e, t) =>
-            ve.createElement(eR, {
+            ve.createElement(cR, {
               key: t,
               step: e,
               firstFailedStep: this.state.firstFailedStep,
@@ -85361,7 +86235,7 @@
         );
       }
     }
-    class nR extends ve.PureComponent {
+    class hR extends ve.PureComponent {
       constructor(e) {
         super(e), (this.state = { isMouseOver: !1 });
       }
@@ -85390,9 +86264,9 @@
         return ve.createElement(
           "div",
           { className: "ci-check-status-symbol" },
-          ve.createElement(Tv, {
-            className: pl()("ci-status", `ci-status-${zk(e)}`),
-            symbol: Uk(e),
+          ve.createElement(Av, {
+            className: pl()("ci-status", `ci-status-${Zk(e)}`),
+            symbol: Yk(e),
           })
         );
       };
@@ -85408,7 +86282,7 @@
           : ve.createElement(
               "div",
               { className: "job-step-toggled-indicator" },
-              ve.createElement(Tv, { symbol: t ? ku : Cu })
+              ve.createElement(Av, { symbol: t ? Eu : Su })
             );
       };
       renderCheckRunName = () => {
@@ -85422,13 +86296,13 @@
           "div",
           { className: "ci-check-list-item-detail" },
           ve.createElement(
-            Uv,
+            jv,
             {
               className: "ci-check-name",
               tooltip: r,
               onlyWhenOverflowed: !0,
               tagName: "div",
-              direction: Sv.NORTH,
+              direction: xv.NORTH,
             },
             ve.createElement(
               "span",
@@ -85459,9 +86333,9 @@
           "div",
           { className: r, onClick: this.rerunJob },
           ve.createElement(
-            Uv,
+            jv,
             { tooltip: i },
-            ve.createElement(Tv, { symbol: hh })
+            ve.createElement(Av, { symbol: ph })
           )
         );
       };
@@ -85497,7 +86371,7 @@
             this.renderCheckJobStepToggle()
           ),
           t && void 0 !== e.actionJobSteps
-            ? ve.createElement(tR, {
+            ? ve.createElement(uR, {
                 steps: e.actionJobSteps,
                 onViewJobStep: this.onViewJobStep,
               })
@@ -85505,7 +86379,7 @@
         );
       }
     }
-    class rR extends ve.PureComponent {
+    class pR extends ve.PureComponent {
       constructor(e) {
         super(e),
           (this.state = this.setupStateAfterCheckRunPropChange(
@@ -85531,17 +86405,17 @@
           ? this.setState({
               checkRunExpanded: t,
               hasUserToggledCheckRun: n,
-              checkRunGroups: au(this.props.checkRuns),
+              checkRunGroups: lu(this.props.checkRuns),
             })
           : this.setState({ checkRunExpanded: t, hasUserToggledCheckRun: n });
       }
       setupStateAfterCheckRunPropChange(e, t) {
         if (!0 === t?.hasUserToggledCheckRun) return t;
-        const n = au(e.checkRuns);
+        const n = lu(e.checkRuns);
         let r = null;
         if (!0 !== this.props.notExpandable)
           for (const e of n.values()) {
-            const t = e.find((e) => tu(e) && void 0 !== e.actionJobSteps);
+            const t = e.find((e) => nu(e) && void 0 !== e.actionJobSteps);
             if (void 0 !== t) {
               r = t.id.toString();
               break;
@@ -85568,7 +86442,7 @@
         const t = e.map((e, t) => {
           const n = this.state.checkRunExpanded === e.id.toString(),
             r = !0 === this.props.selectable;
-          return ve.createElement(nR, {
+          return ve.createElement(hR, {
             checkRun: e,
             key: t,
             loadingActionLogs: this.props.loadingActionLogs,
@@ -85584,11 +86458,11 @@
             isCondensedView: this.props.isCondensedView,
           });
         });
-        return ve.createElement(Ab, { className: "list-focus-container" }, t);
+        return ve.createElement(Nb, { className: "list-focus-container" }, t);
       };
       renderList = () => {
         const { checkRunGroups: e } = this.state,
-          t = lu(e);
+          t = cu(e);
         if (1 === t.length && ("Other" === t[0] || this.props.isCondensedView))
           return this.renderListItems(this.props.checkRuns);
         const n = pl()("ci-check-run-list-group-header", {
@@ -85612,7 +86486,7 @@
         );
       }
     }
-    class iR extends ve.Component {
+    class dR extends ve.Component {
       render() {
         const { valueMap: e } = this.props,
           {
@@ -85641,17 +86515,17 @@
                 continue;
               }
               const u = l + c,
-                h = ["M", ...oR(l, t, o, i)];
+                h = ["M", ...fR(l, t, o, i)];
               h.push("A", t, t, 0),
                 h.push(e > 0.5 ? 1 : 0),
                 h.push(1),
-                h.push(...oR(u, t, o, i)),
+                h.push(...fR(u, t, o, i)),
                 h.push("L"),
-                h.push(...oR(u, n, o, i)),
+                h.push(...fR(u, n, o, i)),
                 h.push("A", n, n, 0),
                 h.push(e > 0.5 ? 1 : 0),
                 h.push(0),
-                h.push(...oR(l, n, o, i)),
+                h.push(...fR(l, n, o, i)),
                 (l += c),
                 a.push({ name: r, path: h.join(" ") });
             }
@@ -85668,17 +86542,17 @@
         );
       }
     }
-    function oR(e, t, n, r) {
+    function fR(e, t, n, r) {
       const i = (e / r) * Math.PI * 2 - Math.PI / 2;
       return [t * Math.cos(i) + n, t * Math.sin(i) + n];
     }
-    class sR extends ve.PureComponent {
+    class mR extends ve.PureComponent {
       get failedChecksExist() {
         return this.props.checkRuns.some((e) => e.conclusion === bn.Failure);
       }
       onRerunChecks = () => {
         this.props.canReRunFailed && this.failedChecksExist
-          ? Fv([
+          ? Uv([
               {
                 label: "重新运行失败的检查",
                 action: () => this.props.onRerunChecks(!0),
@@ -85697,26 +86571,26 @@
                 ve.Fragment,
                 null,
                 "Re-run ",
-                ve.createElement(Tv, { symbol: dh })
+                ve.createElement(Av, { symbol: fh })
               )
             : "Re-run Checks";
         return ve.createElement(
-          Yb,
+          Qb,
           { onClick: this.onRerunChecks, disabled: this.props.disabled },
-          ve.createElement(Tv, { symbol: Nv }),
+          ve.createElement(Av, { symbol: Lv }),
           " ",
           e
         );
       }
     }
-    const aR = Po(__dirname, "static/empty-no-pull-requests.svg");
-    class lR extends ve.PureComponent {
+    const gR = Po(__dirname, "static/empty-no-pull-requests.svg");
+    class yR extends ve.PureComponent {
       statusSubscription = null;
       constructor(e) {
         super(e);
         const t = this.props.dispatcher.tryGetCommitStatus(
           this.props.repository,
-          sg(this.props.prNumber)
+          lg(this.props.prNumber)
         );
         this.state = {
           checkRuns: t?.checks ?? [],
@@ -85728,7 +86602,7 @@
       componentDidMount() {
         const e = this.props.dispatcher.tryGetCommitStatus(
           this.props.repository,
-          sg(this.props.prNumber),
+          lg(this.props.prNumber),
           this.props.branchName
         );
         this.onStatus(e), this.subscribe();
@@ -85741,7 +86615,7 @@
           (this.statusSubscription =
             this.props.dispatcher.subscribeToCommitStatus(
               this.props.repository,
-              sg(this.props.prNumber),
+              lg(this.props.prNumber),
               this.onStatus,
               this.props.branchName
             ));
@@ -85770,7 +86644,7 @@
       };
       onViewJobStep = (e, t) => {
         const { repository: n, prNumber: r, dispatcher: i } = this.props,
-          o = su(e, t, n, r);
+          o = au(e, t, n, r);
         null !== o &&
           (i.openInBrowser(o),
           this.props.dispatcher.recordCheckJobStepViewedOnline());
@@ -85780,7 +86654,7 @@
         const { checks: t } = e,
           n = new Map();
         for (const e of t) {
-          const t = Yc(e.conclusion).toLocaleLowerCase();
+          const t = Zc(e.conclusion).toLocaleLowerCase();
           n.set(t, (n.get(t) ?? 0) + 1);
         }
         const r = [];
@@ -85797,7 +86671,7 @@
           type: Pr.CICheckRunRerun,
           checkRuns: t ?? this.state.checkRuns,
           repository: this.props.repository,
-          prRef: sg(this.props.prNumber),
+          prRef: lg(this.props.prNumber),
           failedOnly: e,
         });
       };
@@ -85811,7 +86685,7 @@
       renderRerunButton = () => {
         const { checkRuns: e } = this.state;
         return an(this.props.repository.endpoint)
-          ? ve.createElement(sR, {
+          ? ve.createElement(mR, {
               disabled: 0 === e.length || this.state.loadingActionWorkflows,
               checkRuns: e,
               canReRunFailed: ln(this.props.repository.endpoint),
@@ -85823,7 +86697,7 @@
         return ve.createElement(
           "div",
           { className: "loading-check-runs" },
-          ve.createElement("img", { src: aR, className: "blankslate-image" }),
+          ve.createElement("img", { src: gR, className: "blankslate-image" }),
           ve.createElement("div", { className: "title" }, "Stand By"),
           ve.createElement(
             "div",
@@ -85833,20 +86707,20 @@
         );
       }
       renderCompletenessIndicator(e, t, n, r) {
-        if (n) return ve.createElement(Tv, { symbol: Nv, className: "spin" });
+        if (n) return ve.createElement(Av, { symbol: Lv, className: "spin" });
         switch (!0) {
           case e:
-            return ve.createElement(Tv, {
+            return ve.createElement(Av, {
               className: "completeness-indicator-success",
-              symbol: wu,
+              symbol: Cu,
             });
           case t:
-            return ve.createElement(Tv, {
+            return ve.createElement(Av, {
               className: "completeness-indicator-error",
-              symbol: bh,
+              symbol: wh,
             });
         }
-        return ve.createElement(iR, { valueMap: cu(r) });
+        return ve.createElement(dR, { valueMap: uu(r) });
       }
       getTitle(e, t, n, r) {
         switch (!0) {
@@ -85887,7 +86761,7 @@
           i =
             !r &&
             t.some((e) => null === e.conclusion) &&
-            !t.some((e) => null !== e.conclusion && uu.includes(e.conclusion)),
+            !t.some((e) => null !== e.conclusion && hu.includes(e.conclusion)),
           o = [bn.Success, bn.Neutral, bn.Skipped],
           s =
             !r &&
@@ -85896,7 +86770,7 @@
           a =
             !r &&
             !i &&
-            !t.some((e) => null === e.conclusion || !uu.includes(e.conclusion));
+            !t.some((e) => null === e.conclusion || !hu.includes(e.conclusion));
         return ve.createElement(
           "div",
           { className: "ci-check-run-list-header", tabIndex: 0 },
@@ -85935,7 +86809,7 @@
                 className: "ci-check-run-list-container",
                 style: this.getListHeightStyles(),
               },
-              ve.createElement(rR, {
+              ve.createElement(pR, {
                 checkRuns: e,
                 loadingActionLogs: t,
                 loadingActionWorkflows: n,
@@ -85952,9 +86826,9 @@
           "div",
           { className: "ci-check-list-popover" },
           ve.createElement(
-            jw,
+            Kw,
             {
-              caretPosition: Hw.Top,
+              caretPosition: $w.Top,
               onClickOutside: this.props.closePopover,
               style: this.getPopoverPositioningStyles(),
             },
@@ -85964,7 +86838,7 @@
         );
       }
     }
-    class cR extends ve.Component {
+    class vR extends ve.Component {
       constructor(e) {
         super(e), (this.state = { badgeBottom: 0 });
       }
@@ -85973,7 +86847,7 @@
           t = e.branchesState,
           n = e.branchesState.tip,
           r = n.kind === Ar.Valid ? n.branch : null;
-        return ve.createElement(cx, {
+        return ve.createElement(bx, {
           allBranches: t.allBranches,
           recentBranches: t.recentBranches,
           currentBranch: r,
@@ -85985,6 +86859,8 @@
           currentPullRequest: this.props.currentPullRequest,
           isLoadingPullRequests: this.props.isLoadingPullRequests,
           emoji: this.props.emoji,
+          onDeleteBranch: this.onDeleteBranch,
+          onRenameBranch: this.onRenameBranch,
         });
       };
       onDropDownStateChanged = (e) => {
@@ -86001,11 +86877,11 @@
           l,
           c,
           u,
-          h = Uu,
+          h = zu,
           p = "当前分支",
           d = !0,
           f = !1;
-        if ((this.props.currentPullRequest && (h = ju), i.kind === Ar.Unknown))
+        if ((this.props.currentPullRequest && (h = $u), i.kind === Ar.Unknown))
           return null;
         if (i.kind === Ar.Unborn)
           (l = i.ref),
@@ -86014,7 +86890,7 @@
         else if (i.kind === Ar.Detached)
           (l = `On ${i.currentSha.substring(0, 7)}`),
             (c = "Currently on a detached HEAD"),
-            (h = zu),
+            (h = Wu),
             (p = "Detached HEAD");
         else {
           if (i.kind !== Ar.Valid) return st(0, `Unknown tip state: ${s}`);
@@ -86026,14 +86902,14 @@
             n.value > 0 && (p = `${p} (${Math.round(100 * n.value)}%)`),
             (c = `切换到 ${n.targetBranch}`),
             (u = n.value),
-            (h = Nv),
+            (h = Lv),
             (a = "spin"),
             (d = !1))
           : null !== o &&
             et(o) &&
             ((l = o.targetBranch),
             (p = "变基分支"),
-            (h = Uu),
+            (h = zu),
             (d = !1),
             (f = !0),
             (c = `变基中 ${o.targetBranch}`));
@@ -86044,13 +86920,14 @@
           ve.Fragment,
           null,
           ve.createElement(
-            Kx,
+            rR,
             {
               className: "branch-button",
               icon: h,
               iconClassName: a,
               title: l,
               description: p,
+              onContextMenu: this.onBranchToolbarButtonContextMenu,
               tooltip: m ? void 0 : c,
               onDropdownStateChanged: this.onDropDownStateChanged,
               dropdownContentRenderer: this.renderBranchFoldout,
@@ -86061,7 +86938,7 @@
               buttonClassName: y,
               onMouseEnter: this.onMouseEnter,
               onlyShowTooltipWhenOverflowed: !0,
-              isOverflowed: uR,
+              isOverflowed: bR,
             },
             this.renderPullRequestInfo()
           ),
@@ -86069,9 +86946,54 @@
         );
       }
       onMouseEnter = () => {
-        Gy.isDragOfTypeInProgress(Wy.Commit) &&
-          (Gy.emitEnterDragZone("branch-button"),
+        Yy.isDragOfTypeInProgress(Gy.Commit) &&
+          (Yy.emitEnterDragZone("branch-button"),
           this.props.dispatcher.showFoldout({ type: Ke.Branch }));
+      };
+      onBranchToolbarButtonContextMenu = (e) => {
+        e.preventDefault();
+        const { tip: t } = this.props.repositoryState.branchesState;
+        t.kind === Ar.Valid &&
+          Uv(
+            aE({
+              name: t.branch.name,
+              isLocal: t.branch.type === dr.Local,
+              onRenameBranch: this.onRenameBranch,
+              onDeleteBranch: this.onDeleteBranch,
+            })
+          );
+      };
+      getBranchWithName(e) {
+        return this.props.repositoryState.branchesState.allBranches.find(
+          (t) => t.name === e
+        );
+      }
+      onRenameBranch = (e) => {
+        const t = this.getBranchWithName(e);
+        void 0 !== t &&
+          this.props.dispatcher.showPopup({
+            type: Pr.RenameBranch,
+            repository: this.props.repository,
+            branch: t,
+          });
+      };
+      onDeleteBranch = async (e) => {
+        const t = this.getBranchWithName(e),
+          { dispatcher: n, repository: r } = this.props;
+        if (void 0 === t) return;
+        if (t.type === dr.Remote)
+          return void n.showPopup({
+            type: Pr.DeleteRemoteBranch,
+            repository: r,
+            branch: t,
+          });
+        const i = await n.getBranchAheadBehind(r, t);
+        n.showPopup({
+          type: Pr.DeleteBranch,
+          repository: r,
+          branch: t,
+          existsOnRemote: null !== i,
+        });
       };
       onBadgeClick = () => {
         this.props.dispatcher.closeFoldout(Ke.Branch), this.openPopover();
@@ -86102,7 +87024,7 @@
               : "";
         return null === e
           ? null
-          : ve.createElement(lR, {
+          : ve.createElement(yR, {
               prNumber: e.pullRequestNumber,
               dispatcher: this.props.dispatcher,
               repository: e.base.gitHubRepository,
@@ -86115,7 +87037,7 @@
         const e = this.props.currentPullRequest;
         return null === e
           ? null
-          : ve.createElement(ux, {
+          : ve.createElement(wx, {
               number: e.pullRequestNumber,
               dispatcher: this.props.dispatcher,
               repository: e.base.gitHubRepository,
@@ -86124,27 +87046,27 @@
             });
       }
     }
-    const uR = (e) => {
+    const bR = (e) => {
       const t = e.querySelector(".title") ?? e;
       return t.scrollWidth > t.clientWidth;
     };
-    class hR extends ve.Component {
+    class wR extends ve.Component {
       render() {
         const e = this.props.progress,
           t = e.title || "Hang on…";
-        return ve.createElement(Vx, {
+        return ve.createElement(nR, {
           title: "还原…",
           description: t,
           progressValue: e.value,
           className: "revert-progress",
-          icon: Nv,
+          icon: Lv,
           iconClassName: "spin",
-          style: Gx.Subtitle,
+          style: tR.Subtitle,
           disabled: !0,
         });
       }
     }
-    class pR extends ve.Component {
+    class CR extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -86163,7 +87085,7 @@
       render() {
         const e = this.state.isDiscardingChanges;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "discard-changes",
             title: this.getDialogTitle(),
@@ -86175,7 +87097,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             this.renderFileList(),
             ve.createElement(
@@ -86188,9 +87110,9 @@
             this.renderConfirmDiscardChanges()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: this.getOkButtonLabel(),
             })
@@ -86199,9 +87121,9 @@
       }
       renderConfirmDiscardChanges() {
         return this.props.showDiscardChangesSetting
-          ? ve.createElement(nw, {
+          ? ve.createElement(sw, {
               label: "Do not show this message again",
-              value: this.state.confirmDiscardChanges ? tw.Off : tw.On,
+              value: this.state.confirmDiscardChanges ? ow.Off : ow.On,
               onChange: this.onConfirmDiscardChangesChanged,
             })
           : null;
@@ -86233,7 +87155,7 @@
                     ve.createElement(
                       "li",
                       { key: e.id },
-                      ve.createElement(BC, { path: e.path })
+                      ve.createElement(zC, { path: e.path })
                     )
                   )
                 )
@@ -86256,7 +87178,7 @@
         this.setState({ confirmDiscardChanges: t });
       };
     }
-    class dR extends ve.Component {
+    class SR extends ve.Component {
       render() {
         const e = pl()("form-component", this.props.className);
         return ve.createElement(
@@ -86269,15 +87191,15 @@
         e.preventDefault(), this.props.onSubmit && this.props.onSubmit();
       };
     }
-    class fR extends ve.Component {
+    class kR extends ve.Component {
       render() {
         const e = pl()("errors-component", this.props.className);
         return ve.createElement("div", { className: e }, this.props.children);
       }
     }
-    const mR =
+    const ER =
       "登录后，浏览器会将您重定向回GitHub Desktop，如果您的浏览器要求您允许启动GitHub Desktop，请允许它。";
-    class gR extends ve.Component {
+    class xR extends ve.Component {
       constructor(e) {
         super(e), (this.state = { username: "", password: "" });
       }
@@ -86286,7 +87208,7 @@
           ? this.renderSignInForm()
           : this.renderEndpointRequiresWebFlow();
         return ve.createElement(
-          dR,
+          SR,
           { className: "sign-in-form", onSubmit: this.signIn },
           e
         );
@@ -86296,13 +87218,13 @@
         return ve.createElement(
           ve.Fragment,
           null,
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             label: "用户名或电子邮件地址",
             disabled: e,
             autoFocus: !0,
             onValueChanged: this.onUsernameChange,
           }),
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             label: "密码",
             type: "password",
             disabled: e,
@@ -86327,16 +87249,16 @@
           { className: "actions" },
           this.props.supportsBasicAuth
             ? ve.createElement(
-                Yb,
+                Qb,
                 { type: "submit", disabled: e },
-                this.props.loading ? ve.createElement(mw, null) : null,
+                this.props.loading ? ve.createElement(bw, null) : null,
                 " 登录"
               )
             : null,
           this.props.additionalButtons,
           this.props.supportsBasicAuth
             ? ve.createElement(
-                Lb,
+                Hw,
                 {
                   className: "forgot-password-link",
                   uri: this.props.forgotPasswordUrl,
@@ -86372,13 +87294,17 @@
             ? ve.createElement(
                 ve.Fragment,
                 null,
-                ve.createElement("p", null, "GitHub现在要求您使用浏览器登录。"),
-                ve.createElement("p", null, mR)
+                ve.createElement(
+                  "p",
+                  null,
+                  "GitHub现在要求您使用浏览器登录"
+                ),
+                ve.createElement("p", null, ER)
               )
             : ve.createElement(
                 "p",
                 null,
-                " GitHub Enterprise 要求您使用浏览器登录。"
+                " GitHub Enterprise 要求您使用浏览器登录"
               ),
           this.renderSignInWithBrowserButton(),
           this.props.additionalButtons
@@ -86386,19 +87312,19 @@
       }
       renderSignInWithBrowserButton() {
         return ve.createElement(
-          Yb,
+          Qb,
           {
             type: "submit",
             className: "button-with-icon",
             onClick: this.signInWithBrowser,
           },
           "使用浏览器登录",
-          ve.createElement(Tv, { symbol: Yu })
+          ve.createElement(Av, { symbol: Zu })
         );
       }
       renderError() {
         const e = this.props.error;
-        return e ? ve.createElement(fR, null, e.message) : null;
+        return e ? ve.createElement(kR, null, e.message) : null;
       }
       onUsernameChange = (e) => {
         this.setState({ username: e });
@@ -86413,7 +87339,7 @@
         this.props.onSubmit(this.state.username, this.state.password);
       };
     }
-    class yR extends ve.Component {
+    class RR extends ve.Component {
       render() {
         return ve.createElement(
           "div",
@@ -86424,7 +87350,7 @@
             "Welcome to GitHub Desktop"
           ),
           this.props.loadingBrowserAuth
-            ? ve.createElement("p", null, mR)
+            ? ve.createElement("p", null, ER)
             : ve.createElement(
                 ve.Fragment,
                 null,
@@ -86441,7 +87367,7 @@
                   "New to GitHub?",
                   " ",
                   ve.createElement(
-                    Lb,
+                    Hw,
                     {
                       uri: "https://github.com/join?source=github-desktop",
                       className: "create-account-link",
@@ -86454,25 +87380,25 @@
             "div",
             { className: "welcome-main-buttons" },
             ve.createElement(
-              Yb,
+              Qb,
               {
                 type: "submit",
                 className: "button-with-icon",
                 disabled: this.props.loadingBrowserAuth,
                 onClick: this.signInWithBrowser,
               },
-              this.props.loadingBrowserAuth && ve.createElement(mw, null),
+              this.props.loadingBrowserAuth && ve.createElement(bw, null),
               "Sign in to GitHub.com",
-              ve.createElement(Tv, { symbol: Yu })
+              ve.createElement(Av, { symbol: Zu })
             ),
             this.props.loadingBrowserAuth
               ? ve.createElement(
-                  Yb,
+                  Qb,
                   { onClick: this.cancelBrowserAuth },
                   "Cancel"
                 )
               : ve.createElement(
-                  Yb,
+                  Qb,
                   { onClick: this.signInToEnterprise },
                   "Sign in to GitHub Enterprise"
                 )
@@ -86481,7 +87407,7 @@
             "div",
             { className: "skip-action-container" },
             ve.createElement(
-              Lb,
+              Hw,
               { className: "skip-button", onClick: this.skip },
               "Skip this step"
             )
@@ -86492,14 +87418,14 @@
             "By creating an account, you agree to the",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { uri: "https://github.com/site/terms" },
               "Terms of Service"
             ),
             ". For more information about GitHub's privacy practices, see the",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { uri: "https://github.com/site/privacy" },
               "GitHub Privacy Statement"
             ),
@@ -86507,27 +87433,27 @@
             ve.createElement("br", null),
             ve.createElement("br", null),
             "GitHub Desktop sends usage metrics to improve the product and inform feature decisions. Read more about what metrics are sent and how we use them ",
-            ve.createElement(Lb, { uri: gg }, "here"),
+            ve.createElement(Hw, { uri: vg }, "here"),
             "."
           )
         );
       }
       signInWithBrowser = (e) => {
         e && e.preventDefault(),
-          this.props.advance(xR.SignInToDotComWithBrowser),
+          this.props.advance(OR.SignInToDotComWithBrowser),
           this.props.dispatcher.requestBrowserAuthenticationToDotcom();
       };
       cancelBrowserAuth = () => {
-        this.props.advance(xR.Start);
+        this.props.advance(OR.Start);
       };
       signInToEnterprise = () => {
-        this.props.advance(xR.SignInToEnterprise);
+        this.props.advance(OR.SignInToEnterprise);
       };
       skip = () => {
-        this.props.advance(xR.ConfigureGit);
+        this.props.advance(OR.ConfigureGit);
       };
     }
-    class vR extends ve.Component {
+    class TR extends ve.Component {
       constructor(e) {
         super(e), (this.state = { otp: "" });
       }
@@ -86535,7 +87461,7 @@
         const e = this.props.loading,
           t = !/\S+/.test(this.state.otp) || this.props.loading,
           n = this.props.error
-            ? ve.createElement(fR, null, this.props.error.message)
+            ? ve.createElement(kR, null, this.props.error.message)
             : null;
         return ve.createElement(
           "div",
@@ -86546,9 +87472,9 @@
             Ht(this.props.type)
           ),
           ve.createElement(
-            dR,
+            SR,
             { onSubmit: this.signIn },
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "Authentication code",
               disabled: e,
               autoFocus: !0,
@@ -86559,9 +87485,9 @@
               "div",
               { className: "actions" },
               ve.createElement(
-                Yb,
+                Qb,
                 { type: "submit", disabled: t },
-                this.props.loading ? ve.createElement(mw, null) : null,
+                this.props.loading ? ve.createElement(bw, null) : null,
                 " Verify"
               ),
               this.props.additionalButtons
@@ -86576,7 +87502,7 @@
         this.props.onOTPEntered(this.state.otp);
       };
     }
-    class bR extends ve.Component {
+    class _R extends ve.Component {
       constructor(e) {
         super(e), (this.state = { serverAddress: "" });
       }
@@ -86584,9 +87510,9 @@
         const e = this.props.loading,
           t = 0 === this.state.serverAddress.length || this.props.loading;
         return ve.createElement(
-          dR,
+          SR,
           { onSubmit: this.onSubmit },
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             label: "Enterprise or AE 地址",
             autoFocus: !0,
             disabled: e,
@@ -86594,15 +87520,15 @@
             placeholder: "https://github.example.com",
           }),
           this.props.error
-            ? ve.createElement(fR, null, this.props.error.message)
+            ? ve.createElement(kR, null, this.props.error.message)
             : null,
           ve.createElement(
             "div",
             { className: "actions" },
             ve.createElement(
-              Yb,
+              Qb,
               { type: "submit", disabled: t },
-              this.props.loading ? ve.createElement(mw, null) : null,
+              this.props.loading ? ve.createElement(bw, null) : null,
               " Continue"
             ),
             this.props.additionalButtons
@@ -86616,7 +87542,7 @@
         this.props.onSubmit(this.state.serverAddress);
       };
     }
-    class wR extends ve.Component {
+    class DR extends ve.Component {
       onEndpointEntered = (e) => {
         this.props.dispatcher.setSignInEndpoint(e);
       };
@@ -86631,7 +87557,7 @@
       };
       renderEndpointEntryStep(e) {
         const t = this.props.children;
-        return ve.createElement(bR, {
+        return ve.createElement(_R, {
           loading: e.loading,
           error: e.error,
           onSubmit: this.onEndpointEntered,
@@ -86640,7 +87566,7 @@
       }
       renderAuthenticationStep(e) {
         const t = this.props.children;
-        return ve.createElement(gR, {
+        return ve.createElement(xR, {
           loading: e.loading,
           error: e.error,
           supportsBasicAuth: e.supportsBasicAuth,
@@ -86652,7 +87578,7 @@
         });
       }
       renderTwoFactorAuthenticationStep(e) {
-        return ve.createElement(vR, {
+        return ve.createElement(TR, {
           loading: e.loading,
           error: e.error,
           type: e.type,
@@ -86664,20 +87590,20 @@
         const e = this.props.signInState,
           t = this.props.signInState.kind;
         switch (e.kind) {
-          case rg.EndpointEntry:
+          case og.EndpointEntry:
             return this.renderEndpointEntryStep(e);
-          case rg.Authentication:
+          case og.Authentication:
             return this.renderAuthenticationStep(e);
-          case rg.TwoFactorAuthentication:
+          case og.TwoFactorAuthentication:
             return this.renderTwoFactorAuthenticationStep(e);
-          case rg.Success:
+          case og.Success:
             return null;
           default:
             return st(0, `Unknown sign-in step: ${t}`);
         }
       }
     }
-    class CR extends ve.Component {
+    class AR extends ve.Component {
       render() {
         const e = this.props.signInState;
         return e
@@ -86690,18 +87616,18 @@
                 "Sign in to your GitHub Enterprise"
               ),
               ve.createElement(
-                wR,
+                DR,
                 { signInState: e, dispatcher: this.props.dispatcher },
-                ve.createElement(Yb, { onClick: this.cancel }, "Cancel")
+                ve.createElement(Qb, { onClick: this.cancel }, "Cancel")
               )
             )
           : null;
       }
       cancel = () => {
-        this.props.advance(xR.Start);
+        this.props.advance(OR.Start);
       };
     }
-    class SR extends ve.Component {
+    class PR extends ve.Component {
       onDeleteLockFile = async () => {
         try {
           await (0, y.unlink)(this.props.lockFilePath);
@@ -86719,7 +87645,7 @@
             null,
             "Failed to update Git configuration file. A lock file already exists at",
             " ",
-            ve.createElement(aC, null, this.props.lockFilePath),
+            ve.createElement(pC, null, this.props.lockFilePath),
             "."
           ),
           ve.createElement(
@@ -86728,7 +87654,7 @@
             "This can happen if another tool is currently modifying the Git configuration or if a Git process has terminated earlier without cleaning up the lock file. Do you want to",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.onDeleteLockFile },
               "delete the lock file"
             ),
@@ -86738,7 +87664,7 @@
         );
       }
     }
-    class kR extends ve.Component {
+    class IR extends ve.Component {
       globalUsernamePromise = Si("user.name");
       globalEmailPromise = Si("user.email");
       loadInitialDataPromise = null;
@@ -86812,7 +87738,7 @@
       render() {
         const e =
           void 0 !== this.state.existingLockFilePath
-            ? ve.createElement(SR, {
+            ? ve.createElement(PR, {
                 lockFilePath: this.state.existingLockFilePath,
                 onLockFileDeleted: this.onLockFileDeleted,
                 onError: this.onLockFileDeleteError,
@@ -86872,13 +87798,13 @@
         return ve.createElement(
           "div",
           null,
-          ve.createElement(pC, {
+          ve.createElement(yC, {
             label: `使用我的GitHub ${t} 帐户名称和电子邮件地址`,
             checked: this.state.useGitHubAuthorInfo,
             onSelected: this.onUseGitHubInfoSelected,
             value: "github-account",
           }),
-          ve.createElement(pC, {
+          ve.createElement(yC, {
             label: "手动配置",
             checked: !this.state.useGitHubAuthorInfo,
             onSelected: this.onUseGitConfigInfoSelected,
@@ -86889,16 +87815,16 @@
       renderGitHubInfo() {
         if (null !== this.account)
           return ve.createElement(
-            dR,
+            SR,
             { className: "sign-in-form", onSubmit: this.save },
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "名称",
               placeholder: "你的名称",
               value: this.state.gitHubName,
               disabled: !0,
             }),
             ve.createElement(
-              Lw,
+              jw,
               {
                 label: "Email",
                 value: this.state.gitHubEmail,
@@ -86913,10 +87839,10 @@
               )
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
               ve.createElement(
-                Yb,
+                Qb,
                 { type: "submit" },
                 this.props.saveLabel || "保存"
               ),
@@ -86926,15 +87852,15 @@
       }
       renderGitConfigForm() {
         return ve.createElement(
-          dR,
+          SR,
           { className: "sign-in-form", onSubmit: this.save },
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             label: "名称",
             placeholder: "你的名称",
             value: this.state.manualName,
             onValueChanged: this.onNameChange,
           }),
-          ve.createElement(Hb, {
+          ve.createElement(jb, {
             type: "email",
             label: "Email",
             placeholder: "your-email@example.com",
@@ -86942,15 +87868,15 @@
             onValueChanged: this.onEmailChange,
           }),
           null !== this.account &&
-            ve.createElement(fC, {
+            ve.createElement(bC, {
               accounts: [this.account],
               email: this.state.manualEmail,
             }),
           ve.createElement(
-            Ub,
+            $b,
             null,
             ve.createElement(
-              Yb,
+              Qb,
               { type: "submit" },
               this.props.saveLabel || "保存"
             ),
@@ -86997,8 +87923,8 @@
           a.length > 0 && a !== n && (await xi("user.name", a)),
             l.length > 0 && l !== r && (await xi("user.email", l));
         } catch (e) {
-          if (ry(e)) {
-            const t = oy(e.result);
+          if (oy(e)) {
+            const t = ay(e.result);
             if (null !== t)
               return void this.setState({ existingLockFilePath: t });
           }
@@ -87006,7 +87932,7 @@
         this.props.onSave && this.props.onSave();
       };
     }
-    class ER extends ve.Component {
+    class MR extends ve.Component {
       render() {
         return ve.createElement(
           "div",
@@ -87022,33 +87948,33 @@
             "This is used to identify the commits you create. Anyone will be able to see this information if you publish commits."
           ),
           ve.createElement(
-            kR,
+            IR,
             {
               accounts: this.props.accounts,
               onSave: this.props.done,
               saveLabel: "Finish",
             },
-            ve.createElement(Yb, { onClick: this.cancel }, "Cancel")
+            ve.createElement(Qb, { onClick: this.cancel }, "Cancel")
           )
         );
       }
       cancel = () => {
-        this.props.advance(xR.Start);
+        this.props.advance(OR.Start);
       };
     }
-    var xR;
+    var OR;
     !(function (e) {
       (e.Start = "Start"),
         (e.SignInToDotComWithBrowser = "SignInToDotComWithBrowser"),
         (e.SignInToEnterprise = "SignInToEnterprise"),
         (e.ConfigureGit = "ConfigureGit");
-    })(xR || (xR = {}));
-    const RR = Po(__dirname, "static/welcome-illustration-right.svg"),
-      TR = Po(__dirname, "static/welcome-illustration-left-top.svg"),
-      _R = Po(__dirname, "static/welcome-illustration-left-bottom.svg");
-    class DR extends ve.Component {
+    })(OR || (OR = {}));
+    const NR = Po(__dirname, "static/welcome-illustration-right.svg"),
+      BR = Po(__dirname, "static/welcome-illustration-left-top.svg"),
+      FR = Po(__dirname, "static/welcome-illustration-left-bottom.svg");
+    class LR extends ve.Component {
       constructor(e) {
-        super(e), (this.state = { currentStep: xR.Start, exiting: !1 });
+        super(e), (this.state = { currentStep: OR.Start, exiting: !1 });
       }
       componentWillReceiveProps(e) {
         this.advanceOnSuccessfulSignIn(e);
@@ -87058,8 +87984,8 @@
       }
       get inSignInStep() {
         return (
-          this.state.currentStep === xR.SignInToDotComWithBrowser ||
-          this.state.currentStep === xR.SignInToEnterprise
+          this.state.currentStep === OR.SignInToDotComWithBrowser ||
+          this.state.currentStep === OR.SignInToEnterprise
         );
       }
       advanceOnSuccessfulSignIn(e) {
@@ -87067,8 +87993,8 @@
           ? this.props.signInState
             ? e.signInState
               ? this.props.signInState.kind !== e.signInState.kind
-                ? e.signInState.kind === rg.Success &&
-                  (this.advanceToStep(xR.ConfigureGit),
+                ? e.signInState.kind === og.Success &&
+                  (this.advanceToStep(OR.ConfigureGit),
                   this.props.dispatcher.resetSignInState())
                 : log.info(
                     `[Welcome] kind ${this.props.signInState.kind} is the same as ${e.signInState.kind}. ignoring...`
@@ -87081,26 +88007,26 @@
         const e = this.state.currentStep,
           t = this.props.signInState;
         switch (e) {
-          case xR.Start:
-          case xR.SignInToDotComWithBrowser:
+          case OR.Start:
+          case OR.SignInToDotComWithBrowser:
             const n =
-              e === xR.SignInToDotComWithBrowser &&
+              e === OR.SignInToDotComWithBrowser &&
               null !== t &&
-              t.kind === rg.Authentication &&
+              t.kind === og.Authentication &&
               t.loading;
-            return ve.createElement(yR, {
+            return ve.createElement(RR, {
               advance: this.advanceToStep,
               dispatcher: this.props.dispatcher,
               loadingBrowserAuth: n,
             });
-          case xR.SignInToEnterprise:
-            return ve.createElement(CR, {
+          case OR.SignInToEnterprise:
+            return ve.createElement(AR, {
               dispatcher: this.props.dispatcher,
               advance: this.advanceToStep,
               signInState: t,
             });
-          case xR.ConfigureGit:
-            return ve.createElement(ER, {
+          case OR.ConfigureGit:
+            return ve.createElement(MR, {
               advance: this.advanceToStep,
               accounts: this.props.accounts,
               done: this.done,
@@ -87111,7 +88037,7 @@
       }
       advanceToStep = (e) => {
         log.info(`[Welcome] advancing to step: ${e}`),
-          e === xR.SignInToEnterprise &&
+          e === OR.SignInToEnterprise &&
             this.props.dispatcher.beginEnterpriseSignIn(),
           this.setState({ currentStep: e });
       };
@@ -87125,7 +88051,7 @@
       render() {
         const e = pl()({ exiting: this.state.exiting });
         return ve.createElement(
-          ew,
+          iw,
           { id: "welcome", className: e },
           ve.createElement(
             "div",
@@ -87136,26 +88062,26 @@
               this.getComponentForCurrentStep(),
               ve.createElement("img", {
                 className: "welcome-graphic-top",
-                src: TR,
+                src: BR,
               }),
               ve.createElement("img", {
                 className: "welcome-graphic-bottom",
-                src: _R,
+                src: FR,
               })
             )
           ),
           ve.createElement(
             "div",
             { className: "welcome-right" },
-            ve.createElement("img", { className: "welcome-graphic", src: RR })
+            ve.createElement("img", { className: "welcome-graphic", src: NR })
           )
         );
       }
     }
-    function AR(e) {
+    function HR(e) {
       return e.replace("&&", "&");
     }
-    class PR extends ve.Component {
+    class UR extends ve.Component {
       shouldComponentUpdate(e) {
         return (
           this.props.text !== e.text || this.props.highlight !== e.highlight
@@ -87167,7 +88093,7 @@
         const t = new Array();
         e[1] &&
           t.push(
-            ve.createElement("span", { key: 1, "aria-hidden": !0 }, AR(e[1]))
+            ve.createElement("span", { key: 1, "aria-hidden": !0 }, HR(e[1]))
           );
         const n = pl()("access-key", { highlight: this.props.highlight });
         t.push(
@@ -87179,18 +88105,18 @@
         ),
           e[3] &&
             t.push(
-              ve.createElement("span", { key: 3, "aria-hidden": !0 }, AR(e[3]))
+              ve.createElement("span", { key: 3, "aria-hidden": !0 }, HR(e[3]))
             );
-        const r = `${e[1] ? AR(e[1]) : ""}${e[2]}${e[3] ? AR(e[3]) : ""}`;
+        const r = `${e[1] ? HR(e[1]) : ""}${e[2]}${e[3] ? HR(e[3]) : ""}`;
         return ve.createElement("span", { "aria-label": r }, t);
       }
     }
-    class IR extends ve.Component {
+    class zR extends ve.Component {
       getIcon(e) {
         return "checkbox" === e.type && e.checked
-          ? ve.createElement(Tv, { className: "icon", symbol: bu })
+          ? ve.createElement(Av, { className: "icon", symbol: wu })
           : "radio" === e.type && e.checked
-          ? ve.createElement(Tv, { className: "icon", symbol: Pu })
+          ? ve.createElement(Av, { className: "icon", symbol: Iu })
           : null;
       }
       render() {
@@ -87198,7 +88124,7 @@
         if ("separator" === e.type) return ve.createElement("hr", null);
         const t =
             "submenuItem" === e.type && !1 !== this.props.renderSubMenuArrow
-              ? ve.createElement(Tv, { className: "submenu-arrow", symbol: fh })
+              ? ve.createElement(Av, { className: "submenu-arrow", symbol: mh })
               : null,
           n =
             "submenuItem" !== e.type &&
@@ -87208,7 +88134,7 @@
                   "div",
                   { className: "accelerator" },
                   (function (e) {
-                    return e.split("+").map(Bv).join("+");
+                    return e.split("+").map(Hv).join("+");
                   })(e.accelerator)
                 )
               : null,
@@ -87229,7 +88155,7 @@
           ve.createElement(
             "div",
             { className: "label" },
-            ve.createElement(PR, {
+            ve.createElement(UR, {
               text: e.label,
               highlight: this.props.highlightAccessKey,
             })
@@ -87239,7 +88165,7 @@
         );
       }
     }
-    function MR(e) {
+    function WR(e) {
       const t = new Array(),
         n = e.selectedItem;
       let r = -1;
@@ -87249,10 +88175,10 @@
       }
       return { items: t, selectedIndex: r };
     }
-    class OR extends ve.Component {
+    class jR extends ve.Component {
       list = null;
       constructor(e) {
-        super(e), (this.state = MR(e));
+        super(e), (this.state = WR(e));
       }
       componentWillReceiveProps(e) {
         if (this.props.items === e.items) {
@@ -87263,7 +88189,7 @@
               t ? n.findIndex((e) => e.id === t.id) : -1);
             this.setState({ selectedIndex: r });
           }
-        } else this.setState(MR(e));
+        } else this.setState(WR(e));
         var t, n;
       }
       onRowClick = (e, t) => {
@@ -87308,7 +88234,7 @@
       };
       renderMenuItem = (e) => {
         const t = this.state.items[e];
-        return ve.createElement(IR, {
+        return ve.createElement(zR, {
           key: t.id,
           item: t,
           highlightAccessKey: this.props.enableAccessKeyNavigation,
@@ -87347,7 +88273,7 @@
             onKeyDown: this.onKeyDown,
             style: e,
           },
-          ve.createElement(Fb, {
+          ve.createElement(Wb, {
             ref: this.onListRef,
             rowCount: this.state.items.length,
             rowHeight: this.rowHeight,
@@ -87367,7 +88293,7 @@
         this.list && this.list.focus();
       }
     }
-    class NR extends ve.Component {
+    class $R extends ve.Component {
       focusPane = -1;
       paneRefs = [];
       expandCollapseTimer = null;
@@ -87479,7 +88405,7 @@
                 return t.length ? `menu-pane-${t}` : void 0;
               })(t.id)
             : void 0;
-        return ve.createElement(OR, {
+        return ve.createElement(jR, {
           key: n,
           ref: this.onMenuPaneRef,
           className: r,
@@ -87524,7 +88450,7 @@
         this.clearExpandCollapseTimer();
       }
     }
-    class BR extends ve.Component {
+    class qR extends ve.Component {
       innerDropDown = null;
       get isMenuOpen() {
         return 0 !== this.props.menuState.length;
@@ -87544,7 +88470,7 @@
         const e = this.props.menuItem,
           t = this.isMenuOpen ? "open" : "closed";
         return ve.createElement(
-          Kx,
+          rR,
           {
             ref: this.onDropDownRef,
             key: e.id,
@@ -87558,7 +88484,7 @@
             tabIndex: -1,
             role: "menuitem",
           },
-          ve.createElement(IR, {
+          ve.createElement(zR, {
             item: e,
             highlightAccessKey: this.props.highlightMenuAccessKey,
             renderAcceleratorText: !1,
@@ -87593,7 +88519,7 @@
       dropDownContentRenderer = () => {
         const e = this.props.menuState;
         return this.isMenuOpen
-          ? ve.createElement(NR, {
+          ? ve.createElement($R, {
               dispatcher: this.props.dispatcher,
               onClose: this.onMenuClose,
               openedWithAccessKey: this.props.openedWithAccessKey,
@@ -87604,24 +88530,24 @@
           : null;
       };
     }
-    function FR(e) {
+    function GR(e) {
       if (!e.appMenu.length) return { menuItems: [] };
       const t = e.appMenu[0].items,
         n = new Array();
       for (const e of t) "submenuItem" === e.type && e.visible && n.push(e);
       return { menuItems: n };
     }
-    class LR extends ve.Component {
+    class VR extends ve.Component {
       menuBar = null;
       menuButtonRefsByMenuItemId = {};
       focusOutTimeout = null;
       hasFocus = !1;
       stolenFocusElement = null;
       constructor(e) {
-        super(e), (this.state = FR(e));
+        super(e), (this.state = GR(e));
       }
       componentWillReceiveProps(e) {
-        e.appMenu !== this.props.appMenu && this.setState(FR(e));
+        e.appMenu !== this.props.appMenu && this.setState(GR(e));
       }
       componentDidUpdate(e) {
         this.props.foldoutState && !e.foldoutState
@@ -87789,7 +88715,7 @@
           o =
             this.props.highlightAppMenuAccessKeys ||
             (!this.isMenuItemOpen(e) && i);
-        return ve.createElement(BR, {
+        return ve.createElement(qR, {
           key: e.id,
           dispatcher: this.props.dispatcher,
           menuItem: e,
@@ -87806,7 +88732,7 @@
         });
       }
     }
-    class HR extends ve.Component {
+    class KR extends ve.Component {
       timeoutId = null;
       render() {
         return ve.createElement(
@@ -87830,7 +88756,7 @@
               ve.createElement(
                 "a",
                 { onClick: this.props.onDismissed },
-                ve.createElement(Tv, { symbol: vh })
+                ve.createElement(Av, { symbol: bh })
               )
             );
       }
@@ -87846,18 +88772,35 @@
           window.clearTimeout(this.timeoutId);
       };
     }
-    const UR = "https://desktop.github.com/release-notes/";
-    class zR extends ve.Component {
+    const YR = "https://desktop.github.com/release-notes/";
+    class ZR extends ve.Component {
       render() {
         return ve.createElement(
-          HR,
+          KR,
           { id: "update-available", onDismissed: this.props.onDismissed },
           !this.props.isUpdateShowcaseVisible &&
-            ve.createElement(Tv, { className: "download-icon", symbol: Eu }),
+            ve.createElement(Av, { className: "download-icon", symbol: xu }),
           this.renderMessage()
         );
       }
       renderMessage = () => {
+        if (this.props.isX64ToARM64ImmediateAutoUpdate)
+          return ve.createElement(
+            "span",
+            { onSubmit: this.updateNow },
+            "An optimized version of GitHub Desktop is available for your",
+            " ",
+            "Arm64",
+            " machine and will be installed at the next launch or",
+            " ",
+            ve.createElement(
+              Hw,
+              { onClick: this.updateNow },
+              "restart GitHub Desktop"
+            ),
+            " ",
+            "now."
+          );
         if (this.props.isUpdateShowcaseVisible) {
           const e =
             null !== this.props.newReleases
@@ -87866,7 +88809,7 @@
           return ve.createElement(
             "span",
             null,
-            ve.createElement(GC, {
+            ve.createElement(XC, {
               className: "banner-emoji",
               text: ":tada:",
               emoji: this.props.emoji,
@@ -87876,14 +88819,14 @@
             ". See",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.showReleaseNotes },
               "what's new"
             ),
             " or",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.dismissUpdateShowCaseVisibility },
               "dismiss"
             ),
@@ -87896,14 +88839,14 @@
           "An updated version of GitHub Desktop is available and will be installed at the next launch. See",
           " ",
           ve.createElement(
-            Lb,
+            Hw,
             { onClick: this.showReleaseNotes },
             "what's new"
           ),
           " or",
           " ",
           ve.createElement(
-            Lb,
+            Hw,
             { onClick: this.updateNow },
             "restart GitHub Desktop"
           ),
@@ -87913,14 +88856,14 @@
       dismissUpdateShowCaseVisibility = () => {
         const e =
           null === this.props.newReleases
-            ? "3.0.3"
+            ? "3.0.7"
             : this.props.newReleases[0].latestVersion;
-        localStorage.setItem(hv, e),
+        localStorage.setItem(fv, e),
           this.props.dispatcher.setUpdateShowCaseVisibility(!1);
       };
       showReleaseNotes = () => {
         null == this.props.newReleases
-          ? rt.openExternal(UR)
+          ? rt.openExternal(YR)
           : this.props.dispatcher.showPopup({
               type: Pr.ReleaseNotes,
               newReleases: this.props.newReleases,
@@ -87928,10 +88871,10 @@
           this.dismissUpdateShowCaseVisibility();
       };
       updateNow = () => {
-        dv.quitAndInstallUpdate();
+        gv.quitAndInstallUpdate();
       };
     }
-    class WR extends ve.Component {
+    class XR extends ve.Component {
       openDialog = () => {
         this.props.onDismissed(),
           this.props.dispatcher.showPopup(this.props.popup),
@@ -87939,13 +88882,13 @@
       };
       render() {
         return ve.createElement(
-          HR,
+          KR,
           {
             id: "merge-conflicts-banner",
             dismissable: !1,
             onDismissed: this.props.onDismissed,
           },
-          ve.createElement(Tv, { className: "alert-icon", symbol: mu }),
+          ve.createElement(Av, { className: "alert-icon", symbol: gu }),
           ve.createElement(
             "div",
             { className: "banner-message" },
@@ -87957,23 +88900,23 @@
               ve.createElement("strong", null, this.props.ourBranch),
               "."
             ),
-            ve.createElement(Lb, { onClick: this.openDialog }, "View conflicts")
+            ve.createElement(Hw, { onClick: this.openDialog }, "View conflicts")
           )
         );
       }
     }
-    class jR extends ve.Component {
+    class JR extends ve.Component {
       undo = () => {
         this.props.onDismissed(),
           void 0 !== this.props.onUndo && this.props.onUndo();
       };
       renderUndo = () => {
         if (void 0 !== this.props.onUndo)
-          return ve.createElement(Lb, { onClick: this.undo }, "撤消");
+          return ve.createElement(Hw, { onClick: this.undo }, "撤消");
       };
       render() {
         return ve.createElement(
-          HR,
+          KR,
           {
             id: "successful",
             timeout: this.props.timeout,
@@ -87982,7 +88925,7 @@
           ve.createElement(
             "div",
             { className: "green-circle" },
-            ve.createElement(Tv, { className: "check-icon", symbol: bu })
+            ve.createElement(Av, { className: "check-icon", symbol: wu })
           ),
           ve.createElement(
             "div",
@@ -87997,7 +88940,7 @@
         );
       }
     }
-    function $R({ ourBranch: e, theirBranch: t, onDismissed: n }) {
+    function QR({ ourBranch: e, theirBranch: t, onDismissed: n }) {
       const r =
         void 0 !== t
           ? ve.createElement(
@@ -88015,12 +88958,12 @@
               ve.createElement("strong", null, e)
             );
       return ve.createElement(
-        jR,
+        JR,
         { timeout: 5e3, onDismissed: n },
         ve.createElement("div", { className: "banner-message" }, r)
       );
     }
-    class qR extends ve.Component {
+    class eT extends ve.Component {
       openDialog = async () => {
         this.props.onDismissed(),
           this.props.onOpenDialog(),
@@ -88033,13 +88976,13 @@
       };
       render() {
         return ve.createElement(
-          HR,
+          KR,
           {
             id: "rebase-conflicts-banner",
             dismissable: !1,
             onDismissed: this.onDismissed,
           },
-          ve.createElement(Tv, { className: "alert-icon", symbol: mu }),
+          ve.createElement(Av, { className: "alert-icon", symbol: gu }),
           ve.createElement(
             "div",
             { className: "banner-message" },
@@ -88051,12 +88994,12 @@
               ve.createElement("strong", null, this.props.targetBranch),
               "."
             ),
-            ve.createElement(Lb, { onClick: this.openDialog }, "View conflicts")
+            ve.createElement(Hw, { onClick: this.openDialog }, "View conflicts")
           )
         );
       }
     }
-    function GR({ baseBranch: e, targetBranch: t, onDismissed: n }) {
+    function tT({ baseBranch: e, targetBranch: t, onDismissed: n }) {
       const r =
         void 0 !== e
           ? ve.createElement(
@@ -88074,12 +89017,12 @@
               ve.createElement("strong", null, t)
             );
       return ve.createElement(
-        jR,
+        JR,
         { timeout: 5e3, onDismissed: n },
         ve.createElement("div", { className: "banner-message" }, r)
       );
     }
-    function VR({ ourBranch: e, theirBranch: t, onDismissed: n }) {
+    function nT({ ourBranch: e, theirBranch: t, onDismissed: n }) {
       const r =
         void 0 !== t
           ? ve.createElement(
@@ -88096,17 +89039,17 @@
               " is already up to date"
             );
       return ve.createElement(
-        HR,
+        KR,
         { id: "successful-merge", timeout: 5e3, onDismissed: n },
         ve.createElement(
           "div",
           { className: "green-circle" },
-          ve.createElement(Tv, { className: "check-icon", symbol: bu })
+          ve.createElement(Av, { className: "check-icon", symbol: wu })
         ),
         ve.createElement("div", { className: "banner-message" }, r)
       );
     }
-    class KR extends ve.Component {
+    class rT extends ve.Component {
       render() {
         const {
             countCherryPicked: e,
@@ -88116,7 +89059,7 @@
           } = this.props,
           i = 1 === e ? "commit" : "commits";
         return ve.createElement(
-          jR,
+          JR,
           { timeout: 15e3, onDismissed: t, onUndo: n },
           ve.createElement(
             "span",
@@ -88133,7 +89076,7 @@
         );
       }
     }
-    class YR extends ve.Component {
+    class iT extends ve.Component {
       openDialog = async () => {
         this.props.onDismissed(), this.props.onOpenConflictsDialog();
       };
@@ -88144,13 +89087,13 @@
       };
       render() {
         return ve.createElement(
-          HR,
+          KR,
           {
             id: "cherry-pick-conflicts-banner",
             dismissable: !1,
             onDismissed: this.onDismissed,
           },
-          ve.createElement(Tv, { className: "alert-icon", symbol: mu }),
+          ve.createElement(Av, { className: "alert-icon", symbol: gu }),
           ve.createElement(
             "div",
             { className: "banner-message" },
@@ -88162,12 +89105,12 @@
               ve.createElement("strong", null, this.props.targetBranchName),
               "."
             ),
-            ve.createElement(Lb, { onClick: this.openDialog }, "View conflicts")
+            ve.createElement(Hw, { onClick: this.openDialog }, "View conflicts")
           )
         );
       }
     }
-    class ZR extends ve.Component {
+    class oT extends ve.Component {
       render() {
         const {
             countCherryPicked: e,
@@ -88176,7 +89119,7 @@
           } = this.props,
           r = 1 === e ? "commit" : "commits";
         return ve.createElement(
-          jR,
+          JR,
           { timeout: 5e3, onDismissed: n },
           "Cherry-pick undone. Successfully removed the ",
           e,
@@ -88188,10 +89131,10 @@
         );
       }
     }
-    class XR extends ve.Component {
+    class sT extends ve.Component {
       render() {
         return ve.createElement(
-          HR,
+          KR,
           { id: "open-thank-you-card", onDismissed: this.props.onDismissed },
           ve.createElement(
             "span",
@@ -88199,12 +89142,12 @@
             "The Desktop team would like to thank you for your contributions.",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.props.onOpenCard },
               "Open Your Card"
             ),
             " ",
-            ve.createElement(GC, {
+            ve.createElement(XC, {
               className: "thank-you-banner-emoji",
               text: ":tada:",
               emoji: this.props.emoji,
@@ -88213,12 +89156,12 @@
             "or",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.onThrowCardAway },
               "Throw It Away"
             ),
             " ",
-            ve.createElement(GC, {
+            ve.createElement(XC, {
               className: "thank-you-banner-emoji",
               text: ":sob:",
               emoji: this.props.emoji,
@@ -88231,12 +89174,12 @@
         this.props.onDismissed(), this.props.onThrowCardAway();
       };
     }
-    class JR extends ve.Component {
+    class aT extends ve.Component {
       render() {
         const { count: e, onDismissed: t, onUndo: n } = this.props,
           r = 1 === e ? "commit" : "commits";
         return ve.createElement(
-          jR,
+          JR,
           { timeout: 15e3, onDismissed: t, onUndo: n },
           ve.createElement(
             "span",
@@ -88250,7 +89193,7 @@
         );
       }
     }
-    class QR extends ve.Component {
+    class lT extends ve.Component {
       openDialog = async () => {
         this.props.onDismissed(), this.props.onOpenConflictsDialog();
       };
@@ -88261,45 +89204,45 @@
       };
       render() {
         return ve.createElement(
-          HR,
+          KR,
           {
             id: "conflicts-found-banner",
             dismissable: !1,
             onDismissed: this.onDismissed,
           },
-          ve.createElement(Tv, { className: "alert-icon", symbol: mu }),
+          ve.createElement(Av, { className: "alert-icon", symbol: gu }),
           ve.createElement(
             "div",
             { className: "banner-message" },
             ve.createElement(
               "span",
               null,
-              "解决冲突以继续 ",
+              "Resolve conflicts to continue ",
               this.props.operationDescription,
               "."
             ),
-            ve.createElement(Lb, { onClick: this.openDialog }, "View conflicts")
+            ve.createElement(Hw, { onClick: this.openDialog }, "View conflicts")
           )
         );
       }
     }
-    var eT;
+    var cT;
     !(function (e) {
       (e[(e.DotCom = 0)] = "DotCom"), (e[(e.Enterprise = 1)] = "Enterprise");
-    })(eT || (eT = {}));
-    class tT extends ve.Component {
+    })(cT || (cT = {}));
+    class uT extends ve.Component {
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           { className: "accounts-tab" },
           ve.createElement("h2", null, "GitHub.com"),
           this.props.dotComAccount
             ? this.renderAccount(this.props.dotComAccount)
-            : this.renderSignIn(eT.DotCom),
+            : this.renderSignIn(cT.DotCom),
           ve.createElement("h2", null, "GitHub Enterprise"),
           this.props.enterpriseAccount
             ? this.renderAccount(this.props.enterpriseAccount)
-            : this.renderSignIn(eT.Enterprise)
+            : this.renderSignIn(cT.Enterprise)
         );
       }
       renderAccount(e) {
@@ -88310,16 +89253,16 @@
           endpoint: e.endpoint,
         };
         return ve.createElement(
-          Ub,
+          $b,
           { className: "account-info" },
-          ve.createElement(Vw, { user: t }),
+          ve.createElement(Jw, { user: t }),
           ve.createElement(
             "div",
             { className: "user-info" },
             ve.createElement("div", { className: "name" }, e.name),
             ve.createElement("div", { className: "login" }, "@", e.login)
           ),
-          ve.createElement(Yb, { onClick: this.logout(e) }, "注销")
+          ve.createElement(Qb, { onClick: this.logout(e) }, "Sign out")
         );
       }
       onDotComSignIn = () => {
@@ -88331,9 +89274,9 @@
       renderSignIn(e) {
         const t = "登录";
         switch (e) {
-          case eT.DotCom:
+          case cT.DotCom:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.onDotComSignIn },
               ve.createElement(
                 "div",
@@ -88341,9 +89284,9 @@
                 "登录您的GitHub.com帐户访问您的仓库。"
               )
             );
-          case eT.Enterprise:
+          case cT.Enterprise:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.onEnterpriseSignIn },
               ve.createElement(
                 "div",
@@ -88359,7 +89302,7 @@
         this.props.onLogout(e);
       };
     }
-    class nT extends ve.Component {
+    class hT extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -88403,32 +89346,36 @@
           null,
           "通过提交帮助GitHub Desktop改进",
           " ",
-          ve.createElement(Lb, { uri: gg }, "GitHub Desktop使用情况网页")
+          ve.createElement(Hw, { uri: vg }, "GitHub Desktop使用情况网页")
         );
       }
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement(
             "div",
             { className: "advanced-section" },
-            ve.createElement("h2", null, "如果我有更改并切换分支..."),
-            ve.createElement(pC, {
+            ve.createElement(
+              "h2",
+              null,
+              "如果我有更改并切换分支..."
+            ),
+            ve.createElement(yC, {
               value: Is.AskForConfirmation,
               checked:
                 this.state.uncommittedChangesStrategy === Is.AskForConfirmation,
               label: "询问我要更改的位置",
               onSelected: this.onUncommittedChangesStrategyChanged,
             }),
-            ve.createElement(pC, {
+            ve.createElement(yC, {
               value: Is.MoveToNewBranch,
               checked:
                 this.state.uncommittedChangesStrategy === Is.MoveToNewBranch,
               label: "始终将我的更改带到我的新分支",
               onSelected: this.onUncommittedChangesStrategyChanged,
             }),
-            ve.createElement(pC, {
+            ve.createElement(yC, {
               value: Is.StashOnCurrentBranch,
               checked:
                 this.state.uncommittedChangesStrategy ===
@@ -88441,9 +89388,10 @@
             "div",
             { className: "advanced-section" },
             ve.createElement("h2", null, "后台更新"),
-            ve.createElement(nw, {
-              label: "定期获取和刷新所有仓库的状态",
-              value: this.props.repositoryIndicatorsEnabled ? tw.On : tw.Off,
+            ve.createElement(sw, {
+              label:
+                "定期获取和刷新所有仓库的状态",
+              value: this.props.repositoryIndicatorsEnabled ? ow.On : ow.Off,
               onChange: this.onRepositoryIndicatorsEnabledChanged,
             }),
             ve.createElement(
@@ -88460,9 +89408,9 @@
             "div",
             { className: "advanced-section" },
             ve.createElement("h2", null, "使用情况"),
-            ve.createElement(nw, {
+            ve.createElement(sw, {
               label: this.reportDesktopUsageLabel(),
-              value: this.state.optOutOfUsageTracking ? tw.Off : tw.On,
+              value: this.state.optOutOfUsageTracking ? ow.Off : ow.On,
               onChange: this.onReportingOptOutChanged,
             })
           )
@@ -88474,9 +89422,9 @@
               "div",
               { className: "advanced-section" },
               ve.createElement("h2", null, "SSH"),
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "使用系统OpenSSH（推荐）",
-                value: this.props.useWindowsOpenSSH ? tw.On : tw.Off,
+                value: this.props.useWindowsOpenSSH ? ow.On : ow.Off,
                 onChange: this.onUseWindowsOpenSSHChanged,
               })
             )
@@ -88487,9 +89435,9 @@
           "div",
           { className: "advanced-section" },
           ve.createElement("h2", null, "通知"),
-          ve.createElement(nw, {
+          ve.createElement(sw, {
             label: "启用通知",
-            value: this.props.notificationsEnabled ? tw.On : tw.Off,
+            value: this.props.notificationsEnabled ? ow.On : ow.Off,
             onChange: this.onNotificationsEnabledChanged,
           }),
           ve.createElement(
@@ -88506,13 +89454,13 @@
       async updateNotificationsState() {
         const e = await de();
         this.setState({
-          suggestGrantNotificationPermission: (0, hu.YF)() && "default" === e,
+          suggestGrantNotificationPermission: (0, pu.YF)() && "default" === e,
           warnNotificationsDenied: "denied" === e,
           suggestConfigureNotifications: "granted" === e,
         });
       }
       renderNotificationHint() {
-        if (!(0, hu.VB)() || !this.props.notificationsEnabled) return null;
+        if (!(0, pu.VB)() || !this.props.notificationsEnabled) return null;
         const {
           suggestGrantNotificationPermission: e,
           warnNotificationsDenied: t,
@@ -88526,14 +89474,14 @@
             "你需要",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.onGrantNotificationPermission },
               "grant permission"
             ),
             " ",
             "从GitHub DeskTop显示这些通知"
           );
-        const r = (0, hu.Y4)();
+        const r = (0, pu.Y4)();
         if (null === r) return null;
         if (t)
           return ve.createElement(
@@ -88544,7 +89492,7 @@
             ve.createElement("span", { className: "warning-icon" }, "⚠️"),
             " GitHub DeskTop没有显示通知的权限。请在设置中启用它们",
             " ",
-            ve.createElement(Lb, { uri: r }, "通知设置"),
+            ve.createElement(Hw, { uri: r }, "通知设置"),
             "."
           );
         const i = n ? "properly configured" : "能够";
@@ -88556,12 +89504,12 @@
           i,
           "向你发出通知",
           " ",
-          ve.createElement(Lb, { uri: r }, "通知设置"),
+          ve.createElement(Hw, { uri: r }, "通知设置"),
           "."
         );
       }
     }
-    class rT extends ve.Component {
+    class pT extends ve.Component {
       defaultBranchInputRef = ve.createRef();
       constructor(e) {
         super(e),
@@ -88577,14 +89525,14 @@
       }
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           this.renderGitConfigAuthorInfo(),
           this.renderDefaultBranchSetting()
         );
       }
       renderGitConfigAuthorInfo() {
-        return ve.createElement(gC, {
+        return ve.createElement(CC, {
           email: this.props.email,
           name: this.props.name,
           enterpriseAccount: this.props.enterpriseAccount,
@@ -88598,14 +89546,14 @@
           ? ve.createElement(
               ve.Fragment,
               null,
-              ve.createElement(aC, null, t),
-              " 是无效的分支名称"
+              ve.createElement(pC, null, t),
+              " 是无效的分支名称。"
             )
           : ve.createElement(
               ve.Fragment,
               null,
-              "将另存为 ",
-              ve.createElement(aC, null, e),
+              "将另存为",
+              ve.createElement(pC, null, e),
               "."
             );
       renderDefaultBranchSetting() {
@@ -88613,9 +89561,13 @@
         return ve.createElement(
           "div",
           { className: "default-branch-component" },
-          ve.createElement("h2", null, "新仓库的默认分支名称"),
+          ve.createElement(
+            "h2",
+            null,
+            "新仓库的默认分支名称"
+          ),
           ps.map((t) =>
-            ve.createElement(pC, {
+            ve.createElement(yC, {
               key: t,
               checked: !e && this.props.defaultBranch === t,
               value: t,
@@ -88623,7 +89575,7 @@
               onSelected: this.onDefaultBranchChanged,
             })
           ),
-          ve.createElement(pC, {
+          ve.createElement(yC, {
             key: "",
             checked: e,
             value: "",
@@ -88631,7 +89583,7 @@
             onSelected: this.onDefaultBranchChanged,
           }),
           e &&
-            ve.createElement(Ux, {
+            ve.createElement(Yx, {
               initialValue: this.props.defaultBranch,
               renderWarningMessage: this.renderWarningMessage,
               onValueChange: this.props.onDefaultBranchChanged,
@@ -88640,7 +89592,7 @@
           ve.createElement(
             "p",
             { className: "git-settings-description" },
-            "这些首选项将编辑您的全局Git配置"
+            "这些首选项将编辑您的全局Git配置。"
           )
         );
       }
@@ -88649,7 +89601,7 @@
           this.props.onDefaultBranchChanged(e);
       };
     }
-    class iT extends ve.Component {
+    class dT extends ve.Component {
       onClick = () => {
         this.props.onClick(this.props.value);
       };
@@ -88677,7 +89629,7 @@
         );
       }
     }
-    class oT extends ve.Component {
+    class fT extends ve.Component {
       listRef = null;
       formRef = null;
       constructor(e) {
@@ -88685,14 +89637,14 @@
       }
       updateListId(e) {
         this.state.listId &&
-          (wv(this.state.listId), this.setState({ listId: void 0 })),
-          e && this.setState({ listId: bv(`VerticalSegmentedControl_${e}`) });
+          (kv(this.state.listId), this.setState({ listId: void 0 })),
+          e && this.setState({ listId: Sv(`VerticalSegmentedControl_${e}`) });
       }
       componentWillMount() {
         this.updateListId(this.props.label);
       }
       componentWillUnmount() {
-        this.state.listId && wv(this.state.listId);
+        this.state.listId && kv(this.state.listId);
       }
       componentWillReceiveProps(e) {
         this.props.label !== e.label && this.updateListId(e.label);
@@ -88711,7 +89663,7 @@
         return `${this.state.listId}_Item_${e}`;
       }
       renderItem(e, t) {
-        return ve.createElement(iT, {
+        return ve.createElement(dT, {
           id: this.getListItemId(t),
           key: e.key,
           title: e.title,
@@ -88777,8 +89729,8 @@
         return e.findIndex((e) => e.key === this.props.selectedKey);
       }
     }
-    var sT = n(509),
-      aT = function (e, t, n, r, i) {
+    var mT = n(509),
+      gT = function (e, t, n, r, i) {
         var o = i.clientWidth,
           s = i.clientHeight,
           a = "number" == typeof e.pageX ? e.pageX : e.touches[0].pageX,
@@ -88801,10 +89753,10 @@
         }
         return null;
       },
-      lT = {},
-      cT = function (e, t, n, r) {
+      yT = {},
+      vT = function (e, t, n, r) {
         var i = e + "-" + t + "-" + n + (r ? "-server" : "");
-        if (lT[i]) return lT[i];
+        if (yT[i]) return yT[i];
         var o = (function (e, t, n, r) {
           if ("undefined" == typeof document && !r) return null;
           var i = r ? new r() : document.createElement("canvas");
@@ -88820,9 +89772,9 @@
               i.toDataURL())
             : null;
         })(e, t, n, r);
-        return (lT[i] = o), o;
+        return (yT[i] = o), o;
       },
-      uT =
+      bT =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -88832,7 +89784,7 @@
           }
           return e;
         },
-      hT = function (e) {
+      wT = function (e) {
         var t = e.white,
           n = e.grey,
           r = e.size,
@@ -88840,31 +89792,31 @@
           o = e.borderRadius,
           s = e.boxShadow,
           a = e.children,
-          l = (0, sT.ZP)({
+          l = (0, mT.ZP)({
             default: {
               grid: {
                 borderRadius: o,
                 boxShadow: s,
                 absolute: "0px 0px 0px 0px",
-                background: "url(" + cT(t, n, r, i.canvas) + ") center left",
+                background: "url(" + vT(t, n, r, i.canvas) + ") center left",
               },
             },
           });
         return (0, ve.isValidElement)(a)
           ? be().cloneElement(
               a,
-              uT({}, a.props, { style: uT({}, a.props.style, l.grid) })
+              bT({}, a.props, { style: bT({}, a.props.style, l.grid) })
             )
           : be().createElement("div", { style: l.grid });
       };
-    hT.defaultProps = {
+    wT.defaultProps = {
       size: 8,
       white: "transparent",
       grey: "rgba(0,0,0,.08)",
       renderers: {},
     };
-    const pT = hT;
-    var dT =
+    const CT = wT;
+    var ST =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -88874,7 +89826,7 @@
           }
           return e;
         },
-      fT = (function () {
+      kT = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -88888,26 +89840,26 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })();
-    function mT(e, t) {
+    function ET(e, t) {
       if (!(e instanceof t))
         throw new TypeError("Cannot call a class as a function");
     }
-    function gT(e, t) {
+    function xT(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || ("object" != typeof t && "function" != typeof t) ? e : t;
     }
-    var yT = (function (e) {
+    var RT = (function (e) {
       function t() {
         var e, n, r;
-        mT(this, t);
+        ET(this, t);
         for (var i = arguments.length, o = Array(i), s = 0; s < i; s++)
           o[s] = arguments[s];
         return (
           (n = r =
-            gT(
+            xT(
               this,
               (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
                 e,
@@ -88915,7 +89867,7 @@
               )
             )),
           (r.handleChange = function (e) {
-            var t = aT(
+            var t = gT(
               e,
               r.props.hsl,
               r.props.direction,
@@ -88938,7 +89890,7 @@
             window.removeEventListener("mousemove", r.handleChange),
               window.removeEventListener("mouseup", r.handleMouseUp);
           }),
-          gT(r, n)
+          xT(r, n)
         );
       }
       return (
@@ -88961,7 +89913,7 @@
                 ? Object.setPrototypeOf(e, t)
                 : (e.__proto__ = t));
         })(t, e),
-        fT(t, [
+        kT(t, [
           {
             key: "componentWillUnmount",
             value: function () {
@@ -88973,7 +89925,7 @@
             value: function () {
               var e = this,
                 t = this.props.rgb,
-                n = (0, sT.ZP)(
+                n = (0, mT.ZP)(
                   {
                     default: {
                       alpha: {
@@ -89039,7 +89991,7 @@
                       },
                       pointer: { left: 0, top: 100 * t.a + "%" },
                     },
-                    overwrite: dT({}, this.props.style),
+                    overwrite: ST({}, this.props.style),
                   },
                   {
                     vertical: "vertical" === this.props.direction,
@@ -89052,7 +90004,7 @@
                 be().createElement(
                   "div",
                   { style: n.checkboard },
-                  be().createElement(pT, { renderers: this.props.renderers })
+                  be().createElement(CT, { renderers: this.props.renderers })
                 ),
                 be().createElement("div", { style: n.gradient }),
                 be().createElement(
@@ -89081,8 +90033,8 @@
         t
       );
     })(ve.PureComponent || ve.Component);
-    const vT = yT;
-    var bT = (function () {
+    const TT = RT;
+    var _T = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -89096,9 +90048,9 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })(),
-      wT = [38, 40],
-      CT = 1,
-      ST = (function (e) {
+      DT = [38, 40],
+      AT = 1,
+      PT = (function (e) {
         function t(e) {
           !(function (e, t) {
             if (!(e instanceof t))
@@ -89126,7 +90078,7 @@
                 r = (function (e) {
                   return Number(String(e).replace(/%/g, ""));
                 })(e.target.value);
-              if (!isNaN(r) && ((t = e.keyCode), wT.indexOf(t) > -1)) {
+              if (!isNaN(r) && ((t = e.keyCode), DT.indexOf(t) > -1)) {
                 var i = n.getArrowOffset(),
                   o = 38 === e.keyCode ? r + i : r - i;
                 n.setUpdatedValue(o, e);
@@ -89159,7 +90111,7 @@
               value: String(e.value).toUpperCase(),
               blurValue: String(e.value).toUpperCase(),
             }),
-            (n.inputId = "rc-editable-input-" + CT++),
+            (n.inputId = "rc-editable-input-" + AT++),
             n
           );
         }
@@ -89183,7 +90135,7 @@
                   ? Object.setPrototypeOf(e, t)
                   : (e.__proto__ = t));
           })(t, e),
-          bT(t, [
+          _T(t, [
             {
               key: "componentDidUpdate",
               value: function (e, t) {
@@ -89244,7 +90196,7 @@
               key: "render",
               value: function () {
                 var e = this,
-                  t = (0, sT.ZP)(
+                  t = (0, mT.ZP)(
                     {
                       default: { wrap: { position: "relative" } },
                       "user-override": {
@@ -89300,8 +90252,8 @@
           t
         );
       })(ve.PureComponent || ve.Component);
-    const kT = ST;
-    var ET = function (e, t, n, r) {
+    const IT = PT;
+    var MT = function (e, t, n, r) {
         var i = r.clientWidth,
           o = r.clientHeight,
           s = "number" == typeof e.pageX ? e.pageX : e.touches[0].pageX,
@@ -89326,7 +90278,7 @@
         }
         return null;
       },
-      xT = (function () {
+      OT = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -89340,26 +90292,26 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })();
-    function RT(e, t) {
+    function NT(e, t) {
       if (!(e instanceof t))
         throw new TypeError("Cannot call a class as a function");
     }
-    function TT(e, t) {
+    function BT(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || ("object" != typeof t && "function" != typeof t) ? e : t;
     }
-    var _T = (function (e) {
+    var FT = (function (e) {
       function t() {
         var e, n, r;
-        RT(this, t);
+        NT(this, t);
         for (var i = arguments.length, o = Array(i), s = 0; s < i; s++)
           o[s] = arguments[s];
         return (
           (n = r =
-            TT(
+            BT(
               this,
               (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
                 e,
@@ -89367,7 +90319,7 @@
               )
             )),
           (r.handleChange = function (e) {
-            var t = ET(e, r.props.direction, r.props.hsl, r.container);
+            var t = MT(e, r.props.direction, r.props.hsl, r.container);
             t &&
               "function" == typeof r.props.onChange &&
               r.props.onChange(t, e);
@@ -89380,7 +90332,7 @@
           (r.handleMouseUp = function () {
             r.unbindEventListeners();
           }),
-          TT(r, n)
+          BT(r, n)
         );
       }
       return (
@@ -89403,7 +90355,7 @@
                 ? Object.setPrototypeOf(e, t)
                 : (e.__proto__ = t));
         })(t, e),
-        xT(t, [
+        OT(t, [
           {
             key: "componentWillUnmount",
             value: function () {
@@ -89423,7 +90375,7 @@
               var e = this,
                 t = this.props.direction,
                 n = void 0 === t ? "horizontal" : t,
-                r = (0, sT.ZP)(
+                r = (0, mT.ZP)(
                   {
                     default: {
                       hue: {
@@ -89495,16 +90447,16 @@
         t
       );
     })(ve.PureComponent || ve.Component);
-    const DT = _T,
-      AT = function (e, t) {
+    const LT = FT,
+      HT = function (e, t) {
         return e === t || (e != e && t != t);
       },
-      PT = function (e, t) {
-        for (var n = e.length; n--; ) if (AT(e[n][0], t)) return n;
+      UT = function (e, t) {
+        for (var n = e.length; n--; ) if (HT(e[n][0], t)) return n;
         return -1;
       };
-    var IT = Array.prototype.splice;
-    function MT(e) {
+    var zT = Array.prototype.splice;
+    function WT(e) {
       var t = -1,
         n = null == e ? 0 : e.length;
       for (this.clear(); ++t < n; ) {
@@ -89512,72 +90464,72 @@
         this.set(r[0], r[1]);
       }
     }
-    (MT.prototype.clear = function () {
+    (WT.prototype.clear = function () {
       (this.__data__ = []), (this.size = 0);
     }),
-      (MT.prototype.delete = function (e) {
+      (WT.prototype.delete = function (e) {
         var t = this.__data__,
-          n = PT(t, e);
+          n = UT(t, e);
         return !(
           n < 0 ||
-          (n == t.length - 1 ? t.pop() : IT.call(t, n, 1), --this.size, 0)
+          (n == t.length - 1 ? t.pop() : zT.call(t, n, 1), --this.size, 0)
         );
       }),
-      (MT.prototype.get = function (e) {
+      (WT.prototype.get = function (e) {
         var t = this.__data__,
-          n = PT(t, e);
+          n = UT(t, e);
         return n < 0 ? void 0 : t[n][1];
       }),
-      (MT.prototype.has = function (e) {
-        return PT(this.__data__, e) > -1;
+      (WT.prototype.has = function (e) {
+        return UT(this.__data__, e) > -1;
       }),
-      (MT.prototype.set = function (e, t) {
+      (WT.prototype.set = function (e, t) {
         var n = this.__data__,
-          r = PT(n, e);
+          r = UT(n, e);
         return r < 0 ? (++this.size, n.push([e, t])) : (n[r][1] = t), this;
       });
-    const OT = MT,
-      NT =
+    const jT = WT,
+      $T =
         "object" == typeof global &&
         global &&
         global.Object === Object &&
         global;
-    var BT = "object" == typeof self && self && self.Object === Object && self;
-    const FT = NT || BT || Function("return this")(),
-      LT = FT.Symbol;
-    var HT = Object.prototype,
-      UT = HT.hasOwnProperty,
-      zT = HT.toString,
-      WT = LT ? LT.toStringTag : void 0;
-    var jT = Object.prototype.toString;
-    var $T = LT ? LT.toStringTag : void 0;
-    const qT = function (e) {
+    var qT = "object" == typeof self && self && self.Object === Object && self;
+    const GT = $T || qT || Function("return this")(),
+      VT = GT.Symbol;
+    var KT = Object.prototype,
+      YT = KT.hasOwnProperty,
+      ZT = KT.toString,
+      XT = VT ? VT.toStringTag : void 0;
+    var JT = Object.prototype.toString;
+    var QT = VT ? VT.toStringTag : void 0;
+    const e_ = function (e) {
         return null == e
           ? void 0 === e
             ? "[object Undefined]"
             : "[object Null]"
-          : $T && $T in Object(e)
+          : QT && QT in Object(e)
           ? (function (e) {
-              var t = UT.call(e, WT),
-                n = e[WT];
+              var t = YT.call(e, XT),
+                n = e[XT];
               try {
-                e[WT] = void 0;
+                e[XT] = void 0;
                 var r = !0;
               } catch (e) {}
-              var i = zT.call(e);
-              return r && (t ? (e[WT] = n) : delete e[WT]), i;
+              var i = ZT.call(e);
+              return r && (t ? (e[XT] = n) : delete e[XT]), i;
             })(e)
           : (function (e) {
-              return jT.call(e);
+              return JT.call(e);
             })(e);
       },
-      GT = function (e) {
+      t_ = function (e) {
         var t = typeof e;
         return null != e && ("object" == t || "function" == t);
       },
-      VT = function (e) {
-        if (!GT(e)) return !1;
-        var t = qT(e);
+      n_ = function (e) {
+        if (!t_(e)) return !1;
+        var t = e_(e);
         return (
           "[object Function]" == t ||
           "[object GeneratorFunction]" == t ||
@@ -89585,16 +90537,16 @@
           "[object Proxy]" == t
         );
       },
-      KT = FT["__core-js_shared__"];
-    var YT,
-      ZT = (YT = /[^.]+$/.exec((KT && KT.keys && KT.keys.IE_PROTO) || ""))
-        ? "Symbol(src)_1." + YT
+      r_ = GT["__core-js_shared__"];
+    var i_,
+      o_ = (i_ = /[^.]+$/.exec((r_ && r_.keys && r_.keys.IE_PROTO) || ""))
+        ? "Symbol(src)_1." + i_
         : "";
-    var XT = Function.prototype.toString;
-    const JT = function (e) {
+    var s_ = Function.prototype.toString;
+    const a_ = function (e) {
       if (null != e) {
         try {
-          return XT.call(e);
+          return s_.call(e);
         } catch (e) {}
         try {
           return e + "";
@@ -89602,15 +90554,15 @@
       }
       return "";
     };
-    var QT = /^\[object .+?Constructor\]$/,
-      e_ = Function.prototype,
-      t_ = Object.prototype,
-      n_ = e_.toString,
-      r_ = t_.hasOwnProperty,
-      i_ = RegExp(
+    var l_ = /^\[object .+?Constructor\]$/,
+      c_ = Function.prototype,
+      u_ = Object.prototype,
+      h_ = c_.toString,
+      p_ = u_.hasOwnProperty,
+      d_ = RegExp(
         "^" +
-          n_
-            .call(r_)
+          h_
+            .call(p_)
             .replace(/[\\^$.*+?()[\]{}|]/g, "\\$&")
             .replace(
               /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
@@ -89618,23 +90570,23 @@
             ) +
           "$"
       );
-    const o_ = function (e) {
+    const f_ = function (e) {
         return (
-          !(!GT(e) || ((t = e), ZT && ZT in t)) && (VT(e) ? i_ : QT).test(JT(e))
+          !(!t_(e) || ((t = e), o_ && o_ in t)) && (n_(e) ? d_ : l_).test(a_(e))
         );
         var t;
       },
-      s_ = function (e, t) {
+      m_ = function (e, t) {
         var n = (function (e, t) {
           return null == e ? void 0 : e[t];
         })(e, t);
-        return o_(n) ? n : void 0;
+        return f_(n) ? n : void 0;
       },
-      a_ = s_(FT, "Map"),
-      l_ = s_(Object, "create");
-    var c_ = Object.prototype.hasOwnProperty;
-    var u_ = Object.prototype.hasOwnProperty;
-    function h_(e) {
+      g_ = m_(GT, "Map"),
+      y_ = m_(Object, "create");
+    var v_ = Object.prototype.hasOwnProperty;
+    var b_ = Object.prototype.hasOwnProperty;
+    function w_(e) {
       var t = -1,
         n = null == e ? 0 : e.length;
       for (this.clear(); ++t < n; ) {
@@ -89642,35 +90594,35 @@
         this.set(r[0], r[1]);
       }
     }
-    (h_.prototype.clear = function () {
-      (this.__data__ = l_ ? l_(null) : {}), (this.size = 0);
+    (w_.prototype.clear = function () {
+      (this.__data__ = y_ ? y_(null) : {}), (this.size = 0);
     }),
-      (h_.prototype.delete = function (e) {
+      (w_.prototype.delete = function (e) {
         var t = this.has(e) && delete this.__data__[e];
         return (this.size -= t ? 1 : 0), t;
       }),
-      (h_.prototype.get = function (e) {
+      (w_.prototype.get = function (e) {
         var t = this.__data__;
-        if (l_) {
+        if (y_) {
           var n = t[e];
           return "__lodash_hash_undefined__" === n ? void 0 : n;
         }
-        return c_.call(t, e) ? t[e] : void 0;
+        return v_.call(t, e) ? t[e] : void 0;
       }),
-      (h_.prototype.has = function (e) {
+      (w_.prototype.has = function (e) {
         var t = this.__data__;
-        return l_ ? void 0 !== t[e] : u_.call(t, e);
+        return y_ ? void 0 !== t[e] : b_.call(t, e);
       }),
-      (h_.prototype.set = function (e, t) {
+      (w_.prototype.set = function (e, t) {
         var n = this.__data__;
         return (
           (this.size += this.has(e) ? 0 : 1),
-          (n[e] = l_ && void 0 === t ? "__lodash_hash_undefined__" : t),
+          (n[e] = y_ && void 0 === t ? "__lodash_hash_undefined__" : t),
           this
         );
       });
-    const p_ = h_,
-      d_ = function (e, t) {
+    const C_ = w_,
+      S_ = function (e, t) {
         var n,
           r,
           i = e.__data__;
@@ -89685,7 +90637,7 @@
           ? i["string" == typeof t ? "string" : "hash"]
           : i.map;
       };
-    function f_(e) {
+    function k_(e) {
       var t = -1,
         n = null == e ? 0 : e.length;
       for (this.clear(); ++t < n; ) {
@@ -89693,68 +90645,68 @@
         this.set(r[0], r[1]);
       }
     }
-    (f_.prototype.clear = function () {
+    (k_.prototype.clear = function () {
       (this.size = 0),
         (this.__data__ = {
-          hash: new p_(),
-          map: new (a_ || OT)(),
-          string: new p_(),
+          hash: new C_(),
+          map: new (g_ || jT)(),
+          string: new C_(),
         });
     }),
-      (f_.prototype.delete = function (e) {
-        var t = d_(this, e).delete(e);
+      (k_.prototype.delete = function (e) {
+        var t = S_(this, e).delete(e);
         return (this.size -= t ? 1 : 0), t;
       }),
-      (f_.prototype.get = function (e) {
-        return d_(this, e).get(e);
+      (k_.prototype.get = function (e) {
+        return S_(this, e).get(e);
       }),
-      (f_.prototype.has = function (e) {
-        return d_(this, e).has(e);
+      (k_.prototype.has = function (e) {
+        return S_(this, e).has(e);
       }),
-      (f_.prototype.set = function (e, t) {
-        var n = d_(this, e),
+      (k_.prototype.set = function (e, t) {
+        var n = S_(this, e),
           r = n.size;
         return n.set(e, t), (this.size += n.size == r ? 0 : 1), this;
       });
-    const m_ = f_;
-    function g_(e) {
-      var t = (this.__data__ = new OT(e));
+    const E_ = k_;
+    function x_(e) {
+      var t = (this.__data__ = new jT(e));
       this.size = t.size;
     }
-    (g_.prototype.clear = function () {
-      (this.__data__ = new OT()), (this.size = 0);
+    (x_.prototype.clear = function () {
+      (this.__data__ = new jT()), (this.size = 0);
     }),
-      (g_.prototype.delete = function (e) {
+      (x_.prototype.delete = function (e) {
         var t = this.__data__,
           n = t.delete(e);
         return (this.size = t.size), n;
       }),
-      (g_.prototype.get = function (e) {
+      (x_.prototype.get = function (e) {
         return this.__data__.get(e);
       }),
-      (g_.prototype.has = function (e) {
+      (x_.prototype.has = function (e) {
         return this.__data__.has(e);
       }),
-      (g_.prototype.set = function (e, t) {
+      (x_.prototype.set = function (e, t) {
         var n = this.__data__;
-        if (n instanceof OT) {
+        if (n instanceof jT) {
           var r = n.__data__;
-          if (!a_ || r.length < 199)
+          if (!g_ || r.length < 199)
             return r.push([e, t]), (this.size = ++n.size), this;
-          n = this.__data__ = new m_(r);
+          n = this.__data__ = new E_(r);
         }
         return n.set(e, t), (this.size = n.size), this;
       });
-    const y_ = g_,
-      v_ = (function () {
+    const R_ = x_,
+      T_ = (function () {
         try {
-          var e = s_(Object, "defineProperty");
+          var e = m_(Object, "defineProperty");
           return e({}, "", {}), e;
         } catch (e) {}
       })(),
-      b_ = function (e, t, n) {
-        "__proto__" == t && v_
-          ? v_(e, t, {
+      __ = function (e, t, n) {
+        "__proto__" == t && T_
+          ? T_(e, t, {
               configurable: !0,
               enumerable: !0,
               value: n,
@@ -89762,179 +90714,179 @@
             })
           : (e[t] = n);
       },
-      w_ = function (e, t, n) {
-        ((void 0 !== n && !AT(e[t], n)) || (void 0 === n && !(t in e))) &&
-          b_(e, t, n);
+      D_ = function (e, t, n) {
+        ((void 0 !== n && !HT(e[t], n)) || (void 0 === n && !(t in e))) &&
+          __(e, t, n);
       },
-      C_ = function (e, t, n) {
+      A_ = function (e, t, n) {
         for (var r = -1, i = Object(e), o = n(e), s = o.length; s--; ) {
-          var a = o[S_ ? s : ++r];
+          var a = o[P_ ? s : ++r];
           if (!1 === t(i[a], a, i)) break;
         }
         return e;
       };
-    var S_,
-      k_ =
+    var P_,
+      I_ =
         "object" == typeof exports && exports && !exports.nodeType && exports,
-      E_ =
-        k_ && "object" == typeof module && module && !module.nodeType && module,
-      x_ = E_ && E_.exports === k_ ? FT.Buffer : void 0,
-      R_ = x_ ? x_.allocUnsafe : void 0;
-    const T_ = FT.Uint8Array,
-      __ = function (e, t) {
+      M_ =
+        I_ && "object" == typeof module && module && !module.nodeType && module,
+      O_ = M_ && M_.exports === I_ ? GT.Buffer : void 0,
+      N_ = O_ ? O_.allocUnsafe : void 0;
+    const B_ = GT.Uint8Array,
+      F_ = function (e, t) {
         var n,
           r,
           i = t
             ? ((n = e.buffer),
               (r = new n.constructor(n.byteLength)),
-              new T_(r).set(new T_(n)),
+              new B_(r).set(new B_(n)),
               r)
             : e.buffer;
         return new e.constructor(i, e.byteOffset, e.length);
       };
-    var D_ = Object.create;
-    const A_ = (function () {
+    var L_ = Object.create;
+    const H_ = (function () {
         function e() {}
         return function (t) {
-          if (!GT(t)) return {};
-          if (D_) return D_(t);
+          if (!t_(t)) return {};
+          if (L_) return L_(t);
           e.prototype = t;
           var n = new e();
           return (e.prototype = void 0), n;
         };
       })(),
-      P_ = function (e, t) {
+      U_ = function (e, t) {
         return function (n) {
           return e(t(n));
         };
       },
-      I_ = P_(Object.getPrototypeOf, Object);
-    var M_ = Object.prototype;
-    const O_ = function (e) {
+      z_ = U_(Object.getPrototypeOf, Object);
+    var W_ = Object.prototype;
+    const j_ = function (e) {
         var t = e && e.constructor;
-        return e === (("function" == typeof t && t.prototype) || M_);
+        return e === (("function" == typeof t && t.prototype) || W_);
       },
-      N_ = function (e) {
+      $_ = function (e) {
         return null != e && "object" == typeof e;
       },
-      B_ = function (e) {
-        return N_(e) && "[object Arguments]" == qT(e);
+      q_ = function (e) {
+        return $_(e) && "[object Arguments]" == e_(e);
       };
-    var F_ = Object.prototype,
-      L_ = F_.hasOwnProperty,
-      H_ = F_.propertyIsEnumerable;
-    const U_ = B_(
+    var G_ = Object.prototype,
+      V_ = G_.hasOwnProperty,
+      K_ = G_.propertyIsEnumerable;
+    const Y_ = q_(
         (function () {
           return arguments;
         })()
       )
-        ? B_
+        ? q_
         : function (e) {
-            return N_(e) && L_.call(e, "callee") && !H_.call(e, "callee");
+            return $_(e) && V_.call(e, "callee") && !K_.call(e, "callee");
           },
-      z_ = Array.isArray,
-      W_ = function (e) {
+      Z_ = Array.isArray,
+      X_ = function (e) {
         return (
           "number" == typeof e && e > -1 && e % 1 == 0 && e <= 9007199254740991
         );
       },
-      j_ = function (e) {
-        return null != e && W_(e.length) && !VT(e);
+      J_ = function (e) {
+        return null != e && X_(e.length) && !n_(e);
       };
-    var $_ =
+    var Q_ =
         "object" == typeof exports && exports && !exports.nodeType && exports,
-      q_ =
-        $_ && "object" == typeof module && module && !module.nodeType && module,
-      G_ = q_ && q_.exports === $_ ? FT.Buffer : void 0;
-    const V_ =
-      (G_ ? G_.isBuffer : void 0) ||
+      eD =
+        Q_ && "object" == typeof module && module && !module.nodeType && module,
+      tD = eD && eD.exports === Q_ ? GT.Buffer : void 0;
+    const nD =
+      (tD ? tD.isBuffer : void 0) ||
       function () {
         return !1;
       };
-    var K_ = Function.prototype,
-      Y_ = Object.prototype,
-      Z_ = K_.toString,
-      X_ = Y_.hasOwnProperty,
-      J_ = Z_.call(Object);
-    var Q_ = {};
-    (Q_["[object Float32Array]"] =
-      Q_["[object Float64Array]"] =
-      Q_["[object Int8Array]"] =
-      Q_["[object Int16Array]"] =
-      Q_["[object Int32Array]"] =
-      Q_["[object Uint8Array]"] =
-      Q_["[object Uint8ClampedArray]"] =
-      Q_["[object Uint16Array]"] =
-      Q_["[object Uint32Array]"] =
+    var rD = Function.prototype,
+      iD = Object.prototype,
+      oD = rD.toString,
+      sD = iD.hasOwnProperty,
+      aD = oD.call(Object);
+    var lD = {};
+    (lD["[object Float32Array]"] =
+      lD["[object Float64Array]"] =
+      lD["[object Int8Array]"] =
+      lD["[object Int16Array]"] =
+      lD["[object Int32Array]"] =
+      lD["[object Uint8Array]"] =
+      lD["[object Uint8ClampedArray]"] =
+      lD["[object Uint16Array]"] =
+      lD["[object Uint32Array]"] =
         !0),
-      (Q_["[object Arguments]"] =
-        Q_["[object Array]"] =
-        Q_["[object ArrayBuffer]"] =
-        Q_["[object Boolean]"] =
-        Q_["[object DataView]"] =
-        Q_["[object Date]"] =
-        Q_["[object Error]"] =
-        Q_["[object Function]"] =
-        Q_["[object Map]"] =
-        Q_["[object Number]"] =
-        Q_["[object Object]"] =
-        Q_["[object RegExp]"] =
-        Q_["[object Set]"] =
-        Q_["[object String]"] =
-        Q_["[object WeakMap]"] =
+      (lD["[object Arguments]"] =
+        lD["[object Array]"] =
+        lD["[object ArrayBuffer]"] =
+        lD["[object Boolean]"] =
+        lD["[object DataView]"] =
+        lD["[object Date]"] =
+        lD["[object Error]"] =
+        lD["[object Function]"] =
+        lD["[object Map]"] =
+        lD["[object Number]"] =
+        lD["[object Object]"] =
+        lD["[object RegExp]"] =
+        lD["[object Set]"] =
+        lD["[object String]"] =
+        lD["[object WeakMap]"] =
           !1);
-    var eD =
+    var cD =
         "object" == typeof exports && exports && !exports.nodeType && exports,
-      tD =
-        eD && "object" == typeof module && module && !module.nodeType && module,
-      nD = tD && tD.exports === eD && NT.process,
-      rD = (function () {
+      uD =
+        cD && "object" == typeof module && module && !module.nodeType && module,
+      hD = uD && uD.exports === cD && $T.process,
+      pD = (function () {
         try {
           return (
-            (tD && tD.require && tD.require("util").types) ||
-            (nD && nD.binding && nD.binding("util"))
+            (uD && uD.require && uD.require("util").types) ||
+            (hD && hD.binding && hD.binding("util"))
           );
         } catch (e) {}
       })(),
-      iD = rD && rD.isTypedArray;
-    const oD = iD
-      ? ((sD = iD),
+      dD = pD && pD.isTypedArray;
+    const fD = dD
+      ? ((mD = dD),
         function (e) {
-          return sD(e);
+          return mD(e);
         })
       : function (e) {
-          return N_(e) && W_(e.length) && !!Q_[qT(e)];
+          return $_(e) && X_(e.length) && !!lD[e_(e)];
         };
-    var sD;
-    const aD = function (e, t) {
+    var mD;
+    const gD = function (e, t) {
       if (
         ("constructor" !== t || "function" != typeof e[t]) &&
         "__proto__" != t
       )
         return e[t];
     };
-    var lD = Object.prototype.hasOwnProperty;
-    const cD = function (e, t, n) {
+    var yD = Object.prototype.hasOwnProperty;
+    const vD = function (e, t, n) {
       var r = e[t];
-      (lD.call(e, t) && AT(r, n) && (void 0 !== n || t in e)) || b_(e, t, n);
+      (yD.call(e, t) && HT(r, n) && (void 0 !== n || t in e)) || __(e, t, n);
     };
-    var uD = /^(?:0|[1-9]\d*)$/;
-    const hD = function (e, t) {
+    var bD = /^(?:0|[1-9]\d*)$/;
+    const wD = function (e, t) {
       var n = typeof e;
       return (
         !!(t = null == t ? 9007199254740991 : t) &&
-        ("number" == n || ("symbol" != n && uD.test(e))) &&
+        ("number" == n || ("symbol" != n && bD.test(e))) &&
         e > -1 &&
         e % 1 == 0 &&
         e < t
       );
     };
-    var pD = Object.prototype.hasOwnProperty;
-    const dD = function (e, t) {
-      var n = z_(e),
-        r = !n && U_(e),
-        i = !n && !r && V_(e),
-        o = !n && !r && !i && oD(e),
+    var CD = Object.prototype.hasOwnProperty;
+    const SD = function (e, t) {
+      var n = Z_(e),
+        r = !n && Y_(e),
+        i = !n && !r && nD(e),
+        o = !n && !r && !i && fD(e),
         s = n || r || i || o,
         a = s
           ? (function (e, t) {
@@ -89944,63 +90896,63 @@
           : [],
         l = a.length;
       for (var c in e)
-        (!t && !pD.call(e, c)) ||
+        (!t && !CD.call(e, c)) ||
           (s &&
             ("length" == c ||
               (i && ("offset" == c || "parent" == c)) ||
               (o &&
                 ("buffer" == c || "byteLength" == c || "byteOffset" == c)) ||
-              hD(c, l))) ||
+              wD(c, l))) ||
           a.push(c);
       return a;
     };
-    var fD = Object.prototype.hasOwnProperty;
-    const mD = function (e) {
-        if (!GT(e))
+    var kD = Object.prototype.hasOwnProperty;
+    const ED = function (e) {
+        if (!t_(e))
           return (function (e) {
             var t = [];
             if (null != e) for (var n in Object(e)) t.push(n);
             return t;
           })(e);
-        var t = O_(e),
+        var t = j_(e),
           n = [];
         for (var r in e)
-          ("constructor" != r || (!t && fD.call(e, r))) && n.push(r);
+          ("constructor" != r || (!t && kD.call(e, r))) && n.push(r);
         return n;
       },
-      gD = function (e) {
-        return j_(e) ? dD(e, !0) : mD(e);
+      xD = function (e) {
+        return J_(e) ? SD(e, !0) : ED(e);
       },
-      yD = function (e) {
+      RD = function (e) {
         return (function (e, t, n, r) {
           var i = !n;
           n || (n = {});
           for (var o = -1, s = t.length; ++o < s; ) {
             var a = t[o],
               l = r ? r(n[a], e[a], a, n, e) : void 0;
-            void 0 === l && (l = e[a]), i ? b_(n, a, l) : cD(n, a, l);
+            void 0 === l && (l = e[a]), i ? __(n, a, l) : vD(n, a, l);
           }
           return n;
-        })(e, gD(e));
+        })(e, xD(e));
       },
-      vD = function (e, t, n, r, i, o, s) {
+      TD = function (e, t, n, r, i, o, s) {
         var a,
-          l = aD(e, n),
-          c = aD(t, n),
+          l = gD(e, n),
+          c = gD(t, n),
           u = s.get(c);
-        if (u) w_(e, n, u);
+        if (u) D_(e, n, u);
         else {
           var h = o ? o(l, c, n + "", e, t, s) : void 0,
             p = void 0 === h;
           if (p) {
-            var d = z_(c),
-              f = !d && V_(c),
-              m = !d && !f && oD(c);
+            var d = Z_(c),
+              f = !d && nD(c),
+              m = !d && !f && fD(c);
             (h = c),
               d || f || m
-                ? z_(l)
+                ? Z_(l)
                   ? (h = l)
-                  : N_((a = l)) && j_(a)
+                  : $_((a = l)) && J_(a)
                   ? (h = (function (e, t) {
                       var n = -1,
                         r = e.length;
@@ -90012,55 +90964,55 @@
                     (h = (function (e, t) {
                       if (t) return e.slice();
                       var n = e.length,
-                        r = R_ ? R_(n) : new e.constructor(n);
+                        r = N_ ? N_(n) : new e.constructor(n);
                       return e.copy(r), r;
                     })(c, !0)))
                   : m
-                  ? ((p = !1), (h = __(c, !0)))
+                  ? ((p = !1), (h = F_(c, !0)))
                   : (h = [])
                 : (function (e) {
-                    if (!N_(e) || "[object Object]" != qT(e)) return !1;
-                    var t = I_(e);
+                    if (!$_(e) || "[object Object]" != e_(e)) return !1;
+                    var t = z_(e);
                     if (null === t) return !0;
-                    var n = X_.call(t, "constructor") && t.constructor;
+                    var n = sD.call(t, "constructor") && t.constructor;
                     return (
                       "function" == typeof n &&
                       n instanceof n &&
-                      Z_.call(n) == J_
+                      oD.call(n) == aD
                     );
-                  })(c) || U_(c)
+                  })(c) || Y_(c)
                 ? ((h = l),
-                  U_(l)
-                    ? (h = yD(l))
-                    : (GT(l) && !VT(l)) ||
+                  Y_(l)
+                    ? (h = RD(l))
+                    : (t_(l) && !n_(l)) ||
                       (h = (function (e) {
-                        return "function" != typeof e.constructor || O_(e)
+                        return "function" != typeof e.constructor || j_(e)
                           ? {}
-                          : A_(I_(e));
+                          : H_(z_(e));
                       })(c)))
                 : (p = !1);
           }
-          p && (s.set(c, h), i(h, c, r, o, s), s.delete(c)), w_(e, n, h);
+          p && (s.set(c, h), i(h, c, r, o, s), s.delete(c)), D_(e, n, h);
         }
       },
-      bD = function e(t, n, r, i, o) {
+      _D = function e(t, n, r, i, o) {
         t !== n &&
-          C_(
+          A_(
             n,
             function (s, a) {
-              if ((o || (o = new y_()), GT(s))) vD(t, n, a, r, e, i, o);
+              if ((o || (o = new R_()), t_(s))) TD(t, n, a, r, e, i, o);
               else {
-                var l = i ? i(aD(t, a), s, a + "", t, n, o) : void 0;
-                void 0 === l && (l = s), w_(t, a, l);
+                var l = i ? i(gD(t, a), s, a + "", t, n, o) : void 0;
+                void 0 === l && (l = s), D_(t, a, l);
               }
             },
-            gD
+            xD
           );
       },
-      wD = function (e) {
+      DD = function (e) {
         return e;
       },
-      CD = function (e, t, n) {
+      AD = function (e, t, n) {
         switch (n.length) {
           case 0:
             return e.call(t);
@@ -90073,10 +91025,10 @@
         }
         return e.apply(t, n);
       };
-    var SD = Math.max;
-    const kD = v_
+    var PD = Math.max;
+    const ID = T_
       ? function (e, t) {
-          return v_(e, "toString", {
+          return T_(e, "toString", {
             configurable: !0,
             enumerable: !1,
             value:
@@ -90088,30 +91040,30 @@
           });
           var n;
         }
-      : wD;
-    var ED = Date.now;
-    const xD = (function (e) {
+      : DD;
+    var MD = Date.now;
+    const OD = (function (e) {
         var t = 0,
           n = 0;
         return function () {
-          var r = ED(),
+          var r = MD(),
             i = 16 - (r - n);
           if (((n = r), i > 0)) {
             if (++t >= 800) return arguments[0];
           } else t = 0;
           return e.apply(void 0, arguments);
         };
-      })(kD),
-      RD = function (e, t) {
-        return xD(
+      })(ID),
+      ND = function (e, t) {
+        return OD(
           (function (e, t, n) {
             return (
-              (t = SD(void 0 === t ? e.length - 1 : t, 0)),
+              (t = PD(void 0 === t ? e.length - 1 : t, 0)),
               function () {
                 for (
                   var r = arguments,
                     i = -1,
-                    o = SD(r.length - t, 0),
+                    o = PD(r.length - t, 0),
                     s = Array(o);
                   ++i < o;
 
@@ -90119,32 +91071,32 @@
                   s[i] = r[t + i];
                 i = -1;
                 for (var a = Array(t + 1); ++i < t; ) a[i] = r[i];
-                return (a[t] = n(s)), CD(e, this, a);
+                return (a[t] = n(s)), AD(e, this, a);
               }
             );
-          })(e, t, wD),
+          })(e, t, DD),
           e + ""
         );
       },
-      TD =
-        ((_D = function (e, t, n) {
-          bD(e, t, n);
+      BD =
+        ((FD = function (e, t, n) {
+          _D(e, t, n);
         }),
-        RD(function (e, t) {
+        ND(function (e, t) {
           var n = -1,
             r = t.length,
             i = r > 1 ? t[r - 1] : void 0,
             o = r > 2 ? t[2] : void 0;
           for (
-            i = _D.length > 3 && "function" == typeof i ? (r--, i) : void 0,
+            i = FD.length > 3 && "function" == typeof i ? (r--, i) : void 0,
               o &&
                 (function (e, t, n) {
-                  if (!GT(n)) return !1;
+                  if (!t_(n)) return !1;
                   var r = typeof t;
                   return (
                     !!("number" == r
-                      ? j_(n) && hD(t, n.length)
-                      : "string" == r && (t in n)) && AT(n[t], e)
+                      ? J_(n) && wD(t, n.length)
+                      : "string" == r && (t in n)) && HT(n[t], e)
                   );
                 })(t[0], t[1], o) &&
                 ((i = r < 3 ? void 0 : i), (r = 1)),
@@ -90153,20 +91105,20 @@
 
           ) {
             var s = t[n];
-            s && _D(e, s, n, i);
+            s && FD(e, s, n, i);
           }
           return e;
         }));
-    var _D,
-      DD = function (e) {
+    var FD,
+      LD = function (e) {
         var t = e.zDepth,
           n = e.radius,
           r = e.background,
           i = e.children,
           o = e.styles,
           s = void 0 === o ? {} : o,
-          a = (0, sT.ZP)(
-            TD(
+          a = (0, mT.ZP)(
+            BD(
               {
                 default: {
                   wrap: { position: "relative", display: "inline-block" },
@@ -90223,63 +91175,63 @@
           be().createElement("div", { style: a.content }, i)
         );
       };
-    (DD.propTypes = {
+    (LD.propTypes = {
       background: Te().string,
       zDepth: Te().oneOf([0, 1, 2, 3, 4, 5]),
       radius: Te().number,
       styles: Te().object,
     }),
-      (DD.defaultProps = {
+      (LD.defaultProps = {
         background: "#fff",
         zDepth: 1,
         radius: 2,
         styles: {},
       });
-    const AD = DD,
-      PD = function () {
-        return FT.Date.now();
+    const HD = LD,
+      UD = function () {
+        return GT.Date.now();
       };
-    var ID = /\s/;
-    var MD = /^\s+/;
-    const OD = function (e) {
+    var zD = /\s/;
+    var WD = /^\s+/;
+    const jD = function (e) {
         return e
           ? e
               .slice(
                 0,
                 (function (e) {
-                  for (var t = e.length; t-- && ID.test(e.charAt(t)); );
+                  for (var t = e.length; t-- && zD.test(e.charAt(t)); );
                   return t;
                 })(e) + 1
               )
-              .replace(MD, "")
+              .replace(WD, "")
           : e;
       },
-      ND = function (e) {
-        return "symbol" == typeof e || (N_(e) && "[object Symbol]" == qT(e));
+      $D = function (e) {
+        return "symbol" == typeof e || ($_(e) && "[object Symbol]" == e_(e));
       };
-    var BD = /^[-+]0x[0-9a-f]+$/i,
-      FD = /^0b[01]+$/i,
-      LD = /^0o[0-7]+$/i,
-      HD = parseInt;
-    const UD = function (e) {
+    var qD = /^[-+]0x[0-9a-f]+$/i,
+      GD = /^0b[01]+$/i,
+      VD = /^0o[0-7]+$/i,
+      KD = parseInt;
+    const YD = function (e) {
       if ("number" == typeof e) return e;
-      if (ND(e)) return NaN;
-      if (GT(e)) {
+      if ($D(e)) return NaN;
+      if (t_(e)) {
         var t = "function" == typeof e.valueOf ? e.valueOf() : e;
-        e = GT(t) ? t + "" : t;
+        e = t_(t) ? t + "" : t;
       }
       if ("string" != typeof e) return 0 === e ? e : +e;
-      e = OD(e);
-      var n = FD.test(e);
-      return n || LD.test(e)
-        ? HD(e.slice(2), n ? 2 : 8)
-        : BD.test(e)
+      e = jD(e);
+      var n = GD.test(e);
+      return n || VD.test(e)
+        ? KD(e.slice(2), n ? 2 : 8)
+        : qD.test(e)
         ? NaN
         : +e;
     };
-    var zD = Math.max,
-      WD = Math.min;
-    const jD = function (e, t, n) {
+    var ZD = Math.max,
+      XD = Math.min;
+    const JD = function (e, t, n) {
       var r,
         i,
         o,
@@ -90304,13 +91256,13 @@
         return void 0 === l || n >= t || n < 0 || (h && e - c >= o);
       }
       function g() {
-        var e = PD();
+        var e = UD();
         if (m(e)) return y(e);
         a = setTimeout(
           g,
           (function (e) {
             var n = t - (e - l);
-            return h ? WD(n, o - (e - c)) : n;
+            return h ? XD(n, o - (e - c)) : n;
           })(e)
         );
       }
@@ -90318,7 +91270,7 @@
         return (a = void 0), p && r ? d(e) : ((r = i = void 0), s);
       }
       function v() {
-        var e = PD(),
+        var e = UD(),
           n = m(e);
         if (((r = arguments), (i = this), (l = e), n)) {
           if (void 0 === a) return f(l);
@@ -90327,21 +91279,21 @@
         return void 0 === a && (a = setTimeout(g, t)), s;
       }
       return (
-        (t = UD(t) || 0),
-        GT(n) &&
+        (t = YD(t) || 0),
+        t_(n) &&
           ((u = !!n.leading),
-          (o = (h = "maxWait" in n) ? zD(UD(n.maxWait) || 0, t) : o),
+          (o = (h = "maxWait" in n) ? ZD(YD(n.maxWait) || 0, t) : o),
           (p = "trailing" in n ? !!n.trailing : p)),
         (v.cancel = function () {
           void 0 !== a && clearTimeout(a), (c = 0), (r = l = i = a = void 0);
         }),
         (v.flush = function () {
-          return void 0 === a ? s : y(PD());
+          return void 0 === a ? s : y(UD());
         }),
         v
       );
     };
-    var $D = (function () {
+    var QD = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -90355,7 +91307,7 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })(),
-      qD = (function (e) {
+      eA = (function (e) {
         function t(e) {
           !(function (e, t) {
             if (!(e instanceof t))
@@ -90417,10 +91369,10 @@
               if ("function" != typeof e)
                 throw new TypeError("Expected a function");
               return (
-                GT(n) &&
+                t_(n) &&
                   ((r = "leading" in n ? !!n.leading : r),
                   (i = "trailing" in n ? !!n.trailing : i)),
-                jD(e, t, { leading: r, maxWait: t, trailing: i })
+                JD(e, t, { leading: r, maxWait: t, trailing: i })
               );
             })(function (e, t, n) {
               e(t, n);
@@ -90448,7 +91400,7 @@
                   ? Object.setPrototypeOf(e, t)
                   : (e.__proto__ = t));
           })(t, e),
-          $D(t, [
+          QD(t, [
             {
               key: "componentWillUnmount",
               value: function () {
@@ -90485,7 +91437,7 @@
                   i = t.black,
                   o = t.pointer,
                   s = t.circle,
-                  a = (0, sT.ZP)(
+                  a = (0, mT.ZP)(
                     {
                       default: {
                         color: {
@@ -90566,8 +91518,8 @@
           t
         );
       })(ve.PureComponent || ve.Component);
-    const GD = qD,
-      VD = function (e, t) {
+    const tA = eA,
+      nA = function (e, t) {
         for (
           var n = -1, r = null == e ? 0 : e.length;
           ++n < r && !1 !== t(e[n], n, e);
@@ -90575,23 +91527,23 @@
         );
         return e;
       },
-      KD = P_(Object.keys, Object);
-    var YD = Object.prototype.hasOwnProperty;
-    const ZD = function (e) {
-        return j_(e)
-          ? dD(e)
+      rA = U_(Object.keys, Object);
+    var iA = Object.prototype.hasOwnProperty;
+    const oA = function (e) {
+        return J_(e)
+          ? SD(e)
           : (function (e) {
-              if (!O_(e)) return KD(e);
+              if (!j_(e)) return rA(e);
               var t = [];
               for (var n in Object(e))
-                YD.call(e, n) && "constructor" != n && t.push(n);
+                iA.call(e, n) && "constructor" != n && t.push(n);
               return t;
             })(e);
       },
-      XD = (function (e, t) {
+      sA = (function (e, t) {
         return function (n, r) {
           if (null == n) return n;
-          if (!j_(n)) return e(n, r);
+          if (!J_(n)) return e(n, r);
           for (
             var i = n.length, o = t ? i : -1, s = Object(n);
             (t ? o-- : ++o < i) && !1 !== r(s[o], o, s);
@@ -90600,19 +91552,19 @@
           return n;
         };
       })(function (e, t) {
-        return e && C_(e, t, ZD);
+        return e && A_(e, t, oA);
       }),
-      JD = function (e, t) {
-        return (z_(e) ? VD : XD)(e, "function" == typeof (n = t) ? n : wD);
+      aA = function (e, t) {
+        return (Z_(e) ? nA : sA)(e, "function" == typeof (n = t) ? n : DD);
         var n;
       };
-    var QD = n(6317),
-      eA = n.n(QD),
-      tA = function (e) {
+    var lA = n(6317),
+      cA = n.n(lA),
+      uA = function (e) {
         var t = 0,
           n = 0;
         return (
-          JD(["r", "g", "b", "a", "h", "s", "l", "v"], function (r) {
+          aA(["r", "g", "b", "a", "h", "s", "l", "v"], function (r) {
             e[r] &&
               ((t += 1), isNaN(e[r]) || (n += 1), "s" === r || "l" === r) &&
               /^\d+%$/.test(e[r]) &&
@@ -90621,8 +91573,8 @@
           t === n && e
         );
       },
-      nA = function (e, t) {
-        var n = e.hex ? eA()(e.hex) : eA()(e),
+      hA = function (e, t) {
+        var n = e.hex ? cA()(e.hex) : cA()(e),
           r = n.toHsl(),
           i = n.toHsv(),
           o = n.toRgb(),
@@ -90639,25 +91591,25 @@
           }
         );
       },
-      rA = function (e) {
+      pA = function (e) {
         if ("transparent" === e) return !0;
         var t = "#" === String(e).charAt(0) ? 1 : 0;
-        return e.length !== 4 + t && e.length < 7 + t && eA()(e).isValid();
+        return e.length !== 4 + t && e.length < 7 + t && cA()(e).isValid();
       },
-      iA = function (e) {
+      dA = function (e) {
         if (!e) return "#fff";
-        var t = nA(e);
+        var t = hA(e);
         return "transparent" === t.hex
           ? "rgba(0,0,0,0.4)"
           : (299 * t.rgb.r + 587 * t.rgb.g + 114 * t.rgb.b) / 1e3 >= 128
           ? "#000"
           : "#fff";
       },
-      oA = function (e, t) {
+      fA = function (e, t) {
         var n = e.replace("°", "");
-        return eA()(t + " (" + n + ")")._ok;
+        return cA()(t + " (" + n + ")")._ok;
       },
-      sA =
+      mA =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -90667,7 +91619,7 @@
           }
           return e;
         },
-      aA = (function () {
+      gA = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -90681,7 +91633,7 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })();
-    const lA = function (e) {
+    const yA = function (e) {
       var t = (function (t) {
         function n(e) {
           !(function (e, t) {
@@ -90699,8 +91651,8 @@
           })(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this));
           return (
             (t.handleChange = function (e, n) {
-              if (tA(e)) {
-                var r = nA(e, e.h || t.state.oldHue);
+              if (uA(e)) {
+                var r = hA(e, e.h || t.state.oldHue);
                 t.setState(r),
                   t.props.onChangeComplete &&
                     t.debounce(t.props.onChangeComplete, r, n),
@@ -90708,13 +91660,13 @@
               }
             }),
             (t.handleSwatchHover = function (e, n) {
-              if (tA(e)) {
-                var r = nA(e, e.h || t.state.oldHue);
+              if (uA(e)) {
+                var r = hA(e, e.h || t.state.oldHue);
                 t.props.onSwatchHover && t.props.onSwatchHover(r, n);
               }
             }),
-            (t.state = sA({}, nA(e.color, 0))),
-            (t.debounce = jD(function (e, t, n) {
+            (t.state = mA({}, hA(e.color, 0))),
+            (t.debounce = JD(function (e, t, n) {
               e(t, n);
             }, 100)),
             t
@@ -90740,7 +91692,7 @@
                   ? Object.setPrototypeOf(e, t)
                   : (e.__proto__ = t));
           })(n, t),
-          aA(
+          gA(
             n,
             [
               {
@@ -90752,7 +91704,7 @@
                       (t.onSwatchHover = this.handleSwatchHover),
                     be().createElement(
                       e,
-                      sA(
+                      mA(
                         {},
                         this.props,
                         this.state,
@@ -90768,7 +91720,7 @@
               {
                 key: "getDerivedStateFromProps",
                 value: function (e, t) {
-                  return sA({}, nA(e.color, t.oldHue));
+                  return mA({}, hA(e.color, t.oldHue));
                 },
               },
             ]
@@ -90777,14 +91729,14 @@
         );
       })(ve.PureComponent || ve.Component);
       return (
-        (t.propTypes = sA({}, e.propTypes)),
-        (t.defaultProps = sA({}, e.defaultProps, {
+        (t.propTypes = mA({}, e.propTypes)),
+        (t.defaultProps = mA({}, e.defaultProps, {
           color: { h: 250, s: 0.5, l: 0.2, a: 1 },
         })),
         t
       );
     };
-    var cA =
+    var vA =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -90794,7 +91746,7 @@
           }
           return e;
         },
-      uA = (function () {
+      bA = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -90808,18 +91760,18 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })();
-    function hA(e, t) {
+    function wA(e, t) {
       if (!(e instanceof t))
         throw new TypeError("Cannot call a class as a function");
     }
-    function pA(e, t) {
+    function CA(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || ("object" != typeof t && "function" != typeof t) ? e : t;
     }
-    function dA(e, t) {
+    function SA(e, t) {
       if ("function" != typeof t && null !== t)
         throw new TypeError(
           "Super expression must either be null or a function, not " + typeof t
@@ -90837,7 +91789,7 @@
             ? Object.setPrototypeOf(e, t)
             : (e.__proto__ = t));
     }
-    var fA =
+    var kA =
       Object.assign ||
       function (e) {
         for (var t = 1; t < arguments.length; t++) {
@@ -90847,18 +91799,18 @@
         }
         return e;
       };
-    const mA = (function (e) {
+    const EA = (function (e) {
       var t =
         arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "span";
       return (function (n) {
         function r() {
           var e, t, n;
-          hA(this, r);
+          wA(this, r);
           for (var i = arguments.length, o = Array(i), s = 0; s < i; s++)
             o[s] = arguments[s];
           return (
             (t = n =
-              pA(
+              CA(
                 this,
                 (e = r.__proto__ || Object.getPrototypeOf(r)).call.apply(
                   e,
@@ -90872,19 +91824,19 @@
             (n.handleBlur = function () {
               return n.setState({ focus: !1 });
             }),
-            pA(n, t)
+            CA(n, t)
           );
         }
         return (
-          dA(r, n),
-          uA(r, [
+          SA(r, n),
+          bA(r, [
             {
               key: "render",
               value: function () {
                 return be().createElement(
                   t,
                   { onFocus: this.handleFocus, onBlur: this.handleBlur },
-                  be().createElement(e, cA({}, this.props, this.state))
+                  be().createElement(e, vA({}, this.props, this.state))
                 );
               },
             },
@@ -90905,9 +91857,9 @@
         u = e.focusStyle,
         h = void 0 === u ? {} : u,
         p = "transparent" === t,
-        d = (0, sT.ZP)({
+        d = (0, mT.ZP)({
           default: {
-            swatch: fA(
+            swatch: kA(
               {
                 background: t,
                 height: "100%",
@@ -90929,7 +91881,7 @@
           }),
         be().createElement(
           "div",
-          fA(
+          kA(
             {
               style: d.swatch,
               onClick: function (e) {
@@ -90945,14 +91897,14 @@
           ),
           l,
           p &&
-            be().createElement(pT, {
+            be().createElement(CT, {
               borderRadius: d.swatch.borderRadius,
               boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.1)",
             })
         )
       );
     });
-    var gA =
+    var xA =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -90962,7 +91914,7 @@
           }
           return e;
         },
-      yA = function (e) {
+      RA = function (e) {
         var t = e.rgb,
           n = e.hsl,
           r = e.width,
@@ -90974,7 +91926,7 @@
           c = e.pointer,
           u = e.className,
           h = void 0 === u ? "" : u,
-          p = (0, sT.ZP)({
+          p = (0, mT.ZP)({
             default: {
               picker: { position: "relative", width: r, height: i },
               alpha: { radius: "2px", style: a },
@@ -90984,8 +91936,8 @@
           "div",
           { style: p.picker, className: "alpha-picker " + h },
           be().createElement(
-            vT,
-            gA({}, p.alpha, {
+            TT,
+            xA({}, p.alpha, {
               rgb: t,
               hsl: n,
               pointer: c,
@@ -90996,13 +91948,13 @@
           )
         );
       };
-    (yA.defaultProps = {
+    (RA.defaultProps = {
       width: "316px",
       height: "16px",
       direction: "horizontal",
       pointer: function (e) {
         var t = e.direction,
-          n = (0, sT.ZP)(
+          n = (0, mT.ZP)(
             {
               default: {
                 picker: {
@@ -91021,31 +91973,31 @@
         return be().createElement("div", { style: n.picker });
       },
     }),
-      lA(yA);
-    const vA = function (e, t) {
+      yA(RA);
+    const TA = function (e, t) {
       for (var n = -1, r = null == e ? 0 : e.length, i = Array(r); ++n < r; )
         i[n] = t(e[n], n, e);
       return i;
     };
-    function bA(e) {
+    function _A(e) {
       var t = -1,
         n = null == e ? 0 : e.length;
-      for (this.__data__ = new m_(); ++t < n; ) this.add(e[t]);
+      for (this.__data__ = new E_(); ++t < n; ) this.add(e[t]);
     }
-    (bA.prototype.add = bA.prototype.push =
+    (_A.prototype.add = _A.prototype.push =
       function (e) {
         return this.__data__.set(e, "__lodash_hash_undefined__"), this;
       }),
-      (bA.prototype.has = function (e) {
+      (_A.prototype.has = function (e) {
         return this.__data__.has(e);
       });
-    const wA = bA,
-      CA = function (e, t) {
+    const DA = _A,
+      AA = function (e, t) {
         for (var n = -1, r = null == e ? 0 : e.length; ++n < r; )
           if (t(e[n], n, e)) return !0;
         return !1;
       },
-      SA = function (e, t, n, r, i, o) {
+      PA = function (e, t, n, r, i, o) {
         var s = 1 & n,
           a = e.length,
           l = t.length;
@@ -91055,7 +92007,7 @@
         if (c && u) return c == t && u == e;
         var h = -1,
           p = !0,
-          d = 2 & n ? new wA() : void 0;
+          d = 2 & n ? new DA() : void 0;
         for (o.set(e, t), o.set(t, e); ++h < a; ) {
           var f = e[h],
             m = t[h];
@@ -91067,7 +92019,7 @@
           }
           if (d) {
             if (
-              !CA(t, function (e, t) {
+              !AA(t, function (e, t) {
                 if (((s = t), !d.has(s) && (f === e || i(f, e, n, r, o))))
                   return d.push(t);
                 var s;
@@ -91083,7 +92035,7 @@
         }
         return o.delete(e), o.delete(t), p;
       },
-      kA = function (e) {
+      IA = function (e) {
         var t = -1,
           n = Array(e.size);
         return (
@@ -91093,7 +92045,7 @@
           n
         );
       },
-      EA = function (e) {
+      MA = function (e) {
         var t = -1,
           n = Array(e.size);
         return (
@@ -91103,11 +92055,11 @@
           n
         );
       };
-    var xA = LT ? LT.prototype : void 0,
-      RA = xA ? xA.valueOf : void 0;
-    var TA = Object.prototype.propertyIsEnumerable,
-      _A = Object.getOwnPropertySymbols;
-    const DA = _A
+    var OA = VT ? VT.prototype : void 0,
+      NA = OA ? OA.valueOf : void 0;
+    var BA = Object.prototype.propertyIsEnumerable,
+      FA = Object.getOwnPropertySymbols;
+    const LA = FA
         ? function (e) {
             return null == e
               ? []
@@ -91122,87 +92074,87 @@
                     t(s, n, e) && (o[i++] = s);
                   }
                   return o;
-                })(_A(e), function (t) {
-                  return TA.call(e, t);
+                })(FA(e), function (t) {
+                  return BA.call(e, t);
                 }));
           }
         : function () {
             return [];
           },
-      AA = function (e) {
+      HA = function (e) {
         return (function (e, t, n) {
           var r = t(e);
-          return z_(e)
+          return Z_(e)
             ? r
             : (function (e, t) {
                 for (var n = -1, r = t.length, i = e.length; ++n < r; )
                   e[i + n] = t[n];
                 return e;
               })(r, n(e));
-        })(e, ZD, DA);
+        })(e, oA, LA);
       };
-    var PA = Object.prototype.hasOwnProperty;
-    const IA = s_(FT, "DataView"),
-      MA = s_(FT, "Promise"),
-      OA = s_(FT, "Set"),
-      NA = s_(FT, "WeakMap");
-    var BA = "[object Map]",
-      FA = "[object Promise]",
-      LA = "[object Set]",
-      HA = "[object WeakMap]",
-      UA = "[object DataView]",
-      zA = JT(IA),
-      WA = JT(a_),
-      jA = JT(MA),
-      $A = JT(OA),
-      qA = JT(NA),
-      GA = qT;
-    ((IA && GA(new IA(new ArrayBuffer(1))) != UA) ||
-      (a_ && GA(new a_()) != BA) ||
-      (MA && GA(MA.resolve()) != FA) ||
-      (OA && GA(new OA()) != LA) ||
-      (NA && GA(new NA()) != HA)) &&
-      (GA = function (e) {
-        var t = qT(e),
+    var UA = Object.prototype.hasOwnProperty;
+    const zA = m_(GT, "DataView"),
+      WA = m_(GT, "Promise"),
+      jA = m_(GT, "Set"),
+      $A = m_(GT, "WeakMap");
+    var qA = "[object Map]",
+      GA = "[object Promise]",
+      VA = "[object Set]",
+      KA = "[object WeakMap]",
+      YA = "[object DataView]",
+      ZA = a_(zA),
+      XA = a_(g_),
+      JA = a_(WA),
+      QA = a_(jA),
+      eP = a_($A),
+      tP = e_;
+    ((zA && tP(new zA(new ArrayBuffer(1))) != YA) ||
+      (g_ && tP(new g_()) != qA) ||
+      (WA && tP(WA.resolve()) != GA) ||
+      (jA && tP(new jA()) != VA) ||
+      ($A && tP(new $A()) != KA)) &&
+      (tP = function (e) {
+        var t = e_(e),
           n = "[object Object]" == t ? e.constructor : void 0,
-          r = n ? JT(n) : "";
+          r = n ? a_(n) : "";
         if (r)
           switch (r) {
-            case zA:
-              return UA;
-            case WA:
-              return BA;
-            case jA:
-              return FA;
-            case $A:
-              return LA;
-            case qA:
-              return HA;
+            case ZA:
+              return YA;
+            case XA:
+              return qA;
+            case JA:
+              return GA;
+            case QA:
+              return VA;
+            case eP:
+              return KA;
           }
         return t;
       });
-    const VA = GA;
-    var KA = "[object Arguments]",
-      YA = "[object Array]",
-      ZA = "[object Object]",
-      XA = Object.prototype.hasOwnProperty;
-    const JA = function (e, t, n, r, i, o) {
-        var s = z_(e),
-          a = z_(t),
-          l = s ? YA : VA(e),
-          c = a ? YA : VA(t),
-          u = (l = l == KA ? ZA : l) == ZA,
-          h = (c = c == KA ? ZA : c) == ZA,
+    const nP = tP;
+    var rP = "[object Arguments]",
+      iP = "[object Array]",
+      oP = "[object Object]",
+      sP = Object.prototype.hasOwnProperty;
+    const aP = function (e, t, n, r, i, o) {
+        var s = Z_(e),
+          a = Z_(t),
+          l = s ? iP : nP(e),
+          c = a ? iP : nP(t),
+          u = (l = l == rP ? oP : l) == oP,
+          h = (c = c == rP ? oP : c) == oP,
           p = l == c;
-        if (p && V_(e)) {
-          if (!V_(t)) return !1;
+        if (p && nD(e)) {
+          if (!nD(t)) return !1;
           (s = !0), (u = !1);
         }
         if (p && !u)
           return (
-            o || (o = new y_()),
-            s || oD(e)
-              ? SA(e, t, n, r, i, o)
+            o || (o = new R_()),
+            s || fD(e)
+              ? PA(e, t, n, r, i, o)
               : (function (e, t, n, r, i, o, s) {
                   switch (n) {
                     case "[object DataView]":
@@ -91214,53 +92166,53 @@
                       (e = e.buffer), (t = t.buffer);
                     case "[object ArrayBuffer]":
                       return !(
-                        e.byteLength != t.byteLength || !o(new T_(e), new T_(t))
+                        e.byteLength != t.byteLength || !o(new B_(e), new B_(t))
                       );
                     case "[object Boolean]":
                     case "[object Date]":
                     case "[object Number]":
-                      return AT(+e, +t);
+                      return HT(+e, +t);
                     case "[object Error]":
                       return e.name == t.name && e.message == t.message;
                     case "[object RegExp]":
                     case "[object String]":
                       return e == t + "";
                     case "[object Map]":
-                      var a = kA;
+                      var a = IA;
                     case "[object Set]":
                       var l = 1 & r;
-                      if ((a || (a = EA), e.size != t.size && !l)) return !1;
+                      if ((a || (a = MA), e.size != t.size && !l)) return !1;
                       var c = s.get(e);
                       if (c) return c == t;
                       (r |= 2), s.set(e, t);
-                      var u = SA(a(e), a(t), r, i, o, s);
+                      var u = PA(a(e), a(t), r, i, o, s);
                       return s.delete(e), u;
                     case "[object Symbol]":
-                      if (RA) return RA.call(e) == RA.call(t);
+                      if (NA) return NA.call(e) == NA.call(t);
                   }
                   return !1;
                 })(e, t, l, n, r, i, o)
           );
         if (!(1 & n)) {
-          var d = u && XA.call(e, "__wrapped__"),
-            f = h && XA.call(t, "__wrapped__");
+          var d = u && sP.call(e, "__wrapped__"),
+            f = h && sP.call(t, "__wrapped__");
           if (d || f) {
             var m = d ? e.value() : e,
               g = f ? t.value() : t;
-            return o || (o = new y_()), i(m, g, n, r, o);
+            return o || (o = new R_()), i(m, g, n, r, o);
           }
         }
         return (
           !!p &&
-          (o || (o = new y_()),
+          (o || (o = new R_()),
           (function (e, t, n, r, i, o) {
             var s = 1 & n,
-              a = AA(e),
+              a = HA(e),
               l = a.length;
-            if (l != AA(t).length && !s) return !1;
+            if (l != HA(t).length && !s) return !1;
             for (var c = l; c--; ) {
               var u = a[c];
-              if (!(s ? u in t : PA.call(t, u))) return !1;
+              if (!(s ? u in t : UA.call(t, u))) return !1;
             }
             var h = o.get(e),
               p = o.get(t);
@@ -91293,33 +92245,33 @@
           })(e, t, n, r, i, o))
         );
       },
-      QA = function e(t, n, r, i, o) {
+      lP = function e(t, n, r, i, o) {
         return (
           t === n ||
-          (null == t || null == n || (!N_(t) && !N_(n))
+          (null == t || null == n || (!$_(t) && !$_(n))
             ? t != t && n != n
-            : JA(t, n, r, i, e, o))
+            : aP(t, n, r, i, e, o))
         );
       },
-      eP = function (e) {
-        return e == e && !GT(e);
+      cP = function (e) {
+        return e == e && !t_(e);
       },
-      tP = function (e, t) {
+      uP = function (e, t) {
         return function (n) {
           return null != n && n[e] === t && (void 0 !== t || e in Object(n));
         };
       },
-      nP = function (e) {
+      hP = function (e) {
         var t = (function (e) {
-          for (var t = ZD(e), n = t.length; n--; ) {
+          for (var t = oA(e), n = t.length; n--; ) {
             var r = t[n],
               i = e[r];
-            t[n] = [r, i, eP(i)];
+            t[n] = [r, i, cP(i)];
           }
           return t;
         })(e);
         return 1 == t.length && t[0][2]
-          ? tP(t[0][0], t[0][1])
+          ? uP(t[0][0], t[0][1])
           : function (n) {
               return (
                 n === e ||
@@ -91339,9 +92291,9 @@
                     if (s && a[2]) {
                       if (void 0 === c && !(l in e)) return !1;
                     } else {
-                      var h = new y_();
+                      var h = new R_();
                       if (r) var p = r(c, u, l, e, t, h);
-                      if (!(void 0 === p ? QA(u, c, 3, r, h) : p)) return !1;
+                      if (!(void 0 === p ? lP(u, c, 3, r, h) : p)) return !1;
                     }
                   }
                   return !0;
@@ -91349,10 +92301,10 @@
               );
             };
       };
-    var rP = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
-      iP = /^\w*$/;
-    const oP = function (e, t) {
-      if (z_(e)) return !1;
+    var pP = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+      dP = /^\w*$/;
+    const fP = function (e, t) {
+      if (Z_(e)) return !1;
       var n = typeof e;
       return (
         !(
@@ -91360,14 +92312,14 @@
           "symbol" != n &&
           "boolean" != n &&
           null != e &&
-          !ND(e)
+          !$D(e)
         ) ||
-        iP.test(e) ||
-        !rP.test(e) ||
+        dP.test(e) ||
+        !pP.test(e) ||
         (null != t && e in Object(t))
       );
     };
-    function sP(e, t) {
+    function mP(e, t) {
       if ("function" != typeof e || (null != t && "function" != typeof t))
         throw new TypeError("Expected a function");
       var n = function () {
@@ -91378,15 +92330,15 @@
         var s = e.apply(this, r);
         return (n.cache = o.set(i, s) || o), s;
       };
-      return (n.cache = new (sP.Cache || m_)()), n;
+      return (n.cache = new (mP.Cache || E_)()), n;
     }
-    sP.Cache = m_;
-    const aP = sP;
-    var lP =
+    mP.Cache = E_;
+    const gP = mP;
+    var yP =
         /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,
-      cP = /\\(\\)?/g,
-      uP = (function (e) {
-        var t = aP(e, function (e) {
+      vP = /\\(\\)?/g,
+      bP = (function (e) {
+        var t = gP(e, function (e) {
             return 500 === n.size && n.clear(), e;
           }),
           n = t.cache;
@@ -91395,113 +92347,113 @@
         var t = [];
         return (
           46 === e.charCodeAt(0) && t.push(""),
-          e.replace(lP, function (e, n, r, i) {
-            t.push(r ? i.replace(cP, "$1") : n || e);
+          e.replace(yP, function (e, n, r, i) {
+            t.push(r ? i.replace(vP, "$1") : n || e);
           }),
           t
         );
       });
-    const hP = uP;
-    var pP = LT ? LT.prototype : void 0,
-      dP = pP ? pP.toString : void 0;
-    const fP = function e(t) {
+    const wP = bP;
+    var CP = VT ? VT.prototype : void 0,
+      SP = CP ? CP.toString : void 0;
+    const kP = function e(t) {
         if ("string" == typeof t) return t;
-        if (z_(t)) return vA(t, e) + "";
-        if (ND(t)) return dP ? dP.call(t) : "";
+        if (Z_(t)) return TA(t, e) + "";
+        if ($D(t)) return SP ? SP.call(t) : "";
         var n = t + "";
         return "0" == n && 1 / t == -1 / 0 ? "-0" : n;
       },
-      mP = function (e) {
-        return null == e ? "" : fP(e);
+      EP = function (e) {
+        return null == e ? "" : kP(e);
       },
-      gP = function (e, t) {
-        return z_(e) ? e : oP(e, t) ? [e] : hP(mP(e));
+      xP = function (e, t) {
+        return Z_(e) ? e : fP(e, t) ? [e] : wP(EP(e));
       },
-      yP = function (e) {
-        if ("string" == typeof e || ND(e)) return e;
+      RP = function (e) {
+        if ("string" == typeof e || $D(e)) return e;
         var t = e + "";
         return "0" == t && 1 / e == -1 / 0 ? "-0" : t;
       },
-      vP = function (e, t) {
-        for (var n = 0, r = (t = gP(t, e)).length; null != e && n < r; )
-          e = e[yP(t[n++])];
+      TP = function (e, t) {
+        for (var n = 0, r = (t = xP(t, e)).length; null != e && n < r; )
+          e = e[RP(t[n++])];
         return n && n == r ? e : void 0;
       },
-      bP = function (e, t) {
+      _P = function (e, t) {
         return null != e && t in Object(e);
       },
-      wP = function (e, t) {
+      DP = function (e, t) {
         return (
           null != e &&
           (function (e, t, n) {
-            for (var r = -1, i = (t = gP(t, e)).length, o = !1; ++r < i; ) {
-              var s = yP(t[r]);
+            for (var r = -1, i = (t = xP(t, e)).length, o = !1; ++r < i; ) {
+              var s = RP(t[r]);
               if (!(o = null != e && n(e, s))) break;
               e = e[s];
             }
             return o || ++r != i
               ? o
               : !!(i = null == e ? 0 : e.length) &&
-                  W_(i) &&
-                  hD(s, i) &&
-                  (z_(e) || U_(e));
-          })(e, t, bP)
+                  X_(i) &&
+                  wD(s, i) &&
+                  (Z_(e) || Y_(e));
+          })(e, t, _P)
         );
       },
-      CP = function (e, t) {
-        return oP(e) && eP(t)
-          ? tP(yP(e), t)
+      AP = function (e, t) {
+        return fP(e) && cP(t)
+          ? uP(RP(e), t)
           : function (n) {
               var r = (function (e, t, n) {
-                var r = null == e ? void 0 : vP(e, t);
+                var r = null == e ? void 0 : TP(e, t);
                 return void 0 === r ? n : r;
               })(n, e);
-              return void 0 === r && r === t ? wP(n, e) : QA(t, r, 3);
+              return void 0 === r && r === t ? DP(n, e) : lP(t, r, 3);
             };
       },
-      SP = function (e) {
-        return oP(e)
-          ? ((t = yP(e)),
+      PP = function (e) {
+        return fP(e)
+          ? ((t = RP(e)),
             function (e) {
               return null == e ? void 0 : e[t];
             })
           : (function (e) {
               return function (t) {
-                return vP(t, e);
+                return TP(t, e);
               };
             })(e);
         var t;
       },
-      kP = function (e, t) {
+      IP = function (e, t) {
         var n = -1,
-          r = j_(e) ? Array(e.length) : [];
+          r = J_(e) ? Array(e.length) : [];
         return (
-          XD(e, function (e, i, o) {
+          sA(e, function (e, i, o) {
             r[++n] = t(e, i, o);
           }),
           r
         );
       },
-      EP = function (e, t) {
-        return (z_(e) ? vA : kP)(
+      MP = function (e, t) {
+        return (Z_(e) ? TA : IP)(
           e,
           "function" == typeof (n = t)
             ? n
             : null == n
-            ? wD
+            ? DD
             : "object" == typeof n
-            ? z_(n)
-              ? CP(n[0], n[1])
-              : nP(n)
-            : SP(n)
+            ? Z_(n)
+              ? AP(n[0], n[1])
+              : hP(n)
+            : PP(n)
         );
         var n;
       },
-      xP = function (e) {
+      OP = function (e) {
         var t = e.colors,
           n = e.onClick,
           r = e.onSwatchHover,
-          i = (0, sT.ZP)({
+          i = (0, mT.ZP)({
             default: {
               swatches: { marginRight: "-10px" },
               swatch: {
@@ -91518,8 +92470,8 @@
         return be().createElement(
           "div",
           { style: i.swatches },
-          EP(t, function (e) {
-            return be().createElement(mA, {
+          MP(t, function (e) {
+            return be().createElement(EA, {
               key: e,
               color: e,
               style: i.swatch,
@@ -91531,7 +92483,7 @@
           be().createElement("div", { style: i.clear })
         );
       };
-    var RP = function (e) {
+    var NP = function (e) {
       var t = e.onChange,
         n = e.onSwatchHover,
         r = e.hex,
@@ -91544,10 +92496,10 @@
         u = void 0 === c ? "" : c,
         h = "transparent" === r,
         p = function (e, n) {
-          rA(e) && t({ hex: e, source: "hex" }, n);
+          pA(e) && t({ hex: e, source: "hex" }, n);
         },
-        d = (0, sT.ZP)(
-          TD(
+        d = (0, mT.ZP)(
+          BD(
             {
               default: {
                 card: {
@@ -91567,7 +92519,7 @@
                   position: "relative",
                 },
                 body: { padding: "10px" },
-                label: { fontSize: "18px", color: iA(r), position: "relative" },
+                label: { fontSize: "18px", color: dA(r), position: "relative" },
                 triangle: {
                   width: "0px",
                   height: "0px",
@@ -91605,14 +92557,14 @@
         be().createElement(
           "div",
           { style: d.head },
-          h && be().createElement(pT, { borderRadius: "6px 6px 0 0" }),
+          h && be().createElement(CT, { borderRadius: "6px 6px 0 0" }),
           be().createElement("div", { style: d.label }, r)
         ),
         be().createElement(
           "div",
           { style: d.body },
-          be().createElement(xP, { colors: i, onClick: p, onSwatchHover: n }),
-          be().createElement(kT, {
+          be().createElement(OP, { colors: i, onClick: p, onSwatchHover: n }),
+          be().createElement(IT, {
             style: { input: d.input },
             value: r,
             onChange: p,
@@ -91620,13 +92572,13 @@
         )
       );
     };
-    (RP.propTypes = {
+    (NP.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       colors: Te().arrayOf(Te().string),
       triangle: Te().oneOf(["top", "hide"]),
       styles: Te().object,
     }),
-      (RP.defaultProps = {
+      (NP.defaultProps = {
         width: 170,
         colors: [
           "#D9E3F0",
@@ -91642,97 +92594,97 @@
         triangle: "top",
         styles: {},
       }),
-      lA(RP);
-    var TP = "#ffcdd2",
-      _P = "#e57373",
-      DP = "#f44336",
-      AP = "#d32f2f",
-      PP = "#b71c1c",
-      IP = "#f8bbd0",
-      MP = "#f06292",
-      OP = "#e91e63",
-      NP = "#c2185b",
-      BP = "#880e4f",
-      FP = "#e1bee7",
-      LP = "#ba68c8",
-      HP = "#9c27b0",
-      UP = "#7b1fa2",
-      zP = "#4a148c",
-      WP = "#d1c4e9",
-      jP = "#9575cd",
-      $P = "#673ab7",
-      qP = "#512da8",
-      GP = "#311b92",
-      VP = "#c5cae9",
-      KP = "#7986cb",
-      YP = "#3f51b5",
-      ZP = "#303f9f",
-      XP = "#1a237e",
-      JP = "#bbdefb",
-      QP = "#64b5f6",
-      eI = "#2196f3",
-      tI = "#1976d2",
-      nI = "#0d47a1",
-      rI = "#b3e5fc",
-      iI = "#4fc3f7",
-      oI = "#03a9f4",
-      sI = "#0288d1",
-      aI = "#01579b",
-      lI = "#b2ebf2",
-      cI = "#4dd0e1",
-      uI = "#00bcd4",
-      hI = "#0097a7",
-      pI = "#006064",
-      dI = "#b2dfdb",
-      fI = "#4db6ac",
-      mI = "#009688",
-      gI = "#00796b",
-      yI = "#004d40",
-      vI = "#c8e6c9",
-      bI = "#81c784",
-      wI = "#4caf50",
-      CI = "#388e3c",
-      SI = "#dcedc8",
-      kI = "#aed581",
-      EI = "#8bc34a",
-      xI = "#689f38",
-      RI = "#33691e",
-      TI = "#f0f4c3",
-      _I = "#dce775",
-      DI = "#cddc39",
-      AI = "#afb42b",
-      PI = "#827717",
-      II = "#fff9c4",
-      MI = "#fff176",
-      OI = "#ffeb3b",
-      NI = "#fbc02d",
-      BI = "#f57f17",
-      FI = "#ffecb3",
-      LI = "#ffd54f",
-      HI = "#ffc107",
-      UI = "#ffa000",
-      zI = "#ff6f00",
-      WI = "#ffe0b2",
-      jI = "#ffb74d",
-      $I = "#ff9800",
-      qI = "#f57c00",
-      GI = "#e65100",
-      VI = "#ffccbc",
-      KI = "#ff8a65",
-      YI = "#ff5722",
-      ZI = "#e64a19",
-      XI = "#bf360c",
-      JI = "#d7ccc8",
-      QI = "#a1887f",
-      eM = "#795548",
-      tM = "#5d4037",
-      nM = "#3e2723",
-      rM = "#cfd8dc",
-      iM = "#90a4ae",
-      oM = "#607d8b",
-      sM = "#455a64",
-      aM = "#263238",
-      lM = function (e) {
+      yA(NP);
+    var BP = "#ffcdd2",
+      FP = "#e57373",
+      LP = "#f44336",
+      HP = "#d32f2f",
+      UP = "#b71c1c",
+      zP = "#f8bbd0",
+      WP = "#f06292",
+      jP = "#e91e63",
+      $P = "#c2185b",
+      qP = "#880e4f",
+      GP = "#e1bee7",
+      VP = "#ba68c8",
+      KP = "#9c27b0",
+      YP = "#7b1fa2",
+      ZP = "#4a148c",
+      XP = "#d1c4e9",
+      JP = "#9575cd",
+      QP = "#673ab7",
+      eI = "#512da8",
+      tI = "#311b92",
+      nI = "#c5cae9",
+      rI = "#7986cb",
+      iI = "#3f51b5",
+      oI = "#303f9f",
+      sI = "#1a237e",
+      aI = "#bbdefb",
+      lI = "#64b5f6",
+      cI = "#2196f3",
+      uI = "#1976d2",
+      hI = "#0d47a1",
+      pI = "#b3e5fc",
+      dI = "#4fc3f7",
+      fI = "#03a9f4",
+      mI = "#0288d1",
+      gI = "#01579b",
+      yI = "#b2ebf2",
+      vI = "#4dd0e1",
+      bI = "#00bcd4",
+      wI = "#0097a7",
+      CI = "#006064",
+      SI = "#b2dfdb",
+      kI = "#4db6ac",
+      EI = "#009688",
+      xI = "#00796b",
+      RI = "#004d40",
+      TI = "#c8e6c9",
+      _I = "#81c784",
+      DI = "#4caf50",
+      AI = "#388e3c",
+      PI = "#dcedc8",
+      II = "#aed581",
+      MI = "#8bc34a",
+      OI = "#689f38",
+      NI = "#33691e",
+      BI = "#f0f4c3",
+      FI = "#dce775",
+      LI = "#cddc39",
+      HI = "#afb42b",
+      UI = "#827717",
+      zI = "#fff9c4",
+      WI = "#fff176",
+      jI = "#ffeb3b",
+      $I = "#fbc02d",
+      qI = "#f57f17",
+      GI = "#ffecb3",
+      VI = "#ffd54f",
+      KI = "#ffc107",
+      YI = "#ffa000",
+      ZI = "#ff6f00",
+      XI = "#ffe0b2",
+      JI = "#ffb74d",
+      QI = "#ff9800",
+      eM = "#f57c00",
+      tM = "#e65100",
+      nM = "#ffccbc",
+      rM = "#ff8a65",
+      iM = "#ff5722",
+      oM = "#e64a19",
+      sM = "#bf360c",
+      aM = "#d7ccc8",
+      lM = "#a1887f",
+      cM = "#795548",
+      uM = "#5d4037",
+      hM = "#3e2723",
+      pM = "#cfd8dc",
+      dM = "#90a4ae",
+      fM = "#607d8b",
+      mM = "#455a64",
+      gM = "#263238",
+      yM = function (e) {
         var t = e.color,
           n = e.onClick,
           r = e.onSwatchHover,
@@ -91740,7 +92692,7 @@
           o = e.active,
           s = e.circleSize,
           a = e.circleSpacing,
-          l = (0, sT.ZP)(
+          l = (0, mT.ZP)(
             {
               default: {
                 swatch: {
@@ -91766,7 +92718,7 @@
         return be().createElement(
           "div",
           { style: l.swatch },
-          be().createElement(mA, {
+          be().createElement(EA, {
             style: l.Swatch,
             color: t,
             onClick: n,
@@ -91775,9 +92727,9 @@
           })
         );
       };
-    lM.defaultProps = { circleSize: 28, circleSpacing: 14 };
-    const cM = (0, sT.tz)(lM);
-    var uM = function (e) {
+    yM.defaultProps = { circleSize: 28, circleSpacing: 14 };
+    const vM = (0, mT.tz)(yM);
+    var bM = function (e) {
       var t = e.width,
         n = e.onChange,
         r = e.onSwatchHover,
@@ -91789,8 +92741,8 @@
         c = e.circleSpacing,
         u = e.className,
         h = void 0 === u ? "" : u,
-        p = (0, sT.ZP)(
-          TD(
+        p = (0, mT.ZP)(
+          BD(
             {
               default: {
                 card: {
@@ -91811,8 +92763,8 @@
       return be().createElement(
         "div",
         { style: p.card, className: "circle-picker " + h },
-        EP(i, function (e) {
-          return be().createElement(cM, {
+        MP(i, function (e) {
+          return be().createElement(vM, {
             key: e,
             color: e,
             onClick: d,
@@ -91824,44 +92776,44 @@
         })
       );
     };
-    (uM.propTypes = {
+    (bM.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       circleSize: Te().number,
       circleSpacing: Te().number,
       styles: Te().object,
     }),
-      (uM.defaultProps = {
+      (bM.defaultProps = {
         width: 252,
         circleSize: 28,
         circleSpacing: 14,
         colors: [
-          DP,
-          OP,
-          HP,
-          $P,
-          YP,
-          eI,
-          oI,
-          uI,
-          mI,
-          wI,
+          LP,
+          jP,
+          KP,
+          QP,
+          iI,
+          cI,
+          fI,
+          bI,
           EI,
           DI,
-          OI,
-          HI,
-          $I,
-          YI,
-          eM,
-          oM,
+          MI,
+          LI,
+          jI,
+          KI,
+          QI,
+          iM,
+          cM,
+          fM,
         ],
         styles: {},
       }),
-      lA(uM);
-    const hM = function (e) {
+      yA(bM);
+    const wM = function (e) {
       return void 0 === e;
     };
-    var pM = n(4956),
-      dM = (function () {
+    var CM = n(4956),
+      SM = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -91875,7 +92827,7 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })(),
-      fM = (function (e) {
+      kM = (function (e) {
         function t(e) {
           !(function (e, t) {
             if (!(e instanceof t))
@@ -91903,7 +92855,7 @@
             }),
             (n.handleChange = function (e, t) {
               e.hex
-                ? rA(e.hex) &&
+                ? pA(e.hex) &&
                   n.props.onChange({ hex: e.hex, source: "hex" }, t)
                 : e.r || e.g || e.b
                 ? n.props.onChange(
@@ -91938,8 +92890,8 @@
                   n.props.onChange(
                     {
                       h: e.h || n.props.hsl.h,
-                      s: Number(hM(e.s) ? n.props.hsl.s : e.s),
-                      l: Number(hM(e.l) ? n.props.hsl.l : e.l),
+                      s: Number(wM(e.s) ? n.props.hsl.s : e.s),
+                      l: Number(wM(e.l) ? n.props.hsl.l : e.l),
                       source: "hsl",
                     },
                     t
@@ -91977,14 +92929,14 @@
                   ? Object.setPrototypeOf(e, t)
                   : (e.__proto__ = t));
           })(t, e),
-          dM(
+          SM(
             t,
             [
               {
                 key: "render",
                 value: function () {
                   var e = this,
-                    t = (0, sT.ZP)(
+                    t = (0, mT.ZP)(
                       {
                         default: {
                           wrap: { paddingTop: "16px", display: "flex" },
@@ -92057,7 +93009,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "hex",
                               value: this.props.hex,
@@ -92072,7 +93024,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "r",
                               value: this.props.rgb.r,
@@ -92082,7 +93034,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "g",
                               value: this.props.rgb.g,
@@ -92092,7 +93044,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "b",
                               value: this.props.rgb.b,
@@ -92102,7 +93054,7 @@
                           be().createElement(
                             "div",
                             { style: t.alpha },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "a",
                               value: this.props.rgb.a,
@@ -92118,7 +93070,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "h",
                               value: Math.round(this.props.hsl.h),
@@ -92128,7 +93080,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "s",
                               value: Math.round(100 * this.props.hsl.s) + "%",
@@ -92138,7 +93090,7 @@
                           be().createElement(
                             "div",
                             { style: t.field },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "l",
                               value: Math.round(100 * this.props.hsl.l) + "%",
@@ -92148,7 +93100,7 @@
                           be().createElement(
                             "div",
                             { style: t.alpha },
-                            be().createElement(kT, {
+                            be().createElement(IT, {
                               style: { input: t.input, label: t.label },
                               label: "a",
                               value: this.props.hsl.a,
@@ -92173,7 +93125,7 @@
                               return (e.icon = t);
                             },
                           },
-                          be().createElement(pM.Z, {
+                          be().createElement(CM.Z, {
                             style: t.svg,
                             onMouseOver: this.showHighlight,
                             onMouseEnter: this.showHighlight,
@@ -92200,10 +93152,10 @@
           t
         );
       })(be().Component);
-    fM.defaultProps = { view: "hex" };
-    const mM = fM,
-      gM = function () {
-        var e = (0, sT.ZP)({
+    kM.defaultProps = { view: "hex" };
+    const EM = kM,
+      xM = function () {
+        var e = (0, mT.ZP)({
           default: {
             picker: {
               width: "12px",
@@ -92217,8 +93169,8 @@
         });
         return be().createElement("div", { style: e.picker });
       },
-      yM = function () {
-        var e = (0, sT.ZP)({
+      RM = function () {
+        var e = (0, mT.ZP)({
           default: {
             picker: {
               width: "12px",
@@ -92231,7 +93183,7 @@
         });
         return be().createElement("div", { style: e.picker });
       };
-    var vM = function (e) {
+    var TM = function (e) {
       var t = e.width,
         n = e.onChange,
         r = e.disableAlpha,
@@ -92245,8 +93197,8 @@
         h = e.className,
         p = void 0 === h ? "" : h,
         d = e.defaultView,
-        f = (0, sT.ZP)(
-          TD(
+        f = (0, mT.ZP)(
+          BD(
             {
               default: {
                 picker: {
@@ -92311,11 +93263,11 @@
         be().createElement(
           "div",
           { style: f.saturation },
-          be().createElement(GD, {
+          be().createElement(tA, {
             style: f.Saturation,
             hsl: o,
             hsv: s,
-            pointer: yM,
+            pointer: RM,
             onChange: n,
           })
         ),
@@ -92332,7 +93284,7 @@
                 "div",
                 { style: f.swatch },
                 be().createElement("div", { style: f.active }),
-                be().createElement(pT, { renderers: l })
+                be().createElement(CT, { renderers: l })
               )
             ),
             be().createElement(
@@ -92341,28 +93293,28 @@
               be().createElement(
                 "div",
                 { style: f.hue },
-                be().createElement(DT, {
+                be().createElement(LT, {
                   style: f.Hue,
                   hsl: o,
-                  pointer: gM,
+                  pointer: xM,
                   onChange: n,
                 })
               ),
               be().createElement(
                 "div",
                 { style: f.alpha },
-                be().createElement(vT, {
+                be().createElement(TT, {
                   style: f.Alpha,
                   rgb: i,
                   hsl: o,
-                  pointer: gM,
+                  pointer: xM,
                   renderers: l,
                   onChange: n,
                 })
               )
             )
           ),
-          be().createElement(mM, {
+          be().createElement(EM, {
             rgb: i,
             hsl: o,
             hex: a,
@@ -92373,21 +93325,21 @@
         )
       );
     };
-    (vM.propTypes = {
+    (TM.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       disableAlpha: Te().bool,
       styles: Te().object,
       defaultView: Te().oneOf(["hex", "rgb", "hsl"]),
     }),
-      (vM.defaultProps = { width: 225, disableAlpha: !1, styles: {} }),
-      lA(vM);
-    const bM = function (e) {
+      (TM.defaultProps = { width: 225, disableAlpha: !1, styles: {} }),
+      yA(TM);
+    const _M = function (e) {
         var t = e.color,
           n = e.onClick,
           r = void 0 === n ? function () {} : n,
           i = e.onSwatchHover,
           o = e.active,
-          s = (0, sT.ZP)(
+          s = (0, mT.ZP)(
             {
               default: {
                 color: {
@@ -92402,7 +93354,7 @@
                 },
                 dot: {
                   absolute: "5px 5px 5px 5px",
-                  background: iA(t),
+                  background: dA(t),
                   borderRadius: "50%",
                   opacity: "0",
                 },
@@ -92421,7 +93373,7 @@
             }
           );
         return be().createElement(
-          mA,
+          EA,
           {
             style: s.color,
             color: t,
@@ -92432,11 +93384,11 @@
           be().createElement("div", { style: s.dot })
         );
       },
-      wM = function (e) {
+      DM = function (e) {
         var t = e.hex,
           n = e.rgb,
           r = e.onChange,
-          i = (0, sT.ZP)({
+          i = (0, mT.ZP)({
             default: {
               fields: {
                 display: "flex",
@@ -92505,25 +93457,25 @@
           "div",
           { style: i.fields, className: "flexbox-fix" },
           be().createElement("div", { style: i.active }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: i.HEXwrap, input: i.HEXinput, label: i.HEXlabel },
             label: "hex",
             value: t,
             onChange: o,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: i.RGBwrap, input: i.RGBinput, label: i.RGBlabel },
             label: "r",
             value: n.r,
             onChange: o,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: i.RGBwrap, input: i.RGBinput, label: i.RGBlabel },
             label: "g",
             value: n.g,
             onChange: o,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: i.RGBwrap, input: i.RGBinput, label: i.RGBlabel },
             label: "b",
             value: n.b,
@@ -92531,7 +93483,7 @@
           })
         );
       };
-    var CM = function (e) {
+    var AM = function (e) {
       var t = e.onChange,
         n = e.onSwatchHover,
         r = e.colors,
@@ -92541,8 +93493,8 @@
         a = void 0 === s ? {} : s,
         l = e.className,
         c = void 0 === l ? "" : l,
-        u = (0, sT.ZP)(
-          TD(
+        u = (0, mT.ZP)(
+          BD(
             {
               default: {
                 Compact: { background: "#f6f6f6", radius: "4px" },
@@ -92559,10 +93511,10 @@
           )
         ),
         h = function (e, n) {
-          e.hex ? rA(e.hex) && t({ hex: e.hex, source: "hex" }, n) : t(e, n);
+          e.hex ? pA(e.hex) && t({ hex: e.hex, source: "hex" }, n) : t(e, n);
         };
       return be().createElement(
-        AD,
+        HD,
         { style: u.Compact, styles: a },
         be().createElement(
           "div",
@@ -92570,8 +93522,8 @@
           be().createElement(
             "div",
             null,
-            EP(r, function (e) {
-              return be().createElement(bM, {
+            MP(r, function (e) {
+              return be().createElement(_M, {
                 key: e,
                 color: e,
                 active: e.toLowerCase() === i,
@@ -92581,12 +93533,12 @@
             }),
             be().createElement("div", { style: u.clear })
           ),
-          be().createElement(wM, { hex: i, rgb: o, onChange: h })
+          be().createElement(DM, { hex: i, rgb: o, onChange: h })
         )
       );
     };
-    (CM.propTypes = { colors: Te().arrayOf(Te().string), styles: Te().object }),
-      (CM.defaultProps = {
+    (AM.propTypes = { colors: Te().arrayOf(Te().string), styles: Te().object }),
+      (AM.defaultProps = {
         colors: [
           "#4D4D4D",
           "#999999",
@@ -92627,8 +93579,8 @@
         ],
         styles: {},
       }),
-      lA(CM);
-    const SM = (0, sT.tz)(function (e) {
+      yA(AM);
+    const PM = (0, mT.tz)(function (e) {
       var t = e.hover,
         n = e.color,
         r = e.onClick,
@@ -92639,7 +93591,7 @@
           outline: "2px solid #fff",
           boxShadow: "0 0 5px 2px rgba(0,0,0,0.25)",
         },
-        s = (0, sT.ZP)(
+        s = (0, mT.ZP)(
           {
             default: {
               swatch: { width: "25px", height: "25px", fontSize: "0" },
@@ -92651,7 +93603,7 @@
       return be().createElement(
         "div",
         { style: s.swatch },
-        be().createElement(mA, {
+        be().createElement(EA, {
           color: n,
           onClick: r,
           onHover: i,
@@ -92659,7 +93611,7 @@
         })
       );
     });
-    var kM = function (e) {
+    var IM = function (e) {
       var t = e.width,
         n = e.colors,
         r = e.onChange,
@@ -92669,8 +93621,8 @@
         a = void 0 === s ? {} : s,
         l = e.className,
         c = void 0 === l ? "" : l,
-        u = (0, sT.ZP)(
-          TD(
+        u = (0, mT.ZP)(
+          BD(
             {
               default: {
                 card: {
@@ -92750,8 +93702,8 @@
         { style: u.card, className: "github-picker " + c },
         be().createElement("div", { style: u.triangleShadow }),
         be().createElement("div", { style: u.triangle }),
-        EP(n, function (e) {
-          return be().createElement(SM, {
+        MP(n, function (e) {
+          return be().createElement(PM, {
             color: e,
             key: e,
             onClick: h,
@@ -92760,7 +93712,7 @@
         })
       );
     };
-    (kM.propTypes = {
+    (IM.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       colors: Te().arrayOf(Te().string),
       triangle: Te().oneOf([
@@ -92772,7 +93724,7 @@
       ]),
       styles: Te().object,
     }),
-      (kM.defaultProps = {
+      (IM.defaultProps = {
         width: 200,
         colors: [
           "#B80000",
@@ -92795,8 +93747,8 @@
         triangle: "top-left",
         styles: {},
       }),
-      lA(kM);
-    var EM =
+      yA(IM);
+    var MM =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -92806,7 +93758,7 @@
           }
           return e;
         },
-      xM = function (e) {
+      OM = function (e) {
         var t = e.width,
           n = e.height,
           r = e.onChange,
@@ -92817,8 +93769,8 @@
           l = void 0 === a ? {} : a,
           c = e.className,
           u = void 0 === c ? "" : c,
-          h = (0, sT.ZP)(
-            TD(
+          h = (0, mT.ZP)(
+            BD(
               {
                 default: {
                   picker: { position: "relative", width: t, height: n },
@@ -92832,8 +93784,8 @@
           "div",
           { style: h.picker, className: "hue-picker " + u },
           be().createElement(
-            DT,
-            EM({}, h.hue, {
+            LT,
+            MM({}, h.hue, {
               hsl: i,
               pointer: s,
               onChange: function (e) {
@@ -92844,14 +93796,14 @@
           )
         );
       };
-    (xM.propTypes = { styles: Te().object }),
-      (xM.defaultProps = {
+    (OM.propTypes = { styles: Te().object }),
+      (OM.defaultProps = {
         width: "316px",
         height: "16px",
         direction: "horizontal",
         pointer: function (e) {
           var t = e.direction,
-            n = (0, sT.ZP)(
+            n = (0, mT.ZP)(
               {
                 default: {
                   picker: {
@@ -92871,8 +93823,8 @@
         },
         styles: {},
       }),
-      lA(xM),
-      lA(function (e) {
+      yA(OM),
+      yA(function (e) {
         var t = e.onChange,
           n = e.hex,
           r = e.rgb,
@@ -92880,8 +93832,8 @@
           o = void 0 === i ? {} : i,
           s = e.className,
           a = void 0 === s ? "" : s,
-          l = (0, sT.ZP)(
-            TD(
+          l = (0, mT.ZP)(
+            BD(
               {
                 default: {
                   material: {
@@ -92944,7 +93896,7 @@
           ),
           c = function (e, n) {
             e.hex
-              ? rA(e.hex) && t({ hex: e.hex, source: "hex" }, n)
+              ? pA(e.hex) && t({ hex: e.hex, source: "hex" }, n)
               : (e.r || e.g || e.b) &&
                 t(
                   {
@@ -92957,12 +93909,12 @@
                 );
           };
         return be().createElement(
-          AD,
+          HD,
           { styles: o },
           be().createElement(
             "div",
             { style: l.material, className: "material-picker " + a },
-            be().createElement(kT, {
+            be().createElement(IT, {
               style: { wrap: l.HEXwrap, input: l.HEXinput, label: l.HEXlabel },
               label: "hex",
               value: n,
@@ -92974,7 +93926,7 @@
               be().createElement(
                 "div",
                 { style: l.third },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: {
                     wrap: l.RGBwrap,
                     input: l.RGBinput,
@@ -92988,7 +93940,7 @@
               be().createElement(
                 "div",
                 { style: l.third },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: {
                     wrap: l.RGBwrap,
                     input: l.RGBinput,
@@ -93002,7 +93954,7 @@
               be().createElement(
                 "div",
                 { style: l.third },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: {
                     wrap: l.RGBwrap,
                     input: l.RGBinput,
@@ -93017,12 +93969,12 @@
           )
         );
       });
-    const RM = function (e) {
+    const NM = function (e) {
         var t = e.onChange,
           n = e.rgb,
           r = e.hsv,
           i = e.hex,
-          o = (0, sT.ZP)({
+          o = (0, mT.ZP)({
             default: {
               fields: {
                 paddingTop: "5px",
@@ -93089,7 +94041,7 @@
           }),
           s = function (e, i) {
             e["#"]
-              ? rA(e["#"]) && t({ hex: e["#"], source: "hex" }, i)
+              ? pA(e["#"]) && t({ hex: e["#"], source: "hex" }, i)
               : e.r || e.g || e.b
               ? t(
                   {
@@ -93114,45 +94066,45 @@
         return be().createElement(
           "div",
           { style: o.fields },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "h",
             value: Math.round(r.h),
             onChange: s,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "s",
             value: Math.round(100 * r.s),
             onChange: s,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "v",
             value: Math.round(100 * r.v),
             onChange: s,
           }),
           be().createElement("div", { style: o.divider }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "r",
             value: n.r,
             onChange: s,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "g",
             value: n.g,
             onChange: s,
           }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.RGBwrap, input: o.RGBinput, label: o.RGBlabel },
             label: "b",
             value: n.b,
             onChange: s,
           }),
           be().createElement("div", { style: o.divider }),
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { wrap: o.HEXwrap, input: o.HEXinput, label: o.HEXlabel },
             label: "#",
             value: i.replace("#", ""),
@@ -93167,9 +94119,9 @@
           )
         );
       },
-      TM = function (e) {
+      BM = function (e) {
         var t = e.hsl,
-          n = (0, sT.ZP)(
+          n = (0, mT.ZP)(
             {
               default: {
                 picker: {
@@ -93188,8 +94140,8 @@
           );
         return be().createElement("div", { style: n.picker });
       },
-      _M = function () {
-        var e = (0, sT.ZP)({
+      FM = function () {
+        var e = (0, mT.ZP)({
           default: {
             triangle: {
               width: 0,
@@ -93241,12 +94193,12 @@
           )
         );
       },
-      DM = function (e) {
+      LM = function (e) {
         var t = e.onClick,
           n = e.label,
           r = e.children,
           i = e.active,
-          o = (0, sT.ZP)(
+          o = (0, mT.ZP)(
             {
               default: {
                 button: {
@@ -93274,10 +94226,10 @@
           n || r
         );
       },
-      AM = function (e) {
+      HM = function (e) {
         var t = e.rgb,
           n = e.currentColor,
-          r = (0, sT.ZP)({
+          r = (0, mT.ZP)({
             default: {
               swatches: {
                 border: "1px solid #B3B3B3",
@@ -93313,7 +94265,7 @@
           be().createElement("div", { style: r.label }, "current")
         );
       };
-    var PM = (function () {
+    var UM = (function () {
         function e(e, t) {
           for (var n = 0; n < t.length; n++) {
             var r = t[n];
@@ -93327,7 +94279,7 @@
           return n && e(t.prototype, n), r && e(t, r), t;
         };
       })(),
-      IM = (function (e) {
+      zM = (function (e) {
         function t(e) {
           !(function (e, t) {
             if (!(e instanceof t))
@@ -93364,7 +94316,7 @@
                   ? Object.setPrototypeOf(e, t)
                   : (e.__proto__ = t));
           })(t, e),
-          PM(t, [
+          UM(t, [
             {
               key: "render",
               value: function () {
@@ -93373,8 +94325,8 @@
                   n = void 0 === t ? {} : t,
                   r = e.className,
                   i = void 0 === r ? "" : r,
-                  o = (0, sT.ZP)(
-                    TD(
+                  o = (0, mT.ZP)(
+                    BD(
                       {
                         default: {
                           picker: {
@@ -93438,20 +94390,20 @@
                     be().createElement(
                       "div",
                       { style: o.saturation },
-                      be().createElement(GD, {
+                      be().createElement(tA, {
                         hsl: this.props.hsl,
                         hsv: this.props.hsv,
-                        pointer: TM,
+                        pointer: BM,
                         onChange: this.props.onChange,
                       })
                     ),
                     be().createElement(
                       "div",
                       { style: o.hue },
-                      be().createElement(DT, {
+                      be().createElement(LT, {
                         direction: "vertical",
                         hsl: this.props.hsl,
-                        pointer: _M,
+                        pointer: FM,
                         onChange: this.props.onChange,
                       })
                     ),
@@ -93464,7 +94416,7 @@
                         be().createElement(
                           "div",
                           { style: o.previews },
-                          be().createElement(AM, {
+                          be().createElement(HM, {
                             rgb: this.props.rgb,
                             currentColor: this.state.currentColor,
                           })
@@ -93472,16 +94424,16 @@
                         be().createElement(
                           "div",
                           { style: o.actions },
-                          be().createElement(DM, {
+                          be().createElement(LM, {
                             label: "OK",
                             onClick: this.props.onAccept,
                             active: !0,
                           }),
-                          be().createElement(DM, {
+                          be().createElement(LM, {
                             label: "Cancel",
                             onClick: this.props.onCancel,
                           }),
-                          be().createElement(RM, {
+                          be().createElement(NM, {
                             onChange: this.props.onChange,
                             rgb: this.props.rgb,
                             hsv: this.props.hsv,
@@ -93498,16 +94450,16 @@
           t
         );
       })(be().Component);
-    (IM.propTypes = { header: Te().string, styles: Te().object }),
-      (IM.defaultProps = { header: "Color Picker", styles: {} }),
-      lA(IM);
-    const MM = function (e) {
+    (zM.propTypes = { header: Te().string, styles: Te().object }),
+      (zM.defaultProps = { header: "Color Picker", styles: {} }),
+      yA(zM);
+    const WM = function (e) {
       var t = e.onChange,
         n = e.rgb,
         r = e.hsl,
         i = e.hex,
         o = e.disableAlpha,
-        s = (0, sT.ZP)(
+        s = (0, mT.ZP)(
           {
             default: {
               fields: { display: "flex", paddingTop: "4px" },
@@ -93537,7 +94489,7 @@
         ),
         a = function (e, i) {
           e.hex
-            ? rA(e.hex) && t({ hex: e.hex, source: "hex" }, i)
+            ? pA(e.hex) && t({ hex: e.hex, source: "hex" }, i)
             : e.r || e.g || e.b
             ? t(
                 {
@@ -93560,7 +94512,7 @@
         be().createElement(
           "div",
           { style: s.double },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { input: s.input, label: s.label },
             label: "hex",
             value: i.replace("#", ""),
@@ -93570,7 +94522,7 @@
         be().createElement(
           "div",
           { style: s.single },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { input: s.input, label: s.label },
             label: "r",
             value: n.r,
@@ -93582,7 +94534,7 @@
         be().createElement(
           "div",
           { style: s.single },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { input: s.input, label: s.label },
             label: "g",
             value: n.g,
@@ -93594,7 +94546,7 @@
         be().createElement(
           "div",
           { style: s.single },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { input: s.input, label: s.label },
             label: "b",
             value: n.b,
@@ -93606,7 +94558,7 @@
         be().createElement(
           "div",
           { style: s.alpha },
-          be().createElement(kT, {
+          be().createElement(IT, {
             style: { input: s.input, label: s.label },
             label: "a",
             value: Math.round(100 * n.a),
@@ -93617,7 +94569,7 @@
         )
       );
     };
-    var OM =
+    var jM =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -93627,12 +94579,12 @@
           }
           return e;
         },
-      NM = function (e) {
+      $M = function (e) {
         var t = e.colors,
           n = e.onClick,
           r = void 0 === n ? function () {} : n,
           i = e.onSwatchHover,
-          o = (0, sT.ZP)(
+          o = (0, mT.ZP)(
             {
               default: {
                 colors: {
@@ -93670,8 +94622,8 @@
               "div",
               { key: n, style: o.swatchWrap },
               be().createElement(
-                mA,
-                OM({}, t, {
+                EA,
+                jM({}, t, {
                   style: o.swatch,
                   onClick: s,
                   onHover: i,
@@ -93685,7 +94637,7 @@
           })
         );
       };
-    NM.propTypes = {
+    $M.propTypes = {
       colors: Te().arrayOf(
         Te().oneOfType([
           Te().string,
@@ -93693,8 +94645,8 @@
         ])
       ).isRequired,
     };
-    const BM = NM;
-    var FM =
+    const qM = $M;
+    var GM =
         Object.assign ||
         function (e) {
           for (var t = 1; t < arguments.length; t++) {
@@ -93704,7 +94656,7 @@
           }
           return e;
         },
-      LM = function (e) {
+      VM = function (e) {
         var t = e.width,
           n = e.rgb,
           r = e.hex,
@@ -93719,10 +94671,10 @@
           p = void 0 === h ? {} : h,
           d = e.className,
           f = void 0 === d ? "" : d,
-          m = (0, sT.ZP)(
-            TD(
+          m = (0, mT.ZP)(
+            BD(
               {
-                default: FM(
+                default: GM(
                   {
                     picker: {
                       width: t,
@@ -93802,7 +94754,7 @@
           be().createElement(
             "div",
             { style: m.saturation },
-            be().createElement(GD, {
+            be().createElement(tA, {
               style: m.Saturation,
               hsl: o,
               hsv: i,
@@ -93818,12 +94770,12 @@
               be().createElement(
                 "div",
                 { style: m.hue },
-                be().createElement(DT, { style: m.Hue, hsl: o, onChange: s })
+                be().createElement(LT, { style: m.Hue, hsl: o, onChange: s })
               ),
               be().createElement(
                 "div",
                 { style: m.alpha },
-                be().createElement(vT, {
+                be().createElement(TT, {
                   style: m.Alpha,
                   rgb: n,
                   hsl: o,
@@ -93835,26 +94787,26 @@
             be().createElement(
               "div",
               { style: m.color },
-              be().createElement(pT, null),
+              be().createElement(CT, null),
               be().createElement("div", { style: m.activeColor })
             )
           ),
-          be().createElement(MM, {
+          be().createElement(WM, {
             rgb: n,
             hsl: o,
             hex: r,
             onChange: s,
             disableAlpha: l,
           }),
-          be().createElement(BM, { colors: c, onClick: s, onSwatchHover: a })
+          be().createElement(qM, { colors: c, onClick: s, onSwatchHover: a })
         );
       };
-    (LM.propTypes = {
+    (VM.propTypes = {
       disableAlpha: Te().bool,
       width: Te().oneOfType([Te().string, Te().number]),
       styles: Te().object,
     }),
-      (LM.defaultProps = {
+      (VM.defaultProps = {
         disableAlpha: !1,
         width: 200,
         styles: {},
@@ -93876,8 +94828,8 @@
           "#FFFFFF",
         ],
       });
-    const HM = lA(LM),
-      UM = function (e) {
+    const KM = yA(VM),
+      YM = function (e) {
         var t = e.hsl,
           n = e.offset,
           r = e.onClick,
@@ -93885,7 +94837,7 @@
           o = e.active,
           s = e.first,
           a = e.last,
-          l = (0, sT.ZP)(
+          l = (0, mT.ZP)(
             {
               default: {
                 swatch: {
@@ -93909,10 +94861,10 @@
           },
         });
       },
-      zM = function (e) {
+      ZM = function (e) {
         var t = e.onClick,
           n = e.hsl,
-          r = (0, sT.ZP)({
+          r = (0, mT.ZP)({
             default: {
               swatches: { marginTop: "20px" },
               swatch: {
@@ -93931,7 +94883,7 @@
           be().createElement(
             "div",
             { style: r.swatch },
-            be().createElement(UM, {
+            be().createElement(YM, {
               hsl: n,
               offset: ".80",
               active: Math.abs(n.l - 0.8) < i && Math.abs(n.s - 0.5) < i,
@@ -93942,7 +94894,7 @@
           be().createElement(
             "div",
             { style: r.swatch },
-            be().createElement(UM, {
+            be().createElement(YM, {
               hsl: n,
               offset: ".65",
               active: Math.abs(n.l - 0.65) < i && Math.abs(n.s - 0.5) < i,
@@ -93952,7 +94904,7 @@
           be().createElement(
             "div",
             { style: r.swatch },
-            be().createElement(UM, {
+            be().createElement(YM, {
               hsl: n,
               offset: ".50",
               active: Math.abs(n.l - 0.5) < i && Math.abs(n.s - 0.5) < i,
@@ -93962,7 +94914,7 @@
           be().createElement(
             "div",
             { style: r.swatch },
-            be().createElement(UM, {
+            be().createElement(YM, {
               hsl: n,
               offset: ".35",
               active: Math.abs(n.l - 0.35) < i && Math.abs(n.s - 0.5) < i,
@@ -93972,7 +94924,7 @@
           be().createElement(
             "div",
             { style: r.swatch },
-            be().createElement(UM, {
+            be().createElement(YM, {
               hsl: n,
               offset: ".20",
               active: Math.abs(n.l - 0.2) < i && Math.abs(n.s - 0.5) < i,
@@ -93983,7 +94935,7 @@
           be().createElement("div", { style: r.clear })
         );
       };
-    var WM = function (e) {
+    var XM = function (e) {
       var t = e.hsl,
         n = e.onChange,
         r = e.pointer,
@@ -93991,8 +94943,8 @@
         o = void 0 === i ? {} : i,
         s = e.className,
         a = void 0 === s ? "" : s,
-        l = (0, sT.ZP)(
-          TD(
+        l = (0, mT.ZP)(
+          BD(
             {
               default: {
                 hue: { height: "12px", position: "relative" },
@@ -94008,7 +94960,7 @@
         be().createElement(
           "div",
           { style: l.hue },
-          be().createElement(DT, {
+          be().createElement(LT, {
             style: l.Hue,
             hsl: t,
             pointer: r,
@@ -94018,14 +94970,14 @@
         be().createElement(
           "div",
           { style: l.swatches },
-          be().createElement(zM, { hsl: t, onClick: n })
+          be().createElement(ZM, { hsl: t, onClick: n })
         )
       );
     };
-    (WM.propTypes = { styles: Te().object }),
-      (WM.defaultProps = {
+    (XM.propTypes = { styles: Te().object }),
+      (XM.defaultProps = {
         pointer: function () {
-          var e = (0, sT.ZP)({
+          var e = (0, mT.ZP)({
             default: {
               picker: {
                 width: "14px",
@@ -94041,9 +94993,9 @@
         },
         styles: {},
       }),
-      lA(WM);
-    var jM = n(2172);
-    const $M = function (e) {
+      yA(XM);
+    var JM = n(2172);
+    const QM = function (e) {
         var t = e.color,
           n = e.onClick,
           r = void 0 === n ? function () {} : n,
@@ -94051,7 +95003,7 @@
           o = e.first,
           s = e.last,
           a = e.active,
-          l = (0, sT.ZP)(
+          l = (0, mT.ZP)(
             {
               default: {
                 color: {
@@ -94061,7 +95013,7 @@
                   background: t,
                   marginBottom: "1px",
                 },
-                check: { color: iA(t), marginLeft: "8px", display: "none" },
+                check: { color: dA(t), marginLeft: "8px", display: "none" },
               },
               first: {
                 color: { overflow: "hidden", borderRadius: "2px 2px 0 0" },
@@ -94085,7 +95037,7 @@
             }
           );
         return be().createElement(
-          mA,
+          EA,
           {
             color: t,
             style: l.color,
@@ -94096,16 +95048,16 @@
           be().createElement(
             "div",
             { style: l.check },
-            be().createElement(jM.Z, null)
+            be().createElement(JM.Z, null)
           )
         );
       },
-      qM = function (e) {
+      eO = function (e) {
         var t = e.onClick,
           n = e.onSwatchHover,
           r = e.group,
           i = e.active,
-          o = (0, sT.ZP)({
+          o = (0, mT.ZP)({
             default: {
               group: {
                 paddingBottom: "10px",
@@ -94118,8 +95070,8 @@
         return be().createElement(
           "div",
           { style: o.group },
-          EP(r, function (e, o) {
-            return be().createElement($M, {
+          MP(r, function (e, o) {
+            return be().createElement(QM, {
               key: e,
               color: e,
               active: e.toLowerCase() === i,
@@ -94131,7 +95083,7 @@
           })
         );
       };
-    var GM = function (e) {
+    var tO = function (e) {
       var t = e.width,
         n = e.height,
         r = e.onChange,
@@ -94142,8 +95094,8 @@
         l = void 0 === a ? {} : a,
         c = e.className,
         u = void 0 === c ? "" : c,
-        h = (0, sT.ZP)(
-          TD(
+        h = (0, mT.ZP)(
+          BD(
             {
               default: {
                 picker: { width: t, height: n },
@@ -94162,7 +95114,7 @@
         "div",
         { style: h.picker, className: "swatches-picker " + u },
         be().createElement(
-          AD,
+          HD,
           null,
           be().createElement(
             "div",
@@ -94170,8 +95122,8 @@
             be().createElement(
               "div",
               { style: h.body },
-              EP(o, function (e) {
-                return be().createElement(qM, {
+              MP(o, function (e) {
+                return be().createElement(eO, {
                   key: e.toString(),
                   group: e,
                   active: s,
@@ -94185,40 +95137,40 @@
         )
       );
     };
-    (GM.propTypes = {
+    (tO.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       height: Te().oneOfType([Te().string, Te().number]),
       colors: Te().arrayOf(Te().arrayOf(Te().string)),
       styles: Te().object,
     }),
-      (GM.defaultProps = {
+      (tO.defaultProps = {
         width: 320,
         height: 240,
         colors: [
-          [PP, AP, DP, _P, TP],
-          [BP, NP, OP, MP, IP],
-          [zP, UP, HP, LP, FP],
-          [GP, qP, $P, jP, WP],
-          [XP, ZP, YP, KP, VP],
-          [nI, tI, eI, QP, JP],
-          [aI, sI, oI, iI, rI],
-          [pI, hI, uI, cI, lI],
-          [yI, gI, mI, fI, dI],
-          ["#194D33", CI, wI, bI, vI],
+          [UP, HP, LP, FP, BP],
+          [qP, $P, jP, WP, zP],
+          [ZP, YP, KP, VP, GP],
+          [tI, eI, QP, JP, XP],
+          [sI, oI, iI, rI, nI],
+          [hI, uI, cI, lI, aI],
+          [gI, mI, fI, dI, pI],
+          [CI, wI, bI, vI, yI],
           [RI, xI, EI, kI, SI],
-          [PI, AI, DI, _I, TI],
-          [BI, NI, OI, MI, II],
-          [zI, UI, HI, LI, FI],
-          [GI, qI, $I, jI, WI],
-          [XI, ZI, YI, KI, VI],
-          [nM, tM, eM, QI, JI],
-          [aM, sM, oM, iM, rM],
+          ["#194D33", AI, DI, _I, TI],
+          [NI, OI, MI, II, PI],
+          [UI, HI, LI, FI, BI],
+          [qI, $I, jI, WI, zI],
+          [ZI, YI, KI, VI, GI],
+          [tM, eM, QI, JI, XI],
+          [sM, oM, iM, rM, nM],
+          [hM, uM, cM, lM, aM],
+          [gM, mM, fM, dM, pM],
           ["#000000", "#525252", "#969696", "#D9D9D9", "#FFFFFF"],
         ],
         styles: {},
       }),
-      lA(GM);
-    var VM = function (e) {
+      yA(tO);
+    var nO = function (e) {
       var t = e.onChange,
         n = e.onSwatchHover,
         r = e.hex,
@@ -94229,8 +95181,8 @@
         l = void 0 === a ? {} : a,
         c = e.className,
         u = void 0 === c ? "" : c,
-        h = (0, sT.ZP)(
-          TD(
+        h = (0, mT.ZP)(
+          BD(
             {
               default: {
                 card: {
@@ -94315,7 +95267,7 @@
           }
         ),
         p = function (e, n) {
-          rA(e) && t({ hex: e, source: "hex" }, n);
+          pA(e) && t({ hex: e, source: "hex" }, n);
         };
       return be().createElement(
         "div",
@@ -94325,8 +95277,8 @@
         be().createElement(
           "div",
           { style: h.body },
-          EP(i, function (e, t) {
-            return be().createElement(mA, {
+          MP(i, function (e, t) {
+            return be().createElement(EA, {
               key: t,
               color: e,
               hex: e,
@@ -94337,7 +95289,7 @@
             });
           }),
           be().createElement("div", { style: h.hash }, "#"),
-          be().createElement(kT, {
+          be().createElement(IT, {
             label: null,
             style: { input: h.input },
             value: r.replace("#", ""),
@@ -94347,13 +95299,13 @@
         )
       );
     };
-    (VM.propTypes = {
+    (nO.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       triangle: Te().oneOf(["hide", "top-left", "top-right"]),
       colors: Te().arrayOf(Te().string),
       styles: Te().object,
     }),
-      (VM.defaultProps = {
+      (nO.defaultProps = {
         width: 276,
         colors: [
           "#FF6900",
@@ -94370,9 +95322,9 @@
         triangle: "top-left",
         styles: {},
       }),
-      lA(VM);
-    var KM = function (e) {
-      var t = (0, sT.ZP)({
+      yA(nO);
+    var rO = function (e) {
+      var t = (0, mT.ZP)({
         default: {
           picker: {
             width: "20px",
@@ -94393,7 +95345,7 @@
       });
       return be().createElement("div", { style: t.picker });
     };
-    (KM.propTypes = {
+    (rO.propTypes = {
       hsl: Te().shape({
         h: Te().number,
         s: Te().number,
@@ -94401,10 +95353,10 @@
         a: Te().number,
       }),
     }),
-      (KM.defaultProps = { hsl: { a: 1, h: 249.94, l: 0.2, s: 0.5 } });
-    const YM = KM;
-    var ZM = function (e) {
-      var t = (0, sT.ZP)({
+      (rO.defaultProps = { hsl: { a: 1, h: 249.94, l: 0.2, s: 0.5 } });
+    const iO = rO;
+    var oO = function (e) {
+      var t = (0, mT.ZP)({
         default: {
           picker: {
             width: "20px",
@@ -94418,7 +95370,7 @@
       });
       return be().createElement("div", { style: t.picker });
     };
-    (ZM.propTypes = {
+    (oO.propTypes = {
       hsl: Te().shape({
         h: Te().number,
         s: Te().number,
@@ -94426,23 +95378,23 @@
         a: Te().number,
       }),
     }),
-      (ZM.defaultProps = { hsl: { a: 1, h: 249.94, l: 0.2, s: 0.5 } });
-    const XM = ZM,
-      JM = function (e) {
+      (oO.defaultProps = { hsl: { a: 1, h: 249.94, l: 0.2, s: 0.5 } });
+    const sO = oO,
+      aO = function (e) {
         var t = e.onChange,
           n = e.rgb,
           r = e.hsl,
           i = e.hex,
           o = e.hsv,
           s = function (e, n) {
-            if (e.hex) rA(e.hex) && t({ hex: e.hex, source: "hex" }, n);
+            if (e.hex) pA(e.hex) && t({ hex: e.hex, source: "hex" }, n);
             else if (e.rgb) {
               var r = e.rgb.split(",");
-              oA(e.rgb, "rgb") &&
+              fA(e.rgb, "rgb") &&
                 t({ r: r[0], g: r[1], b: r[2], a: 1, source: "rgb" }, n);
             } else if (e.hsv) {
               var i = e.hsv.split(",");
-              oA(e.hsv, "hsv") &&
+              fA(e.hsv, "hsv") &&
                 ((i[2] = i[2].replace("%", "")),
                 (i[1] = i[1].replace("%", "")),
                 (i[0] = i[0].replace("°", "")),
@@ -94458,7 +95410,7 @@
                 ));
             } else if (e.hsl) {
               var o = e.hsl.split(",");
-              oA(e.hsl, "hsl") &&
+              fA(e.hsl, "hsl") &&
                 ((o[2] = o[2].replace("%", "")),
                 (o[1] = o[1].replace("%", "")),
                 (o[0] = o[0].replace("°", "")),
@@ -94474,7 +95426,7 @@
                 ));
             }
           },
-          a = (0, sT.ZP)({
+          a = (0, mT.ZP)({
             default: {
               wrap: { display: "flex", height: "100px", marginTop: "4px" },
               fields: { width: "100%" },
@@ -94563,7 +95515,7 @@
             be().createElement(
               "div",
               { style: a.double },
-              be().createElement(kT, {
+              be().createElement(IT, {
                 style: { input: a.input, label: a.label },
                 label: "hex",
                 value: i,
@@ -94576,7 +95528,7 @@
               be().createElement(
                 "div",
                 { style: a.single },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: { input: a.input2, label: a.label2 },
                   label: "rgb",
                   value: l,
@@ -94586,7 +95538,7 @@
               be().createElement(
                 "div",
                 { style: a.single },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: { input: a.input2, label: a.label2 },
                   label: "hsv",
                   value: u,
@@ -94596,7 +95548,7 @@
               be().createElement(
                 "div",
                 { style: a.single },
-                be().createElement(kT, {
+                be().createElement(IT, {
                   style: { input: a.input2, label: a.label2 },
                   label: "hsl",
                   value: c,
@@ -94607,7 +95559,7 @@
           )
         );
       };
-    var QM = function (e) {
+    var lO = function (e) {
       var t = e.width,
         n = e.onChange,
         r = e.rgb,
@@ -94619,8 +95571,8 @@
         c = void 0 === l ? {} : l,
         u = e.className,
         h = void 0 === u ? "" : u,
-        p = (0, sT.ZP)(
-          TD(
+        p = (0, mT.ZP)(
+          BD(
             {
               default: {
                 picker: {
@@ -94684,7 +95636,7 @@
         be().createElement(
           "div",
           { style: p.saturation },
-          be().createElement(GD, { hsl: i, hsv: o, pointer: YM, onChange: n })
+          be().createElement(tA, { hsl: i, hsv: o, pointer: iO, onChange: n })
         ),
         be().createElement(
           "div",
@@ -94695,16 +95647,16 @@
             be().createElement(
               "div",
               { style: p.hue },
-              be().createElement(DT, {
+              be().createElement(LT, {
                 style: p.Hue,
                 hsl: i,
                 radius: "4px",
-                pointer: XM,
+                pointer: sO,
                 onChange: n,
               })
             )
           ),
-          be().createElement(JM, {
+          be().createElement(aO, {
             rgb: r,
             hsl: i,
             hex: s,
@@ -94714,7 +95666,7 @@
         )
       );
     };
-    function eO(e) {
+    function cO(e) {
       let t = !1;
       "#" === e[0] && ((e = e.slice(1)), (t = !0));
       const n = parseInt(e, 16);
@@ -94725,24 +95677,24 @@
         usePound: t,
       };
     }
-    function tO(e) {
+    function uO(e) {
       return e > 255 ? 255 : e < 0 ? 0 : e;
     }
-    function nO(e, t) {
-      const n = eO(e),
-        r = tO(n.red + t),
-        i = tO(n.blue + t),
-        o = (tO(n.green + t) | (i << 8) | (r << 16)).toString(16);
+    function hO(e, t) {
+      const n = cO(e),
+        r = uO(n.red + t),
+        i = uO(n.blue + t),
+        o = (uO(n.green + t) | (i << 8) | (r << 16)).toString(16);
       return (n.usePound ? "#" : "") + o;
     }
-    (QM.propTypes = {
+    (lO.propTypes = {
       width: Te().oneOfType([Te().string, Te().number]),
       styles: Te().object,
       header: Te().string,
     }),
-      (QM.defaultProps = { width: 652, styles: {}, header: "Color picker" }),
-      lA(QM);
-    const rO = {
+      (lO.defaultProps = { width: 652, styles: {}, header: "Color picker" }),
+      yA(lO);
+    const pO = {
       [Zn.HighContrast]: {
         background: "#090c11",
         border: "#7a828e",
@@ -94751,7 +95703,7 @@
         activeText: "#090c11",
       },
     };
-    class iO extends ve.Component {
+    class dO extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -94762,10 +95714,10 @@
             popoverLeft: "275px",
           });
       }
-      isCustom = () => this.props.selectedTheme === Zn.HighContrast && no();
+      isCustom = () => this.props.selectedTheme === Zn.HighContrast && ho();
       getDefaultCustomTheme = () => {
         const { customTheme: e } = this.props,
-          t = void 0 === e ? rO[Zn.HighContrast] : e;
+          t = void 0 === e ? pO[Zn.HighContrast] : e;
         return void 0 === e && this.props.onCustomThemeChanged(t), t;
       };
       onThemeChange = (e) => {
@@ -94803,8 +95755,8 @@
           this.openPopover();
       };
       onResetToDefaults = () => {
-        this.setState({ customTheme: rO[Zn.HighContrast] }),
-          this.props.onCustomThemeChanged(rO[Zn.HighContrast]);
+        this.setState({ customTheme: pO[Zn.HighContrast] }),
+          this.props.onCustomThemeChanged(pO[Zn.HighContrast]);
       };
       renderPopover() {
         if (null === this.state || !this.state.isPopoverOpen) return;
@@ -94819,7 +95771,7 @@
         return ve.createElement(
           "div",
           { className: "color-picker-container", style: e },
-          ve.createElement(HM, {
+          ve.createElement(KM, {
             color: this.state.customTheme[this.state.selectedThemeOptionColor],
             onChangeComplete: this.onThemeChange,
           })
@@ -94865,12 +95817,12 @@
                 { className: "custom-theme-selecter-header" },
                 ve.createElement("h2", null, "Customize:"),
                 ve.createElement(
-                  Yb,
+                  Qb,
                   {
                     onClick: this.onResetToDefaults,
                     tooltip: "Reset to High Contrast defaults",
                   },
-                  ve.createElement(Tv, { symbol: Nv })
+                  ve.createElement(Av, { symbol: Lv })
                 )
               ),
               ve.createElement(
@@ -94883,12 +95835,12 @@
           : null;
       }
     }
-    const oO = {
+    const fO = {
         title: "跟随系统",
         description: "跟随系统自动切换主题",
         key: Zn.System,
       },
-      sO = [
+      mO = [
         {
           title: "亮色主题",
           description: "GitHub Desktop 的默认主题",
@@ -94899,7 +95851,7 @@
           description: "GitHub Desktop 黑夜模式",
           key: Zn.Dark,
         },
-        ...(no()
+        ...(ho()
           ? [
               {
                 title: "高对比度",
@@ -94908,9 +95860,9 @@
               },
             ]
           : []),
-        ...(rr() ? [oO] : []),
+        ...(rr() ? [fO] : []),
       ];
-    class aO extends ve.Component {
+    class gO extends ve.Component {
       constructor(e) {
         super(e);
         const t = e.selectedTheme !== Zn.System || rr();
@@ -94939,26 +95891,26 @@
         const { selectedTheme: e } = this.state;
         return null == e
           ? ve.createElement(
-              Jw,
+              rC,
               null,
-              ve.createElement(Ub, null, "加载系统主题")
+              ve.createElement($b, null, "加载系统主题")
             )
           : ve.createElement(
-              Jw,
+              rC,
               null,
               ve.createElement(
-                Ub,
+                $b,
                 null,
-                ve.createElement(oT, {
-                  items: sO,
+                ve.createElement(fT, {
+                  items: mO,
                   selectedKey: e,
                   onSelectionChanged: this.onSelectedThemeChanged,
                 })
               ),
               ve.createElement(
-                Ub,
+                $b,
                 null,
-                ve.createElement(iO, {
+                ve.createElement(dO, {
                   onCustomThemeChanged: this.onCustomThemeChanged,
                   selectedTheme: e,
                   customTheme: this.props.customTheme,
@@ -94967,7 +95919,7 @@
             );
       }
     }
-    class lO extends ve.Component {
+    class yO extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -95013,11 +95965,11 @@
                 null,
                 "找不到编辑器。",
                 " ",
-                ve.createElement(Lb, { uri: oi }, "安装 ", ii, "?")
+                ve.createElement(Hw, { uri: oi }, "安装 ", ii, "?")
               )
             )
           : ve.createElement(
-              Lw,
+              jw,
               {
                 label: n,
                 value: t || void 0,
@@ -95029,7 +95981,7 @@
       renderSelectedShell() {
         const e = this.props.availableShells;
         return ve.createElement(
-          Lw,
+          jw,
           {
             label: "Shell",
             value: this.state.selectedShell,
@@ -95040,15 +95992,15 @@
       }
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement("h2", null, "应用"),
-          ve.createElement(Ub, null, this.renderExternalEditor()),
-          ve.createElement(Ub, null, this.renderSelectedShell())
+          ve.createElement($b, null, this.renderExternalEditor()),
+          ve.createElement($b, null, this.renderSelectedShell())
         );
       }
     }
-    class cO extends ve.Component {
+    class vO extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -95081,37 +96033,37 @@
       };
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement("h2", null, "在之前显示确认对话框..."),
-          ve.createElement(nw, {
+          ve.createElement(sw, {
             label: "删除仓库",
-            value: this.state.confirmRepositoryRemoval ? tw.On : tw.Off,
+            value: this.state.confirmRepositoryRemoval ? ow.On : ow.Off,
             onChange: this.onConfirmRepositoryRemovalChanged,
           }),
-          ve.createElement(nw, {
+          ve.createElement(sw, {
             label: "放弃更改",
-            value: this.state.confirmDiscardChanges ? tw.On : tw.Off,
+            value: this.state.confirmDiscardChanges ? ow.On : ow.Off,
             onChange: this.onConfirmDiscardChangesChanged,
           }),
-          ve.createElement(nw, {
+          ve.createElement(sw, {
             label: "永久放弃更改",
-            value: this.state.confirmDiscardChangesPermanently ? tw.On : tw.Off,
+            value: this.state.confirmDiscardChangesPermanently ? ow.On : ow.Off,
             onChange: this.onConfirmDiscardChangesPermanentlyChanged,
           }),
-          ve.createElement(nw, {
+          ve.createElement(sw, {
             label: "强制推送",
-            value: this.state.confirmForcePush ? tw.On : tw.Off,
+            value: this.state.confirmForcePush ? ow.On : ow.Off,
             onChange: this.onConfirmForcePushChanged,
           })
         );
       }
     }
-    class uO extends ve.Component {
+    class bO extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
-            selectedIndex: this.props.initialSelectedTab || mv.Accounts,
+            selectedIndex: this.props.initialSelectedTab || vv.Accounts,
             committerName: "",
             committerEmail: "",
             defaultBranch: "",
@@ -95170,10 +96122,10 @@
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "preferences",
-            title: "选项",
+            title: "Options",
             onDismissed: this.props.onDismissed,
             onSubmit: this.onSave,
           },
@@ -95182,47 +96134,47 @@
             { className: "preferences-container" },
             this.renderDisallowedCharactersError(),
             ve.createElement(
-              Xw,
+              nC,
               {
                 onTabClicked: this.onTabClicked,
                 selectedIndex: this.state.selectedIndex,
-                type: Yw.Vertical,
+                type: eC.Vertical,
               },
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: qu }),
-                "帐户"
+                ve.createElement(Av, { className: "icon", symbol: Gu }),
+                "Accounts"
               ),
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: th }),
-                "整合"
+                ve.createElement(Av, { className: "icon", symbol: nh }),
+                "Integrations"
               ),
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: zu }),
+                ve.createElement(Av, { className: "icon", symbol: Wu }),
                 "Git"
               ),
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: eh }),
-                "主题"
+                ve.createElement(Av, { className: "icon", symbol: th }),
+                "Appearance"
               ),
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: rh }),
-                "提示"
+                ve.createElement(Av, { className: "icon", symbol: ih }),
+                "Prompts"
               ),
               ve.createElement(
                 "span",
                 null,
-                ve.createElement(Tv, { className: "icon", symbol: ah }),
-                "高级"
+                ve.createElement(Av, { className: "icon", symbol: lh }),
+                "Advanced"
               )
             ),
             this.renderActiveTab()
@@ -95243,14 +96195,14 @@
       };
       renderDisallowedCharactersError() {
         const e = this.state.disallowedCharactersMessage;
-        return null != e ? ve.createElement(tC, null, e) : null;
+        return null != e ? ve.createElement(sC, null, e) : null;
       }
       renderActiveTab() {
         const e = this.state.selectedIndex;
         let t;
         switch (e) {
-          case mv.Accounts:
-            t = ve.createElement(tT, {
+          case vv.Accounts:
+            t = ve.createElement(uT, {
               dotComAccount: this.props.dotComAccount,
               enterpriseAccount: this.props.enterpriseAccount,
               onDotComSignIn: this.onDotComSignIn,
@@ -95258,8 +96210,8 @@
               onLogout: this.onLogout,
             });
             break;
-          case mv.Integrations:
-            t = ve.createElement(lO, {
+          case vv.Integrations:
+            t = ve.createElement(yO, {
               availableEditors: this.state.availableEditors,
               selectedExternalEditor: this.state.selectedExternalEditor,
               onSelectedEditorChanged: this.onSelectedEditorChanged,
@@ -95268,14 +96220,14 @@
               onSelectedShellChanged: this.onSelectedShellChanged,
             });
             break;
-          case mv.Git: {
+          case vv.Git: {
             const { existingLockFilePath: e } = this.state,
               n =
                 void 0 !== e
                   ? ve.createElement(
-                      tC,
+                      sC,
                       null,
-                      ve.createElement(SR, {
+                      ve.createElement(PR, {
                         lockFilePath: e,
                         onLockFileDeleted: this.onLockFileDeleted,
                         onError: this.onLockFileDeleteError,
@@ -95286,7 +96238,7 @@
               ve.Fragment,
               null,
               n,
-              ve.createElement(rT, {
+              ve.createElement(pT, {
                 name: this.state.committerName,
                 email: this.state.committerEmail,
                 defaultBranch: this.state.defaultBranch,
@@ -95299,16 +96251,16 @@
             );
             break;
           }
-          case mv.Appearance:
-            t = ve.createElement(aO, {
+          case vv.Appearance:
+            t = ve.createElement(gO, {
               selectedTheme: this.props.selectedTheme,
               customTheme: this.props.customTheme,
               onSelectedThemeChanged: this.onSelectedThemeChanged,
               onCustomThemeChanged: this.onCustomThemeChanged,
             });
             break;
-          case mv.Prompts:
-            t = ve.createElement(cO, {
+          case vv.Prompts:
+            t = ve.createElement(vO, {
               confirmRepositoryRemoval: this.state.confirmRepositoryRemoval,
               confirmDiscardChanges: this.state.confirmDiscardChanges,
               confirmDiscardChangesPermanently:
@@ -95323,8 +96275,8 @@
                 this.onConfirmDiscardChangesPermanentlyChanged,
             });
             break;
-          case mv.Advanced:
-            t = ve.createElement(nT, {
+          case vv.Advanced:
+            t = ve.createElement(hT, {
               useWindowsOpenSSH: this.state.useWindowsOpenSSH,
               notificationsEnabled: this.state.notificationsEnabled,
               optOutOfUsageTracking: this.state.optOutOfUsageTracking,
@@ -95381,7 +96333,7 @@
       onCommitterNameChanged = (e) => {
         this.setState({
           committerName: e,
-          disallowedCharactersMessage: wC(e) ? null : CC,
+          disallowedCharactersMessage: xC(e) ? null : RC,
         });
       };
       onCommitterEmailChanged = (e) => {
@@ -95406,17 +96358,17 @@
         const e = null != this.state.disallowedCharactersMessage,
           t = this.state.selectedIndex;
         switch (t) {
-          case mv.Accounts:
-          case mv.Appearance:
+          case vv.Accounts:
+          case vv.Appearance:
             return null;
-          case mv.Integrations:
-          case mv.Advanced:
-          case mv.Prompts:
-          case mv.Git:
+          case vv.Integrations:
+          case vv.Advanced:
+          case vv.Prompts:
+          case vv.Git:
             return ve.createElement(
-              nC,
+              aC,
               null,
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 okButtonText: "保存",
                 okButtonDisabled: e,
               })
@@ -95446,12 +96398,12 @@
                 this.state.repositoryIndicatorsEnabled
               );
         } catch (e) {
-          if (ry(e)) {
-            const t = oy(e.result);
+          if (oy(e)) {
+            const t = ay(e.result);
             if (null !== t)
               return void this.setState({
                 existingLockFilePath: t,
-                selectedIndex: mv.Git,
+                selectedIndex: vv.Git,
               });
           }
           return (
@@ -95494,7 +96446,7 @@
         this.setState({ selectedIndex: e });
       };
     }
-    function hO(e) {
+    function wO(e) {
       return e.indexOf("\r") < 0
         ? e
         : e
@@ -95508,9 +96460,9 @@
             )
             .join("\n");
     }
-    class pO extends ve.Component {
+    class CO extends ve.Component {
       dialogContent = null;
-      formatGitErrorMessage = qn(hO);
+      formatGitErrorMessage = qn(wO);
       constructor(e) {
         super(e), (this.state = { error: e.errors[0] || null, disabled: !1 });
       }
@@ -95524,38 +96476,38 @@
           (this.setState({ error: null, disabled: !0 }),
           window.setTimeout(() => {
             this.props.onClearError(e);
-          }, TB.exit));
+          }, BB.exit));
       };
       showPreferencesDialog = () => {
         this.onDismissed(),
           window.setTimeout(() => {
             this.props.onShowPopup({ type: Pr.Preferences });
-          }, TB.exit);
+          }, BB.exit);
       };
       onRetryAction = (e) => {
         e.preventDefault(), this.onDismissed();
         const { error: t } = this.state;
-        if (null !== t && fO(t)) {
+        if (null !== t && kO(t)) {
           const { retryAction: e } = t.metadata;
           void 0 !== e && this.props.onRetryAction(e);
         }
       };
       renderErrorMessage(e) {
-        const t = dO(e);
-        if (mO(t)) {
+        const t = SO(e);
+        if (EO(t)) {
           const e = this.formatGitErrorMessage(t.message);
           return ve.createElement("p", { className: "monospace" }, e);
         }
         return ve.createElement("p", null, t.message);
       }
       getTitle(e) {
-        return gO(e) ? "Clone failed" : "Error";
+        return xO(e) ? "Clone failed" : "Error";
       }
       renderDialog() {
         const e = this.state.error;
         return e
           ? ve.createElement(
-              eC,
+              oC,
               {
                 id: "app-error",
                 type: "error",
@@ -95565,10 +96517,10 @@
                 onSubmit: this.onDismissed,
                 onDismissed: this.onDismissed,
                 disabled: this.state.disabled,
-                className: mO(this.state.error) ? "raw-git-error" : void 0,
+                className: EO(this.state.error) ? "raw-git-error" : void 0,
               },
               ve.createElement(
-                Jw,
+                rC,
                 { onRef: this.onDialogContentRef },
                 this.renderErrorMessage(e),
                 this.renderContentAfterErrorMessage(e)
@@ -95578,14 +96530,14 @@
           : null;
       }
       renderContentAfterErrorMessage(e) {
-        if (!fO(e)) return;
+        if (!kO(e)) return;
         const { retryAction: t } = e.metadata;
-        return t && t.type === fo.Clone
+        return t && t.type === lo.Clone
           ? ve.createElement(
               "p",
               null,
               "Would you like to retry cloning ",
-              ve.createElement(aC, null, t.name),
+              ve.createElement(pC, null, t.name),
               "?"
             )
           : void 0;
@@ -95596,7 +96548,7 @@
       scrollToBottomOfGitErrorMessage() {
         null !== this.dialogContent &&
           null !== this.state.error &&
-          mO(dO(this.state.error)) &&
+          EO(SO(this.state.error)) &&
           (this.dialogContent.scrollTop = this.dialogContent.scrollHeight);
       }
       componentDidMount() {
@@ -95609,23 +96561,23 @@
         e.preventDefault(), this.onDismissed();
       };
       renderFooter(e) {
-        if (gO(e)) return this.renderRetryCloneFooter();
-        const t = dO(e);
+        if (xO(e)) return this.renderRetryCloneFooter();
+        const t = SO(e);
         if (
           (function (e) {
-            return e instanceof ey;
+            return e instanceof ny;
           })(t)
         ) {
           const { gitError: e } = t.result;
-          if (null !== e && ny(e)) return this.renderOpenPreferencesFooter();
+          if (null !== e && iy(e)) return this.renderOpenPreferencesFooter();
         }
         return this.renderDefaultFooter();
       }
       renderRetryCloneFooter() {
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, {
+          ve.createElement(lC, {
             okButtonText: "重试克隆",
             onOkButtonClick: this.onRetryAction,
             onCancelButtonClick: this.onCloseButtonClick,
@@ -95634,9 +96586,9 @@
       }
       renderOpenPreferencesFooter() {
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, {
+          ve.createElement(lC, {
             okButtonText: "关闭",
             onOkButtonClick: this.onCloseButtonClick,
             cancelButtonText: "打开选项",
@@ -95645,34 +96597,34 @@
         );
       }
       renderDefaultFooter() {
-        return ve.createElement(iC, { onButtonClick: this.onCloseButtonClick });
+        return ve.createElement(cC, { onButtonClick: this.onCloseButtonClick });
       }
       render() {
         const e = this.renderDialog();
         return ve.createElement(
           Oe,
           null,
-          e && ve.createElement(Ge, { classNames: "modal", timeout: TB }, e)
+          e && ve.createElement(Ge, { classNames: "modal", timeout: BB }, e)
         );
       }
     }
-    function dO(e) {
-      return fO(e) ? e.underlyingError : e;
+    function SO(e) {
+      return kO(e) ? e.underlyingError : e;
     }
-    function fO(e) {
+    function kO(e) {
       return e instanceof No;
     }
-    function mO(e) {
+    function EO(e) {
       if (!e) return !1;
-      const t = dO(e);
-      return t instanceof ey && t.isRawMessage;
+      const t = SO(e);
+      return t instanceof ny && t.isRawMessage;
     }
-    function gO(e) {
-      if (!fO(e)) return !1;
+    function xO(e) {
+      if (!kO(e)) return !1;
       const { retryAction: t } = e.metadata;
-      return void 0 !== t && t.type === fo.Clone;
+      return void 0 !== t && t.type === lo.Clone;
     }
-    class yO extends ve.Component {
+    class RO extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isPathUnsafe: !1, isTrustingPath: !1 });
       }
@@ -95682,7 +96634,7 @@
           { repository: t } = this.props;
         if (e) {
           await Ri(e);
-          const n = await _y(t.path);
+          const n = await Iy(t.path);
           this.setState({ isTrustingPath: !1 }),
             "unsafe" !== n.kind && this.checkAgain();
         }
@@ -95696,7 +96648,7 @@
       }
       updateUnsafePathState = async () => {
         const { path: e } = this.props.repository,
-          t = await _y(e);
+          t = await Iy(e);
         e === this.props.repository.path &&
           this.setState({
             isPathUnsafe: "unsafe" === t.kind,
@@ -95710,20 +96662,20 @@
           t
             ? e.push(
                 ve.createElement(
-                  Yb,
+                  Qb,
                   {
                     key: "trustDirectory",
                     onClick: this.onTrustDirectory,
                     type: "submit",
                     disabled: this.state.isTrustingPath,
                   },
-                  this.state.isTrustingPath && ve.createElement(mw, null),
+                  this.state.isTrustingPath && ve.createElement(bw, null),
                   "Trust repository"
                 )
               )
             : (e.push(
                 ve.createElement(
-                  Yb,
+                  Qb,
                   { key: "locate", onClick: this.locate, type: "submit" },
                   "Locate…"
                 )
@@ -95731,21 +96683,21 @@
               this.canCloneAgain() &&
                 e.push(
                   ve.createElement(
-                    Yb,
+                    Qb,
                     { key: "clone-again", onClick: this.cloneAgain },
                     "再次克隆"
                   )
                 )),
           e.push(
             ve.createElement(
-              Yb,
+              Qb,
               { key: "remove", onClick: this.remove },
               "删除"
             )
           ),
           t
             ? ve.createElement(
-                ew,
+                iw,
                 { id: "missing-repository-view" },
                 ve.createElement(
                   "div",
@@ -95754,7 +96706,7 @@
                     "div",
                     { className: "title" },
                     this.props.repository.name,
-                    " 可能不安全"
+                    " is potentially unsafe"
                   ),
                   ve.createElement(
                     "div",
@@ -95763,7 +96715,7 @@
                       "p",
                       null,
                       "The Git repository at ",
-                      ve.createElement(aC, null, n),
+                      ve.createElement(pC, null, n),
                       " appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository."
                     ),
                     ve.createElement(
@@ -95773,10 +96725,10 @@
                     )
                   )
                 ),
-                ve.createElement(Ub, null, e)
+                ve.createElement($b, null, e)
               )
             : ve.createElement(
-                ew,
+                iw,
                 { id: "missing-repository-view" },
                 ve.createElement(
                   "div",
@@ -95801,13 +96753,13 @@
                     ".",
                     " ",
                     ve.createElement(
-                      Lb,
+                      Hw,
                       { onClick: this.checkAgain },
                       "Check again."
                     )
                   )
                 ),
-                ve.createElement(Ub, null, e)
+                ve.createElement($b, null, e)
               )
         );
       }
@@ -95839,9 +96791,9 @@
           }
       };
     }
-    var vO = n(4143),
-      bO = n.n(vO);
-    class wO extends ve.Component {
+    var TO = n(4143),
+      _O = n.n(TO);
+    class DO extends ve.Component {
       constructor(e) {
         super(e);
         const t = this.props.path ? this.props.path : "";
@@ -95876,7 +96828,7 @@
             isRepositoryBare: !1,
             showNonGitRepositoryWarning: !1,
           });
-        const t = await _y(e),
+        const t = await Iy(e),
           n = "missing" !== t.kind && "unsafe" !== t.kind,
           r = "unsafe" === t.kind,
           i = "bare" === t.kind,
@@ -95899,9 +96851,9 @@
           return null;
         if (this.state.isRepositoryBare)
           return ve.createElement(
-            Ub,
+            $b,
             { className: "warning-helper-text" },
-            ve.createElement(Tv, { symbol: mu }),
+            ve.createElement(Av, { symbol: gu }),
             ve.createElement(
               "p",
               null,
@@ -95916,22 +96868,22 @@
         if (e && void 0 !== t) {
           const e = n.replaceAll("\\", "/");
           return ve.createElement(
-            Ub,
+            $b,
             { className: "warning-helper-text" },
-            ve.createElement(Tv, { symbol: mu }),
+            ve.createElement(Av, { symbol: gu }),
             ve.createElement(
               "div",
               null,
               ve.createElement(
                 "p",
                 null,
-                "Git仓库",
+                "The Git repository",
                 t !== e &&
                   ve.createElement(
                     ve.Fragment,
                     null,
                     " at ",
-                    ve.createElement(aC, null, t)
+                    ve.createElement(pC, null, t)
                   ),
                 " ",
                 "appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository."
@@ -95941,7 +96893,7 @@
                 null,
                 "If you trust the owner of the directory you can",
                 ve.createElement(
-                  Lb,
+                  Hw,
                   { onClick: this.onTrustDirectory },
                   "add an exception for this directory"
                 ),
@@ -95952,9 +96904,9 @@
           );
         }
         return ve.createElement(
-          Ub,
+          $b,
           { className: "warning-helper-text" },
-          ve.createElement(Tv, { symbol: mu }),
+          ve.createElement(Av, { symbol: gu }),
           ve.createElement(
             "p",
             null,
@@ -95963,7 +96915,7 @@
             "Would you like to",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.onCreateRepositoryClicked },
               "create a repository"
             ),
@@ -95978,7 +96930,7 @@
           !this.state.isRepository ||
           this.state.isRepositoryBare;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "add-existing-repository",
             title: "添加本地仓库",
@@ -95987,25 +96939,25 @@
             loading: this.state.isTrustingRepository,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 value: this.state.path,
                 label: "本地路径",
                 placeholder: "仓库路径",
                 onValueChanged: this.onPathChanged,
               }),
-              ve.createElement(Yb, { onClick: this.showFilePicker }, "选择…")
+              ve.createElement(Qb, { onClick: this.showFilePicker }, "选择…")
             ),
             this.renderWarning()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "添加仓库",
               okButtonDisabled: e,
             })
@@ -96022,7 +96974,7 @@
         null !== e && this.updatePath(e);
       };
       resolvedPath(t) {
-        return e.resolve("/", bO()(t));
+        return e.resolve("/", _O()(t));
       }
       addRepository = async () => {
         this.props.onDismissed();
@@ -96040,7 +96992,7 @@
         });
       };
     }
-    const CO = new RegExp(
+    const AO = new RegExp(
       [
         "\ud83c[\udf00-\udfff]",
         "\ud83d[\udc00-\ude4f]",
@@ -96048,36 +97000,36 @@
       ].join("|"),
       "g"
     );
-    function SO(e) {
-      return e.replace(CO, "-").replace(/[^\w.-]/g, "-");
+    function PO(e) {
+      return e.replace(AO, "-").replace(/[^\w.-]/g, "-");
     }
-    const kO = ".gitignore",
-      EO = e.join(__dirname, "static", "gitignore");
-    let xO = null;
-    async function RO() {
-      if (null != xO) return xO;
+    const IO = ".gitignore",
+      MO = e.join(__dirname, "static", "gitignore");
+    let OO = null;
+    async function NO() {
+      if (null != OO) return OO;
       {
-        const t = (await (0, y.readdir)(EO)).filter((e) => e.endsWith(kO));
-        xO = new Map();
-        for (const n of t) xO.set(e.basename(n, kO), e.join(EO, n));
-        return xO;
+        const t = (await (0, y.readdir)(MO)).filter((e) => e.endsWith(IO));
+        OO = new Map();
+        for (const n of t) OO.set(e.basename(n, IO), e.join(MO, n));
+        return OO;
       }
     }
-    let TO = null;
-    function _O(e, t, n) {
+    let BO = null;
+    function FO(e, t, n) {
       const r = new RegExp(`\\[${t}\\]`, "g"),
         i = e.replace(r, `{${t}}`),
         o = new RegExp(`\\{${t}\\}`, "g");
       return i.replace(o, n);
     }
-    const DO = "None",
-      AO = { name: "None", featured: !1, body: "", hidden: !1 };
-    class PO extends ve.Component {
+    const LO = "None",
+      HO = { name: "None", featured: !1, body: "", hidden: !1 };
+    class UO extends ve.Component {
       constructor(t) {
         super(t);
         const n = this.props.initialPath ? this.props.initialPath : null,
           r = this.props.initialPath
-            ? SO(e.basename(this.props.initialPath))
+            ? PO(e.basename(this.props.initialPath))
             : "";
         (this.state = {
           path: n,
@@ -96086,9 +97038,9 @@
           createWithReadme: !1,
           creating: !1,
           gitIgnoreNames: null,
-          gitIgnore: DO,
+          gitIgnore: LO,
           licenses: null,
-          license: AO.name,
+          license: HO.name,
           isValidPath: null,
           isRepository: !1,
           readMeExists: !1,
@@ -96098,24 +97050,24 @@
       async componentDidMount() {
         window.addEventListener("focus", this.onWindowFocus);
         const t = await (async function () {
-            const e = await RO();
+            const e = await NO();
             return Array.from(e.keys());
           })(),
           n = await (async function () {
-            if (null != TO) return TO;
+            if (null != BO) return BO;
             {
               const t = e.join(__dirname, "static", "available-licenses.json"),
                 n = await (0, y.readFile)(t, "utf8"),
                 r = JSON.parse(n);
               return (
-                (TO = r.sort((e, t) =>
+                (BO = r.sort((e, t) =>
                   e.featured
                     ? -1
                     : t.featured
                     ? 1
                     : e.name.localeCompare(t.name)
                 )),
-                TO
+                BO
               );
             }
           })();
@@ -96144,16 +97096,16 @@
             this.updateReadMeExists(this.state.path, e));
       };
       async updateIsRepository(t, n) {
-        const r = e.join(t, SO(n)),
+        const r = e.join(t, PO(n)),
           i = await (async (t) => {
-            const n = await _y(t).catch(
+            const n = await Iy(t).catch(
               (e) => (
                 log.error("Unable to determine repository type", e),
                 { kind: "missing" }
               )
             );
             return "unsafe" === n.kind
-              ? Ty((0, e.join)(t, ".git"))
+              ? Py((0, e.join)(t, ".git"))
               : "missing" !== n.kind;
           })(r);
         this.setState((e) =>
@@ -96172,8 +97124,8 @@
           this.updateIsRepository(e, this.state.name));
       };
       async updateReadMeExists(t, n) {
-        if (!io() || null === t) return;
-        const r = e.join(t, SO(n), "README.md"),
+        if (!fo() || null === t) return;
+        const r = e.join(t, PO(n), "README.md"),
           i = await S(r);
         this.setState((e) => (e.path === t ? { readMeExists: i } : null));
       }
@@ -96184,7 +97136,7 @@
           try {
             return await (0, y.mkdir)(t, { recursive: !0 }), t;
           } catch {}
-        return e.join(t, SO(this.state.name));
+        return e.join(t, PO(this.state.name));
       };
       createRepository = async () => {
         const t = await this.resolveRepositoryRoot();
@@ -96204,7 +97156,7 @@
         this.setState({ creating: !0 });
         try {
           await (async function (e) {
-            await ty(
+            await ry(
               ["-c", `init.defaultBranch=${await ds()}`, "init"],
               e,
               "initGitRepository"
@@ -96237,12 +97189,12 @@
               this.props.dispatcher.postError(e);
           }
         const i = this.state.gitIgnore;
-        if (i !== DO)
+        if (i !== LO)
           try {
             await (async function (t, n) {
               const r = e.join(t, ".gitignore"),
                 i = await (async function (e) {
-                  const t = (await RO()).get(e);
+                  const t = (await NO()).get(e);
                   if (!t)
                     throw new Error(
                       `Unknown gitignore: ${e}. Only names returned from getGitIgnoreNames() can be used.`
@@ -96262,7 +97214,7 @@
         if (o)
           try {
             await (async function (t, n) {
-              const r = e.join(t, ky);
+              const r = e.join(t, Ty);
               await (0, y.writeFile)(r, n);
             })(t, o);
           } catch (e) {
@@ -96272,11 +97224,11 @@
             ),
               this.props.dispatcher.postError(e);
           }
-        const s = this.state.license === AO.name ? null : this.state.license,
+        const s = this.state.license === HO.name ? null : this.state.license,
           a = (this.state.licenses || []).find((e) => e.name === s);
         if (a)
           try {
-            const n = await Dy(r);
+            const n = await My(r);
             await (async function (t, n, r) {
               const i = e.join(t, "LICENSE"),
                 o = (function (e, t, n) {
@@ -96288,7 +97240,7 @@
                     "description",
                     "year",
                   ])
-                    r = _O(r, e, n[e]);
+                    r = FO(r, e, n[e]);
                   return r;
                 })(n.body, 0, r);
               await (0, y.writeFile)(i, o);
@@ -96324,7 +97276,7 @@
         if (null !== l) {
           try {
             const e = l.workingDirectory.files;
-            e.length > 0 && (await Sy(r, "Initial commit", e));
+            e.length > 0 && (await Ry(r, "Initial commit", e));
           } catch (e) {
             log.error(`createRepository: initial commit failed at ${t}`, e),
               this.props.dispatcher.postError(e);
@@ -96350,13 +97302,13 @@
         this.setState({ createWithReadme: e.currentTarget.checked });
       };
       renderSanitizedName() {
-        const e = SO(this.state.name);
+        const e = PO(this.state.name);
         return this.state.name === e
           ? null
           : ve.createElement(
-              Ub,
+              $b,
               { className: "warning-helper-text" },
-              ve.createElement(Tv, { symbol: mu }),
+              ve.createElement(Av, { symbol: gu }),
               "Will be created as ",
               e
             );
@@ -96371,12 +97323,12 @@
       };
       renderGitIgnores() {
         const e = this.state.gitIgnoreNames || [],
-          t = [DO, ...e];
+          t = [LO, ...e];
         return ve.createElement(
-          Ub,
+          $b,
           null,
           ve.createElement(
-            Lw,
+            jw,
             {
               label: "Git ignore",
               value: this.state.gitIgnore,
@@ -96388,13 +97340,13 @@
       }
       renderLicenses() {
         const e = this.state.licenses || [],
-          t = [AO, ...e.filter((e) => e.featured)],
+          t = [HO, ...e.filter((e) => e.featured)],
           n = e.filter((e) => !e.featured);
         return ve.createElement(
-          Ub,
+          $b,
           null,
           ve.createElement(
-            Lw,
+            jw,
             {
               label: "License",
               value: this.state.license,
@@ -96419,47 +97371,47 @@
         return null === e || e
           ? null
           : ve.createElement(
-              tC,
+              sC,
               null,
-              "无法在此路径上创建目录，您可能没有在此处创建目录的权限。"
+              "Directory could not be created at this path. You may not have permissions to create a directory here."
             );
       }
       renderGitRepositoryWarning() {
         const e = this.state.isRepository;
         return this.state.path && 0 !== this.state.path.length && e
           ? ve.createElement(
-              Ub,
+              $b,
               { className: "warning-helper-text" },
-              ve.createElement(Tv, { symbol: mu }),
+              ve.createElement(Av, { symbol: gu }),
               ve.createElement(
                 "p",
                 null,
                 "此目录似乎是Git仓库，是否改为",
                 " ",
                 ve.createElement(
-                  Lb,
+                  Hw,
                   { onClick: this.onAddRepositoryClicked },
                   "添加此仓库"
                 ),
                 " ",
-                "?"
+                "instead?"
               )
             )
           : null;
       }
       renderReadmeOverwriteWarning() {
-        return io()
+        return fo()
           ? !1 === this.state.createWithReadme || !1 === this.state.readMeExists
             ? null
             : ve.createElement(
-                Ub,
+                $b,
                 { className: "warning-helper-text" },
-                ve.createElement(Tv, { symbol: mu }),
+                ve.createElement(Av, { symbol: gu }),
                 ve.createElement(
                   "p",
                   null,
                   "This directory contains a ",
-                  ve.createElement(aC, null, "README.md"),
+                  ve.createElement(pC, null, "README.md"),
                   " file already. Checking this box will result in the existing file being overwritten."
                 )
               )
@@ -96470,7 +97422,7 @@
         null !== t &&
           this.props.dispatcher.showPopup({
             type: Pr.AddRepository,
-            path: e.join(t, SO(n)),
+            path: e.join(t, PO(n)),
           });
       };
       render() {
@@ -96483,7 +97435,7 @@
           t = !!this.props.initialPath,
           n = null === this.state.path;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "create-repository",
             title: "创建新仓库",
@@ -96493,12 +97445,12 @@
           },
           this.renderInvalidPathError(),
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 value: this.state.name,
                 label: "名称",
                 placeholder: "仓库名称",
@@ -96507,18 +97459,18 @@
             ),
             this.renderSanitizedName(),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 value: this.state.description,
                 label: "描述",
                 onValueChanged: this.onDescriptionChanged,
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 value: this.state.path ?? "",
                 label: "本地路径",
                 placeholder: "仓库路径",
@@ -96526,18 +97478,18 @@
                 disabled: t || n,
               }),
               ve.createElement(
-                Yb,
+                Qb,
                 { onClick: this.showFilePicker, disabled: t || n },
                 "选择…"
               )
             ),
             this.renderGitRepositoryWarning(),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "使用README文件初始化此仓库",
-                value: this.state.createWithReadme ? tw.On : tw.Off,
+                value: this.state.createWithReadme ? ow.On : ow.Off,
                 onChange: this.onCreateWithReadmeChange,
               })
             ),
@@ -96546,9 +97498,9 @@
             this.renderLicenses()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "创建仓库",
               okButtonDisabled: e || n,
             })
@@ -96559,11 +97511,11 @@
         this.updateReadMeExists(this.state.path, this.state.name);
       };
     }
-    async function IO(e, t, n) {
+    async function zO(e, t, n) {
       const r = En.fromAccount(e);
       return !!(await r.fetchRepository(t, n));
     }
-    async function MO(e, t, n = IO) {
+    async function WO(e, t, n = zO) {
       const r = [...t, Dt.anonymous()],
         i = ut(e);
       if (i) {
@@ -96598,15 +97550,15 @@
       }
       return null;
     }
-    class OO extends ve.Component {
+    class jO extends ve.Component {
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           { className: "clone-generic-repository-content" },
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               placeholder: "URL 或用户名/仓库",
               value: this.props.url,
               onValueChanged: this.onUrlChanged,
@@ -96617,22 +97569,22 @@
                 "仓库URL或GitHub用户名和仓库",
                 ve.createElement("br", null),
                 "(",
-                ve.createElement(aC, null, "hubot/cool-repo"),
+                ve.createElement(pC, null, "hubot/cool-repo"),
                 ")"
               ),
             })
           ),
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               value: this.props.path,
               label: "本地路径",
               placeholder: "仓库路径",
               onValueChanged: this.props.onPathChanged,
             }),
             ve.createElement(
-              Yb,
+              Qb,
               { onClick: this.props.onChooseDirectory },
               "选择…"
             )
@@ -96643,13 +97595,13 @@
         this.props.onUrlChanged(e);
       };
     }
-    const NO = "your-repositories";
-    function BO(e) {
-      return e.private ? Xu : e.fork ? sh : ih;
+    const $O = "your-repositories";
+    function qO(e) {
+      return e.private ? Ju : e.fork ? ah : oh;
     }
-    function FO(e) {
+    function GO(e) {
       const t = e.map((e) => {
-        const t = BO(e);
+        const t = qO(e);
         return {
           id: e.html_url,
           text: [`${e.owner.login}/${e.name}`],
@@ -96660,33 +97612,33 @@
       });
       return t;
     }
-    function LO(e, t) {
+    function VO(e, t) {
       if (null !== t)
         for (const n of e)
           for (const e of n.items) if (e.url === t.clone_url) return e;
       return null;
     }
-    function HO(e, t) {
+    function KO(e, t) {
       return e.find((e) => e.clone_url === t.url) || null;
     }
-    class UO extends ve.PureComponent {
+    class YO extends ve.PureComponent {
       getRepositoryGroups = qn((e, t) =>
         null === e
           ? []
           : (function (e, t) {
               const n = e.filter((e) => "User" === e.owner.type),
                 r = e.filter((e) => "Organization" === e.owner.type),
-                i = [{ identifier: NO, items: FO(n) }],
+                i = [{ identifier: $O, items: GO(n) }],
                 o = r.map((e) => e.owner.login),
                 s = Array.from(new Set(o));
               for (const e of s.sort(zi)) {
                 const t = r.filter((t) => t.owner.login === e);
-                i.push({ identifier: e, items: FO(t) });
+                i.push({ identifier: e, items: GO(t) });
               }
               return i;
             })(e)
       );
-      getSelectedListItem = qn(LO);
+      getSelectedListItem = qn(VO);
       componentDidMount() {
         null === this.props.repositories && this.refreshRepositories();
       }
@@ -96702,7 +97654,7 @@
         const { repositories: e, account: t, selectedItem: n } = this.props,
           r = this.getRepositoryGroups(e, t.login),
           i = this.getSelectedListItem(r, n);
-        return ve.createElement($b, {
+        return ve.createElement(Kb, {
           className: "clone-github-repo",
           rowHeight: 31,
           selectedItem: i,
@@ -96722,18 +97674,18 @@
       onItemClick = (e, t) => {
         const { onItemClicked: n, repositories: r } = this.props;
         if (void 0 === n || null === r) return;
-        const i = HO(r, e);
+        const i = KO(r, e);
         null !== i && n(i, t);
       };
       onSelectionChanged = (e) => {
         null === e || null === this.props.repositories
           ? this.props.onSelectionChanged(null)
-          : this.props.onSelectionChanged(HO(this.props.repositories, e));
+          : this.props.onSelectionChanged(KO(this.props.repositories, e));
       };
       renderGroupHeader = (e) => {
         let t = e;
         return (
-          e === NO && (t = "您的仓库"),
+          e === $O && (t = "您的仓库"),
           ve.createElement(
             "div",
             {
@@ -96748,23 +97700,23 @@
         ve.createElement(
           "div",
           { className: "clone-repository-list-item" },
-          ve.createElement(Tv, { className: "icon", symbol: e.icon }),
+          ve.createElement(Av, { className: "icon", symbol: e.icon }),
           ve.createElement(
             "div",
             { className: "name", title: e.text[0] },
-            ve.createElement(Hv, { text: e.text[0], highlight: t.title })
+            ve.createElement(Wv, { text: e.text[0], highlight: t.title })
           )
         );
       renderPostFilter = () =>
         ve.createElement(
-          Yb,
+          Qb,
           {
             disabled: this.props.loading,
             onClick: this.refreshRepositories,
             tooltip: "刷新仓库列表",
           },
-          ve.createElement(Tv, {
-            symbol: Nv,
+          ve.createElement(Av, {
+            symbol: Lv,
             className: this.props.loading ? "spin" : void 0,
           })
         );
@@ -96784,7 +97736,7 @@
                   null,
                   "抱歉，我找不到任何匹配的仓库",
                   " ",
-                  ve.createElement(aC, null, this.props.filterText)
+                  ve.createElement(pC, null, this.props.filterText)
                 )
               )
             : ve.createElement(
@@ -96795,13 +97747,13 @@
                   null,
                   "看起来没有仓库",
                   " ",
-                  ve.createElement(aC, null, this.props.account.login),
+                  ve.createElement(pC, null, this.props.account.login),
                   " on ",
                   n,
                   ".",
                   " ",
                   ve.createElement(
-                    Lb,
+                    Hw,
                     { onClick: this.refreshRepositories },
                     "刷新此列表"
                   ),
@@ -96816,15 +97768,15 @@
             );
       };
     }
-    class zO extends ve.PureComponent {
+    class ZO extends ve.PureComponent {
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           { className: "clone-github-repository-content" },
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(UO, {
+            ve.createElement(YO, {
               account: this.props.account,
               selectedItem: this.props.selectedItem,
               onSelectionChanged: this.props.onSelectionChanged,
@@ -96837,16 +97789,16 @@
             })
           ),
           ve.createElement(
-            Ub,
+            $b,
             { className: "local-path-field" },
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               value: this.props.path,
               label: "本地路径",
               placeholder: "仓库路径",
               onValueChanged: this.props.onPathChanged,
             }),
             ve.createElement(
-              Yb,
+              Qb,
               { onClick: this.props.onChooseDirectory },
               "选择…"
             )
@@ -96854,7 +97806,7 @@
         );
       }
     }
-    class WO extends ve.Component {
+    class XO extends ve.Component {
       constructor(e) {
         super(e);
         const t = {
@@ -96883,7 +97835,9 @@
           this.initializePath();
       }
       componentDidUpdate(e) {
-        e.selectedTab !== this.props.selectedTab && this.validatePath();
+        e.selectedTab !== this.props.selectedTab && this.validatePath(),
+          e.initialURL !== this.props.initialURL &&
+            this.updateUrl(this.props.initialURL || "");
       }
       componentDidMount() {
         const e = this.props.initialURL;
@@ -96910,7 +97864,7 @@
       render() {
         const { error: e } = this.getSelectedTabState();
         return ve.createElement(
-          eC,
+          oC,
           {
             className: "clone-repository",
             title: "克隆仓库",
@@ -96919,7 +97873,7 @@
             loading: this.state.loading,
           },
           ve.createElement(
-            Xw,
+            nC,
             {
               onTabClicked: this.onTabClicked,
               selectedIndex: this.props.selectedTab,
@@ -96928,7 +97882,7 @@
             ve.createElement("span", null, "GitHub Enterprise"),
             ve.createElement("span", null, "URL")
           ),
-          e ? ve.createElement(tC, null, e.message) : null,
+          e ? ve.createElement(sC, null, e.message) : null,
           this.renderActiveTab(),
           this.renderFooter()
         );
@@ -96944,9 +97898,9 @@
         if (e !== gr.Generic && !this.getAccountForTab(e)) return null;
         const t = this.checkIfCloningDisabled();
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, { okButtonText: "克隆", okButtonDisabled: t })
+          ve.createElement(lC, { okButtonText: "克隆", okButtonDisabled: t })
         );
       }
       onTabClicked = (e) => {
@@ -96960,7 +97914,7 @@
         switch (e) {
           case gr.Generic:
             const t = this.state.urlTabState;
-            return ve.createElement(OO, {
+            return ve.createElement(jO, {
               path: t.path ?? "",
               url: t.url,
               onPathChanged: this.onPathChanged,
@@ -96975,7 +97929,7 @@
                 r = void 0 === n ? null : n.repositories,
                 i = void 0 !== n && n.loading,
                 o = this.getGitHubTabState(e);
-              return ve.createElement(zO, {
+              return ve.createElement(ZO, {
                 path: o.path ?? "",
                 account: t,
                 selectedItem: o.selectedItem,
@@ -96990,7 +97944,7 @@
                 onItemClicked: this.onItemClicked,
               });
             }
-            return ve.createElement(Jw, null, this.renderSignIn(e));
+            return ve.createElement(rC, null, this.renderSignIn(e));
           }
           default:
             return st(0, `Unknown tab: ${e}`);
@@ -97062,7 +98016,7 @@
         switch (e) {
           case gr.DotCom:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.signInDotCom },
               ve.createElement(
                 "div",
@@ -97072,7 +98026,7 @@
             );
           case gr.Enterprise:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.signInEnterprise },
               ve.createElement(
                 "div",
@@ -97194,7 +98148,7 @@
           n = new Array();
         this.props.dotComAccount && n.push(this.props.dotComAccount),
           this.props.enterpriseAccount && n.push(this.props.enterpriseAccount);
-        const r = await MO(e, n);
+        const r = await WO(e, n);
         if (null !== t && null !== r) {
           const n = En.fromAccount(r),
             { owner: i, name: o } = t,
@@ -97257,7 +98211,7 @@
         this.validatePath();
       };
     }
-    function jO(e, t) {
+    function JO(e, t) {
       return e.tip.kind === Ar.Detached
         ? fr.Head
         : (t === fr.UpstreamDefaultBranch &&
@@ -97274,28 +98228,28 @@
         ? fr.CurrentBranch
         : fr.Head;
     }
-    class $O extends ve.Component {
+    class QO extends ve.Component {
       constructor(e) {
         super(e);
-        const t = jO(e, fr.UpstreamDefaultBranch);
+        const t = JO(e, fr.UpstreamDefaultBranch);
         this.state = {
           currentError: null,
           branchName: e.initialName,
           startPoint: t,
           isCreatingBranch: !1,
           tipAtCreateStart: e.tip,
-          defaultBranchAtCreateStart: GO(t, e),
+          defaultBranchAtCreateStart: tN(t, e),
         };
       }
       componentWillReceiveProps(e) {
         if (
-          (this.setState({ startPoint: jO(e, this.state.startPoint) }),
+          (this.setState({ startPoint: JO(e, this.state.startPoint) }),
           !this.state.isCreatingBranch)
         ) {
-          const t = jO(e, fr.UpstreamDefaultBranch);
+          const t = JO(e, fr.UpstreamDefaultBranch);
           this.setState({
             tipAtCreateStart: e.tip,
-            defaultBranchAtCreateStart: GO(t, e),
+            defaultBranchAtCreateStart: tN(t, e),
           });
         }
       }
@@ -97356,7 +98310,7 @@
             /^\s*$/.test(this.state.branchName),
           t = this.state.currentError;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "create-branch",
             title: this.getHeaderText(),
@@ -97365,11 +98319,11 @@
             loading: this.state.isCreatingBranch,
             disabled: this.state.isCreatingBranch,
           },
-          t ? ve.createElement(tC, null, t.message) : null,
+          t ? ve.createElement(sC, null, t.message) : null,
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Ux, {
+            ve.createElement(Yx, {
               label: "名称",
               initialValue: this.props.initialName,
               onValueChange: this.onBranchNameChange,
@@ -97382,14 +98336,14 @@
               return !1 === n
                 ? null
                 : ve.createElement(
-                    Ub,
+                    $b,
                     { className: "warning-helper-text" },
-                    ve.createElement(Tv, { symbol: mu }),
+                    ve.createElement(Av, { symbol: gu }),
                     ve.createElement(
                       "p",
                       null,
                       "名为的分支 ",
-                      ve.createElement(aC, null, e),
+                      ve.createElement(pC, null, e),
                       " 远程上已存在"
                     )
                   );
@@ -97397,9 +98351,9 @@
             this.renderBranchSelection()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: this.getOkButtonText(),
               okButtonDisabled: e,
             })
@@ -97407,7 +98361,9 @@
         );
       }
       getHeaderText = () =>
-        void 0 !== this.props.headerText ? this.props.headerText : "创建分支";
+        void 0 !== this.props.headerText
+          ? this.props.headerText
+          : "创建分支";
       getOkButtonText = () =>
         void 0 !== this.props.okButtonText
           ? this.props.okButtonText
@@ -97449,7 +98405,7 @@
             void 0 !== this.props.createBranch)
           )
             return void this.props.createBranch(e, t, n);
-          const r = Iw("create branch", o),
+          const r = Bw("create branch", o),
             i = await this.props.dispatcher.createBranch(o, e, t, n);
           r.done(),
             this.props.onDismissed(),
@@ -97465,15 +98421,15 @@
             "div",
             null,
             "您的新分支将基于您当前签出的分支 (",
-            ve.createElement(aC, null, e),
+            ve.createElement(pC, null, e),
             ")",
             this.renderForkLinkSuffix(),
             ".",
             " ",
-            ve.createElement(aC, null, e),
+            ve.createElement(pC, null, e),
             " 的 ",
-            qO,
-            " 从你的仓库."
+            eN,
+            "从你的仓库。"
           );
         {
           const n = [
@@ -97511,9 +98467,9 @@
             " ",
             ve.createElement("strong", null, n),
             "'s ",
-            qO,
+            eN,
             " (",
-            ve.createElement(aC, null, t.nameWithoutRemote),
+            ve.createElement(pC, null, t.nameWithoutRemote),
             ")",
             this.renderForkLinkSuffix(),
             "."
@@ -97553,7 +98509,7 @@
               "您的默认分支源由您的",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.onForkSettingsClick },
                 "分支行为设置"
               ),
@@ -97568,7 +98524,7 @@
               " as determined by your",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.onForkSettingsClick },
                 "fork behavior settings"
               )
@@ -97576,9 +98532,9 @@
           : void 0;
       renderOptions = (e, t) =>
         ve.createElement(
-          Ub,
+          $b,
           null,
-          ve.createElement(oT, {
+          ve.createElement(fT, {
             label: "Create branch based on…",
             items: e,
             selectedKey: t,
@@ -97589,23 +98545,23 @@
         this.props.dispatcher.showPopup({
           type: Pr.RepositorySettings,
           repository: this.props.repository,
-          initialSelectedTab: SC.ForkSettings,
+          initialSelectedTab: TC.ForkSettings,
         });
       };
     }
-    const qO = ve.createElement(
-      Lb,
+    const eN = ve.createElement(
+      Hw,
       { uri: "https://help.github.com/articles/setting-the-default-branch/" },
       "default branch"
     );
-    function GO(e, t) {
+    function tN(e, t) {
       return e === fr.UpstreamDefaultBranch
         ? t.upstreamDefaultBranch
         : e === fr.DefaultBranch
         ? t.defaultBranch
         : null;
     }
-    class VO extends ve.Component {
+    class nN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -97618,7 +98574,7 @@
       componentWillReceiveProps(e) {
         e.signInState !== this.props.signInState &&
           e.signInState &&
-          e.signInState.kind === rg.Success &&
+          e.signInState.kind === og.Success &&
           this.onDismissed();
       }
       onSubmit = () => {
@@ -97626,10 +98582,10 @@
         if (!e) return;
         const t = e.kind;
         switch (e.kind) {
-          case rg.EndpointEntry:
+          case og.EndpointEntry:
             this.props.dispatcher.setSignInEndpoint(this.state.endpoint);
             break;
-          case rg.Authentication:
+          case og.Authentication:
             e.supportsBasicAuth
               ? this.props.dispatcher.setSignInCredentials(
                   this.state.username,
@@ -97637,10 +98593,10 @@
                 )
               : this.props.dispatcher.requestBrowserAuthentication();
             break;
-          case rg.TwoFactorAuthentication:
+          case og.TwoFactorAuthentication:
             this.props.dispatcher.setSignInOTP(this.state.otpToken);
             break;
-          case rg.Success:
+          case og.Success:
             this.onDismissed();
             break;
           default:
@@ -97664,18 +98620,18 @@
       };
       renderFooter() {
         const e = this.props.signInState;
-        if (!e || e.kind === rg.Success) return null;
+        if (!e || e.kind === og.Success) return null;
         let t,
           n = !1;
         const r = e.kind;
         switch (e.kind) {
-          case rg.EndpointEntry:
+          case og.EndpointEntry:
             (n = 0 === this.state.endpoint.length), (t = "继续");
             break;
-          case rg.TwoFactorAuthentication:
+          case og.TwoFactorAuthentication:
             (n = !/\S+/.test(this.state.otpToken)), (t = "登录");
             break;
-          case rg.Authentication:
+          case og.Authentication:
             if (e.supportsBasicAuth) {
               const e = this.state.username.length > 0,
                 r = this.state.password.length > 0;
@@ -97686,19 +98642,19 @@
             return st(0, `Unknown sign in step ${r}`);
         }
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, { okButtonText: t, okButtonDisabled: n })
+          ve.createElement(lC, { okButtonText: t, okButtonDisabled: n })
         );
       }
       renderEndpointEntryStep(e) {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "Enterprise address",
               value: this.state.endpoint,
               onValueChanged: this.onEndpointChanged,
@@ -97711,7 +98667,7 @@
         if (!e.supportsBasicAuth)
           return e.endpoint === _n()
             ? ve.createElement(
-                Jw,
+                rC,
                 null,
                 ve.createElement(
                   "p",
@@ -97725,7 +98681,7 @@
                 )
               )
             : ve.createElement(
-                Jw,
+                rC,
                 null,
                 ve.createElement(
                   "p",
@@ -97735,20 +98691,20 @@
               );
         const t = e.loading;
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement(
-            Ub,
+            $b,
             { className: "sign-in-with-browser" },
             ve.createElement(
-              Yb,
+              Qb,
               {
                 className: "button-with-icon button-component-primary",
                 onClick: this.onSignInWithBrowser,
                 disabled: t,
               },
               "Sign in using your browser",
-              ve.createElement(Tv, { symbol: Yu })
+              ve.createElement(Av, { symbol: Zu })
             )
           ),
           ve.createElement(
@@ -97761,18 +98717,18 @@
             )
           ),
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "用户名或电子邮件地址",
               value: this.state.username,
               onValueChanged: this.onUsernameChanged,
             })
           ),
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "密码",
               value: this.state.password,
               type: "password",
@@ -97780,10 +98736,10 @@
             })
           ),
           ve.createElement(
-            Ub,
+            $b,
             null,
             ve.createElement(
-              Lb,
+              Hw,
               {
                 className: "forgot-password-link-sign-in",
                 uri: e.forgotPasswordUrl,
@@ -97795,19 +98751,16 @@
       }
       renderTwoFactorAuthenticationStep(e) {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement("p", null, Ht(e.type)),
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "验证码",
               value: this.state.otpToken,
               onValueChanged: this.onOTPTokenChanged,
-              labelLinkText: "What's this?",
-              labelLinkUri:
-                "https://help.github.com/articles/providing-your-2fa-authentication-code/",
               autoFocus: !0,
             })
           )
@@ -97818,13 +98771,13 @@
         if (!e) return null;
         const t = e.kind;
         switch (e.kind) {
-          case rg.EndpointEntry:
+          case og.EndpointEntry:
             return this.renderEndpointEntryStep(e);
-          case rg.Authentication:
+          case og.Authentication:
             return this.renderAuthenticationStep(e);
-          case rg.TwoFactorAuthentication:
+          case og.TwoFactorAuthentication:
             return this.renderTwoFactorAuthenticationStep(e);
-          case rg.Success:
+          case og.Success:
             return null;
           default:
             return st(0, `Unknown sign in step ${t}`);
@@ -97832,17 +98785,17 @@
       }
       render() {
         const e = this.props.signInState;
-        if (!e || e.kind === rg.Success) return null;
+        if (!e || e.kind === og.Success) return null;
         const t = e.loading,
-          n = e.error ? ve.createElement(tC, null, e.error.message) : null,
+          n = e.error ? ve.createElement(sC, null, e.error.message) : null,
           r =
             this.props.signInState &&
-            this.props.signInState.kind === rg.Authentication &&
+            this.props.signInState.kind === og.Authentication &&
             !this.props.signInState.supportsBasicAuth
               ? "Sign in using your browser"
               : "登录";
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "sign-in",
             title: r,
@@ -97860,7 +98813,7 @@
         this.props.dispatcher.resetSignInState(), this.props.onDismissed();
       };
     }
-    class KO extends ve.Component {
+    class rN extends ve.Component {
       constructor(e) {
         super(e);
       }
@@ -97874,7 +98827,7 @@
       };
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "install-git",
             type: "warning",
@@ -97883,7 +98836,7 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -97900,18 +98853,18 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
-              okButtonText: "无Git打开",
-              cancelButtonText: "安装 Git",
+            ve.createElement(lC, {
+              okButtonText: "Open without Git",
+              cancelButtonText: "Install Git",
               onCancelButtonClick: this.onExternalLink,
             })
           )
         );
       }
     }
-    class YO extends ve.Component {
+    class iN extends ve.Component {
       constructor(e) {
         super(e);
       }
@@ -97927,9 +98880,9 @@
         const { viewPreferences: e, suggestDefaultEditor: t } = this.props;
         return e
           ? ve.createElement(
-              nC,
+              aC,
               null,
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 okButtonText: "关闭",
                 cancelButtonText: "打开选项",
                 onCancelButtonClick: this.onShowPreferencesDialog,
@@ -97937,28 +98890,28 @@
             )
           : t
           ? ve.createElement(
-              nC,
+              aC,
               null,
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 okButtonText: "关闭",
                 cancelButtonText: "下载 Visual Studio Code",
                 onCancelButtonClick: this.onExternalLink,
               })
             )
-          : ve.createElement(iC, null);
+          : ve.createElement(cC, null);
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "external-editor-error",
             type: "error",
-            title: "无法打开外部编辑器",
+            title: "Unable to open external 无法打开外部编辑器",
             onSubmit: this.props.onDismissed,
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement("p", null, this.props.message)
           ),
@@ -97966,55 +98919,70 @@
         );
       }
     }
-    const ZO = Po(__dirname, "static/windows-logo-64x64@2x.png");
-    class XO extends ve.Component {
+    const oN = Po(__dirname, "static/windows-logo-64x64@2x.png");
+    class sN extends ve.Component {
       updateStoreEventHandle = null;
       constructor(e) {
-        super(e), (this.state = { updateState: dv.state });
+        super(e), (this.state = { updateState: gv.state, altKeyPressed: !1 });
       }
       onUpdateStateChanged = (e) => {
         this.setState({ updateState: e });
       };
       componentDidMount() {
-        (this.updateStoreEventHandle = dv.onDidChange(
+        (this.updateStoreEventHandle = gv.onDidChange(
           this.onUpdateStateChanged
         )),
-          this.setState({ updateState: dv.state });
+          this.setState({ updateState: gv.state }),
+          window.addEventListener("keydown", this.onKeyDown),
+          window.addEventListener("keyup", this.onKeyUp);
       }
       componentWillUnmount() {
         this.updateStoreEventHandle &&
           (this.updateStoreEventHandle.dispose(),
-          (this.updateStoreEventHandle = null));
+          (this.updateStoreEventHandle = null)),
+          window.removeEventListener("keydown", this.onKeyDown),
+          window.removeEventListener("keyup", this.onKeyUp);
       }
+      onKeyDown = (e) => {
+        "Alt" === e.key && this.setState({ altKeyPressed: !0 });
+      };
+      onKeyUp = (e) => {
+        "Alt" === e.key && this.setState({ altKeyPressed: !1 });
+      };
       onQuitAndInstall = () => {
-        dv.quitAndInstallUpdate();
+        gv.quitAndInstallUpdate();
       };
       renderUpdateButton() {
         const e = this.state.updateState.status;
         switch (e) {
-          case pv.UpdateReady:
+          case mv.UpdateReady:
             return ve.createElement(
-              Ub,
+              $b,
               null,
               ve.createElement(
-                Yb,
+                Qb,
                 { onClick: this.onQuitAndInstall },
                 "退出并安装更新"
               )
             );
-          case pv.UpdateNotAvailable:
-          case pv.CheckingForUpdates:
-          case pv.UpdateAvailable:
-          case pv.UpdateNotChecked:
-            const t = ![pv.UpdateNotChecked, pv.UpdateNotAvailable].includes(e);
+          case mv.UpdateNotAvailable:
+          case mv.CheckingForUpdates:
+          case mv.UpdateAvailable:
+          case mv.UpdateNotChecked:
+            const t = ![mv.UpdateNotChecked, mv.UpdateNotAvailable].includes(e),
+              n = this.state.altKeyPressed
+                ? this.props.onCheckForNonStaggeredUpdates
+                : this.props.onCheckForUpdates,
+              r = this.state.altKeyPressed
+                ? "Ensure Latest Version"
+                : "Check for Updates",
+              i = this.state.altKeyPressed
+                ? "GitHub Desktop may release updates to our user base gradually to ensure we catch any problems early. This lets you bypass the gradual rollout and jump straight to the latest version if there's one available."
+                : "";
             return ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(
-                Yb,
-                { disabled: t, onClick: this.props.onCheckForUpdates },
-                "检查更新"
-              )
+              ve.createElement(Qb, { disabled: t, onClick: n, tooltip: i }, r)
             );
           default:
             return st(0, `Unknown update status ${e}`);
@@ -98022,17 +98990,17 @@
       }
       renderCheckingForUpdate() {
         return ve.createElement(
-          Ub,
+          $b,
           { className: "update-status" },
-          ve.createElement(mw, null),
+          ve.createElement(bw, null),
           ve.createElement("span", null, "检查更新…")
         );
       }
       renderUpdateAvailable() {
         return ve.createElement(
-          Ub,
+          $b,
           { className: "update-status" },
-          ve.createElement(mw, null),
+          ve.createElement(bw, null),
           ve.createElement("span", null, "下载更新中…")
         );
       }
@@ -98044,7 +99012,7 @@
               { className: "update-status" },
               "您拥有最新版本 (最后检查时间",
               " ",
-              ve.createElement(ZC, { date: e }),
+              ve.createElement(tS, { date: e }),
               ")"
             )
           : null;
@@ -98059,25 +99027,25 @@
       renderUpdateDetails() {
         const e = this.state.updateState;
         switch (e.status) {
-          case pv.CheckingForUpdates:
+          case mv.CheckingForUpdates:
             return this.renderCheckingForUpdate();
-          case pv.UpdateAvailable:
+          case mv.UpdateAvailable:
             return this.renderUpdateAvailable();
-          case pv.UpdateNotAvailable:
+          case mv.UpdateNotAvailable:
             return this.renderUpdateNotAvailable();
-          case pv.UpdateReady:
+          case mv.UpdateReady:
             return this.renderUpdateReady();
-          case pv.UpdateNotChecked:
+          case mv.UpdateNotChecked:
             return null;
           default:
-            return st(e.status, `未知更新状态 ${e.status}`);
+            return st(e.status, `Unknown update status ${e.status}`);
         }
       }
       renderUpdateErrors() {
         return this.state.updateState.lastSuccessfulCheck
           ? null
           : ve.createElement(
-              tC,
+              sC,
               null,
               "无法确定上次执行更新检查的时间，您可能正在运行旧版本，请尝试手动检查更新，如果问题仍然存在，请联系GitHub支持"
             );
@@ -98097,7 +99065,7 @@
             "查看",
             " ",
             ve.createElement(
-              Lb,
+              Hw,
               { uri: "https://desktop.github.com/beta" },
               "测试版"
             )
@@ -98107,10 +99075,10 @@
       render() {
         const e = this.props.applicationName,
           t = this.props.applicationVersion,
-          n = ve.createElement(Lb, { uri: UR }, "发行说明"),
+          n = ve.createElement(Hw, { uri: YR }, "发行说明"),
           r = `版本 ${t}`;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "about",
             onSubmit: this.props.onDismissed,
@@ -98118,13 +99086,13 @@
           },
           this.renderUpdateErrors(),
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               { className: "logo" },
               ve.createElement("img", {
-                src: ZO,
+                src: oN,
                 alt: "GitHub Desktop",
                 width: "64",
                 height: "64",
@@ -98151,7 +99119,7 @@
               "p",
               { className: "no-padding" },
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.props.onShowTermsAndConditions },
                 "服务条款"
               )
@@ -98160,7 +99128,7 @@
               "p",
               null,
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.props.onShowAcknowledgements },
                 "许可证和开源声明"
               )
@@ -98169,11 +99137,11 @@
             this.renderUpdateButton(),
             this.renderBetaLink()
           ),
-          ve.createElement(iC, null)
+          ve.createElement(cC, null)
         );
       }
     }
-    class JO extends ve.Component {
+    class aN extends ve.Component {
       name;
       constructor(e) {
         super(e), (this.state = { orgs: [] }), (this.name = e.settings.name);
@@ -98195,7 +99163,7 @@
         this.props.onSettingsChanged(t);
       }
       onNameChange = (e) => {
-        (this.name = e), (e = SO(e)), this.updateSettings({ name: e });
+        (this.name = e), (e = PO(e)), this.updateSettings({ name: e });
       };
       onDescriptionChange = (e) => {
         this.updateSettings({ description: e });
@@ -98225,7 +99193,7 @@
           n && n.id === i.id && (t = r),
             e.push(ve.createElement("option", { value: r, key: r }, i.login));
         return ve.createElement(
-          Lw,
+          jw,
           {
             label: "组织",
             value: t.toString(),
@@ -98236,12 +99204,12 @@
       }
       render() {
         return ve.createElement(
-          Jw,
+          rC,
           null,
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "名称",
               value: this.name,
               onValueChanged: this.onNameChange,
@@ -98249,16 +99217,16 @@
           ),
           this.renderSanitizedName(),
           ve.createElement(
-            Ub,
+            $b,
             null,
-            ve.createElement(Hb, {
+            ve.createElement(jb, {
               label: "Description",
               value: this.props.settings.description,
               onValueChanged: this.onDescriptionChange,
             })
           ),
           ve.createElement(
-            Ub,
+            $b,
             null,
             ve.createElement(
               "label",
@@ -98279,37 +99247,37 @@
         return this.name === e
           ? null
           : ve.createElement(
-              Ub,
+              $b,
               { className: "warning-helper-text" },
-              ve.createElement(Tv, { symbol: mu }),
+              ve.createElement(Av, { symbol: gu }),
               "Will be created as ",
               e
             );
       }
     }
-    var QO, eN, tN;
+    var lN, cN, uN;
     !(function (e) {
       (e[(e.enterprise = 0)] = "enterprise"), (e[(e.dotcom = 1)] = "dotcom");
-    })(QO || (QO = {})),
+    })(lN || (lN = {})),
       (function (e) {
         (e[(e.DotCom = 0)] = "DotCom"), (e[(e.Enterprise = 1)] = "Enterprise");
-      })(eN || (eN = {}));
-    class nN extends ve.Component {
+      })(cN || (cN = {}));
+    class hN extends ve.Component {
       constructor(e) {
         super(e);
-        const t = this.getAccountForTab(eN.DotCom),
-          n = this.getAccountForTab(eN.Enterprise);
-        let r = eN.DotCom;
-        !t && n && (r = eN.Enterprise);
+        const t = this.getAccountForTab(cN.DotCom),
+          n = this.getAccountForTab(cN.Enterprise);
+        let r = cN.DotCom;
+        !t && n && (r = cN.Enterprise);
         const i = { name: e.repository.name, description: "", private: !0 },
           o = {
             kind: "dotcom",
-            settings: { ...i, kind: QO.dotcom, org: null },
+            settings: { ...i, kind: lN.dotcom, org: null },
             error: null,
           },
           s = {
             kind: "enterprise",
-            settings: { ...i, kind: QO.enterprise, org: null },
+            settings: { ...i, kind: lN.enterprise, org: null },
             error: null,
           };
         this.state = {
@@ -98322,7 +99290,7 @@
       render() {
         const e = this.getCurrentTabState();
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "publish-repository",
             title: "发布仓库",
@@ -98332,7 +99300,7 @@
             loading: this.state.publishing,
           },
           ve.createElement(
-            Xw,
+            nC,
             {
               onTabClicked: this.onTabClicked,
               selectedIndex: this.state.currentTab,
@@ -98340,7 +99308,7 @@
             ve.createElement("span", null, "GitHub.com"),
             ve.createElement("span", null, "GitHub Enterprise")
           ),
-          e.error ? ve.createElement(tC, null, e.error.message) : null,
+          e.error ? ve.createElement(sC, null, e.error.message) : null,
           this.renderContent(),
           this.renderFooter()
         );
@@ -98349,7 +99317,7 @@
         const t = this.getCurrentTabState();
         try {
           const n = await (async function (t) {
-              const n = e.join(t, ky);
+              const n = e.join(t, Ty);
               try {
                 const e = await (0, y.readFile)(n, "utf8");
                 return "Unnamed repository; edit this file 'description' to name the repository.\n" ===
@@ -98371,17 +99339,17 @@
           t = this.getCurrentTabState(),
           n = this.getAccountForTab(e);
         return n
-          ? ve.createElement(JO, {
+          ? ve.createElement(aN, {
               account: n,
               settings: t.settings,
               onSettingsChanged: this.onSettingsChanged,
             })
-          : ve.createElement(Jw, null, this.renderSignInTab(e));
+          : ve.createElement(rC, null, this.renderSignInTab(e));
       }
       onSettingsChanged = (e) => {
         let t;
         (t =
-          e.kind === QO.enterprise
+          e.kind === lN.enterprise
             ? {
                 kind: "enterprise",
                 settings: e,
@@ -98397,9 +99365,9 @@
       getAccountForTab(e) {
         const t = this.props.accounts;
         switch (e) {
-          case eN.DotCom:
+          case cN.DotCom:
             return t.find((e) => e.endpoint === _n()) || null;
-          case eN.Enterprise:
+          case cN.Enterprise:
             return t.find((e) => e.endpoint !== _n()) || null;
           default:
             return st(0, `Unknown tab: ${e}`);
@@ -98408,9 +99376,9 @@
       renderSignInTab(e) {
         const t = "登录";
         switch (e) {
-          case eN.DotCom:
+          case cN.DotCom:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.signInDotCom },
               ve.createElement(
                 "div",
@@ -98418,9 +99386,9 @@
                 "登录您的GitHub.com帐户访问您的仓库."
               )
             );
-          case eN.Enterprise:
+          case cN.Enterprise:
             return ve.createElement(
-              cC,
+              fC,
               { actionTitle: t, onAction: this.signInEnterprise },
               ve.createElement(
                 "div",
@@ -98437,9 +99405,9 @@
           t = this.state.currentTab;
         return this.getAccountForTab(t)
           ? ve.createElement(
-              nC,
+              aC,
               null,
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 okButtonText: "发布仓库",
                 okButtonDisabled: e,
               })
@@ -98478,7 +99446,7 @@
         e !== this.state.currentTab && this.setState({ currentTab: e });
       };
       getCurrentTabState = () =>
-        this.state.currentTab === eN.DotCom
+        this.state.currentTab === cN.DotCom
           ? this.state.dotcomTabState
           : this.state.enterpriseTabState;
       setTabState = (e) => {
@@ -98487,7 +99455,7 @@
           : this.setState({ dotcomTabState: e });
       };
       setCurrentTabSettings = (e) => {
-        if (e.kind === QO.enterprise) {
+        if (e.kind === lN.enterprise) {
           const t = { ...this.state.enterpriseTabState, settings: e };
           this.setTabState(t);
         } else {
@@ -98499,7 +99467,7 @@
         this.setTabState({ ...this.getCurrentTabState(), error: e });
       };
     }
-    class rN extends ve.Component {
+    class pN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { licenses: null });
       }
@@ -98521,8 +99489,8 @@
             o = i.repository;
           let s, a;
           if (o) {
-            const e = iN(o);
-            s = ve.createElement(Lb, { uri: e }, r);
+            const e = dN(o);
+            s = ve.createElement(Hw, { uri: e }, r);
           } else s = r;
           a = i.sourceText
             ? i.sourceText
@@ -98551,7 +99519,7 @@
           );
         }
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "acknowledgements",
             title: "许可证和开源声明",
@@ -98559,34 +99527,38 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               ve.createElement(
-                Lb,
+                Hw,
                 { uri: "https://desktop.github.com" },
                 "GitHub Desktop"
               ),
               " 是根据麻省理工学院许可证发布的开源项目。您可以在上查看源代码并参与此项目",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { uri: "https://github.com/desktop/desktop" },
                 "GitHub"
               ),
               "."
             ),
             t,
-            ve.createElement("p", null, "GitHub Desktop还分发以下库："),
-            e ? this.renderLicenses(e) : ve.createElement(mw, null)
+            ve.createElement(
+              "p",
+              null,
+              "GitHub Desktop还分发以下库："
+            ),
+            e ? this.renderLicenses(e) : ve.createElement(bw, null)
           ),
-          ve.createElement(iC, null)
+          ve.createElement(cC, null)
         );
       }
     }
-    function iN(e) {
+    function dN(e) {
       let t = e;
       return (
         (t = t.replace("git+https://github.com", "https://github.com")),
@@ -98594,11 +99566,11 @@
         t
       );
     }
-    class oN extends ve.Component {
+    class fN extends ve.Component {
       render() {
         const e = o.parse(this.props.url).hostname;
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "不受信任的服务器",
             onDismissed: this.props.onDismissed,
@@ -98606,7 +99578,7 @@
             type: "error",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -98649,9 +99621,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: "添加证书",
             })
@@ -98664,12 +99636,12 @@
     }
     !(function (e) {
       (e[(e.dotCom = 0)] = "dotCom"), (e[(e.enterprise = 1)] = "enterprise");
-    })(tN || (tN = {}));
-    class sN extends ve.Component {
+    })(uN || (uN = {}));
+    class mN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
-            selectedTab: tN.dotCom,
+            selectedTab: uN.dotCom,
             dotComFilterText: "",
             enterpriseFilterText: "",
             selectedDotComRepository: null,
@@ -98678,7 +99650,7 @@
       }
       render() {
         return ve.createElement(
-          ew,
+          iw,
           { id: "no-repositories" },
           ve.createElement(
             "header",
@@ -98698,11 +99670,11 @@
           ),
           ve.createElement("img", {
             className: "no-repositories-graphic-top",
-            src: TR,
+            src: BR,
           }),
           ve.createElement("img", {
             className: "no-repositories-graphic-bottom",
-            src: _R,
+            src: FR,
           })
         );
       }
@@ -98722,9 +99694,9 @@
       }
       getSelectedAccount() {
         const { selectedTab: e } = this.state;
-        return e === tN.dotCom
+        return e === uN.dotCom
           ? this.props.dotComAccount || this.props.enterpriseAccount
-          : e === tN.enterprise
+          : e === uN.enterprise
           ? this.props.enterpriseAccount || this.props.dotComAccount
           : st(0, `Unknown account tab ${e}`);
       }
@@ -98755,7 +99727,7 @@
         return ve.createElement(
           ve.Fragment,
           null,
-          ve.createElement(UO, {
+          ve.createElement(YO, {
             account: e,
             selectedItem: i,
             filterText: o,
@@ -98778,7 +99750,7 @@
         return null === e
           ? null
           : ve.createElement(
-              Yb,
+              Qb,
               {
                 type: "submit",
                 className: "clone-selected-repository",
@@ -98818,7 +99790,7 @@
         const e =
           this.getSelectedAccount() === this.props.dotComAccount ? 0 : 1;
         return ve.createElement(
-          Xw,
+          nC,
           { selectedIndex: e, onTabClicked: this.onTabClicked },
           ve.createElement("span", null, "GitHub.com"),
           ve.createElement("span", null, "GitHub Enterprise")
@@ -98826,8 +99798,8 @@
       }
       onTabClicked = (e) => {
         0 === e
-          ? this.setState({ selectedTab: tN.dotCom })
-          : 1 === e && this.setState({ selectedTab: tN.enterprise });
+          ? this.setState({ selectedTab: uN.dotCom })
+          : 1 === e && this.setState({ selectedTab: uN.enterprise });
       };
       onShowClone = () => this.props.onClone();
       renderButtonGroupButton(e, t, n, r) {
@@ -98835,9 +99807,9 @@
           "li",
           null,
           ve.createElement(
-            Yb,
+            Qb,
             { onClick: n, type: r },
-            ve.createElement(Tv, { symbol: e }),
+            ve.createElement(Av, { symbol: e }),
             ve.createElement("div", null, t)
           )
         );
@@ -98848,35 +99820,35 @@
           ? null
           : this.props.tutorialPaused
           ? this.renderButtonGroupButton(
-              Qu,
+              eh,
               "Return to in progress tutorial",
               this.props.onResumeTutorialRepository,
               "submit"
             )
           : this.renderButtonGroupButton(
-              Qu,
-              "创建教程仓库",
+              eh,
+              "Create a tutorial repository…",
               this.props.onCreateTutorialRepository,
               "submit"
             );
       }
       renderCloneButton() {
         return this.renderButtonGroupButton(
-          oh,
-          "从Internet克隆仓库",
+          sh,
+          "从Internet克隆仓库…",
           this.onShowClone
         );
       }
       renderCreateRepositoryButton() {
         return this.renderButtonGroupButton(
-          nh,
-          "在硬盘上创建新仓库",
+          rh,
+          "在硬盘上创建新仓库…",
           this.props.onCreate
         );
       }
       renderAddExistingRepositoryButton() {
         return this.renderButtonGroupButton(
-          Nu,
+          Bu,
           "从硬盘添加现有仓库…",
           this.props.onAdd
         );
@@ -98896,7 +99868,7 @@
           ve.createElement(
             "div",
             { className: "drag-drop-info" },
-            ve.createElement(Tv, { symbol: Ku }),
+            ve.createElement(Av, { symbol: Yu }),
             ve.createElement(
               "div",
               null,
@@ -98907,7 +99879,7 @@
         );
       }
     }
-    class aN extends ve.Component {
+    class gN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = { deleteRepoFromDisk: !1, isRemovingRepository: !1 });
@@ -98923,7 +99895,7 @@
       render() {
         const e = this.state.isRemovingRepository;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "confirm-remove-repository",
             key: "remove-repository-confirmation",
@@ -98936,7 +99908,7 @@
             onSubmit: this.onSubmit,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -98950,22 +99922,22 @@
               { className: "description" },
               "将从GitHub Desktop删除仓库：",
               ve.createElement("br", null),
-              ve.createElement(aC, null, this.props.repository.path)
+              ve.createElement(pC, null, this.props.repository.path)
             ),
             ve.createElement(
               "div",
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "同时将此仓库移动到回收站",
-                value: this.state.deleteRepoFromDisk ? tw.On : tw.Off,
+                value: this.state.deleteRepoFromDisk ? ow.On : ow.Off,
                 onChange: this.onConfirmRepositoryDeletion,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "删除" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -98974,11 +99946,11 @@
         this.setState({ deleteRepoFromDisk: t });
       };
     }
-    const lN = "https://github.com/contact";
-    class cN extends ve.Component {
+    const yN = "https://github.com/contact";
+    class vN extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "terms-and-conditions",
             title: "GitHub开源应用程序条款和条件",
@@ -98986,7 +99958,7 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99015,7 +99987,7 @@
               null,
               "To the extent the terms of the licenses applicable to open source components require GitHub to make an offer to provide source code in connection with the Software, such offer is hereby made, and you may exercise it by contacting GitHub:",
               " ",
-              ve.createElement(Lb, { uri: lN }, "contact"),
+              ve.createElement(Hw, { uri: yN }, "contact"),
               "."
             ),
             ve.createElement(
@@ -99035,7 +100007,7 @@
               "The names GitHub, GitHub Desktop, GitHub for Mac, GitHub for Windows, Atom, the Octocat, and related GitHub logos and/or stylized names are trademarks of GitHub. You agree not to display or use these trademarks in any manner without GitHub's prior, written permission, except as allowed by GitHub's Logos and Usage Policy:",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { uri: "https://github.com/logos" },
                 "logos"
               ),
@@ -99047,7 +100019,7 @@
               null,
               "The Software may collect personal information. You may control what information the Software collects in the settings panel. If the Software does collect personal information on GitHub's behalf, GitHub will process that information in accordance with the",
               ve.createElement(
-                Lb,
+                Hw,
                 {
                   uri: "https://help.github.com/articles/github-privacy-statement/",
                 },
@@ -99117,7 +100089,7 @@
                 "License to GitHub Policies. These Application Terms are licensed under the",
                 " ",
                 ve.createElement(
-                  Lb,
+                  Hw,
                   { uri: "https://creativecommons.org/licenses/by/4.0/" },
                   "Creative Commons Attribution license"
                 ),
@@ -99127,48 +100099,48 @@
                 "li",
                 null,
                 "Contact Us. Please send any questions about these Application Terms to ",
-                ve.createElement(Lb, { uri: lN }, "support@github.com"),
+                ve.createElement(Hw, { uri: yN }, "support@github.com"),
                 "."
               )
             )
           ),
-          ve.createElement(iC, null)
+          ve.createElement(cC, null)
         );
       }
     }
-    class uN extends ve.Component {
+    class bN extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "已安装命令行工具",
             onDismissed: this.props.onDismissed,
             onSubmit: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
               null,
               "命令行工具已安装在",
               " ",
-              ve.createElement("strong", null, Hy),
+              ve.createElement("strong", null, jy),
               "."
             )
           ),
-          ve.createElement(iC, { buttonText: "确定" })
+          ve.createElement(cC, { buttonText: "确定" })
         );
       }
     }
-    class hN extends ve.Component {
+    class wN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { username: "", password: "" });
       }
       render() {
         const e = !this.state.password.length || !this.state.username.length;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "generic-git-auth",
             title: "验证失败",
@@ -99176,19 +100148,19 @@
             onSubmit: this.save,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "我们无法通过验证 ",
-              ve.createElement(aC, null, this.props.hostname),
-              ". 请输入用户名和密码以重试。"
+              ve.createElement(pC, null, this.props.hostname),
+              ". 请输入用户名和密码以重。"
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 label: "用户名",
                 autoFocus: !0,
                 value: this.state.username,
@@ -99196,9 +100168,9 @@
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 label: "密码",
                 type: "password",
                 value: this.state.password,
@@ -99206,7 +100178,7 @@
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
               ve.createElement(
                 "div",
@@ -99214,7 +100186,7 @@
                 "Depending on your repository's hosting service, you might need to use a Personal Access Token (PAT) as your password. Learn more about creating a PAT in our",
                 " ",
                 ve.createElement(
-                  Lb,
+                  Hw,
                   {
                     uri: "https://github.com/desktop/desktop/tree/development/docs/integrations",
                   },
@@ -99225,9 +100197,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "保存并重试",
               okButtonDisabled: e,
             })
@@ -99250,7 +100222,7 @@
           );
       };
     }
-    class pN extends ve.Component {
+    class CN extends ve.Component {
       onShowPreferencesDialog = (e) => {
         e.preventDefault(),
           this.props.onDismissed(),
@@ -99258,7 +100230,7 @@
       };
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "shell-error",
             type: "error",
@@ -99267,14 +100239,14 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement("p", null, this.props.message)
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "关闭",
               cancelButtonText: "打开选项",
               onCancelButtonClick: this.onShowPreferencesDialog,
@@ -99283,22 +100255,22 @@
         );
       }
     }
-    const dN = "https://git-lfs.github.com/";
-    class fN extends ve.Component {
+    const SN = "https://git-lfs.github.com/";
+    class kN extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "initialize-lfs",
             title: "初始化 Git LFS",
             dismissable: !1,
             onSubmit: this.onInitialize,
           },
-          ve.createElement(Jw, null, this.renderRepositories()),
+          ve.createElement(rC, null, this.renderRepositories()),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "初始化 Git LFS",
               cancelButtonText: "现在",
               onCancelButtonClick: this.props.onDismissed,
@@ -99318,8 +100290,8 @@
             this.props.repositories.length,
             " repositories use",
             " ",
-            ve.createElement(Lb, { uri: dN }, "Git LFS"),
-            ". 要对其作出贡献，必须首先初始化Git LFS。您现在想这样做吗?"
+            ve.createElement(Hw, { uri: SN }, "Git LFS"),
+            ". To contribute to them, Git LFS must first be initialized. Would you like to do so now?"
           );
         {
           const e = 1 !== this.props.repositories.length,
@@ -99333,7 +100305,7 @@
               null,
               t,
               " ",
-              ve.createElement(Lb, { uri: dN }, "Git LFS"),
+              ve.createElement(Hw, { uri: SN }, "Git LFS"),
               ". To contribute to",
               " ",
               n,
@@ -99346,7 +100318,7 @@
                 ve.createElement(
                   "li",
                   { key: e.id },
-                  ve.createElement(BC, { path: e.path })
+                  ve.createElement(zC, { path: e.path })
                 )
               )
             )
@@ -99354,7 +100326,7 @@
         }
       }
     }
-    class mN extends ve.Component {
+    class EN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { globalGitConfigPath: null });
       }
@@ -99362,7 +100334,7 @@
         try {
           const t = await (async function (t) {
             const n = (
-              await ty(
+              await ry(
                 [
                   "config",
                   "--global",
@@ -99390,7 +100362,7 @@
       renderGlobalGitConfigLink() {
         const e = "your global git config";
         return this.state.globalGitConfigPath
-          ? ve.createElement(Lb, { onClick: this.showGlobalGitConfig }, e)
+          ? ve.createElement(Hw, { onClick: this.showGlobalGitConfig }, e)
           : e;
       }
       showGlobalGitConfig = () => {
@@ -99399,7 +100371,7 @@
       };
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "lfs-attribute-mismatch",
             title: "是否更新现有Git LFS筛选器？",
@@ -99407,7 +100379,7 @@
             onSubmit: this.onSubmit,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99419,9 +100391,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "更新现有筛选器",
               cancelButtonText: "不是现在",
             })
@@ -99432,7 +100404,7 @@
         this.props.onUpdateExistingFilters(), this.props.onDismissed();
       };
     }
-    class gN extends ve.Component {
+    class xN extends ve.Component {
       render() {
         const e = this.props.repository.name,
           t = at(
@@ -99444,7 +100416,7 @@
           i = this.props.existingRemote.url,
           o = n.cloneURL;
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "上游已经存在",
             onDismissed: this.props.onDismissed,
@@ -99452,18 +100424,18 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "The repository ",
-              ve.createElement(aC, null, e),
+              ve.createElement(pC, null, e),
               " is a fork of",
               " ",
-              ve.createElement(aC, null, r),
+              ve.createElement(pC, null, r),
               ", but its ",
-              ve.createElement(aC, null, Uo),
+              ve.createElement(pC, null, Uo),
               " ",
               "remote points elsewhere."
             ),
@@ -99474,13 +100446,13 @@
                 "li",
                 null,
                 "Current: ",
-                ve.createElement(aC, null, i)
+                ve.createElement(pC, null, i)
               ),
               ve.createElement(
                 "li",
                 null,
                 "Expected: ",
-                ve.createElement(aC, null, o)
+                ve.createElement(pC, null, o)
               )
             ),
             ve.createElement(
@@ -99490,9 +100462,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: "更新",
               cancelButtonText: "忽略",
@@ -99510,14 +100482,14 @@
           this.props.onDismissed();
       };
     }
-    const yN = new Vm("desktop", _n(), -1),
-      vN = new Wr(
+    const RN = new Ym("desktop", _n(), -1),
+      TN = new Wr(
         "",
         -1,
-        new Ur("desktop", yN, -1, !1, "https://github.com/desktop/desktop"),
+        new Ur("desktop", RN, -1, !1, "https://github.com/desktop/desktop"),
         !0
       );
-    class bN extends ve.Component {
+    class _N extends ve.Component {
       renderList(e, t) {
         if (0 === e.length) return null;
         const n = new Array();
@@ -99526,11 +100498,11 @@
             ve.createElement(
               "li",
               { key: t },
-              ve.createElement(GC, {
+              ve.createElement(XC, {
                 text: r.message,
                 emoji: this.props.emoji,
                 renderUrlsAsLinks: !0,
-                repository: vN,
+                repository: TN,
               })
             )
           );
@@ -99593,7 +100565,7 @@
       };
       renderPretext = (e) => {
         if (0 !== e.length)
-          return ve.createElement(ax, {
+          return ve.createElement(yx, {
             markdown: e[0].message,
             emoji: this.props.emoji,
             onMarkdownLinkClicked: this.onMarkdownLinkClicked,
@@ -99603,13 +100575,13 @@
         e.preventDefault(), this.props.onDismissed();
       };
       renderButtons = () =>
-        "3.0.3" === this.props.newReleases[0].latestVersion
+        "3.0.7" === this.props.newReleases[0].latestVersion
           ? ve.createElement(
-              Yb,
+              Qb,
               { type: "submit", onClick: this.onDismissed },
               "Close"
             )
-          : ve.createElement(rC, {
+          : ve.createElement(lC, {
               destructive: !0,
               okButtonText: "安装并重新启动",
               cancelButtonText: "关闭",
@@ -99633,7 +100605,7 @@
             { className: "release-notes-header" },
             ve.createElement("img", {
               className: "release-note-graphic-left",
-              src: lv,
+              src: hv,
             }),
             ve.createElement(
               "div",
@@ -99643,23 +100615,23 @@
             ),
             ve.createElement("img", {
               className: "release-note-graphic-right",
-              src: cv,
+              src: pv,
             })
           );
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "release-notes",
             onDismissed: this.props.onDismissed,
             onSubmit: this.updateNow,
             title: a,
           },
-          ve.createElement(Jw, null, this.renderPretext(o), s),
+          ve.createElement(rC, null, this.renderPretext(o), s),
           ve.createElement(
-            nC,
+            aC,
             null,
             ve.createElement(
-              Lb,
+              Hw,
               { onClick: this.showAllReleaseNotes },
               "View all release notes"
             ),
@@ -99668,19 +100640,19 @@
         );
       }
       updateNow = () => {
-        dv.quitAndInstallUpdate();
+        gv.quitAndInstallUpdate();
       };
       showAllReleaseNotes = () => {
-        rt.openExternal(UR);
+        rt.openExternal(YR);
       };
       onMarkdownLinkClicked = (e) => {
         rt.openExternal(e);
       };
     }
-    class wN extends ve.Component {
+    class DN extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "delete-branch",
             title: "删除分支",
@@ -99689,7 +100661,7 @@
             onSubmit: this.deleteBranch,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99702,7 +100674,7 @@
               "如果",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.openPullRequest },
                 "#",
                 this.props.pullRequest.pullRequestNumber
@@ -99712,9 +100684,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "删除" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -99729,7 +100701,7 @@
         this.props.onDismissed()
       );
     }
-    class CN extends ve.Component {
+    class AN extends ve.Component {
       onCancel = () => {
         this.props.onDismissed();
       };
@@ -99753,7 +100725,7 @@
               ve.createElement(
                 "li",
                 { key: e.path },
-                ve.createElement(BC, { path: e.path })
+                ve.createElement(zC, { path: e.path })
               )
             )
           )
@@ -99761,7 +100733,7 @@
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "commit-conflict-markers-warning",
             onDismissed: this.onCancel,
@@ -99770,7 +100742,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99785,9 +100757,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: "是，提交文件",
             })
@@ -99795,7 +100767,7 @@
         );
       }
     }
-    class SN extends ve.PureComponent {
+    class PN extends ve.PureComponent {
       componentDidMount() {
         this.ensureTheme();
       }
@@ -99828,7 +100800,7 @@
         if (!n.classList.contains("theme-high-contrast")) {
           n.classList.add("theme-high-contrast");
           const e = (function (e) {
-            const { red: t, green: n, blue: r } = eO(e);
+            const { red: t, green: n, blue: r } = cO(e);
             return 0.2126 * t + 0.7152 * n + 0.0722 * r > 150;
           })(t)
             ? "theme-light"
@@ -99843,8 +100815,8 @@
                 activeText: i,
                 border: o,
               } = e,
-              s = nO(r, 20);
-            return `body.theme-high-contrast {\n    --hc-background-color: ${t};\n    --hc-secondary-background-color: ${nO(
+              s = hO(r, 20);
+            return `body.theme-high-contrast {\n    --hc-background-color: ${t};\n    --hc-secondary-background-color: ${hO(
               t,
               20
             )};\n    --hc-border-color: ${o};\n    --hc-text-color: ${n};\n    --hc-active-item-color: ${r};\n    --hc-secondary-active-item-color: ${s};\n    --hc-active-text-color: ${i};\n  }`;
@@ -99864,13 +100836,13 @@
         return null;
       }
     }
-    class kN extends ve.Component {
+    class IN extends ve.Component {
       constructor(e) {
         super(e);
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "oversized-files",
             title: "文件太大",
@@ -99879,7 +100851,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99899,7 +100871,7 @@
               "We recommend you avoid committing these files or use",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 {
                   uri: "https://help.github.com/articles/versioning-large-files/",
                 },
@@ -99909,9 +100881,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: "无论如何提交",
             })
@@ -99929,7 +100901,7 @@
               ve.createElement(
                 "li",
                 { key: e },
-                ve.createElement(BC, { path: e })
+                ve.createElement(zC, { path: e })
               )
             )
           )
@@ -99944,13 +100916,13 @@
           this.props.dispatcher.setCommitMessage(this.props.repository, Oo);
       };
     }
-    class EN extends ve.Component {
+    class MN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "远程上更新的提交",
             dismissable: !this.state.isLoading,
@@ -99961,7 +100933,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -99970,9 +100942,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "获取",
               okButtonDisabled: this.state.isLoading,
             })
@@ -99989,24 +100961,24 @@
           this.props.onDismissed();
       };
     }
-    var xN;
+    var ON;
     !(function (e) {
       (e[(e.StashOnCurrentBranch = 0)] = "StashOnCurrentBranch"),
         (e[(e.MoveToNewBranch = 1)] = "MoveToNewBranch");
-    })(xN || (xN = {}));
-    class RN extends ve.Component {
+    })(ON || (ON = {}));
+    class NN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
             isStashingChanges: !1,
-            selectedStashAction: xN.StashOnCurrentBranch,
+            selectedStashAction: ON.StashOnCurrentBranch,
             currentBranchName: e.currentBranch.name,
           });
       }
       render() {
         const { isStashingChanges: e } = this.state;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "stash-changes",
             title: "切换分支",
@@ -100016,26 +100988,26 @@
             disabled: e,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             this.renderStashActions(),
             this.renderStashOverwriteWarning()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "切换分支" })
+            ve.createElement(lC, { okButtonText: "切换分支" })
           )
         );
       }
       renderStashOverwriteWarning() {
         return this.props.hasAssociatedStash &&
-          this.state.selectedStashAction === xN.StashOnCurrentBranch
+          this.state.selectedStashAction === ON.StashOnCurrentBranch
           ? ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Tv, { symbol: mu }),
-              "创建新的存储将覆盖当前的存储"
+              ve.createElement(Av, { symbol: gu }),
+              " 创建新的存储将覆盖当前的存储"
             )
           : null;
       }
@@ -100044,20 +101016,23 @@
           t = [
             {
               title: `保留我的更改 ${this.state.currentBranchName}`,
-              description: "您正在进行的工作将保存在此分支上，以便您稍后返回",
-              key: xN.StashOnCurrentBranch,
+              description:
+                "您正在进行的工作将保存在此分支上，以便您稍后返回",
+              key: ON.StashOnCurrentBranch,
             },
             {
               title: `将我的更改带到 ${e.name}`,
-              description: "您正在进行的工作将跟随您进入新的分支机构",
-              key: xN.MoveToNewBranch,
+              description:
+                "您正在进行的工作将跟随您进入新的分支机构",
+              key: ON.MoveToNewBranch,
             },
           ];
         return ve.createElement(
-          Ub,
+          $b,
           null,
-          ve.createElement(oT, {
-            label: "您对此分支进行了更改。你想用它们做什么？",
+          ve.createElement(fT, {
+            label:
+              "您对此分支进行了更改。你想用它们做什么？",
             items: t,
             selectedKey: this.state.selectedStashAction,
             onSelectionChanged: this.onSelectionChanged,
@@ -100075,18 +101050,18 @@
             hasAssociatedStash: r,
           } = this.props,
           { selectedStashAction: i } = this.state;
-        if (i === xN.StashOnCurrentBranch && r)
+        if (i === ON.StashOnCurrentBranch && r)
           return void n.showPopup({
             type: Pr.ConfirmOverwriteStash,
             repository: e,
             branchToCheckout: t,
           });
         this.setState({ isStashingChanges: !0 });
-        const o = Iw("stash and checkout", e);
+        const o = Bw("stash and checkout", e);
         try {
-          i === xN.StashOnCurrentBranch
+          i === ON.StashOnCurrentBranch
             ? await n.checkoutBranch(e, t, Is.StashOnCurrentBranch)
-            : i === xN.MoveToNewBranch &&
+            : i === ON.MoveToNewBranch &&
               (await n.checkoutBranch(e, t, Is.MoveToNewBranch));
         } finally {
           o.done(),
@@ -100096,13 +101071,13 @@
         }
       };
     }
-    class TN extends ve.Component {
+    class BN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "overwrite-stash",
             type: "warning",
@@ -100113,18 +101088,18 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
               "是否确实要继续？这将用当前更改覆盖现有存储."
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "覆盖" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "覆盖" })
           )
         );
       }
@@ -100147,13 +101122,13 @@
         r();
       };
     }
-    class _N extends ve.Component {
+    class FN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isDiscarding: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "discard-stash",
             type: "warning",
@@ -100164,14 +101139,18 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Ub, null, "是否确实要放弃这些隐藏的更改?")
+            ve.createElement(
+              $b,
+              null,
+              "是否确实要放弃这些隐藏的更改?"
+            )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "丢弃" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "丢弃" })
           )
         );
       }
@@ -100191,7 +101170,7 @@
         r();
       };
     }
-    class DN extends ve.Component {
+    class LN extends ve.Component {
       onSubmit = () =>
         this.props.onCreateTutorialRepository(this.props.account);
       renderProgress() {
@@ -100212,7 +101191,7 @@
         const { account: e, progress: t } = this.props,
           n = void 0 !== t;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "create-tutorial-repository-dialog",
             title: "开始教程",
@@ -100223,35 +101202,35 @@
             disabled: n,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
               null,
-              "这将在本地计算机上创建仓库，并将其推送到您的帐户  ",
-              ve.createElement(aC, null, "@", this.props.account.login),
+              "这将在本地计算机上创建仓库，并将其推送到您的帐户 ",
+              ve.createElement(pC, null, "@", this.props.account.login),
               " on",
               " ",
-              ve.createElement(Lb, { uri: Tn(e.endpoint) }, wa(e)),
-              ". 此仓库将仅对您可见，而不公开可见。"
+              ve.createElement(Hw, { uri: Tn(e.endpoint) }, wa(e)),
+              ". 此仓库将仅对您可见，而不公开可见."
             ),
             this.renderProgress()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "继续" })
+            ve.createElement(lC, { okButtonText: "继续" })
           )
         );
       }
     }
-    class AN extends ve.Component {
+    class HN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "workflow-push-rejected",
             title: "推送被拒绝",
@@ -100261,13 +101240,13 @@
             type: "error",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "由于包含对工作流文件的修改，推送被服务器拒绝 ",
-              ve.createElement(aC, null, this.props.rejectedPath),
+              ve.createElement(pC, null, this.props.rejectedPath),
               ", 为了能够推送工作流文件，GitHub Desktop需要请求额外的权限。"
             ),
             ve.createElement(
@@ -100277,9 +101256,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "在浏览器中继续" })
+            ve.createElement(lC, { okButtonText: "在浏览器中继续" })
           )
         );
       }
@@ -100295,13 +101274,13 @@
           this.props.onDismissed();
       };
     }
-    class PN extends ve.Component {
+    class UN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "需要重新授权",
             loading: this.state.loading,
@@ -100310,7 +101289,7 @@
             type: "error",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -100326,9 +101305,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "在浏览器中继续" })
+            ve.createElement(lC, { okButtonText: "Continue in browser" })
           )
         );
       }
@@ -100343,7 +101322,7 @@
           this.props.onDismissed();
       };
     }
-    class IN extends ve.Component {
+    class zN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
@@ -100367,13 +101346,13 @@
               });
         } catch (e) {
           log.error(`Fork creation through API failed (${e})`),
-            Bg("forkCreation", e),
+            Lg("forkCreation", e),
             this.setState({ error: e, loading: !1 });
         }
       };
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "是否要分支此仓库？",
             onDismissed: this.props.onDismissed,
@@ -100393,7 +101372,7 @@
                         null,
                         "You can try ",
                         ve.createElement(
-                          Lb,
+                          Hw,
                           { uri: e.gitHubRepository.htmlURL },
                           "creating the fork manually on GitHub"
                         ),
@@ -100404,7 +101383,7 @@
                   ve.Fragment,
                   null,
                   ve.createElement(
-                    Jw,
+                    rC,
                     null,
                     ve.createElement(
                       "div",
@@ -100425,7 +101404,7 @@
                       ve.createElement("pre", { className: "error" }, n.message)
                     )
                   ),
-                  ve.createElement(iC, null)
+                  ve.createElement(cC, null)
                 );
               })(this.props.repository, this.props.account, this.state.error)
             : ((e = this.props.repository),
@@ -100435,7 +101414,7 @@
                 ve.Fragment,
                 null,
                 ve.createElement(
-                  Jw,
+                  rC,
                   null,
                   ve.createElement(
                     "p",
@@ -100461,9 +101440,9 @@
                   )
                 ),
                 ve.createElement(
-                  nC,
+                  aC,
                   null,
-                  ve.createElement(rC, {
+                  ve.createElement(lC, {
                     destructive: !0,
                     okButtonText: "分支此仓库",
                     okButtonDisabled: n,
@@ -100475,7 +101454,7 @@
         var e, t, n;
       }
     }
-    class MN extends ve.Component {
+    class WN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -100488,7 +101467,7 @@
         const e = this.getCurrentError(),
           t = null !== e || 0 === this.state.tagName.length;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "create-tag",
             title: "创建标记",
@@ -100497,21 +101476,21 @@
             loading: this.state.isCreatingTag,
             disabled: this.state.isCreatingTag,
           },
-          e && ve.createElement(tC, null, e),
+          e && ve.createElement(sC, null, e),
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Ux, {
-              label: "名称",
+            ve.createElement(Yx, {
+              label: "Name",
               initialValue: this.props.initialName,
               onValueChange: this.updateTagName,
             }),
             this.renderPreviousTags()
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "创建标记",
               okButtonDisabled: t,
             })
@@ -100519,7 +101498,7 @@
         );
       }
       renderPreviousTags() {
-        if (!no()) return null;
+        if (!ho()) return null;
         const { localTags: e } = this.props,
           { previousTags: t, tagName: n } = this.state;
         if (null === t || null === e || 0 === e.size) return null;
@@ -100530,7 +101509,7 @@
           ve.createElement("p", null, "Previous tags"),
           0 === r.length
             ? ve.createElement("p", null, `No matches found for '${n}'`)
-            : r.map((e, t) => ve.createElement(aC, { key: t }, e))
+            : r.map((e, t) => ve.createElement(pC, { key: t }, e))
         );
       }
       getCurrentError() {
@@ -100547,7 +101526,7 @@
               ve.Fragment,
               null,
               "A tag named ",
-              ve.createElement(aC, null, this.state.tagName),
+              ve.createElement(pC, null, this.state.tagName),
               " already exists"
             )
           : null;
@@ -100570,7 +101549,7 @@
           t = this.props.repository;
         if (e.length > 0) {
           this.setState({ isCreatingTag: !0 });
-          const n = Iw("create tag", t);
+          const n = Bw("create tag", t);
           await this.props.dispatcher.createTag(
             t,
             e,
@@ -100581,13 +101560,13 @@
         }
       };
     }
-    class ON extends ve.Component {
+    class jN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isDeleting: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "delete-tag",
             title: "删除标记",
@@ -100598,21 +101577,21 @@
             loading: this.state.isDeleting,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "确实要删除标记吗",
               " ",
-              ve.createElement(aC, null, this.props.tagName),
+              ve.createElement(pC, null, this.props.tagName),
               "?"
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "删除" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -100623,7 +101602,7 @@
           this.props.onDismissed();
       };
     }
-    class NN extends ve.Component {
+    class $N extends ve.Component {
       constructor(e) {
         super(e), (this.state = { forkContributionTarget: Kr(e.repository) });
       }
@@ -100665,7 +101644,7 @@
           },
         ];
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "fork-settings",
             title: "你打算怎么用这个分支?",
@@ -100673,31 +101652,32 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(oT, {
-                label: "您对此分支进行了更改,你想用它们做什么?",
+              ve.createElement(fT, {
+                label:
+                  "您对此分支进行了更改,你想用它们做什么?",
                 items: e,
                 selectedKey: this.state.forkContributionTarget,
                 onSelectionChanged: this.onSelectionChanged,
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(hC, {
+              ve.createElement(gC, {
                 repository: this.props.repository,
                 forkContributionTarget: this.state.forkContributionTarget,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { okButtonText: "继续" })
+            ve.createElement(lC, { okButtonText: "继续" })
           )
         );
       }
@@ -100712,7 +101692,7 @@
           this.props.onDismissed();
       };
     }
-    class BN extends ve.Component {
+    class qN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -100726,7 +101706,7 @@
       render() {
         const e = this.state.isDiscardingSelection;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "discard-changes",
             title: "确认放弃更改",
@@ -100738,7 +101718,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -100751,19 +101731,19 @@
               ve.createElement(
                 "li",
                 null,
-                ve.createElement(BC, { path: this.props.file.path })
+                ve.createElement(zC, { path: this.props.file.path })
               )
             ),
-            ve.createElement(nw, {
+            ve.createElement(sw, {
               label: "Do not show this message again",
-              value: this.state.confirmDiscardSelection ? tw.Off : tw.On,
+              value: this.state.confirmDiscardSelection ? ow.Off : ow.On,
               onChange: this.onConfirmDiscardSelectionChanged,
             })
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: this.getOkButtonLabel(),
             })
@@ -100788,7 +101768,7 @@
         this.setState({ confirmDiscardSelection: t });
       };
     }
-    class FN extends ve.Component {
+    class GN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { stashingAndRetrying: !1 });
       }
@@ -100798,7 +101778,7 @@
             ? " The following files would be overwritten:"
             : null;
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "错误",
             id: "local-changes-overwritten",
@@ -100809,7 +101789,7 @@
             type: "error",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -100839,7 +101819,7 @@
                   ve.createElement(
                     "li",
                     { key: e },
-                    ve.createElement(BC, { path: e })
+                    ve.createElement(zC, { path: e })
                   )
                 )
               )
@@ -100856,11 +101836,11 @@
       }
       renderFooter() {
         return this.props.hasExistingStash && !this.state.stashingAndRetrying
-          ? ve.createElement(iC, null)
+          ? ve.createElement(cC, null)
           : ve.createElement(
-              nC,
+              aC,
               null,
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 okButtonText: "保存更改并继续",
                 okButtonTitle:
                   "这将为您当前的更改创建一个隐藏。您可以在事后恢复藏品来恢复它们。",
@@ -100883,28 +101863,28 @@
       };
       getRetryActionName() {
         switch (this.props.retryAction.type) {
-          case fo.Checkout:
+          case lo.Checkout:
             return "checkout";
-          case fo.Pull:
+          case lo.Pull:
             return "pull";
-          case fo.Merge:
+          case lo.Merge:
             return "merge";
-          case fo.Rebase:
+          case lo.Rebase:
             return "rebase";
-          case fo.Clone:
+          case lo.Clone:
             return "clone";
-          case fo.Fetch:
+          case lo.Fetch:
             return "fetch";
-          case fo.Push:
+          case lo.Push:
             return "push";
-          case fo.CherryPick:
-          case fo.CreateBranchForCherryPick:
+          case lo.CherryPick:
+          case lo.CreateBranchForCherryPick:
             return "cherry-pick";
-          case fo.Squash:
+          case lo.Squash:
             return "squash";
-          case fo.Reorder:
+          case lo.Reorder:
             return "reorder";
-          case fo.DiscardChanges:
+          case lo.DiscardChanges:
             return "discard changes";
           default:
             st(
@@ -100914,7 +101894,7 @@
         }
       }
     }
-    class LN extends ve.Component {
+    class VN extends ve.Component {
       timeoutId = null;
       onEnterDropTarget = null;
       onLeaveDropTargetDisposable = null;
@@ -100932,10 +101912,10 @@
         if (!e || null === t) return;
         let n;
         switch (t.type) {
-          case jy.Branch:
-            const e = ve.createElement(Tv, {
+          case Vy.Branch:
+            const e = ve.createElement(Av, {
               className: "copy-to-icon",
-              symbol: nh,
+              symbol: rh,
             });
             n = ve.createElement(
               ve.Fragment,
@@ -100953,7 +101933,7 @@
               )
             );
             break;
-          case jy.Commit:
+          case Vy.Commit:
             const r = this.props.selectedCommits.length + 1;
             n = ve.createElement(
               ve.Fragment,
@@ -100961,8 +101941,8 @@
               ve.createElement("span", null, "Squash ", r, " commits")
             );
             break;
-          case jy.ListInsertionPoint:
-            if (t.data.type !== Wy.Commit) {
+          case Vy.ListInsertionPoint:
+            if (t.data.type !== Gy.Commit) {
               n = ve.createElement(
                 ve.Fragment,
                 null,
@@ -100987,18 +101967,18 @@
         );
       }
       componentDidMount() {
-        (this.onEnterDropTarget = Gy.onEnterDropTarget((e) => {
+        (this.onEnterDropTarget = Yy.onEnterDropTarget((e) => {
           switch ((this.setState({ currentDropTarget: e }), e.type)) {
-            case jy.Branch:
-            case jy.Commit:
-            case jy.ListInsertionPoint:
+            case Vy.Branch:
+            case Vy.Commit:
+            case Vy.ListInsertionPoint:
               this.setToolTipTimer(1500);
               break;
             default:
               st(0, `Unknown drop target type: ${e}`);
           }
         })),
-          (this.onLeaveDropTargetDisposable = Gy.onLeaveDropTarget(() => {
+          (this.onLeaveDropTargetDisposable = Yy.onLeaveDropTarget(() => {
             this.setState({ currentDropTarget: null, showTooltip: !1 });
           }));
       }
@@ -101042,13 +102022,13 @@
         );
       }
     }
-    class HN extends ve.Component {
+    class KN extends ve.Component {
       constructor(e) {
         super(e), (this.state = { askToMoveToApplicationsFolder: !0 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "将GitHub Desktop移动到应用程序文件夹?",
             id: "move-to-applications-folder",
@@ -101058,7 +102038,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
@@ -101071,11 +102051,11 @@
             ve.createElement(
               "div",
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "Do not show this message again",
                 value: this.state.askToMoveToApplicationsFolder
-                  ? tw.Off
-                  : tw.On,
+                  ? ow.Off
+                  : ow.On,
                 onChange: this.onAskToMoveToApplicationsFolderChanged,
               })
             )
@@ -101085,9 +102065,9 @@
       }
       renderFooter() {
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, {
+          ve.createElement(lC, {
             okButtonText: "移动并重新启动",
             okButtonTitle:
               "这会将GitHub Desktop 移动到您机器中的Applications文件夹，并重新启动应用程序。",
@@ -101115,7 +102095,7 @@
         }
       };
     }
-    class UN extends ve.Component {
+    class YN extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = { newAlias: e.repository.alias ?? e.repository.name });
@@ -101124,7 +102104,7 @@
         const e = this.props.repository,
           t = null === e.alias ? "创建" : "更改";
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "change-repository-alias",
             title: `${t}仓库别名`,
@@ -101132,13 +102112,13 @@
             onSubmit: this.changeAlias,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement("p", null, '为仓库选择新别名 "', qr(e), '". '),
             ve.createElement(
               "p",
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 value: this.state.newAlias,
                 onValueChanged: this.onNameChanged,
               })
@@ -101151,10 +102131,10 @@
               )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
-              okButtonText: `${t}别名`,
+            ve.createElement(lC, {
+              okButtonText: `${t} 别名`,
               okButtonDisabled: 0 === this.state.newAlias.length,
             })
           )
@@ -101171,7 +102151,7 @@
           this.props.onDismissed();
       };
     }
-    class zN extends ve.Component {
+    class ZN extends ve.Component {
       renderList(e) {
         if (0 === e.length) return null;
         const t = new Array();
@@ -101180,11 +102160,11 @@
             ve.createElement(
               "li",
               { key: n },
-              ve.createElement(GC, {
+              ve.createElement(XC, {
                 text: r.message,
                 emoji: this.props.emoji,
                 renderUrlsAsLinks: !0,
-                repository: vN,
+                repository: TN,
               })
             )
           );
@@ -101209,12 +102189,12 @@
               { className: "header-graphics" },
               ve.createElement("img", {
                 className: "release-note-graphic-left",
-                src: lv,
+                src: hv,
               }),
               ve.createElement("div", { className: "img-space" }),
               ve.createElement("img", {
                 className: "release-note-graphic-right",
-                src: cv,
+                src: pv,
               })
             ),
             ve.createElement(
@@ -101227,7 +102207,7 @@
                 this.props.friendlyName,
                 "!",
                 " ",
-                ve.createElement(GC, {
+                ve.createElement(XC, {
                   text: ":tada:",
                   emoji: this.props.emoji,
                   renderUrlsAsLinks: !0,
@@ -101247,14 +102227,14 @@
             ". We're so grateful for your willingness to contribute and make the app better for everyone!"
           );
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "thank-you-notes",
             onDismissed: this.props.onDismissed,
             title: e,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
@@ -101284,7 +102264,7 @@
         );
       }
     }
-    function WN(e, t, n, r) {
+    function XN(e, t, n, r) {
       const i = [n],
         o = {
           version: r,
@@ -101295,24 +102275,26 @@
         };
       e.setLastThankYou(o);
     }
-    class jN extends ve.Component {
+    class JN extends ve.Component {
       constructor(e) {
-        super(e), (this.state = DC(e, "showCoAuthoredBy", "coAuthors"));
+        super(e), (this.state = OC(e, "showCoAuthoredBy", "coAuthors"));
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "commit-message-dialog",
             title: this.props.dialogTitle,
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(IC, {
+            ve.createElement(FC, {
               branch: this.props.branch,
               commitAuthor: this.props.commitAuthor,
+              isShowingModal: !0,
+              isShowingFoldout: !1,
               commitButtonText: this.props.dialogButtonText,
               commitToAmend: null,
               repository: this.props.repository,
@@ -101360,28 +102342,28 @@
           this.props.dispatcher.showCreateForkDialog(this.props.repository);
       };
     }
-    function $N(e, t) {
+    function QN(e, t) {
       return ve.createElement(
         "li",
         { key: e, className: "unmerged-file-status-conflicts" },
-        ve.createElement(Tv, { symbol: Mu, className: "file-octicon" }),
+        ve.createElement(Av, { symbol: Ou, className: "file-octicon" }),
         t
       );
     }
-    const qN = (e, t, n, r, i, o) => () => {
-        Fv(KN(e, n, r, t, i, o));
+    const eB = (e, t, n, r, i, o) => () => {
+        Uv(rB(e, n, r, t, i, o));
       },
-      GN = (e, t, n) => () => n.updateManualConflictResolution(t, e, null),
-      VN = (t, n, r, i, o, s) => () => {
+      tB = (e, t, n) => () => n.updateManualConflictResolution(t, e, null),
+      nB = (t, n, r, i, o, s) => () => {
         const a = (0, e.join)(n.path, t);
-        Fv([
-          { label: $a, action: () => JC(a, r) },
+        Uv([
+          { label: $a, action: () => rS(a, r) },
           { label: Wa, action: () => f.shell.showItemInFolder(a) },
           { type: "separator" },
-          ...KN(t, n, r, i, o, s),
+          ...rB(t, n, r, i, o, s),
         ]);
       };
-    function KN(e, t, n, r, i, o) {
+    function rB(e, t, n, r, i, o) {
       return [
         {
           label: Ji(r.entry.us, i),
@@ -101393,7 +102375,7 @@
         },
       ];
     }
-    const YN = (e) => {
+    const iB = (e) => {
       if (Zr(e.status) && 0 === e.status.conflictMarkerCount)
         return ve.createElement(
           "div",
@@ -101413,14 +102395,14 @@
         t,
         " ",
         ve.createElement(
-          Lb,
-          { onClick: GN(e.path, e.repository, e.dispatcher) },
-          "撤消"
+          Hw,
+          { onClick: tB(e.path, e.repository, e.dispatcher) },
+          "Undo"
         )
       );
     };
-    const ZN = "Manual conflict";
-    class XN extends ve.Component {
+    const oB = "Manual conflict";
+    class sB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isCommitting: !1, isAborting: !1 });
       }
@@ -101474,7 +102456,7 @@
                         if (null === e)
                           return "No editor configured in Options > Advanced";
                       })(e.resolvedExternalEditor),
-                      s = VN(
+                      s = nB(
                         e.path,
                         e.repository,
                         e.dispatcher,
@@ -101488,7 +102470,7 @@
                         ve.createElement(
                           "div",
                           { className: "column-left" },
-                          ve.createElement(BC, { path: e.path }),
+                          ve.createElement(zC, { path: e.path }),
                           ve.createElement(
                             "div",
                             { className: "file-conflicts-status" },
@@ -101499,7 +102481,7 @@
                           "div",
                           { className: "action-buttons" },
                           ve.createElement(
-                            Yb,
+                            Qb,
                             {
                               onClick: e.onOpenEditorClick,
                               disabled: i,
@@ -101509,17 +102491,17 @@
                             `在 ${e.resolvedExternalEditor || "中编辑"}`
                           ),
                           ve.createElement(
-                            Yb,
+                            Qb,
                             {
                               onClick: s,
                               className:
                                 "small-button button-group-item arrow-menu",
                             },
-                            ve.createElement(Tv, { symbol: dh })
+                            ve.createElement(Av, { symbol: fh })
                           )
                         )
                       );
-                    return $N(e.path, a);
+                    return QN(e.path, a);
                   })({
                     path: o.path,
                     status: o.status,
@@ -101535,7 +102517,7 @@
                   })
                 : Xr(o.status) && Zi(o.status, o.manualResolution)
                 ? ((e) => {
-                    const t = qN(
+                    const t = eB(
                         e.path,
                         e.status,
                         e.repository,
@@ -101545,7 +102527,7 @@
                       ),
                       { ourBranch: n, theirBranch: r } = e,
                       { entry: i } = e.status;
-                    let o = ZN;
+                    let o = oB;
                     if ([i.us, i.them].includes(Tr.Deleted)) {
                       let e = "target branch";
                       i.us === Tr.Deleted && void 0 !== n && (e = n),
@@ -101558,7 +102540,7 @@
                       ve.createElement(
                         "div",
                         { className: "column-left" },
-                        ve.createElement(BC, { path: e.path }),
+                        ve.createElement(zC, { path: e.path }),
                         ve.createElement(
                           "div",
                           { className: "file-conflicts-status" },
@@ -101569,18 +102551,18 @@
                         "div",
                         { className: "action-buttons" },
                         ve.createElement(
-                          Yb,
+                          Qb,
                           {
                             className:
                               "small-button button-group-item resolve-arrow-menu",
                             onClick: t,
                           },
                           "Resolve",
-                          ve.createElement(Tv, { symbol: dh })
+                          ve.createElement(Av, { symbol: fh })
                         )
                       )
                     );
-                    return $N(e.path, s);
+                    return QN(e.path, s);
                   })({
                     path: o.path,
                     status: o.status,
@@ -101596,15 +102578,15 @@
                         key: e.path,
                         className: "unmerged-file-status-resolved",
                       },
-                      ve.createElement(Tv, {
-                        symbol: Mu,
+                      ve.createElement(Av, {
+                        symbol: Ou,
                         className: "file-octicon",
                       }),
                       ve.createElement(
                         "div",
                         { className: "column-left" },
-                        ve.createElement(BC, { path: e.path }),
-                        YN({
+                        ve.createElement(zC, { path: e.path }),
+                        iB({
                           path: e.path,
                           status: e.status,
                           branch: e.branch,
@@ -101616,7 +102598,7 @@
                       ve.createElement(
                         "div",
                         { className: "green-circle" },
-                        ve.createElement(Tv, { symbol: bu })
+                        ve.createElement(Av, { symbol: wu })
                       )
                     ))({
                     path: o.path,
@@ -101643,7 +102625,7 @@
               ve.createElement(
                 "div",
                 { className: "green-circle" },
-                ve.createElement(Tv, { symbol: bu })
+                ve.createElement(Av, { symbol: wu })
               ),
               ve.createElement(
                 "div",
@@ -101663,7 +102645,7 @@
               ve.createElement(
                 "div",
                 null,
-                ve.createElement(Lb, { onClick: n }, "在命令行中打开,"),
+                ve.createElement(Hw, { onClick: n }, "在命令行中打开,"),
                 " ",
                 "您选择的工具，或关闭以手动解决。"
               ))
@@ -101684,7 +102666,7 @@
           s = eo(e, t),
           a = s.length > 0 ? "在继续之前解决所有更改" : void 0;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "conflicts-dialog",
             dismissable: !this.state.isCommitting,
@@ -101694,11 +102676,11 @@
             loading: this.state.isCommitting,
             disabled: this.state.isCommitting,
           },
-          ve.createElement(Jw, null, this.renderContent(o, s.length)),
+          ve.createElement(rC, null, this.renderContent(o, s.length)),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: r,
               okButtonDisabled: s.length > 0,
               okButtonTitle: a,
@@ -101710,7 +102692,7 @@
         );
       }
     }
-    class JN extends ve.Component {
+    class aB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isAborting: !1 });
       }
@@ -101723,7 +102705,7 @@
       render() {
         const { operation: e } = this.props;
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "abort-warning",
             title: `确认中止 ${e.toLowerCase()}`,
@@ -101733,7 +102715,7 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
@@ -101753,9 +102735,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               destructive: !0,
               okButtonText: `中止 ${e.toLowerCase()}`,
             })
@@ -101763,7 +102745,7 @@
         );
       }
     }
-    class QN extends ve.Component {
+    class lB extends ve.Component {
       render() {
         const { progress: e, operation: t, emoji: n } = this.props,
           {
@@ -101772,16 +102754,16 @@
             value: o,
             currentCommitSummary: s,
           } = e,
-          a = ho(o);
+          a = so(o);
         return ve.createElement(
-          eC,
+          oC,
           {
             dismissable: !1,
             id: "multi-commit-progress",
             title: `${t} 正在进行中`,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
@@ -101793,7 +102775,7 @@
                 ve.createElement(
                   "div",
                   { className: "green-circle" },
-                  ve.createElement(Tv, { symbol: bu })
+                  ve.createElement(Av, { symbol: wu })
                 ),
                 ve.createElement(
                   "div",
@@ -101809,7 +102791,7 @@
                   ve.createElement(
                     "div",
                     { className: "detail" },
-                    ve.createElement(GC, { emoji: n, text: s || "" })
+                    ve.createElement(XC, { emoji: n, text: s || "" })
                   )
                 )
               )
@@ -101818,7 +102800,7 @@
         );
       }
     }
-    class eB extends ve.Component {
+    class cB extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -101829,7 +102811,7 @@
         const { operation: e, onDismissed: t } = this.props,
           n = `${e} 需要强制推送`;
         return ve.createElement(
-          eC,
+          oC,
           {
             title: n,
             onDismissed: t,
@@ -101838,32 +102820,38 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement("p", null, "你确定要吗 ", e.toLowerCase(), "?"),
             ve.createElement(
               "p",
               null,
-              "在 ",
+              "Are you sure you want to ",
               e.toLowerCase(),
-              " 流程结束时，GitHub Desktop 将使您能够强制推送分支以更新上游分支，强制推送将改变远程上的历史记录，并可能给在该分支上协作的其他人带来问题。"
+              "?"
+            ),
+            ve.createElement(
+              "p",
+              null,
+              "At the end of the ",
+              e.toLowerCase(),
+              " flow, GitHub Desktop will enable you to force push the branch to update the upstream branch. Force pushing will alter the history on the remote and potentially cause problems for others collaborating on this branch."
             ),
             ve.createElement(
               "div",
               null,
-              ve.createElement(nw, {
-                label: "不再显示此消息",
+              ve.createElement(sw, {
+                label: "Do not show this message again",
                 value: this.state.askForConfirmationOnForcePush
-                  ? tw.Off
-                  : tw.On,
+                  ? ow.Off
+                  : ow.On,
                 onChange: this.onAskForConfirmationOnForcePushChanged,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: `开始 ${e.toLowerCase()}`,
               onCancelButtonClick: this.props.onDismissed,
             })
@@ -101881,7 +102869,7 @@
           this.props.onBegin();
       };
     }
-    class tB extends ve.Component {
+    class uB extends ve.Component {
       onFlowEnded = () => {
         this.props.dispatcher.closePopup(Pr.MultiCommitOperation),
           this.props.dispatcher.endMultiCommitOperation(this.props.repository);
@@ -101948,7 +102936,7 @@
             return this.renderChooseBranch();
           case "ShowProgress":
             const { emoji: n } = this.props;
-            return ve.createElement(QN, {
+            return ve.createElement(lB, {
               progress: e.progress,
               emoji: n,
               operation: e.operationDetail.kind,
@@ -101972,7 +102960,7 @@
               d = c.kind.toLowerCase(),
               f = `Continue ${d}`,
               m = `Abort ${d}`;
-            return ve.createElement(XN, {
+            return ve.createElement(sB, {
               dispatcher: o,
               repository: e,
               workingDirectory: s,
@@ -101993,7 +102981,7 @@
             });
           }
           case "ConfirmAbort":
-            return ve.createElement(JN, {
+            return ve.createElement(aB, {
               operation: this.props.state.operationDetail.kind,
               onConfirmAbort: this.onAbort,
               onReturnToConflicts: this.moveToConflictState,
@@ -102001,7 +102989,7 @@
           case "WarnForcePush":
             const { dispatcher: r, askForConfirmationOnForcePush: i } =
               this.props;
-            return ve.createElement(eB, {
+            return ve.createElement(cB, {
               operation: e.operationDetail.kind,
               dispatcher: r,
               askForConfirmationOnForcePush: i,
@@ -102017,7 +103005,7 @@
         }
       }
     }
-    class nB extends tB {
+    class hB extends uB {
       onContinueAfterConflicts = async () => {
         const {
             repository: e,
@@ -102072,7 +103060,7 @@
         );
       };
     }
-    class rB extends nB {
+    class pB extends hB {
       conflictDialogOperationPrefix = "squashing commits on";
       rebaseKind = "Squash";
       onBeginOperation = () => {
@@ -102088,7 +103076,7 @@
         return t.squash(e, a, i, o, s, !0);
       };
     }
-    class iB extends ve.Component {
+    class dB extends ve.Component {
       constructor(e) {
         super(e);
         const t = this.resolveSelectedBranch();
@@ -102154,13 +103142,13 @@
               ve.createElement("p", { className: "merge-info" }, n)
             );
       }
-      renderBranch = (e, t) => Qk(e, t, this.props.currentBranch);
+      renderBranch = (e, t) => cE(e, t, this.props.currentBranch);
       render() {
         const { selectedBranch: e } = this.state,
           { currentBranch: t, operation: n } = this.props,
-          r = fu(t.name, 40);
+          r = mu(t.name, 40);
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "choose-branch",
             onDismissed: this.props.onDismissed,
@@ -102169,9 +103157,9 @@
             title: this.getDialogTitle(r),
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Lk, {
+            ve.createElement(Vk, {
               allBranches: this.props.allBranches,
               currentBranch: t,
               defaultBranch: this.props.defaultBranch,
@@ -102186,12 +103174,31 @@
             })
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
             this.renderStatusPreview(),
-            ve.createElement(mx, {
+            ve.createElement(xx, {
               selectedValue: n,
-              options: gx(),
+              options: [
+                {
+                  label: "Create a merge commit",
+                  description:
+                    "The commits from the selected branch will be added to the current branch via a merge commit.",
+                  value: "Merge",
+                },
+                {
+                  label: "Squash and merge",
+                  description:
+                    "The commits in the selected branch will be combined into one commit in the current branch.",
+                  value: "Squash",
+                },
+                {
+                  label: "Rebase",
+                  description:
+                    "The commits from the selected branch will be rebased and added to the current branch.",
+                  value: "Rebase",
+                },
+              ],
               disabled: !this.canStart(),
               tooltip: this.getSubmitButtonToolTip(),
               onSelectChange: this.onOperationChange,
@@ -102200,7 +103207,7 @@
         );
       }
     }
-    class oB extends iB {
+    class fB extends dB {
       commitCount = 0;
       mergeStatus = null;
       start = () => {
@@ -102227,17 +103234,17 @@
           (this.mergeStatus = null);
       };
       renderActionStatusIcon = () =>
-        be().createElement(dx, {
+        be().createElement(kx, {
           status: this.mergeStatus,
           classNamePrefix: "merge-status",
         });
       getDialogTitle = (e) => {
-        const t = "Squash" === this.props.operation ? "Squash " : null;
+        const t = "Squash" === this.props.operation ? "Squash and " : null;
         return be().createElement(
           be().Fragment,
           null,
           t,
-          "合并到 ",
+          "Merge into ",
           be().createElement("strong", null, e)
         );
       };
@@ -102246,7 +103253,7 @@
         (this.mergeStatus = { kind: Ps.Loading }),
           this.updateMergeStatusPreview(e),
           null != t &&
-            ((this.mergeStatus = await xo(() => xh(n, t, e), 500).catch(
+            ((this.mergeStatus = await xo(() => Th(n, t, e), 500).catch(
               (e) => (
                 log.error("Failed determining mergeability", e),
                 { kind: Ps.Clean }
@@ -102282,7 +103289,7 @@
         return be().createElement(
           be().Fragment,
           null,
-          "正在检查自动合并的能力..."
+          "Checking for ability to merge automatically..."
         );
       }
       renderCleanMergeMessage(e, t, n) {
@@ -102326,7 +103333,7 @@
         );
       }
     }
-    class sB extends tB {
+    class mB extends uB {
       onContinueAfterConflicts = async () => {
         const {
           repository: e,
@@ -102395,7 +103402,7 @@
             initialBranch: c,
           } = r,
           { isSquash: u } = i;
-        return be().createElement(oB, {
+        return be().createElement(fB, {
           dispatcher: t,
           repository: e,
           allBranches: a,
@@ -102408,7 +103415,7 @@
         });
       };
     }
-    class aB extends nB {
+    class gB extends hB {
       conflictDialogOperationPrefix = "reordering commits on";
       rebaseKind = "Reorder";
       onBeginOperation = () => {
@@ -102419,7 +103426,7 @@
         return t.reorderCommits(e, i, o, s, !0);
       };
     }
-    class lB extends ve.Component {
+    class yB extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -102434,7 +103441,7 @@
       onSelectionChanged = (e) => {
         this.setState({ selectedBranch: e });
       };
-      renderBranch = (e, t) => Qk(e, t, this.props.currentBranch);
+      renderBranch = (e, t) => cE(e, t, this.props.currentBranch);
       onEnterPressed = (e, t) => {
         if ("keyboard" !== t.kind || "Enter" !== t.event.key) return;
         t.event.preventDefault();
@@ -102478,7 +103485,7 @@
             : void 0,
           t = this.props.commitCount > 1 ? "提交" : "提交";
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "cherry-pick",
             onDismissed: this.props.onDismissed,
@@ -102495,9 +103502,9 @@
             ),
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Lk, {
+            ve.createElement(Vk, {
               allBranches: this.props.allBranches,
               currentBranch: this.props.currentBranch,
               defaultBranch: this.props.defaultBranch,
@@ -102514,9 +103521,9 @@
             })
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: this.renderOkButtonText(),
               okButtonDisabled: !this.canCherryPickOntoSelectedBranch(),
               okButtonTitle: e,
@@ -102536,7 +103543,7 @@
           this.props.onCherryPick(e);
       };
     }
-    class cB extends tB {
+    class vB extends uB {
       onContinueAfterConflicts = async () => {
         const {
             repository: e,
@@ -102580,7 +103587,7 @@
             recentBranches: o,
           } = e,
           { commits: s } = t;
-        return be().createElement(lB, {
+        return be().createElement(yB, {
           key: "choose-target-branch",
           allBranches: n,
           defaultBranch: r,
@@ -102608,7 +103615,7 @@
           tip: l,
           targetBranchName: c,
         } = n;
-        return be().createElement($O, {
+        return be().createElement(QO, {
           key: "create-branch",
           tip: l,
           defaultBranch: o,
@@ -102659,7 +103666,7 @@
         r.startCherryPickWithBranchName(i, e, t, n, a, l);
       };
     }
-    class uB extends iB {
+    class bB extends dB {
       rebasePreview = null;
       start = () => {
         const { selectedBranch: e } = this.state,
@@ -102705,13 +103712,13 @@
           be().createElement("strong", null, e)
         );
       renderActionStatusIcon = () =>
-        be().createElement(dx, {
+        be().createElement(kx, {
           status: this.rebasePreview,
           classNamePrefix: "merge-status",
         });
       updateStatus = async (e) => {
         const { currentBranch: t, repository: n } = this.props;
-        yx(e, t, n, (t) => {
+        Rx(e, t, n, (t) => {
           (this.rebasePreview = t), this.updateRebaseStatusPreview(e);
         });
       };
@@ -102769,7 +103776,7 @@
         );
       }
     }
-    class hB extends nB {
+    class wB extends hB {
       conflictDialogOperationPrefix = "rebasing";
       rebaseKind = "Rebase";
       onBeginOperation = () => {
@@ -102792,7 +103799,7 @@
           recentBranches: a,
           initialBranch: l,
         } = r;
-        return be().createElement(uB, {
+        return be().createElement(bB, {
           key: "choose-branch",
           dispatcher: t,
           repository: e,
@@ -102806,16 +103813,16 @@
         });
       };
     }
-    class pB extends ve.Component {
+    class CB extends ve.Component {
       render() {
         const { kind: e } = this.props.state.operationDetail;
         switch (e) {
           case "Cherry-pick":
-            return ve.createElement(cB, { ...this.props });
+            return ve.createElement(vB, { ...this.props });
           case "Rebase":
-            return ve.createElement(hB, { ...this.props });
+            return ve.createElement(wB, { ...this.props });
           case "Merge":
-            return ve.createElement(sB, {
+            return ve.createElement(mB, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -102829,7 +103836,7 @@
               openRepositoryInShell: this.props.openRepositoryInShell,
             });
           case "Squash":
-            return ve.createElement(rB, {
+            return ve.createElement(pB, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -102843,7 +103850,7 @@
               openRepositoryInShell: this.props.openRepositoryInShell,
             });
           case "Reorder":
-            return ve.createElement(aB, {
+            return ve.createElement(gB, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -102861,13 +103868,13 @@
         }
       }
     }
-    class dB extends ve.Component {
+    class SB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "warn-local-changes-before-undo",
             type: "warning",
@@ -102878,14 +103885,14 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
-            ve.createElement(Ub, null, this.getWarningText())
+            ve.createElement($b, null, this.getWarningText())
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "继续" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "继续" })
           )
         );
       }
@@ -102937,13 +103944,13 @@
         r();
       };
     }
-    class fB extends ve.Component {
+    class kB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "warning-before-reset",
             type: "warning",
@@ -102954,18 +103961,18 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
               "您正在进行更改。重置为以前的提交可能会导致某些更改丢失。是否仍要继续？"
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "继续" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "继续" })
           )
         );
       }
@@ -102985,11 +103992,11 @@
         r();
       };
     }
-    class mB extends ve.Component {
+    class EB extends ve.Component {
       render() {
         const e = this.isEnterpriseAccount ? " Enterprise" : "";
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "invalidated-token",
             type: "warning",
@@ -102998,10 +104005,10 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
               "您的帐户令牌已失效，您已从GitHub注销",
               e,
@@ -103009,9 +104016,9 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: "确定",
               cancelButtonText: "取消",
             })
@@ -103029,10 +104036,10 @@
             : e.showDotComSignInDialog();
       };
     }
-    class gB extends ve.Component {
+    class xB extends ve.Component {
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "add-ssh-host",
             type: "normal",
@@ -103042,31 +104049,31 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              "主机的真实性 '",
+              "The authenticity of host '",
               this.props.host,
               " (",
               this.props.ip,
-              ")'无法建立。 ",
+              ")' can't be established. ",
               this.props.keyType,
-              " 密钥指纹为",
+              " key fingerprint is",
               " ",
               this.props.fingerprint,
               ".",
               ve.createElement("br", null),
-              "是否确实要继续连接?"
+              "Are you sure you want to continue connecting?"
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
-              okButtonText: "确定",
-              cancelButtonText: "取消",
+            ve.createElement(lC, {
+              okButtonText: "Yes",
+              cancelButtonText: "No",
               onCancelButtonClick: this.onCancel,
             })
           )
@@ -103083,13 +104090,13 @@
         this.submit(!1);
       };
     }
-    class yB extends ve.Component {
+    class RB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { passphrase: "", rememberPassphrase: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "ssh-key-passphrase",
             type: "normal",
@@ -103099,12 +104106,12 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 label: `Enter passphrase for key '${this.props.keyPath}':`,
                 value: this.state.passphrase,
                 type: "password",
@@ -103112,19 +104119,19 @@
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "Remember passphrase",
-                value: this.state.rememberPassphrase ? tw.On : tw.Off,
+                value: this.state.rememberPassphrase ? ow.On : ow.Off,
                 onChange: this.onRememberPassphraseChanged,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               onCancelButtonClick: this.onCancel,
               okButtonDisabled: 0 === this.state.passphrase.length,
             })
@@ -103148,7 +104155,7 @@
         this.submit(void 0, !1);
       };
     }
-    class vB extends ve.Component {
+    class TB extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -103158,7 +104165,7 @@
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             title: "是否确实要强制推送？",
             dismissable: !this.state.isLoading,
@@ -103167,32 +104174,32 @@
             type: "warning",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "p",
               null,
               "强制推送将重写上的历史",
               " ",
-              ve.createElement(aC, null, this.props.upstreamBranch),
+              ve.createElement(pC, null, this.props.upstreamBranch),
               ". 在此分支上工作的任何协作者都需要重置自己的本地分支，以匹配远程分支的历史记录。"
             ),
             ve.createElement(
               "div",
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "不再显示此消息",
                 value: this.state.askForConfirmationOnForcePush
-                  ? tw.Off
-                  : tw.On,
+                  ? ow.Off
+                  : ow.On,
                 onChange: this.onAskForConfirmationOnForcePushChanged,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, { destructive: !0, okButtonText: "我肯定" })
+            ve.createElement(lC, { destructive: !0, okButtonText: "我肯定" })
           )
         );
       }
@@ -103208,14 +104215,14 @@
           await this.props.dispatcher.performForcePush(this.props.repository);
       };
     }
-    const bB = Po(__dirname, "static/paper-stack.svg"),
-      wB = Po(__dirname, "static/empty-no-pull-requests.svg");
-    class CB extends ve.Component {
+    const _B = Po(__dirname, "static/paper-stack.svg"),
+      DB = Po(__dirname, "static/empty-no-pull-requests.svg");
+    class AB extends ve.Component {
       checkRunsLoadCancelled = !1;
       constructor(e) {
         super(e);
         const { checks: t } = this.props,
-          n = t.find(tu) ?? t[0];
+          n = t.find(nu) ?? t[0];
         this.state = {
           switchingToPullRequest: !1,
           selectedCheckID: n.id,
@@ -103239,12 +104246,12 @@
         this.props.shouldChangeRepository && (e = "切换到仓库并拉取请求");
         const { pullRequest: t } = this.props,
           n = this.loadingChecksInfo,
-          r = this.state.checks.filter(tu),
+          r = this.state.checks.filter(nu),
           i = r.length > 1 ? "checks" : "check",
           o = ve.createElement(
             "div",
             { className: "ci-check-run-dialog-header" },
-            ve.createElement(Tv, { symbol: bh }),
+            ve.createElement(Av, { symbol: wh }),
             ve.createElement(
               "div",
               { className: "title-container" },
@@ -103273,7 +104280,7 @@
             this.renderRerunButton()
           );
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "pull-request-checks-failed",
             type: "normal",
@@ -103284,10 +104291,10 @@
             loading: n || this.state.switchingToPullRequest,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
               ve.createElement(
                 "div",
@@ -103302,13 +104309,13 @@
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
               this.renderSummary(),
-              ve.createElement(rC, {
+              ve.createElement(lC, {
                 onCancelButtonClick: this.props.onDismissed,
                 cancelButtonText: "取消",
                 okButtonText: e,
@@ -103320,7 +104327,7 @@
         );
       }
       renderSummary() {
-        const e = this.state.checks.filter(tu).length > 1 ? "them" : "it";
+        const e = this.state.checks.filter(nu).length > 1 ? "them" : "it";
         return ve.createElement(
           "div",
           { className: "footer-question" },
@@ -103338,7 +104345,7 @@
         this.rerunChecks(!1, [e]);
       };
       renderCheckRunJobs() {
-        return ve.createElement(rR, {
+        return ve.createElement(pR, {
           checkRuns: this.state.checks,
           loadingActionLogs: this.state.loadingActionLogs,
           loadingActionWorkflows: this.state.loadingActionWorkflows,
@@ -103359,7 +104366,7 @@
             ? this.renderCheckRunStepsLoading()
             : void 0 === e.actionJobSteps
             ? this.renderEmptyLogOutput()
-            : ve.createElement(tR, {
+            : ve.createElement(uR, {
                 steps: e.actionJobSteps,
                 onViewJobStep: this.onViewJobStep,
               })),
@@ -103374,7 +104381,7 @@
         return ve.createElement(
           "div",
           { className: "loading-check-runs" },
-          ve.createElement("img", { src: wB, className: "blankslate-image" }),
+          ve.createElement("img", { src: DB, className: "blankslate-image" }),
           ve.createElement("div", { className: "title" }, "Stand By"),
           ve.createElement(
             "div",
@@ -103395,20 +104402,20 @@
               "div",
               null,
               ve.createElement(
-                Lb,
+                Hw,
                 { onClick: this.onViewSelectedCheckRunOnGitHub },
                 "View check details"
               )
             )
           ),
-          ve.createElement("img", { src: bB, className: "blankslate-image" })
+          ve.createElement("img", { src: _B, className: "blankslate-image" })
         );
       }
       onViewJobStep = (e) => {
         const { repository: t, pullRequest: n, dispatcher: r } = this.props,
           i = this.selectedCheck;
         if (void 0 === i) return;
-        const o = su(i, e, t.gitHubRepository, n.pullRequestNumber);
+        const o = au(i, e, t.gitHubRepository, n.pullRequestNumber);
         null !== o && r.openInBrowser(o);
       };
       componentDidMount() {
@@ -103422,7 +104429,7 @@
         return ve.createElement(
           "div",
           { className: "ci-check-rerun" },
-          ve.createElement(sR, {
+          ve.createElement(mR, {
             disabled: 0 === e.length,
             checkRuns: e,
             canReRunFailed: ln(this.props.repository.gitHubRepository.endpoint),
@@ -103432,7 +104439,7 @@
       };
       rerunChecks = (e, t) => {
         this.props.dispatcher.recordChecksFailedDialogRerunChecks();
-        const n = sg(this.props.pullRequest.pullRequestNumber);
+        const n = lg(this.props.pullRequest.pullRequestNumber);
         this.props.dispatcher.showPopup({
           type: Pr.CICheckRunRerun,
           checkRuns: t ?? this.state.checks,
@@ -103451,10 +104458,10 @@
             loadingActionLogs: !1,
           });
         const i = En.fromAccount(r),
-          o = await ou(r, n.owner.login, n.name, e.head.ref, this.props.checks);
+          o = await su(r, n.owner.login, n.name, e.head.ref, this.props.checks);
         if (this.checkRunsLoadCancelled) return;
         this.setState({ checks: o, loadingActionWorkflows: !1 });
-        const s = await iu(i, n.owner.login, n.name, o);
+        const s = await ou(i, n.owner.login, n.name, o);
         this.checkRunsLoadCancelled ||
           this.setState({ checks: s, loadingActionLogs: !1 });
       }
@@ -103483,8 +104490,8 @@
           this.props.onDismissed();
       };
     }
-    const SB = Po(__dirname, "static/empty-no-pull-requests.svg");
-    class kB extends ve.Component {
+    const PB = Po(__dirname, "static/empty-no-pull-requests.svg");
+    class IB extends ve.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -103545,7 +104552,7 @@
           : ve.createElement(
               "div",
               { className: "ci-check-run-list check-run-rerun-list" },
-              ve.createElement(rR, {
+              ve.createElement(pR, {
                 checkRuns: this.state.rerunnable,
                 loadingActionLogs: !1,
                 loadingActionWorkflows: !1,
@@ -103590,7 +104597,7 @@
         return ve.createElement(
           "div",
           { className: "non-re-run-info warning-helper-text" },
-          ve.createElement(Tv, { symbol: mu }),
+          ve.createElement(Av, { symbol: gu }),
           `${n}. A check run cannot be re-run if the check is more than one month old,\n          the check or its dependent has not completed, or the check is not configured to be\n          re-run.`
         );
       };
@@ -103610,7 +104617,7 @@
               "div",
               { className: "loading-rerun-checks" },
               ve.createElement("img", {
-                src: SB,
+                src: PB,
                 className: "blankslate-image",
               }),
               ve.createElement("div", { className: "title" }, "请稍等"),
@@ -103629,7 +104636,7 @@
             );
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "rerun-check-runs",
             title: this.getTitle(),
@@ -103637,11 +104644,11 @@
             onDismissed: this.props.onDismissed,
             loading: this.state.loadingCheckSuites || this.state.loadingRerun,
           },
-          ve.createElement(Jw, null, this.renderDialogContent()),
+          ve.createElement(rC, null, this.renderDialogContent()),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               okButtonText: this.getTitle(!1),
               okButtonDisabled: 0 === this.state.rerunnable.length,
             })
@@ -103649,16 +104656,16 @@
         );
       }
     }
-    class EB extends ve.Component {
+    class MB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { retrying: !1, confirmDiscardChanges: !0 });
       }
       render() {
         const { retrying: e } = this.state;
         return ve.createElement(
-          eC,
+          oC,
           {
-            title: "错误",
+            title: "Error",
             id: "discard-changes-retry",
             loading: e,
             disabled: e,
@@ -103667,7 +104674,7 @@
             type: "error",
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement("p", null, "未能放弃对的更改 ", ja, "."),
             ve.createElement(
@@ -103700,17 +104707,17 @@
         );
       }
       renderConfirmDiscardChanges() {
-        return ve.createElement(nw, {
+        return ve.createElement(sw, {
           label: "Do not show this message again",
-          value: this.state.confirmDiscardChanges ? tw.Off : tw.On,
+          value: this.state.confirmDiscardChanges ? ow.Off : ow.On,
           onChange: this.onConfirmDiscardChangesChanged,
         });
       }
       renderFooter() {
         return ve.createElement(
-          nC,
+          aC,
           null,
-          ve.createElement(rC, {
+          ve.createElement(lC, {
             okButtonText: "永久放弃更改",
             okButtonTitle: "这将丢弃更改，并且这些更改将不可恢复。",
             cancelButtonText: "取消",
@@ -103732,7 +104739,7 @@
           this.props.onDismissed();
       };
     }
-    class xB extends ve.Component {
+    class OB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { switchingToPullRequest: !1 });
       }
@@ -103752,7 +104759,7 @@
             )
           );
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "pull-request-review",
             type: "normal",
@@ -103763,7 +104770,7 @@
             loading: this.state.switchingToPullRequest,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
               "div",
@@ -103772,14 +104779,14 @@
               this.renderCommentBubble()
             )
           ),
-          ve.createElement(nC, null, this.renderFooterContent())
+          ve.createElement(aC, null, this.renderFooterContent())
         );
       }
       renderTimelineItem() {
         const { review: e, repository: t } = this.props,
           { user: n } = e,
           { endpoint: r } = t.gitHubRepository,
-          i = wh(e),
+          i = Ch(e),
           o = {
             name: n.login,
             email: Ba(n.id, n.login, r),
@@ -103800,13 +104807,13 @@
           ve.createElement(
             "div",
             { className: a },
-            ve.createElement(Vw, { user: o, title: null, size: 40 }),
+            ve.createElement(Jw, { user: o, title: null, size: 40 }),
             this.renderReviewIcon(),
             ve.createElement(
               "div",
               { className: "summary" },
               ve.createElement(
-                Lb,
+                Hw,
                 { uri: e.user.html_url, className: "reviewer" },
                 e.user.login
               ),
@@ -103815,7 +104822,7 @@
               " your pull request",
               " ",
               ve.createElement(
-                Lb,
+                Hw,
                 { uri: e.html_url, className: "submission-date" },
                 l
               )
@@ -103865,7 +104872,7 @@
         let r;
         "APPROVED" === e.state ||
           (t ? (r = "切换到仓库并请求拉取") : n && (r = "切换到pull请求"));
-        const i = ve.createElement(rC, {
+        const i = ve.createElement(lC, {
           onCancelButtonClick: this.props.onDismissed,
           cancelButtonText: "取消",
           cancelButtonVisible: void 0 !== r,
@@ -103874,12 +104881,12 @@
           onOkButtonClick: this.onSubmit,
         });
         return ve.createElement(
-          Ub,
+          $b,
           null,
           ve.createElement(
             "div",
             { className: "footer-links" },
-            ve.createElement(Lb, { uri: e.html_url }, "Open in browser")
+            ve.createElement(Hw, { uri: e.html_url }, "Open in browser")
           ),
           i
         );
@@ -103890,7 +104897,7 @@
       renderReviewBody() {
         const { review: e, emoji: t, pullRequest: n } = this.props,
           { base: r } = n;
-        return ve.createElement(ax, {
+        return ve.createElement(yx, {
           markdown: e.body,
           emoji: t,
           baseHref: r.gitHubRepository.htmlURL ?? void 0,
@@ -103902,9 +104909,9 @@
       renderPullRequestIcon = () => {
         const { pullRequest: e } = this.props,
           t = pl()("pull-request-icon", { draft: e.draft });
-        return ve.createElement(Tv, {
+        return ve.createElement(Av, {
           className: t,
-          symbol: e.draft ? $u : ju,
+          symbol: e.draft ? qu : $u,
         });
       };
       renderReviewIcon = () => {
@@ -103912,17 +104919,17 @@
           t = (function (e) {
             switch (e) {
               case "APPROVED":
-                return { symbol: bu, className: "pr-review-approved" };
+                return { symbol: wu, className: "pr-review-approved" };
               case "CHANGES_REQUESTED":
-                return { symbol: Ou, className: "pr-review-changes-requested" };
+                return { symbol: Nu, className: "pr-review-changes-requested" };
               case "COMMENTED":
-                return { symbol: Iu, className: "pr-review-commented" };
+                return { symbol: Mu, className: "pr-review-commented" };
             }
           })(e.state);
         return ve.createElement(
           "div",
           { className: pl()("review-icon-container", t.className) },
-          ve.createElement(Tv, { symbol: t.symbol })
+          ve.createElement(Av, { symbol: t.symbol })
         );
       };
       onSubmit = async (e) => {
@@ -103945,13 +104952,13 @@
           this.props.onDismissed();
       };
     }
-    class RB extends ve.Component {
+    class NB extends ve.Component {
       constructor(e) {
         super(e), (this.state = { password: "", rememberPassword: !1 });
       }
       render() {
         return ve.createElement(
-          eC,
+          oC,
           {
             id: "ssh-user-password",
             type: "normal",
@@ -103961,12 +104968,12 @@
             onDismissed: this.props.onDismissed,
           },
           ve.createElement(
-            Jw,
+            rC,
             null,
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(Hb, {
+              ve.createElement(jb, {
                 label: `Enter password for '${this.props.username}':`,
                 value: this.state.password,
                 type: "password",
@@ -103974,19 +104981,19 @@
               })
             ),
             ve.createElement(
-              Ub,
+              $b,
               null,
-              ve.createElement(nw, {
+              ve.createElement(sw, {
                 label: "Remember password",
-                value: this.state.rememberPassword ? tw.On : tw.Off,
+                value: this.state.rememberPassword ? ow.On : ow.Off,
                 onChange: this.onRememberPasswordChanged,
               })
             )
           ),
           ve.createElement(
-            nC,
+            aC,
             null,
-            ve.createElement(rC, {
+            ve.createElement(lC, {
               onCancelButtonClick: this.onCancel,
               okButtonDisabled: 0 === this.state.password.length,
             })
@@ -104010,9 +105017,9 @@
         this.submit(void 0, !1);
       };
     }
-    const TB = { enter: 250, exit: 100 },
-      _B = { enter: 500, exit: 400 };
-    class DB extends ve.Component {
+    const BB = { enter: 250, exit: 100 },
+      FB = { enter: 500, exit: 400 };
+    class LB extends ve.Component {
       loading = !0;
       lastKeyPressed = null;
       updateIntervalHandle;
@@ -104045,15 +105052,15 @@
             e.dispatcher.postError(t);
           }),
           m("menu-event", (e, t) => this.onMenuEvent(t)),
-          dv.onDidChange(async (e) => {
+          gv.onDidChange(async (e) => {
             const t = e.status;
-            t === pv.UpdateReady &&
+            t === mv.UpdateReady &&
               this.props.dispatcher.setUpdateBannerVisibility(!0),
-              t !== pv.UpdateReady &&
-                (await dv.isUpdateShowcase()) &&
+              t !== mv.UpdateReady &&
+                (await gv.isUpdateShowcase()) &&
                 this.props.dispatcher.setUpdateShowCaseVisibility(!0);
           }),
-          dv.onError((e) => {
+          gv.onError((e) => {
             log.error("Error checking for updates", e),
               this.props.dispatcher.postError(e);
           }),
@@ -104070,7 +105077,7 @@
               url: r,
             });
           }),
-          Gy.onDragEnded(this.onDragEnd);
+          Yy.onDragEnded(this.onDragEnd);
       }
       componentWillUnmount() {
         window.clearInterval(this.updateIntervalHandle);
@@ -104082,7 +105089,7 @@
           this.props.dispatcher.installGlobalLFSFilters(!1),
           setInterval(() => this.checkForUpdates(!0), 144e5),
           this.checkForUpdates(!0),
-          log.info(`launching: 3.0.5 (${Vn()})`),
+          log.info(`launching: 3.0.7 (${Vn()})`),
           log.info(`execPath: '${process.execPath}'`),
           this.state.askToMoveToApplicationsFolderSetting,
           this.checkIfThankYouIsInOrder();
@@ -104124,10 +105131,10 @@
               return this.props.dispatcher.showPopup({ type: Pr.Preferences });
             case "open-working-directory":
               return this.openCurrentRepositoryWorkingDirectory();
-            case "update-branch":
+            case "update-branch-with-contribution-target-branch":
               return (
                 this.props.dispatcher.recordMenuInitiatedUpdate(),
-                this.updateBranch()
+                this.updateBranchWithContributionTargetBranch()
               );
             case "compare-to-branch":
               return this.showHistory(!0);
@@ -104220,8 +105227,8 @@
         await this.showChanges(),
           this.props.dispatcher.setCommitMessageFocus(!0);
       }
-      checkForUpdates(e) {
-        dv.checkForUpdates(e);
+      checkForUpdates(e, t = !1) {
+        gv.checkForUpdates(e, t);
       }
       getDotComAccount() {
         const e = this.state.accounts.find((e) => e.endpoint === _n());
@@ -104231,11 +105238,11 @@
         const e = this.state.accounts.find((e) => e.endpoint !== _n());
         return e || null;
       }
-      updateBranch() {
+      updateBranchWithContributionTargetBranch() {
         const { selectedState: e } = this.state;
         if (null == e || e.type !== Ve.Repository) return;
         const { state: t, repository: n } = e,
-          r = t.branchesState.defaultBranch;
+          r = Eh(n, t.branchesState);
         if (!r) return;
         this.props.dispatcher.initializeMergeOperation(n, !1, r);
         const { mergeStatus: i } = t.compareState;
@@ -104443,13 +105450,13 @@
               e.preventDefault();
             }
           }),
-          fv() &&
+          yv() &&
             (window.addEventListener("keydown", this.onWindowKeyDown),
             window.addEventListener("keyup", this.onWindowKeyUp));
       }
       onWindowKeyDown = (e) => {
         if (!e.defaultPrevented && !this.isShowingModal) {
-          if (fv())
+          if (yv())
             if ("Shift" === e.key && e.altKey)
               this.props.dispatcher.setAccessKeyHighlightState(!1);
             else if ("Alt" === e.key) {
@@ -104484,7 +105491,7 @@
       };
       onWindowKeyUp = (e) => {
         e.defaultPrevented ||
-          (fv() &&
+          (yv() &&
             "Alt" === e.key &&
             (this.props.dispatcher.setAccessKeyHighlightState(!1),
             "Alt" === this.lastKeyPressed &&
@@ -104506,7 +105513,7 @@
           e.length > 0 &&
             (n.recordAddExistingRepository(), await n.selectRepository(e[0]));
         } else if (1 === t.length) {
-          const e = await _y(t[0])
+          const e = await Iy(t[0])
               .then((e) =>
                 "regular" === e.kind ? e.topLevelWorkingDirectory : t[0]
               )
@@ -104580,7 +105587,7 @@
         if (this.state.showWelcomeFlow) return null;
         const e = this.state.currentFoldout,
           t = e && e.type === Ke.AppMenu ? e : null;
-        return ve.createElement(LR, {
+        return ve.createElement(VR, {
           appMenu: this.state.appMenuState,
           dispatcher: this.props.dispatcher,
           highlightAppMenuAccessKeys: this.state.highlightAccessKeys,
@@ -104602,7 +105609,7 @@
           r = this.state.showWelcomeFlow,
           i = (this.inNoRepositoriesViewState(), r ? "light" : "dark");
         return ve.createElement(
-          Dv,
+          Iv,
           {
             showAppIcon: n,
             titleBarStyle: i,
@@ -104633,7 +105640,7 @@
               this.state.selectedState.type === Ve.Repository
                 ? this.state.selectedState.state.changesState.stashEntry
                 : null;
-            return ve.createElement(zx, {
+            return ve.createElement(Zx, {
               key: "rename-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104642,7 +105649,7 @@
               onDismissed: t,
             });
           case Pr.DeleteBranch:
-            return ve.createElement(Wx, {
+            return ve.createElement(Xx, {
               key: "delete-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104652,7 +105659,7 @@
               onDeleted: this.onBranchDeleted,
             });
           case Pr.DeleteRemoteBranch:
-            return ve.createElement(jx, {
+            return ve.createElement(Jx, {
               key: "delete-remote-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104665,7 +105672,7 @@
                 void 0 === e.showDiscardChangesSetting ||
                 e.showDiscardChangesSetting,
               i = void 0 !== e.discardingAllChanges && e.discardingAllChanges;
-            return ve.createElement(pR, {
+            return ve.createElement(CR, {
               key: "discard-changes",
               repository: e.repository,
               dispatcher: this.props.dispatcher,
@@ -104679,7 +105686,7 @@
                 this.onConfirmDiscardChangesChanged,
             });
           case Pr.ConfirmDiscardSelection:
-            return ve.createElement(BN, {
+            return ve.createElement(qN, {
               key: "discard-selection",
               repository: e.repository,
               dispatcher: this.props.dispatcher,
@@ -104692,7 +105699,7 @@
             let o = this.getRepository();
             return (
               o instanceof br && (o = null),
-              ve.createElement(uO, {
+              ve.createElement(bO, {
                 key: "preferences",
                 initialSelectedTab: e.initialSelectedTab,
                 dispatcher: this.props.dispatcher,
@@ -104724,7 +105731,7 @@
             const n = e.repository,
               r = this.props.repositoryStateManager.get(n),
               i = Ni(this.state.accounts, n);
-            return ve.createElement(EC, {
+            return ve.createElement(DC, {
               key: `repository-settings-${n.hash}`,
               initialSelectedTab: e.initialSelectedTab,
               remote: r.remote,
@@ -104735,28 +105742,28 @@
             });
           }
           case Pr.SignIn:
-            return ve.createElement(VO, {
+            return ve.createElement(nN, {
               key: "sign-in",
               signInState: this.state.signInState,
               dispatcher: this.props.dispatcher,
               onDismissed: t,
             });
           case Pr.AddRepository:
-            return ve.createElement(wO, {
+            return ve.createElement(DO, {
               key: "add-existing-repository",
               onDismissed: t,
               dispatcher: this.props.dispatcher,
               path: e.path,
             });
           case Pr.CreateRepository:
-            return ve.createElement(PO, {
+            return ve.createElement(UO, {
               key: "create-repository",
               onDismissed: t,
               dispatcher: this.props.dispatcher,
               initialPath: e.path,
             });
           case Pr.CloneRepository:
-            return ve.createElement(WO, {
+            return ve.createElement(XO, {
               key: "clone-repository",
               dotComAccount: this.getDotComAccount(),
               enterpriseAccount: this.getEnterpriseAccount(),
@@ -104777,8 +105784,8 @@
             let i = null,
               o = null;
             return (
-              jr(r) && ((i = Vr(r)), (o = qy(r, n.allBranches))),
-              ve.createElement($O, {
+              jr(r) && ((i = Vr(r)), (o = n.upstreamDefaultBranch)),
+              ve.createElement(QO, {
                 key: "create-branch",
                 tip: n.tip,
                 defaultBranch: n.defaultBranch,
@@ -104795,26 +105802,27 @@
             );
           }
           case Pr.InstallGit:
-            return ve.createElement(KO, {
+            return ve.createElement(rN, {
               key: "install-git",
               onDismissed: t,
               onOpenShell: this.onOpenShellIgnoreWarning,
               path: e.path,
             });
           case Pr.About:
-            const s = "3.0.5";
-            return ve.createElement(XO, {
+            const s = "3.0.7";
+            return ve.createElement(sN, {
               key: "about",
               onDismissed: t,
               applicationName: "GitHub Desktop",
               applicationVersion: s,
               applicationArchitecture: process.arch,
               onCheckForUpdates: this.onCheckForUpdates,
+              onCheckForNonStaggeredUpdates: this.onCheckForNonStaggeredUpdates,
               onShowAcknowledgements: this.showAcknowledgements,
               onShowTermsAndConditions: this.showTermsAndConditions,
             });
           case Pr.PublishRepository:
-            return ve.createElement(nN, {
+            return ve.createElement(hN, {
               key: "publish",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104822,7 +105830,7 @@
               onDismissed: t,
             });
           case Pr.UntrustedCertificate:
-            return ve.createElement(oN, {
+            return ve.createElement(fN, {
               key: "untrusted-certificate",
               certificate: e.certificate,
               url: e.url,
@@ -104830,25 +105838,25 @@
               onContinue: this.onContinueWithUntrustedCertificate,
             });
           case Pr.Acknowledgements:
-            return ve.createElement(rN, {
+            return ve.createElement(pN, {
               key: "acknowledgements",
               onDismissed: t,
-              applicationVersion: "3.0.5",
+              applicationVersion: "3.0.7",
             });
           case Pr.RemoveRepository:
-            return ve.createElement(aN, {
+            return ve.createElement(gN, {
               key: "confirm-remove-repository",
               repository: e.repository,
               onConfirmation: this.onConfirmRepoRemoval,
               onDismissed: t,
             });
           case Pr.TermsAndConditions:
-            return ve.createElement(cN, {
+            return ve.createElement(vN, {
               key: "terms-and-conditions",
               onDismissed: t,
             });
           case Pr.PushBranchCommits:
-            return ve.createElement(Ok, {
+            return ve.createElement(jk, {
               key: "push-branch-commits",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104858,12 +105866,12 @@
               onDismissed: t,
             });
           case Pr.CLIInstalled:
-            return ve.createElement(uN, {
+            return ve.createElement(bN, {
               key: "cli-installed",
               onDismissed: t,
             });
           case Pr.GenericGitAuthentication:
-            return ve.createElement(hN, {
+            return ve.createElement(wN, {
               key: "generic-git-authentication",
               hostname: e.hostname,
               onDismiss: t,
@@ -104873,7 +105881,7 @@
           case Pr.ExternalEditorFailed:
             const a = e.openPreferences,
               l = e.suggestDefaultEditor;
-            return ve.createElement(YO, {
+            return ve.createElement(iN, {
               key: "editor-error",
               message: e.message,
               onDismissed: t,
@@ -104882,27 +105890,27 @@
               suggestDefaultEditor: l,
             });
           case Pr.OpenShellFailed:
-            return ve.createElement(pN, {
+            return ve.createElement(CN, {
               key: "shell-error",
               message: e.message,
               onDismissed: t,
               showPreferencesDialog: this.onShowAdvancedPreferences,
             });
           case Pr.InitializeLFS:
-            return ve.createElement(fN, {
+            return ve.createElement(kN, {
               key: "initialize-lfs",
               repositories: e.repositories,
               onDismissed: t,
               onInitialize: this.initializeLFS,
             });
           case Pr.LFSAttributeMismatch:
-            return ve.createElement(mN, {
+            return ve.createElement(EN, {
               key: "lsf-attribute-mismatch",
               onDismissed: t,
               onUpdateExistingFilters: this.updateExistingLFSFilters,
             });
           case Pr.UpstreamAlreadyExists:
-            return ve.createElement(gN, {
+            return ve.createElement(xN, {
               key: "upstream-already-exists",
               repository: e.repository,
               existingRemote: e.existingRemote,
@@ -104911,14 +105919,14 @@
               onIgnore: this.onIgnoreExistingUpstreamRemote,
             });
           case Pr.ReleaseNotes:
-            return ve.createElement(bN, {
+            return ve.createElement(_N, {
               key: "release-notes",
               emoji: this.state.emoji,
               newReleases: e.newReleases,
               onDismissed: t,
             });
           case Pr.DeletePullRequest:
-            return ve.createElement(wN, {
+            return ve.createElement(DN, {
               key: "delete-pull-request",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104927,7 +105935,7 @@
               pullRequest: e.pullRequest,
             });
           case Pr.OversizedFiles:
-            return ve.createElement(kN, {
+            return ve.createElement(IN, {
               key: "oversized-files",
               oversizedFiles: e.oversizedFiles,
               onDismissed: t,
@@ -104936,7 +105944,7 @@
               repository: e.repository,
             });
           case Pr.CommitConflictsWarning:
-            return ve.createElement(CN, {
+            return ve.createElement(AN, {
               key: "commit-conflicts-warning",
               dispatcher: this.props.dispatcher,
               files: e.files,
@@ -104945,7 +105953,7 @@
               onDismissed: t,
             });
           case Pr.PushNeedsPull:
-            return ve.createElement(EN, {
+            return ve.createElement(MN, {
               key: "push-needs-pull",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104953,7 +105961,7 @@
             });
           case Pr.ConfirmForcePush: {
             const { askForConfirmationOnForcePush: n } = this.state;
-            return ve.createElement(vB, {
+            return ve.createElement(TB, {
               key: "confirm-force-push",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104970,7 +105978,7 @@
             if (s.kind !== Ar.Valid) return null;
             const a = s.branch,
               l = null !== o.stashEntry;
-            return ve.createElement(RN, {
+            return ve.createElement(NN, {
               key: "stash-and-switch-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -104982,7 +105990,7 @@
           }
           case Pr.ConfirmOverwriteStash: {
             const { repository: n, branchToCheckout: r } = e;
-            return ve.createElement(TN, {
+            return ve.createElement(BN, {
               key: "overwrite-stash",
               dispatcher: this.props.dispatcher,
               repository: n,
@@ -104992,7 +106000,7 @@
           }
           case Pr.ConfirmDiscardStash: {
             const { repository: n, stash: r } = e;
-            return ve.createElement(_N, {
+            return ve.createElement(FN, {
               key: "confirm-discard-stash-dialog",
               dispatcher: this.props.dispatcher,
               repository: n,
@@ -105001,7 +106009,7 @@
             });
           }
           case Pr.CreateTutorialRepository:
-            return ve.createElement(DN, {
+            return ve.createElement(LN, {
               key: "create-tutorial-repository-dialog",
               account: e.account,
               progress: e.progress,
@@ -105009,20 +106017,20 @@
               onCreateTutorialRepository: this.onCreateTutorialRepository,
             });
           case Pr.ConfirmExitTutorial:
-            return ve.createElement(Bx, {
+            return ve.createElement(qx, {
               key: "confirm-exit-tutorial",
               onDismissed: t,
               onContinue: this.onExitTutorialToHomeScreen,
             });
           case Pr.PushRejectedDueToMissingWorkflowScope:
-            return ve.createElement(AN, {
+            return ve.createElement(HN, {
               onDismissed: t,
               rejectedPath: e.rejectedPath,
               dispatcher: this.props.dispatcher,
               repository: e.repository,
             });
           case Pr.SAMLReauthRequired:
-            return ve.createElement(PN, {
+            return ve.createElement(UN, {
               onDismissed: t,
               organizationName: e.organizationName,
               endpoint: e.endpoint,
@@ -105030,14 +106038,14 @@
               dispatcher: this.props.dispatcher,
             });
           case Pr.CreateFork:
-            return ve.createElement(IN, {
+            return ve.createElement(zN, {
               onDismissed: t,
               dispatcher: this.props.dispatcher,
               repository: e.repository,
               account: e.account,
             });
           case Pr.CreateTag:
-            return ve.createElement(MN, {
+            return ve.createElement(WN, {
               key: "create-tag",
               repository: e.repository,
               onDismissed: t,
@@ -105047,7 +106055,7 @@
               localTags: e.localTags,
             });
           case Pr.DeleteTag:
-            return ve.createElement(ON, {
+            return ve.createElement(jN, {
               key: "delete-tag",
               repository: e.repository,
               onDismissed: t,
@@ -105055,7 +106063,7 @@
               tagName: e.tagName,
             });
           case Pr.ChooseForkSettings:
-            return ve.createElement(NN, {
+            return ve.createElement($N, {
               repository: e.repository,
               onDismissed: t,
               dispatcher: this.props.dispatcher,
@@ -105066,7 +106074,7 @@
                 null !== c && c.type === Ve.Repository
                   ? c.state.changesState.stashEntry
                   : null;
-            return ve.createElement(FN, {
+            return ve.createElement(GN, {
               repository: e.repository,
               dispatcher: this.props.dispatcher,
               hasExistingStash: null !== u,
@@ -105075,18 +106083,18 @@
               files: e.files,
             });
           case Pr.MoveToApplicationsFolder:
-            return ve.createElement(HN, {
+            return ve.createElement(KN, {
               dispatcher: this.props.dispatcher,
               onDismissed: t,
             });
           case Pr.ChangeRepositoryAlias:
-            return ve.createElement(UN, {
+            return ve.createElement(YN, {
               dispatcher: this.props.dispatcher,
               repository: e.repository,
               onDismissed: t,
             });
           case Pr.ThankYou:
-            return ve.createElement(zN, {
+            return ve.createElement(ZN, {
               key: "thank-you",
               emoji: this.state.emoji,
               userContributions: e.userContributions,
@@ -105101,7 +106109,7 @@
               f =
                 null === e.repository.gitHubRepository ||
                 zr(e.repository.gitHubRepository),
-              m = fw(
+              m = vw(
                 e.repository,
                 this.props.dispatcher,
                 this.state.emoji,
@@ -105110,7 +106118,7 @@
                 this.state.accounts
               ),
               g = Ni(this.state.accounts, e.repository);
-            return ve.createElement(jN, {
+            return ve.createElement(JN, {
               key: "commit-message",
               autocompletionProviders: m,
               branch: d,
@@ -105140,7 +106148,7 @@
                   "[App] invalid state encountered - multi commit flow should not be active when step is null"
                 ),
                 null)
-              : ve.createElement(pB, {
+              : ve.createElement(CB, {
                   key: "multi-commit-operation",
                   repository: e.repository,
                   dispatcher: this.props.dispatcher,
@@ -105157,7 +106165,7 @@
           }
           case Pr.WarnLocalChangesBeforeUndo: {
             const { repository: n, commit: r, isWorkingDirectoryClean: i } = e;
-            return ve.createElement(dB, {
+            return ve.createElement(SB, {
               key: "warn-local-changes-before-undo",
               dispatcher: this.props.dispatcher,
               repository: n,
@@ -105168,7 +106176,7 @@
           }
           case Pr.WarningBeforeReset: {
             const { repository: n, commit: r } = e;
-            return ve.createElement(fB, {
+            return ve.createElement(kB, {
               key: "warning-before-reset",
               dispatcher: this.props.dispatcher,
               repository: n,
@@ -105177,14 +106185,14 @@
             });
           }
           case Pr.InvalidatedToken:
-            return ve.createElement(mB, {
+            return ve.createElement(EB, {
               key: "invalidated-token",
               dispatcher: this.props.dispatcher,
               account: e.account,
               onDismissed: t,
             });
           case Pr.AddSSHHost:
-            return ve.createElement(gB, {
+            return ve.createElement(xB, {
               key: "add-ssh-host",
               host: e.host,
               ip: e.ip,
@@ -105194,21 +106202,21 @@
               onDismissed: t,
             });
           case Pr.SSHKeyPassphrase:
-            return ve.createElement(yB, {
+            return ve.createElement(RB, {
               key: "ssh-key-passphrase",
               keyPath: e.keyPath,
               onSubmit: e.onSubmit,
               onDismissed: t,
             });
           case Pr.SSHUserPassword:
-            return ve.createElement(RB, {
+            return ve.createElement(NB, {
               key: "ssh-user-password",
               username: e.username,
               onSubmit: e.onSubmit,
               onDismissed: t,
             });
           case Pr.PullRequestChecksFailed:
-            return ve.createElement(CB, {
+            return ve.createElement(AB, {
               key: "pull-request-checks-failed",
               dispatcher: this.props.dispatcher,
               shouldChangeRepository: e.shouldChangeRepository,
@@ -105222,7 +106230,7 @@
               onDismissed: t,
             });
           case Pr.CICheckRunRerun:
-            return ve.createElement(kB, {
+            return ve.createElement(IB, {
               key: "rerun-check-runs",
               checkRuns: e.checkRuns,
               dispatcher: this.props.dispatcher,
@@ -105233,7 +106241,7 @@
             });
           case Pr.WarnForcePush: {
             const { askForConfirmationOnForcePush: n } = this.state;
-            return ve.createElement(eB, {
+            return ve.createElement(cB, {
               key: "warn-force-push",
               dispatcher: this.props.dispatcher,
               operation: e.operation,
@@ -105243,7 +106251,7 @@
             });
           }
           case Pr.DiscardChangesRetry:
-            return ve.createElement(EB, {
+            return ve.createElement(MB, {
               key: "discard-changes-retry",
               dispatcher: this.props.dispatcher,
               retryAction: e.retryAction,
@@ -105252,7 +106260,7 @@
                 this.onConfirmDiscardChangesPermanentlyChanged,
             });
           case Pr.PullRequestReview:
-            return ve.createElement(xB, {
+            return ve.createElement(OB, {
               key: "pull-request-checks-failed",
               dispatcher: this.props.dispatcher,
               shouldCheckoutBranch: e.shouldCheckoutBranch,
@@ -105266,6 +106274,22 @@
               onSubmit: t,
               onDismissed: t,
             });
+          case Pr.UnreachableCommits: {
+            const { selectedState: n, emoji: r } = this.state;
+            if (null == n || n.type !== Ve.Repository) return null;
+            const {
+              commitLookup: i,
+              commitSelection: { shas: o, shasInDiff: s },
+            } = n.state;
+            return ve.createElement(Ok, {
+              selectedShas: o,
+              shasInDiff: s,
+              commitLookup: i,
+              selectedTab: e.selectedTab,
+              emoji: r,
+              onDismissed: t,
+            });
+          }
           default:
             return st(0, `Unknown popup type: ${e}`);
         }
@@ -105303,7 +106327,7 @@
       onShowAdvancedPreferences = () => {
         this.props.dispatcher.showPopup({
           type: Pr.Preferences,
-          initialSelectedTab: mv.Advanced,
+          initialSelectedTab: vv.Advanced,
         });
       };
       onBranchCreatedFromCommit = () => {
@@ -105318,6 +106342,7 @@
           this.props.dispatcher.performRetry(r);
       };
       onCheckForUpdates = () => this.checkForUpdates(!1);
+      onCheckForNonStaggeredUpdates = () => this.checkForUpdates(!1, !0);
       showAcknowledgements = () => {
         this.props.dispatcher.showPopup({ type: Pr.Acknowledgements });
       };
@@ -105329,7 +106354,7 @@
         return ve.createElement(
           Oe,
           null,
-          e && ve.createElement(Ge, { classNames: "modal", timeout: TB }, e)
+          e && ve.createElement(Ge, { classNames: "modal", timeout: BB }, e)
         );
       }
       renderDragElement() {
@@ -105343,8 +106368,8 @@
         const { currentDragElement: e, emoji: t } = this.state;
         if (null === e) return null;
         const { gitHubRepository: n, commit: r, selectedCommits: i } = e;
-        return e.type === Wy.Commit
-          ? ve.createElement(LN, {
+        return e.type === Gy.Commit
+          ? ve.createElement(VN, {
               gitHubRepository: n,
               commit: r,
               selectedCommits: i,
@@ -105353,12 +106378,12 @@
           : st(e.type, `Unknown drag element type: ${e}`);
       }
       renderZoomInfo() {
-        return ve.createElement(Av, {
+        return ve.createElement(Mv, {
           windowZoomFactor: this.state.windowZoomFactor,
         });
       }
       renderFullScreenInfo() {
-        return ve.createElement(Iv, { windowState: this.state.windowState });
+        return ve.createElement(Nv, { windowState: this.state.windowState });
       }
       clearError = (e) => this.props.dispatcher.clearError(e);
       onConfirmDiscardChangesChanged = (e) => {
@@ -105368,7 +106393,7 @@
         this.props.dispatcher.setConfirmDiscardChangesPermanentlySetting(e);
       };
       renderAppError() {
-        return ve.createElement(pO, {
+        return ve.createElement(CO, {
           errors: this.state.errors,
           onClearError: this.clearError,
           onShowPopup: this.showPopup,
@@ -105383,11 +106408,8 @@
       };
       getDesktopAppContentsClassNames = () => {
         const { currentDragElement: e } = this.state,
-          t = null !== e && e.type === Wy.Commit;
-        return pl()({
-          "commit-being-dragged": t,
-          "squashing-enabled": t && !0,
-        });
+          t = null !== e && e.type === Gy.Commit;
+        return pl()({ "commit-being-dragged": t });
       };
       renderApp() {
         return ve.createElement(
@@ -105413,7 +106435,7 @@
             : void 0,
           n = this.state.selectedShell,
           r = this.state.repositoryFilterText;
-        return ve.createElement(Qb, {
+        return ve.createElement(rw, {
           filterText: r,
           onFilterTextChanged: this.onRepositoryFilterTextChanged,
           selectedRepository: e,
@@ -105467,17 +106489,17 @@
         let n, r;
         if (t) {
           const e = t instanceof Wr ? t.alias : null;
-          (n = Mv(t)), (r = e ?? t.name);
+          (n = Bv(t)), (r = e ?? t.name);
         } else
           this.state.repositories.length > 0
-            ? ((n = ih), (r = "Select a repository"))
-            : ((n = ih), (r = "No repositories"));
+            ? ((n = oh), (r = "Select a repository"))
+            : ((n = oh), (r = "No repositories"));
         const i =
             this.state.currentFoldout &&
             this.state.currentFoldout.type === Ke.Repository,
           o = i ? "open" : "closed",
           s = t && !i ? t.path : void 0,
-          a = uo(this.state.sidebarWidth),
+          a = oo(this.state.sidebarWidth),
           l = {
             position: "absolute",
             marginLeft: 0,
@@ -105486,23 +106508,52 @@
             height: "100%",
             top: 0,
           };
-        return ve.createElement(Kx, {
+        return ve.createElement(rR, {
           icon: n,
           title: r,
           description: "当前仓库",
           tooltip: s,
           foldoutStyle: l,
+          onContextMenu: this.onRepositoryToolbarButtonContextMenu,
           onDropdownStateChanged: this.onRepositoryDropdownStateChanged,
           dropdownContentRenderer: this.renderRepositoryList,
           dropdownState: o,
         });
       }
+      onRepositoryToolbarButtonContextMenu = () => {
+        const e = this.state.selectedState?.repository;
+        if (void 0 === e) return;
+        const t = this.state.selectedExternalEditor ?? void 0;
+        Uv(
+          $v({
+            onRemoveRepository: this.removeRepository,
+            onShowRepository: this.showRepository,
+            onOpenInShell: this.openInShell,
+            onOpenInExternalEditor: this.openInExternalEditor,
+            askForConfirmationOnRemoveRepository:
+              this.state.askForConfirmationOnRepositoryRemoval,
+            externalEditorLabel: t,
+            onChangeRepositoryAlias: (e) => {
+              this.props.dispatcher.showPopup({
+                type: Pr.ChangeRepositoryAlias,
+                repository: e,
+              });
+            },
+            onRemoveRepositoryAlias: (e) => {
+              this.props.dispatcher.changeRepositoryAlias(e, null);
+            },
+            onViewOnGitHub: this.viewOnGitHub,
+            repository: e,
+            shellLabel: this.state.selectedShell,
+          })
+        );
+      };
       renderPushPullToolbarButton() {
         const e = this.state.selectedState;
         if (!e || e.type !== Ve.Repository) return null;
         const t = e.state,
           n = t.revertProgress;
-        if (n) return ve.createElement(hR, { progress: n });
+        if (n) return ve.createElement(wR, { progress: n });
         let r = t.remote ? t.remote.name : null;
         const i = t.pushPullFetchProgress,
           { conflictState: o } = t.changesState,
@@ -105512,8 +106563,8 @@
         u.kind === Ar.Valid &&
           null !== u.branch.upstreamRemoteName &&
           (r = u.branch.upstreamRemoteName);
-        const h = po(l, a);
-        return ve.createElement(Qx, {
+        const h = ao(l, a);
+        return ve.createElement(lR, {
           dispatcher: this.props.dispatcher,
           repository: e.repository,
           aheadBehind: t.aheadBehind,
@@ -105564,7 +106615,7 @@
           n = null !== t && t.type === Ke.Branch,
           r = e.repository,
           { branchesState: i } = e.state;
-        return ve.createElement(cR, {
+        return ve.createElement(vR, {
           dispatcher: this.props.dispatcher,
           isOpen: n,
           onDropDownStateChanged: this.onBranchDropdownStateChanged,
@@ -105588,14 +106639,14 @@
             ? (e = (function (e, t, n) {
                 switch (e.type) {
                   case As.SuccessfulMerge:
-                    return ve.createElement($R, {
+                    return ve.createElement(QR, {
                       ourBranch: e.ourBranch,
                       theirBranch: e.theirBranch,
                       onDismissed: n,
                       key: "successful-merge",
                     });
                   case As.MergeConflictsFound:
-                    return ve.createElement(WR, {
+                    return ve.createElement(XR, {
                       dispatcher: t,
                       ourBranch: e.ourBranch,
                       popup: e.popup,
@@ -105603,14 +106654,14 @@
                       key: "merge-conflicts",
                     });
                   case As.SuccessfulRebase:
-                    return ve.createElement(GR, {
+                    return ve.createElement(tT, {
                       targetBranch: e.targetBranch,
                       baseBranch: e.baseBranch,
                       onDismissed: n,
                       key: "successful-rebase",
                     });
                   case As.RebaseConflictsFound:
-                    return ve.createElement(qR, {
+                    return ve.createElement(eT, {
                       dispatcher: t,
                       targetBranch: e.targetBranch,
                       onOpenDialog: e.onOpenDialog,
@@ -105618,14 +106669,14 @@
                       key: "merge-conflicts",
                     });
                   case As.BranchAlreadyUpToDate:
-                    return ve.createElement(VR, {
+                    return ve.createElement(nT, {
                       ourBranch: e.ourBranch,
                       theirBranch: e.theirBranch,
                       onDismissed: n,
                       key: "branch-already-up-to-date",
                     });
                   case As.SuccessfulCherryPick:
-                    return ve.createElement(KR, {
+                    return ve.createElement(rT, {
                       key: "successful-cherry-pick",
                       targetBranchName: e.targetBranchName,
                       countCherryPicked: e.count,
@@ -105633,21 +106684,21 @@
                       onUndo: e.onUndo,
                     });
                   case As.CherryPickConflictsFound:
-                    return ve.createElement(YR, {
+                    return ve.createElement(iT, {
                       targetBranchName: e.targetBranchName,
                       onOpenConflictsDialog: e.onOpenConflictsDialog,
                       onDismissed: n,
                       key: "cherry-pick-conflicts",
                     });
                   case As.CherryPickUndone:
-                    return ve.createElement(ZR, {
+                    return ve.createElement(oT, {
                       key: "cherry-pick-undone",
                       targetBranchName: e.targetBranchName,
                       countCherryPicked: e.countCherryPicked,
                       onDismissed: n,
                     });
                   case As.OpenThankYouCard:
-                    return ve.createElement(XR, {
+                    return ve.createElement(sT, {
                       key: "open-thank-you-card",
                       emoji: e.emoji,
                       onDismissed: n,
@@ -105655,7 +106706,7 @@
                       onThrowCardAway: e.onThrowCardAway,
                     });
                   case As.SuccessfulSquash:
-                    return ve.createElement(JR, {
+                    return ve.createElement(aT, {
                       key: "successful-squash",
                       count: e.count,
                       onDismissed: n,
@@ -105664,7 +106715,7 @@
                   case As.SquashUndone: {
                     const t = 1 === e.commitsCount ? "commit" : "commits";
                     return ve.createElement(
-                      jR,
+                      JR,
                       { timeout: 5e3, onDismissed: n },
                       "Squash of ",
                       e.commitsCount,
@@ -105676,7 +106727,7 @@
                   case As.SuccessfulReorder: {
                     const t = 1 === e.count ? "commit" : "commits";
                     return ve.createElement(
-                      jR,
+                      JR,
                       { timeout: 15e3, onDismissed: n, onUndo: e.onUndo },
                       ve.createElement(
                         "span",
@@ -105692,7 +106743,7 @@
                   case As.ReorderUndone: {
                     const t = 1 === e.commitsCount ? "commit" : "commits";
                     return ve.createElement(
-                      jR,
+                      JR,
                       { timeout: 5e3, onDismissed: n },
                       "Reorder of ",
                       e.commitsCount,
@@ -105702,7 +106753,7 @@
                     );
                   }
                   case As.ConflictsFound:
-                    return ve.createElement(QR, {
+                    return ve.createElement(lT, {
                       operationDescription: e.operationDescription,
                       onOpenConflictsDialog: e.onOpenConflictsDialog,
                       onDismissed: n,
@@ -105722,14 +106773,16 @@
           ve.createElement(
             Oe,
             null,
-            e && ve.createElement(Ge, { classNames: "banner", timeout: _B }, e)
+            e && ve.createElement(Ge, { classNames: "banner", timeout: FB }, e)
           )
         );
       }
       renderUpdateBanner() {
-        return ve.createElement(zR, {
+        return ve.createElement(ZR, {
           dispatcher: this.props.dispatcher,
-          newReleases: dv.state.newReleases,
+          newReleases: gv.state.newReleases,
+          isX64ToARM64ImmediateAutoUpdate:
+            gv.state.isX64ToARM64ImmediateAutoUpdate,
           onDismissed: this.onUpdateAvailableDismissed,
           isUpdateShowcaseVisible: this.state.isUpdateShowcaseVisible,
           emoji: this.state.emoji,
@@ -105741,9 +106794,9 @@
       };
       renderToolbar() {
         if (this.inNoRepositoriesViewState()) return null;
-        const e = uo(this.state.sidebarWidth);
+        const e = oo(this.state.sidebarWidth);
         return ve.createElement(
-          qx,
+          eR,
           { id: "desktop-app-toolbar" },
           ve.createElement(
             "div",
@@ -105757,7 +106810,7 @@
       renderRepository() {
         const e = this.state;
         if (this.inNoRepositoriesViewState())
-          return ve.createElement(sN, {
+          return ve.createElement(mN, {
             dotComAccount: this.getDotComAccount(),
             enterpriseAccount: this.getEnterpriseAccount(),
             onCreate: this.showCreateRepository,
@@ -105770,12 +106823,12 @@
             onRefreshRepositories: this.onRefreshRepositories,
           });
         const t = e.selectedState;
-        if (!t) return ve.createElement(AB, null);
+        if (!t) return ve.createElement(HB, null);
         if (t.type === Ve.Repository) {
           const n = e.selectedExternalEditor
             ? e.selectedExternalEditor
             : void 0;
-          return ve.createElement(Fx, {
+          return ve.createElement(Gx, {
             ref: this.repositoryViewRef,
             key: t.repository.hash,
             repository: t.repository,
@@ -105810,19 +106863,19 @@
           });
         }
         return t.type === Ve.CloningRepository
-          ? ve.createElement($x, {
+          ? ve.createElement(Qx, {
               repository: t.repository,
               progress: t.progress,
             })
           : t.type === Ve.MissingRepository
-          ? ve.createElement(yO, {
+          ? ve.createElement(RO, {
               repository: t.repository,
               dispatcher: this.props.dispatcher,
             })
           : st(0, `Unknown state: ${t}`);
       }
       renderWelcomeFlow() {
-        return ve.createElement(DR, {
+        return ve.createElement(LR, {
           dispatcher: this.props.dispatcher,
           optOut: this.state.optOutOfUsageTracking,
           accounts: this.state.accounts,
@@ -105836,7 +106889,7 @@
         return ve.createElement(
           "div",
           { id: "desktop-app-chrome", className: e },
-          ve.createElement(SN, {
+          ve.createElement(PN, {
             theme: t,
             customTheme: this.state.customTheme,
             useCustomTheme: this.state.selectedTheme === Zn.HighContrast,
@@ -105909,16 +106962,16 @@
           (function (e, t, n) {
             if (void 0 === e) return !1;
             const { version: r, checkedUsers: i } = e;
-            return i.includes(t) && "3.0.5" === r;
+            return i.includes(t) && "3.0.7" === r;
           })(t, n)
         )
           return;
         const r = void 0 !== t && t.checkedUsers.includes(n),
           i = await (async function (e, t) {
             const n = await (async function (e) {
-                let t = await sv(250);
+                let t = await cv(250);
                 e && (t = t.slice(0, 1));
-                const n = t.map(ov),
+                const n = t.map(lv),
                   r = new Map();
                 return (
                   n.forEach((e) => {
@@ -105938,14 +106991,14 @@
               r = n.get(t);
             return void 0 !== r ? r : null;
           })(r, n);
-        if (null === i) return void WN(this.props.dispatcher, t, n, "3.0.5");
-        const o = r ? "3.0.5" : null,
+        if (null === i) return void XN(this.props.dispatcher, t, n, "3.0.7");
+        const o = r ? "3.0.7" : null,
           s = {
             type: As.OpenThankYouCard,
             emoji: this.state.emoji,
             onOpenCard: () => this.openThankYouCard(i, o),
             onThrowCardAway: () => {
-              WN(this.props.dispatcher, t, n, "3.0.5");
+              XN(this.props.dispatcher, t, n, "3.0.7");
             },
           };
         this.props.dispatcher.setBanner(s);
@@ -105966,18 +107019,18 @@
           void 0 === e && this.props.dispatcher.recordDragStartedAndCanceled();
       };
     }
-    function AB() {
+    function HB() {
       return ve.createElement(
         "div",
         { className: "panel blankslate" },
         "No repository selected"
       );
     }
-    function PB(e) {
+    function UB(e) {
       const { login: t, email: n, avatarURL: r, name: i } = e;
       return { login: t, email: n, avatarURL: r, name: i };
     }
-    function IB(e) {
+    function zB(e) {
       return (
         Object.keys(localStorage)
           .filter((e) => /^IssuesStore\/\d+\/lastFetch$/.test(e))
@@ -105986,48 +107039,48 @@
       );
     }
     new Set(["LOCAL_GIT_DIRECTORY"]);
-    const MB = new Set(
+    const WB = new Set(
         ["button", "a", "input", "textarea", "label"].map((e) =>
           e.toUpperCase()
         )
       ),
-      OB = new Set(["button", "option", "menuitem", "tab", "radio"]);
-    function NB(e, t) {
+      jB = new Set(["button", "option", "menuitem", "tab", "radio"]);
+    function $B(e, t) {
       if (t.has(e)) return e;
       for (const n of t.keys()) if (_t(n, e)) return n;
       return e;
     }
-    var BB = n(9093),
-      FB = n.n(BB);
-    function LB(e, t) {
+    var qB = n(9093),
+      GB = n.n(qB);
+    function VB(e, t) {
       const { endpoint: n, owner: r, name: i } = e;
       return (function (e, t, n, r) {
         return `${e}/repos/${t}/${n}/commits/${r}`;
       })(n, r.login, i, t);
     }
-    function HB(e) {
+    function KB(e) {
       return Date.now() - e.fetchedAt.valueOf() > 6e4;
     }
-    function UB(e, t, n) {
+    function YB(e, t, n) {
       return `${e.path}:${t}:${n}`;
     }
-    function zB(e, t) {
+    function ZB(e, t) {
       return `${e}:${t}`;
     }
-    function WB(e) {
+    function XB(e) {
       const [t, n] = e.p.split(".");
       return {
         userId: e.u,
-        presenceKey: zB(e.u, t),
+        presenceKey: ZB(e.u, t),
         connectionCount: Number(n),
         metadata: e.m || [],
       };
     }
-    function jB(e) {
+    function JB(e) {
       return e.startsWith("presence-");
     }
     n(6102);
-    class $B {
+    class QB {
       constructor() {
         this.presenceItems = new Map();
       }
@@ -106051,25 +107104,25 @@
         return Array.from(this.presenceItems.values());
       }
     }
-    class qB {
+    class eF {
       constructor() {
         this.presenceChannels = new Map();
       }
       getPresenceChannel(e) {
-        const t = this.presenceChannels.get(e) || new $B();
+        const t = this.presenceChannels.get(e) || new QB();
         return this.presenceChannels.set(e, t), t;
       }
       handleMessage(e, t) {
         const n = this.getPresenceChannel(e);
         switch (t.e) {
           case "pf":
-            n.replacePresenceItems(t.d.map(WB));
+            n.replacePresenceItems(t.d.map(XB));
             break;
           case "pa":
-            n.addPresenceItem(WB(t.d));
+            n.addPresenceItem(XB(t.d));
             break;
           case "pr":
-            n.removePresenceItem(WB(t.d));
+            n.removePresenceItem(XB(t.d));
         }
         return this.getChannelItems(e);
       }
@@ -106080,11 +107133,11 @@
         this.presenceChannels.delete(e);
       }
     }
-    const GB = "_i";
-    function VB(e) {
+    const tF = "_i";
+    function nF(e) {
       return Object.assign(Object.assign({}, e), { isLocal: !0 });
     }
-    class KB {
+    class rF {
       constructor() {
         this.subscriberMetadata = new Map();
       }
@@ -106102,16 +107155,16 @@
           let t;
           for (const n of this.subscriberMetadata.values())
             for (const r of n)
-              if (GB in r) {
+              if (tF in r) {
                 const e = Boolean(r._i);
                 t = void 0 === t ? e : e && t;
               } else e.push(r);
-          return void 0 !== t && e.push({ [GB]: t ? 1 : 0 }), e;
+          return void 0 !== t && e.push({ [tF]: t ? 1 : 0 }), e;
         }
         const t = [],
           { subscriber: n, markAllAsLocal: r } = e;
         for (const [e, i] of this.subscriberMetadata) {
-          const o = r || e === n ? i.map(VB) : i;
+          const o = r || e === n ? i.map(nF) : i;
           t.push(...o);
         }
         return t;
@@ -106120,13 +107173,13 @@
         return this.subscriberMetadata.size > 0;
       }
     }
-    class YB {
+    class iF {
       constructor() {
         this.metadataByChannel = new Map();
       }
       setMetadata({ subscriber: e, channelName: t, metadata: n }) {
         let r = this.metadataByChannel.get(t);
-        r || ((r = new KB()), this.metadataByChannel.set(t, r)),
+        r || ((r = new rF()), this.metadataByChannel.set(t, r)),
           r.setMetadata(e, n);
       }
       removeSubscribers(e) {
@@ -106141,40 +107194,40 @@
         return (null == n ? void 0 : n.getMetadata(t)) || [];
       }
     }
-    async function ZB(e, t) {
+    async function oF(e, t) {
       let n;
       const r = new Promise((t, r) => {
         n = self.setTimeout(() => r(new Error("timeout")), e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, JB(t)]);
+        await Promise.race([r, aF(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    async function XB(e, t) {
+    async function sF(e, t) {
       let n;
       const r = new Promise((t) => {
         n = self.setTimeout(t, e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, JB(t)]);
+        await Promise.race([r, aF(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    function JB(e) {
+    function aF(e) {
       return new Promise((t, n) => {
         const r = new Error("aborted");
         (r.name = "AbortError"),
           e.aborted ? n(r) : e.addEventListener("abort", () => n(r));
       });
     }
-    function QB(e, t) {
+    function lF(e, t) {
       return (async function (e, t, n = 1 / 0, r) {
-        const i = r ? JB(r) : null;
+        const i = r ? aF(r) : null;
         for (let s = 0; s < t; s++)
           try {
             const t = i ? Promise.race([e(), i]) : e();
@@ -106184,7 +107237,7 @@
             if (s === t - 1) throw e;
             const i = 1e3 * Math.pow(2, s),
               a = ((o = 0.1 * i), Math.floor(Math.random() * Math.floor(o)));
-            await XB(Math.min(n, i + a), r);
+            await sF(Math.min(n, i + a), r);
           }
         var o;
         throw new Error("retry failed");
@@ -106207,7 +107260,7 @@
                 });
               })(r);
             try {
-              return await Promise.race([i, ZB(t, n)]), r;
+              return await Promise.race([i, oF(t, n)]), r;
             } catch (e) {
               throw (
                 ((async function (e) {
@@ -106224,7 +107277,7 @@
         t.signal
       );
     }
-    class eF {
+    class cF {
       constructor(e, t, n) {
         (this.socket = null),
           (this.opening = null),
@@ -106239,7 +107292,7 @@
           signal: this.opening.signal,
         });
         try {
-          this.socket = await QB(this.url, e);
+          this.socket = await lF(this.url, e);
         } catch (e) {
           return void this.delegate.socketDidFinish(this);
         } finally {
@@ -106252,7 +107305,7 @@
             (
               this.delegate.socketShouldRetry
                 ? this.delegate.socketShouldRetry(this, e.code)
-                : (n = e.code) !== tF && n !== nF
+                : (n = e.code) !== uF && n !== hF
             )
               ? setTimeout(
                   () => this.open(),
@@ -106284,9 +107337,9 @@
         return !!this.socket;
       }
     }
-    const tF = 1008,
-      nF = 1011;
-    class rF {
+    const uF = 1008,
+      hF = 1011;
+    class pF {
       constructor(e) {
         if (((this.map = new Map()), e)) for (const [t, n] of e) this.set(t, n);
       }
@@ -106332,9 +107385,9 @@
         return this.map.size;
       }
     }
-    class iF {
+    class dF {
       constructor() {
-        (this.subscriptions = new rF()), (this.signatures = new Map());
+        (this.subscriptions = new pF()), (this.signatures = new Map());
       }
       add(...e) {
         const t = [];
@@ -106371,44 +107424,44 @@
         return this.subscriptions.get(e).values();
       }
     }
-    function* oF(e, t) {
+    function* fF(e, t) {
       for (let n = 0; n < e.length; n += t) yield e.slice(n, n + t);
     }
-    function sF(e) {
+    function mF(e) {
       return new Promise((t, n) => {
         const r = new Error("aborted");
         (r.name = "AbortError"),
           e.aborted ? n(r) : e.addEventListener("abort", () => n(r));
       });
     }
-    async function aF(e, t) {
+    async function gF(e, t) {
       let n;
       const r = new Promise((t) => {
         n = self.setTimeout(t, e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, sF(t)]);
+        await Promise.race([r, mF(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    var lF;
+    var yF;
     !(function (e) {
       (e.Deploy = "Alive Redeploy"), (e.Reconnect = "Alive Reconnect");
-    })(lF || (lF = {}));
-    class cF {
+    })(yF || (yF = {}));
+    class vF {
       constructor(e, t, n, r) {
         (this.url = e),
           (this.getUrl = t),
           (this.inSharedWorker = n),
           (this.notify = r),
-          (this.subscriptions = new iF()),
+          (this.subscriptions = new dF()),
           (this.state = "online"),
           (this.retrying = null),
           (this.connectionCount = 0),
-          (this.presence = new qB()),
-          (this.presenceMetadata = new YB()),
+          (this.presence = new eF()),
+          (this.presenceMetadata = new iF()),
           (this.intentionallyDisconnected = !1),
           (this.lastCameOnline = 0),
           (this.userId = (function (e) {
@@ -106418,7 +107471,7 @@
           (this.presenceId = `${Math.round(
             Math.random() * (Math.pow(2, 31) - 1)
           )}_${Math.round(Date.now() / 1e3)}`),
-          (this.presenceKey = zB(this.userId, this.presenceId)),
+          (this.presenceKey = ZB(this.userId, this.presenceId)),
           (this.socket = this.connect());
       }
       subscribe(e) {
@@ -106426,7 +107479,7 @@
         this.sendSubscribe(t);
         for (const t of e) {
           const e = t.topic.name;
-          jB(e) && this.notifyCachedPresence(t.subscriber, e);
+          JB(e) && this.notifyCachedPresence(t.subscriber, e);
         }
       }
       unsubscribe(e) {
@@ -106548,7 +107601,7 @@
             };
           if (r !== this.presenceKey) {
             for (const e of n)
-              GB in e
+              tF in e
                 ? !1 !== o.isIdle && (o.isIdle = Boolean(e._i))
                 : o.metadata.push(e);
             i.set(t, o);
@@ -106581,7 +107634,7 @@
           try {
             this.retrying = new AbortController();
             const e = await (async function (e, t, n = 1 / 0, r) {
-              const i = r ? sF(r) : null;
+              const i = r ? mF(r) : null;
               for (let s = 0; s < t; s++)
                 try {
                   const t = i ? Promise.race([e(), i]) : e();
@@ -106593,7 +107646,7 @@
                     a =
                       ((o = 0.1 * i),
                       Math.floor(Math.random() * Math.floor(o)));
-                  await aF(Math.min(n, i + a), r);
+                  await gF(Math.min(n, i + a), r);
                 }
               var o;
               throw new Error("retry failed");
@@ -106616,7 +107669,7 @@
         );
       }
       connect() {
-        const e = new eF(this.getUrlWithPresenceId(), this, {
+        const e = new cF(this.getUrlWithPresenceId(), this, {
           timeout: 4e3,
           attempts: 7,
         });
@@ -106624,10 +107677,10 @@
       }
       sendSubscribe(e) {
         const t = Array.from(e);
-        for (const e of oF(t, 25)) {
+        for (const e of fF(t, 25)) {
           const t = {};
           for (const n of e)
-            jB(n.name)
+            JB(n.name)
               ? (t[n.signed] = JSON.stringify(
                   this.presenceMetadata.getChannelMetadata(n.name)
                 ))
@@ -106637,23 +107690,23 @@
       }
       sendUnsubscribe(e) {
         const t = Array.from(e, (e) => e.signed);
-        for (const e of oF(t, 25))
+        for (const e of fF(t, 25))
           this.socket.send(JSON.stringify({ unsubscribe: e }));
-        for (const t of e) jB(t.name) && this.presence.clearChannel(t.name);
+        for (const t of e) JB(t.name) && this.presence.clearChannel(t.name);
       }
     }
-    function uF(e, t) {
+    function bF(e, t) {
       return t.find((t) => _t(t, e));
     }
     (async function () {
-      const e = localStorage.getItem(dg);
+      const e = localStorage.getItem(mg);
       if (null !== e) {
         try {
-          await ue(e), localStorage.removeItem(dg);
+          await ue(e), localStorage.removeItem(mg);
         } catch (e) {
           log.error("Error migrating existing GUID", e);
         }
-        fg = e;
+        gg = e;
       }
     })(),
       (function (e) {
@@ -106670,34 +107723,34 @@
       })(),
       (process.env.LOCAL_GIT_DIRECTORY = e.resolve(__dirname, "git")),
       delete process.env.GIT_EXEC_PATH;
-    const hF = performance.now();
+    const wF = performance.now();
     n(3822);
-    let pF = null;
-    const dF = (e, t = {}, n) => {
+    let CF = null;
+    const SF = (e, t = {}, n) => {
       (e = h(e)), console.error("Uncaught exception", e);
       {
         const r = { osVersion: Vn(), ...t };
         try {
-          pF &&
-            (null !== pF.currentBanner &&
-              (r.currentBanner = pF.currentBanner.type),
-            null !== pF.currentPopup &&
-              (r.currentPopup = `${pF.currentPopup.type}`),
-            null !== pF.selectedState &&
-              ((r.selectedState = `${pF.selectedState.type}`),
-              pF.selectedState.type === Ve.Repository &&
-                (r.selectedRepositorySection = `${pF.selectedState.state.selectedSection}`)),
-            null !== pF.currentFoldout &&
-              (r.currentFoldout = `${pF.currentFoldout.type}`),
-            pF.showWelcomeFlow && (r.inWelcomeFlow = "true"),
-            1 !== pF.windowZoomFactor &&
-              (r.windowZoomFactor = `${pF.windowZoomFactor}`),
-            pF.errors.length > 0 && (r.activeAppErrors = `${pF.errors.length}`),
-            (r.repositoryCount = `${pF.repositories.length}`),
-            (r.windowState = pF.windowState ?? "Unknown"),
-            (r.accounts = `${pF.accounts.length}`),
+          CF &&
+            (null !== CF.currentBanner &&
+              (r.currentBanner = CF.currentBanner.type),
+            null !== CF.currentPopup &&
+              (r.currentPopup = `${CF.currentPopup.type}`),
+            null !== CF.selectedState &&
+              ((r.selectedState = `${CF.selectedState.type}`),
+              CF.selectedState.type === Ve.Repository &&
+                (r.selectedRepositorySection = `${CF.selectedState.state.selectedSection}`)),
+            null !== CF.currentFoldout &&
+              (r.currentFoldout = `${CF.currentFoldout.type}`),
+            CF.showWelcomeFlow && (r.inWelcomeFlow = "true"),
+            1 !== CF.windowZoomFactor &&
+              (r.windowZoomFactor = `${CF.windowZoomFactor}`),
+            CF.errors.length > 0 && (r.activeAppErrors = `${CF.errors.length}`),
+            (r.repositoryCount = `${CF.repositories.length}`),
+            (r.windowState = CF.windowState ?? "Unknown"),
+            (r.accounts = `${CF.accounts.length}`),
             (r.automaticallySwitchTheme = `${
-              pF.selectedTheme === Zn.System && rr()
+              CF.selectedTheme === Zn.System && rr()
             }`));
         } catch (e) {}
         !(function (e, t, n) {
@@ -106706,18 +107759,18 @@
       }
     };
     process.once("uncaughtException", (e) => {
-      dF(e),
+      SF(e),
         (function (e) {
           ie(re(e));
         })(e);
     }),
       process.on("send-non-fatal-exception", (e, t) => {
-        dF(e, t, !0);
+        SF(e, t, !0);
       }),
       window.addEventListener("unhandledrejection", (e) => {
-        no() && e.reason instanceof Error && Bg("unhandledRejection", e.reason);
+        ho() && e.reason instanceof Error && Lg("unhandledRejection", e.reason);
       });
-    const fF = new (class extends ir {
+    const kF = new (class extends ir {
         database;
         queryCache = null;
         pruneQueryCacheTimeoutId = null;
@@ -106800,7 +107853,7 @@
             (this.pruneQueryCacheTimeoutId = null));
         }
       })(
-        new (class extends Wm {
+        new (class extends $m {
           constructor(e, t) {
             super(e, t),
               this.conditionalVersion(1, { users: "++id, &[endpoint+email]" }),
@@ -106839,7 +107892,7 @@
                 .where("gitHubRepositoryID")
                 .equals(e)
                 .toArray()
-            ).map(PB);
+            ).map(UB);
           }
           getMentionableCacheEntry(e) {
             return this.mentionableCache.get(e);
@@ -106854,7 +107907,7 @@
           }
         })("GitHubUserDatabase")
       ),
-      mF = new (class extends ir {
+      EF = new (class extends ir {
         _repositories = new Array();
         stateByID = new Map();
         async clone(e, t, n) {
@@ -106869,7 +107922,7 @@
               const i = await Ra(n.account, e),
                 o = n.defaultBranch ?? (await ds()),
                 s = [
-                  ...sy(),
+                  ...ly(),
                   "-c",
                   `init.defaultBranch=${o}`,
                   "clone",
@@ -106889,14 +107942,14 @@
               }
               n.branch && s.push("-b", n.branch),
                 s.push("--", e, t),
-                await ty(s, __dirname, "clone", a);
+                await ry(s, __dirname, "clone", a);
             })(e, t, n, (e) => {
               this.stateByID.set(r.id, e), this.emitUpdate();
             });
           } catch (i) {
             o = !1;
             const s = {
-              type: fo.Clone,
+              type: lo.Clone,
               name: r.name,
               url: e,
               path: t,
@@ -106919,7 +107972,7 @@
           t > -1 && this._repositories.splice(t, 1), this.emitUpdate();
         }
       })(),
-      gF = new (class {
+      xF = new (class {
         db;
         queryCache = null;
         pruneQueryCacheTimeoutId = null;
@@ -107015,7 +108068,7 @@
             (this.pruneQueryCacheTimeoutId = null));
         }
       })(
-        new (class extends Wm {
+        new (class extends $m {
           constructor(e, t) {
             super(e, t),
               this.conditionalVersion(1, {
@@ -107028,7 +108081,7 @@
                   issues:
                     "++id, &[gitHubRepositoryID+number], gitHubRepositoryID, number, [gitHubRepositoryID+updated_at]",
                 },
-                IB
+                zB
               );
           }
           getIssuesForRepository(e) {
@@ -107036,16 +108089,16 @@
           }
         })("IssuesDatabase")
       ),
-      yF = new (class {
+      RF = new (class {
         db;
         uiActivityMonitor;
         uiActivityMonitorSubscription = null;
         optOut;
         constructor(e, t) {
           (this.db = e), (this.uiActivityMonitor = t);
-          const n = Og();
+          const n = Bg();
           (this.optOut = n || !1),
-            In(bg, !1) || this.sendOptInStatusPing(this.optOut, n),
+            In(Cg, !1) || this.sendOptInStatusPing(this.optOut, n),
             this.enableUiActivityMonitoring(),
             window.addEventListener("unhandledrejection", async () => {
               try {
@@ -107056,7 +108109,7 @@
             });
         }
         shouldReportDailyStats() {
-          const e = On(yg, 0);
+          const e = On(bg, 0);
           return Date.now() - e > 864e5;
         }
         async reportStats(e, t) {
@@ -107073,7 +108126,7 @@
               );
             log.info("Stats reported."),
               await this.clearDailyStats(),
-              Nn(yg, n);
+              Nn(bg, n);
           } catch (e) {
             log.error("Error reporting stats:", e);
           }
@@ -107084,7 +108137,7 @@
         async clearDailyStats() {
           await this.db.launches.clear(),
             await this.db.dailyMeasures.clear(),
-            localStorage.removeItem(Dg),
+            localStorage.removeItem(Pg),
             this.enableUiActivityMonitoring();
         }
         enableUiActivityMonitoring() {
@@ -107105,23 +108158,23 @@
             s = this.getOnboardingStats(),
             a = localStorage.getItem("shell") || "none",
             l = localStorage.getItem("externalEditor") || "none",
-            c = Bn(Dg).length,
+            c = Bn(Pg).length,
             u = Va() ? "split" : "unified";
           return {
             eventType: "usage",
-            version: "3.0.5",
+            version: "3.0.7",
             osVersion: Vn(),
             platform: "win32",
             architecture: await Z(),
             theme: tr(),
             selectedTerminalEmulator: a,
             selectedTextEditor: l,
-            notificationsEnabled: Sh(),
+            notificationsEnabled: kh(),
             ...n,
             ...r,
             ...i,
             ...s,
-            guid: await mg(),
+            guid: await yg(),
             ...o,
             repositoriesCommittedInWithoutWriteAccess: c,
             diffMode: u,
@@ -107129,22 +108182,22 @@
           };
         }
         getOnboardingStats() {
-          return null === Ig(wg)
+          return null === Og(Sg)
             ? {}
             : {
-                timeToWelcomeWizardTerminated: Mg(Cg),
-                timeToFirstAddedRepository: Mg(Sg),
-                timeToFirstClonedRepository: Mg(kg),
-                timeToFirstCreatedRepository: Mg(Eg),
-                timeToFirstCommit: Mg(xg),
-                timeToFirstGitHubPush: Mg(Rg),
-                timeToFirstNonDefaultBranchCheckout: Mg(Tg),
+                timeToWelcomeWizardTerminated: Ng(kg),
+                timeToFirstAddedRepository: Ng(Eg),
+                timeToFirstClonedRepository: Ng(xg),
+                timeToFirstCreatedRepository: Ng(Rg),
+                timeToFirstCommit: Ng(Tg),
+                timeToFirstGitHubPush: Ng(_g),
+                timeToFirstNonDefaultBranchCheckout: Ng(Dg),
                 welcomeWizardSignInMethod: (function () {
-                  const e = localStorage.getItem(_g);
+                  const e = localStorage.getItem(Ag);
                   try {
                     switch (e) {
-                      case ig.Basic:
-                      case ig.Web:
+                      case sg.Basic:
+                      case sg.Web:
                         return e;
                       case null:
                         return;
@@ -107191,10 +108244,10 @@
         }
         async getDailyMeasures() {
           const e = await this.db.dailyMeasures.limit(1).first();
-          return { ...Ag, ...e, id: void 0 };
+          return { ...Ig, ...e, id: void 0 };
         }
         async updateDailyMeasures(e) {
-          const t = Ag;
+          const t = Ig;
           await this.db.transaction("rw", this.db.dailyMeasures, async () => {
             const n = await this.db.dailyMeasures.limit(1).first(),
               r = { ...t, ...n },
@@ -107204,7 +108257,7 @@
         }
         async recordCommit() {
           await this.updateDailyMeasures((e) => ({ commits: e.commits + 1 })),
-            Pg(xg);
+            Mg(Tg);
         }
         recordPartialCommit() {
           return this.updateDailyMeasures((e) => ({
@@ -107342,8 +108395,8 @@
         async setOptOut(e, t) {
           const n = this.optOut !== e;
           this.optOut = e;
-          const r = In(vg);
-          Mn(vg, e), (n || t) && (await this.sendOptInStatusPing(e, r));
+          const r = In(wg);
+          Mn(wg, e), (n || t) && (await this.sendOptInStatusPing(e, r));
         }
         getOptOut() {
           return this.optOut;
@@ -107364,7 +108417,7 @@
             await this.updateDailyMeasures((e) => ({
               dotcomPushCount: e.dotcomPushCount + 1,
             })),
-            Pg(Rg);
+            Mg(_g);
         }
         async recordPushToGitHubEnterprise(e) {
           e &&
@@ -107375,7 +108428,7 @@
             await this.updateDailyMeasures((e) => ({
               enterprisePushCount: e.enterprisePushCount + 1,
             })),
-            Pg(Rg);
+            Mg(_g);
         }
         async recordPushToGenericRemote(e) {
           e &&
@@ -107479,25 +108532,25 @@
           }));
         }
         recordWelcomeWizardInitiated() {
-          Nn(wg, Date.now()), localStorage.removeItem(Cg);
+          Nn(Sg, Date.now()), localStorage.removeItem(kg);
         }
         recordWelcomeWizardTerminated() {
-          Nn(Cg, Date.now());
+          Nn(kg, Date.now());
         }
         recordAddExistingRepository() {
-          Pg(Sg);
+          Mg(Eg);
         }
         recordCloneRepository() {
-          Pg(kg);
+          Mg(xg);
         }
         recordCreateRepository() {
-          Pg(Eg);
+          Mg(Rg);
         }
         recordNonDefaultBranchCheckout() {
-          Pg(Tg);
+          Mg(Dg);
         }
         recordWelcomeWizardSignInMethod(e) {
-          localStorage.setItem(_g, e);
+          localStorage.setItem(Ag, e);
         }
         recordMergeSuccessAfterConflicts() {
           return this.updateDailyMeasures((e) => ({
@@ -107677,8 +108730,8 @@
           }));
         }
         recordRepositoryCommitedInWithoutWriteAccess(e) {
-          const t = Bn(Dg);
-          t.includes(e) || Fn(Dg, [...t, e]);
+          const t = Bn(Pg);
+          t.includes(e) || Fn(Pg, [...t, e]);
         }
         recordForkCreated() {
           return this.updateDailyMeasures((e) => ({
@@ -107979,6 +109032,30 @@
               e.checksFailedDialogRerunChecksCount + 1,
           }));
         }
+        recordMultiCommitDiffFromHistoryCount() {
+          return this.updateDailyMeasures((e) => ({
+            multiCommitDiffFromHistoryCount:
+              e.multiCommitDiffFromHistoryCount + 1,
+          }));
+        }
+        recordMultiCommitDiffFromCompareCount() {
+          return this.updateDailyMeasures((e) => ({
+            multiCommitDiffFromCompareCount:
+              e.multiCommitDiffFromCompareCount + 1,
+          }));
+        }
+        recordMultiCommitDiffWithUnreachableCommitWarningCount() {
+          return this.updateDailyMeasures((e) => ({
+            multiCommitDiffWithUnreachableCommitWarningCount:
+              e.multiCommitDiffWithUnreachableCommitWarningCount + 1,
+          }));
+        }
+        recordMultiCommitDiffUnreachableCommitsDialogOpenedCount() {
+          return this.updateDailyMeasures((e) => ({
+            multiCommitDiffUnreachableCommitsDialogOpenedCount:
+              e.multiCommitDiffUnreachableCommitsDialogOpenedCount + 1,
+          }));
+        }
         getStatFieldForRequestReviewState(e, t) {
           return `pullRequestReview${
             {
@@ -108026,13 +109103,13 @@
               throw new Error(
                 `Unexpected status: ${e.statusText} (${e.status})`
               );
-            Mn(bg, !0), log.info(`Opt ${i} reported.`);
+            Mn(Cg, !0), log.info(`Opt ${i} reported.`);
           } catch (e) {
             log.error(`Error reporting opt ${i}:`, e);
           }
         }
       })(
-        new (class extends Om {
+        new (class extends Bm {
           constructor(e) {
             super(e),
               this.version(1).stores({ launches: "++" }),
@@ -108072,9 +109149,9 @@
               e.target instanceof HTMLElement &&
               (function (e) {
                 for (; null !== e; ) {
-                  if (MB.has(e.nodeName)) return !0;
+                  if (WB.has(e.nodeName)) return !0;
                   const t = e.getAttribute("role");
-                  if (null !== t && OB.has(t)) return !0;
+                  if (null !== t && jB.has(t)) return !0;
                   e = e instanceof HTMLElement ? e.parentElement : null;
                 }
                 return !1;
@@ -108087,7 +109164,7 @@
           onMenuEvent = () => this.emit("menu");
         })()
       ),
-      vF = new (class extends or {
+      TF = new (class extends or {
         state = null;
         endpointSupportBasicAuth = new Map();
         emitAuthenticate(e, t) {
@@ -108162,7 +109239,7 @@
         beginDotComSignIn() {
           const e = _n();
           this.setState({
-            kind: rg.Authentication,
+            kind: og.Authentication,
             endpoint: e,
             supportsBasicAuth: !1,
             error: null,
@@ -108172,17 +109249,20 @@
             this.endpointSupportsBasicAuth(e)
               .then((t) => {
                 null !== this.state &&
-                  this.state.kind === rg.Authentication &&
+                  this.state.kind === og.Authentication &&
                   this.state.endpoint === e &&
                   this.setState({ ...this.state, supportsBasicAuth: t });
               })
               .catch((e) =>
-                log.error("解决 GitHub.com 是否支持密码身份验证失败", e)
+                log.error(
+                  "Failed resolving whether GitHub.com supports password authentication",
+                  e
+                )
               );
         }
         async authenticateWithBasicAuth(e, t) {
           const n = this.state;
-          if (!n || n.kind !== rg.Authentication)
+          if (!n || n.kind !== og.Authentication)
             return ot(
               `Sign in step '${
                 n ? n.kind : "null"
@@ -108196,16 +109276,16 @@
           } catch (e) {
             return void this.emitError(e);
           }
-          if (this.state && this.state.kind === rg.Authentication)
+          if (this.state && this.state.kind === og.Authentication)
             if (i.kind === wn.Authorized) {
               const e = i.token,
                 t = await Rn(r, e);
-              if (!this.state || this.state.kind !== rg.Authentication) return;
-              this.emitAuthenticate(t, ig.Basic),
-                this.setState({ kind: rg.Success });
+              if (!this.state || this.state.kind !== og.Authentication) return;
+              this.emitAuthenticate(t, sg.Basic),
+                this.setState({ kind: og.Success });
             } else if (i.kind === wn.TwoFactorAuthenticationRequired)
               this.setState({
-                kind: rg.TwoFactorAuthentication,
+                kind: og.TwoFactorAuthentication,
                 endpoint: r,
                 username: e,
                 password: t,
@@ -108216,7 +109296,7 @@
             else if (i.kind === wn.Error)
               this.emitError(
                 new Error(
-                  `服务器在尝试进行身份验证时响应错误 (${i.response.status})\n\n${i.response.statusText}`
+                  `The server responded with an error while attempting to authenticate (${i.response.status})\n\n${i.response.statusText}`
                 )
               ),
                 this.setState({ ...n, loading: !1 });
@@ -108225,23 +109305,25 @@
                 ? this.setState({
                     ...n,
                     loading: !1,
-                    error: new Error("电子邮件或密码不正确"),
+                    error: new Error("Incorrect email or password."),
                   })
                 : this.setState({
                     ...n,
                     loading: !1,
-                    error: new Error("用户名或密码不正确"),
+                    error: new Error("Incorrect username or password."),
                   });
             else if (i.kind === wn.UserRequiresVerification)
-              this.setState({ ...n, loading: !1, error: new Error(tg(e)) });
+              this.setState({ ...n, loading: !1, error: new Error(rg(e)) });
             else if (i.kind === wn.PersonalAccessTokenBlocked)
               this.setState({
                 ...n,
                 loading: !1,
-                error: new Error("个人访问令牌不能用于登录到 GitHub Desktop"),
+                error: new Error(
+                  "A personal access token cannot be used to login to GitHub Desktop."
+                ),
               });
             else if (i.kind === wn.EnterpriseTooOld)
-              this.setState({ ...n, loading: !1, error: new Error(ng) });
+              this.setState({ ...n, loading: !1, error: new Error(ig) });
             else {
               if (i.kind !== wn.WebFlowRequired)
                 return st(0, `不支持的响应： ${i}`);
@@ -108249,47 +109331,51 @@
                 ...n,
                 loading: !1,
                 supportsBasicAuth: !1,
-                kind: rg.Authentication,
+                kind: og.Authentication,
               });
             }
         }
         async authenticateWithBrowser() {
           const e = this.state;
-          if (!e || e.kind !== rg.Authentication)
-            return ot(`登录步骤'${e ? e.kind : "null"}'与浏览器身份验证不兼容`);
+          if (!e || e.kind !== og.Authentication)
+            return ot(
+              `Sign in step '${
+                e ? e.kind : "null"
+              }' not compatible with browser authentication`
+            );
           let t;
           this.setState({ ...e, loading: !0 });
           try {
-            log.info("[登录存储] 初始化 OAuth 流"),
+            log.info("[SignInStore] initializing OAuth flow"),
               (t = await ((n = e.endpoint),
               new Promise((e, t) => {
-                Zm = { state: jt(), endpoint: n, resolve: e, reject: t };
+                Jm = { state: jt(), endpoint: n, resolve: e, reject: t };
                 const r = (function (e, t) {
                   const n = Tn(e),
                     r = encodeURIComponent(gn.join(" "));
                   return `${n}/login/oauth/authorize?client_id=${fn}&scope=${r}&state=${t}`;
-                })(n, Zm.state);
+                })(n, Jm.state);
                 rt.openExternal(r);
               }))),
-              log.info("[SignInStore] 帐户已解析");
+              log.info("[SignInStore] account resolved");
           } catch (t) {
             return (
-              log.info("[SignInStore] OAuth 流出错", t),
+              log.info("[SignInStore] error with OAuth flow", t),
               void this.setState({ ...e, error: t, loading: !1 })
             );
           }
           var n;
           this.state &&
-            this.state.kind === rg.Authentication &&
-            (this.emitAuthenticate(t, ig.Web),
-            this.setState({ kind: rg.Success }));
+            this.state.kind === og.Authentication &&
+            (this.emitAuthenticate(t, sg.Web),
+            this.setState({ kind: og.Success }));
         }
         beginEnterpriseSignIn() {
-          this.setState({ kind: rg.EndpointEntry, error: null, loading: !1 });
+          this.setState({ kind: og.EndpointEntry, error: null, loading: !1 });
         }
         async setEndpoint(e) {
           const t = this.state;
-          if (!t || t.kind !== rg.EndpointEntry)
+          if (!t || t.kind !== og.EndpointEntry)
             return ot(
               `Sign in step '${
                 t ? t.kind : "null"
@@ -108302,7 +109388,7 @@
               const t = e.trim();
               if (0 === t.length) {
                 const e = new Error("Unknown address");
-                throw ((e.name = Qm), e);
+                throw ((e.name = tg), e);
               }
               let n = o.parse(t);
               if (
@@ -108310,24 +109396,24 @@
                 !n.protocol)
               ) {
                 const e = new Error("Invalid URL");
-                throw ((e.name = Qm), e);
+                throw ((e.name = tg), e);
               }
-              if (!Jm.has(n.protocol)) {
+              if (!eg.has(n.protocol)) {
                 const e = new Error("Invalid protocol");
-                throw ((e.name = eg), e);
+                throw ((e.name = ng), e);
               }
               return e;
             })(e);
           } catch (e) {
             let n = e;
             return (
-              e.name === Qm
+              e.name === tg
                 ? (n = new Error(
-                    "GitHub 企业的实例地址似乎不是一个有效的 URL。我们期待的是类似于https://github.example.com"
+                    "The GitHub Enterprise instance address doesn't appear to be a valid URL. We're expecting something like https://github.example.com."
                   ))
-                : e.name === eg &&
+                : e.name === ng &&
                   (n = new Error(
-                    "不支持的协议。使用 GitHub 企业版实例进行身份验证时，仅支持 http 或 https"
+                    "Unsupported protocol. Only http or https is supported when authenticating with GitHub Enterprise instances."
                   )),
               void this.setState({ ...t, loading: !1, error: n })
             );
@@ -108338,9 +109424,9 @@
           })(n);
           try {
             const e = await this.endpointSupportsBasicAuth(r);
-            if (!this.state || this.state.kind !== rg.EndpointEntry) return;
+            if (!this.state || this.state.kind !== og.EndpointEntry) return;
             this.setState({
-              kind: rg.Authentication,
+              kind: og.Authentication,
               endpoint: r,
               supportsBasicAuth: e,
               error: null,
@@ -108359,7 +109445,7 @@
         async setTwoFactorOTP(e) {
           const t = this.state;
           let n;
-          (t && t.kind === rg.TwoFactorAuthentication) ||
+          (t && t.kind === og.TwoFactorAuthentication) ||
             ot(
               `Sign in step '${
                 t ? t.kind : "null"
@@ -108371,14 +109457,14 @@
           } catch (e) {
             return void this.emitError(e);
           }
-          if (this.state && this.state.kind === rg.TwoFactorAuthentication)
+          if (this.state && this.state.kind === og.TwoFactorAuthentication)
             if (n.kind === wn.Authorized) {
               const e = n.token,
                 r = await Rn(t.endpoint, e);
-              if (!this.state || this.state.kind !== rg.TwoFactorAuthentication)
+              if (!this.state || this.state.kind !== og.TwoFactorAuthentication)
                 return;
-              this.emitAuthenticate(r, ig.Basic),
-                this.setState({ kind: rg.Success });
+              this.emitAuthenticate(r, sg.Basic),
+                this.setState({ kind: og.Success });
             } else
               switch (n.kind) {
                 case wn.Failed:
@@ -108397,15 +109483,17 @@
                   );
                   break;
                 case wn.UserRequiresVerification:
-                  this.emitError(new Error(tg(t.username)));
+                  this.emitError(new Error(rg(t.username)));
                   break;
                 case wn.PersonalAccessTokenBlocked:
                   this.emitError(
-                    new Error("个人访问令牌不能用于登录到 GitHub Desktop")
+                    new Error(
+                      "A personal access token cannot be used to login to GitHub Desktop."
+                    )
                   );
                   break;
                 case wn.EnterpriseTooOld:
-                  this.emitError(new Error(ng));
+                  this.emitError(new Error(ig));
                   break;
                 case wn.WebFlowRequired:
                   this.setState({
@@ -108413,7 +109501,7 @@
                     forgotPasswordUrl: this.getForgotPasswordURL(t.endpoint),
                     loading: !1,
                     supportsBasicAuth: !1,
-                    kind: rg.Authentication,
+                    kind: og.Authentication,
                     error: null,
                   });
                   break;
@@ -108422,7 +109510,7 @@
               }
         }
       })(),
-      bF = new (class extends or {
+      _F = new (class extends or {
         dataStore;
         secureStore;
         accounts = [];
@@ -108526,7 +109614,7 @@
             this.emitUpdate(this.accounts);
         }
       })(localStorage, mt),
-      wF = new (class extends or {
+      DF = new (class extends or {
         db;
         lastStashCheckCache = new Map();
         branchProtectionSettingsFoundCache = new Map();
@@ -108563,7 +109651,7 @@
           if (void 0 === t) {
             const n = await this.db.owners.get(e.ownerID);
             lt(n, `Missing owner '${e.ownerID}'`),
-              (t = new Vm(n.login, n.endpoint, n.id, n.type));
+              (t = new Ym(n.login, n.endpoint, n.id, n.type));
           }
           const r = new Ur(
             e.name,
@@ -108571,7 +109659,6 @@
             e.id,
             e.private,
             e.htmlURL,
-            e.defaultBranch,
             e.cloneURL,
             e.issuesEnabled,
             e.isArchived,
@@ -108721,7 +109808,7 @@
               t);
         }
         async putOwner(e, t, n) {
-          const r = Gm(e, t),
+          const r = Km(e, t),
             i = await this.db.owners.get({ key: r });
           let o;
           if (void 0 === i || i.login !== t || (void 0 !== n && i.type !== n)) {
@@ -108735,7 +109822,7 @@
               type: n,
             });
           } else o = at("Missing owner id", i.id);
-          return new Vm(t, e, o, n ?? i?.type);
+          return new Ym(t, e, o, n ?? i?.type);
         }
         async upsertGitHubRepositoryFromMatch(e) {
           return await this.db.transaction(
@@ -108752,7 +109839,6 @@
               if (r) return this.toGitHubRepository(r, n);
               const i = {
                   cloneURL: null,
-                  defaultBranch: null,
                   htmlURL: null,
                   lastPruneDate: null,
                   name: e.name,
@@ -108815,7 +109901,6 @@
               name: t.name,
               private: t.private,
               htmlURL: t.html_url,
-              defaultBranch: t.default_branch,
               cloneURL: t.clone_url,
               parentID: c,
               lastPruneDate: a?.lastPruneDate ?? null,
@@ -108836,13 +109921,13 @@
             "rw",
             this.db.protectedBranches,
             async () => {
-              const e = Ym(n);
+              const e = Xm(n);
               for (const t of this.protectionEnabledForBranchCache.keys())
                 t.startsWith(e) &&
                   this.protectionEnabledForBranchCache.delete(t);
               const r = t.map((e) => ({ repoId: n, name: e.name }));
               for (const e of r) {
-                const t = Km(n, e.name);
+                const t = Zm(n, e.name);
                 this.protectionEnabledForBranchCache.set(t, !0);
               }
               await this.db.protectedBranches
@@ -108875,7 +109960,7 @@
             n = t.length > 0;
           this.branchProtectionSettingsFoundCache.set(e, n);
           for (const n of t) {
-            const t = Km(e, n.name);
+            const t = Zm(e, n.name);
             this.protectionEnabledForBranchCache.set(t, !0);
           }
           return n;
@@ -108895,7 +109980,7 @@
             (this.emitQueued = !0));
         }
       })(
-        new (class extends Wm {
+        new (class extends $m {
           constructor(e, t) {
             super(e, t),
               this.conditionalVersion(1, {
@@ -108904,7 +109989,7 @@
                 owners: "++id, login",
               }),
               this.conditionalVersion(2, { owners: "++id, &[endpoint+login]" }),
-              this.conditionalVersion(3, {}, jm),
+              this.conditionalVersion(3, {}, qm),
               this.conditionalVersion(4, {
                 gitHubRepositories: "++id, name, &[ownerID+name]",
               }),
@@ -108917,12 +110002,12 @@
               this.conditionalVersion(7, {
                 gitHubRepositories: "++id, &[ownerID+name]",
               }),
-              this.conditionalVersion(8, {}, $m),
-              this.conditionalVersion(9, { owners: "++id, &key" }, qm);
+              this.conditionalVersion(8, {}, Gm),
+              this.conditionalVersion(9, { owners: "++id, &key" }, Vm);
           }
         })("Database")
       ),
-      CF = new (class {
+      AF = new (class {
         db;
         repositoryStore;
         emitter = new nt.Emitter();
@@ -108967,12 +110052,12 @@
             : this.fetchAndStoreOpenPullRequests(n, e);
         }
         async fetchAndStoreOpenPullRequests(e, t) {
-          const { name: n, owner: r } = cg(t),
+          const { name: n, owner: r } = hg(t),
             i = await e.fetchAllOpenPullRequests(r, n);
           await this.storePullRequestsAndEmitUpdate(i, t);
         }
         async fetchAndStoreUpdatedPullRequests(e, t, n) {
-          const { name: r, owner: i } = cg(t),
+          const { name: r, owner: i } = hg(t),
             o = await e
               .fetchUpdatedPullRequests(i, r, n)
               .catch((e) =>
@@ -108999,12 +110084,12 @@
             if (null === t) return ot("head repository can't be null");
             if (null === r) return ot("base repository can't be null");
             n.push(
-              new lg(
+              new ug(
                 new Date(e.createdAt),
                 e.title,
                 e.number,
-                new ag(e.head.ref, e.head.sha, t),
-                new ag(e.base.ref, e.base.sha, r),
+                new cg(e.head.ref, e.head.sha, t),
+                new cg(e.base.ref, e.base.sha, r),
                 e.author,
                 e.draft ?? !1,
                 e.body
@@ -109032,14 +110117,14 @@
               return ot("PR cannot have a null base repo");
             const e = await a(o, s.base.repo);
             if ("closed" === s.state) {
-              r.push(og(e, s.number));
+              r.push(ag(e, s.number));
               continue;
             }
             if (null == s.head.repo) {
               log.debug(
                 `Unable to store pull request #${s.number} for repository ${t.fullName} as it has no head repository associated with it`
               ),
-                r.push(og(e, s.number));
+                r.push(ag(e, s.number));
               continue;
             }
             const l = await a(o, s.head.repo);
@@ -109075,7 +110160,7 @@
           );
         }
       })(
-        new (class extends Wm {
+        new (class extends $m {
           constructor(e, t) {
             super(e, t),
               this.conditionalVersion(1, { pullRequests: "id++, base.repoId" }),
@@ -109144,9 +110229,9 @@
             });
           }
         })("PullRequestDatabase"),
-        wF
+        DF
       ),
-      SF = new (class {
+      PF = new (class {
         pullRequestStore;
         repositoriesStore;
         currentPullRequestUpdater = null;
@@ -109175,7 +110260,7 @@
         onPullRequestsChanged(e) {
           return this.pullRequestStore.onPullRequestsChanged(async (t, n) => {
             this.prCache.set(t.dbID, n);
-            const r = pg(t, await this.repositories);
+            const r = fg(t, await this.repositories);
             for (const t of r) e(t, n);
           });
         }
@@ -109187,7 +110272,7 @@
         }
         async refreshPullRequests(e, t) {
           const n = Vr(e),
-            r = pg(n, await this.repositories);
+            r = fg(n, await this.repositories);
           for (const e of r) this.emitIsLoadingPullRequests(e, !0);
           await this.pullRequestStore.refreshPullRequests(n, t);
           for (const e of r) this.emitIsLoadingPullRequests(e, !1);
@@ -109202,7 +110287,7 @@
         startPullRequestUpdater(e, t) {
           null !== this.currentPullRequestUpdater &&
             this.stopPullRequestUpdater(),
-            (this.currentPullRequestUpdater = new hg(e, t, this)),
+            (this.currentPullRequestUpdater = new dg(e, t, this)),
             this.currentPullRequestUpdater.start();
         }
         stopPullRequestUpdater() {
@@ -109223,8 +110308,8 @@
             this.prCache.get(e.dbID) || []
           );
         }
-      })(CF, wF),
-      kF = new (class {
+      })(AF, DF),
+      IF = new (class {
         repositoryState = new Map();
         get(e) {
           const t = this.repositoryState.get(e.hash);
@@ -109232,6 +110317,7 @@
           const n = {
             commitSelection: {
               shas: [],
+              shasInDiff: [],
               isContiguous: !0,
               file: null,
               changesetData: { files: [], linesAdded: 0, linesDeleted: 0 },
@@ -109255,6 +110341,7 @@
             branchesState: {
               tip: { kind: Ar.Unknown },
               defaultBranch: null,
+              upstreamDefaultBranch: null,
               allBranches: new Array(),
               recentBranches: new Array(),
               openPullRequests: new Array(),
@@ -109269,6 +110356,7 @@
               showBranchList: !1,
               filterText: "",
               commitSHAs: [],
+              shasToHighlight: [],
               branches: new Array(),
               recentBranches: new Array(),
               defaultBranch: null,
@@ -109351,7 +110439,7 @@
                 r
               ).join(", ")}`;
               return (
-                Bg("multiCommitOperation", new Error(e)),
+                Lg("multiCommitOperation", new Error(e)),
                 { multiCommitOperationState: null }
               );
             }
@@ -109365,7 +110453,7 @@
           this.update(e, () => ({ multiCommitOperationState: null }));
         }
       })(),
-      EF = new (class extends ir {
+      MF = new (class extends ir {
         accountState = new Map();
         constructor(e) {
           super(), e.onDidUpdate(this.onAccountsChanged);
@@ -109382,13 +110470,13 @@
         };
         updateAccount(e, t) {
           const n = new Map(this.accountState),
-            r = NB(e, n),
+            r = $B(e, n),
             i = n.get(r),
             o = xt(void 0 === i ? { loading: !1, repositories: [] } : i, t);
           n.set(r, o), (this.accountState = n), this.emitUpdate();
         }
         async loadRepositories(e) {
-          const t = NB(e, this.accountState),
+          const t = $B(e, this.accountState),
             n = this.accountState.get(t);
           if (void 0 !== n && n.loading) return;
           this.updateAccount(t, { loading: !0 });
@@ -109401,15 +110489,15 @@
         getState() {
           return this.accountState;
         }
-      })(bF),
-      xF = new (class {
+      })(_F),
+      OF = new (class {
         accounts = [];
         backgroundRefreshHandle = null;
         refreshQueued = !1;
         subscriptions = new Map();
         cache = new (Es())({ maxSize: 250 });
         queue = new Set();
-        limit = FB()(6);
+        limit = GB()(6);
         constructor(e) {
           e.getAll().then(this.onAccountsUpdated),
             e.onDidUpdate(this.onAccountsUpdated);
@@ -109441,7 +110529,7 @@
           for (const e of this.subscriptions.keys()) {
             if (this.queue.has(e)) continue;
             const t = this.cache.get(e);
-            (t && !HB(t)) ||
+            (t && !KB(t)) ||
               (this.limit(() => this.refreshSubscription(e))
                 .catch((e) => log.error("Failed refreshing commit status", e))
                 .then(() => this.queue.delete(e)),
@@ -109449,7 +110537,7 @@
           }
         }
         async manualRefreshSubscription(e, t, n) {
-          const r = LB(e, t),
+          const r = VB(e, t),
             i = this.subscriptions.get(r);
           if (void 0 === i) return;
           const o = this.cache.get(r)?.check;
@@ -109471,7 +110559,7 @@
                   })
                 : n.push(r);
             }
-            return Qc(n);
+            return eu(n);
           })(o.checks, n);
           this.cache.set(r, { check: s, fetchedAt: new Date() }),
             i.callbacks.forEach((e) => e(s));
@@ -109492,9 +110580,9 @@
             const t = this.cache.get(e)?.check ?? null;
             return void this.cache.set(e, { check: t, fetchedAt: new Date() });
           }
-          if ((null !== l && u.push(...l.statuses.map(Kc)), null !== c)) {
-            const e = ru(c.check_runs);
-            u.push(...e.map(Jc));
+          if ((null !== l && u.push(...l.statuses.map(Yc)), null !== c)) {
+            const e = iu(c.check_runs);
+            u.push(...e.map(Qc));
           }
           let h = null;
           void 0 !== t.branchName &&
@@ -109503,7 +110591,7 @@
               e,
               t.branchName
             ));
-          const p = Qc(h ?? u);
+          const p = eu(h ?? u);
           this.cache.set(e, { check: p, fetchedAt: new Date() }),
             t.callbacks.forEach((e) => e(p));
         }
@@ -109535,13 +110623,13 @@
           return await this.mapActionWorkflowRunsJobsToCheckRuns(t, i);
         }
         tryGetStatus(e, t, n) {
-          const r = LB(e, t);
+          const r = VB(e, t);
           return void 0 !== n && this.subscriptions.get(r)?.branchName !== n
             ? null
             : this.cache.get(r)?.check ?? null;
         }
         getOrCreateSubscription(e, t, n) {
-          const r = LB(e, t);
+          const r = VB(e, t);
           let i = this.subscriptions.get(r);
           if (void 0 !== i) {
             if (i.branchName === n) return i;
@@ -109571,7 +110659,7 @@
           );
         }
         subscribe(e, t, n, r) {
-          const i = LB(e, t),
+          const i = VB(e, t),
             o = this.getOrCreateSubscription(e, t, r);
           return (
             o.callbacks.add(n),
@@ -109587,14 +110675,14 @@
           if (void 0 === r) return n;
           const { endpoint: i, owner: o, name: s } = r,
             a = this.accounts.find((e) => e.endpoint === i);
-          return void 0 === a ? n : ou(a, o, s, t, n);
+          return void 0 === a ? n : su(a, o, s, t, n);
         }
         async mapActionWorkflowRunsJobsToCheckRuns(e, t) {
           const n = this.subscriptions.get(e);
           if (void 0 === n) return t;
           const { endpoint: r, owner: i, name: o } = n,
             s = this.accounts.find((e) => e.endpoint === r);
-          return void 0 === s ? t : iu(En.fromAccount(s), i, o, t);
+          return void 0 === s ? t : ou(En.fromAccount(s), i, o, t);
         }
         async rerequestCheckSuite(e, t) {
           const { owner: n, name: r } = e,
@@ -109620,16 +110708,16 @@
             ? null
             : En.fromAccount(i).fetchCheckSuite(n.login, r, t);
         }
-      })(bF),
-      RF = new (class {
+      })(_F),
+      NF = new (class {
         cache = new (Es())({ maxSize: 2500 });
         workers = new Map();
-        limit = FB()(1);
+        limit = GB()(1);
         tryGetAheadBehind(e, t, n) {
-          return this.cache.get(UB(e, t, n)) ?? void 0;
+          return this.cache.get(YB(e, t, n)) ?? void 0;
         }
         getAheadBehind(e, t, n, r) {
-          const i = UB(e, t, n),
+          const i = YB(e, t, n),
             o = this.cache.get(i),
             s = new nt.Disposable(() => {});
           return null === o
@@ -109660,7 +110748,7 @@
               s);
         }
       })(),
-      TF = new (class {
+      BF = new (class {
         accountsStore;
         ALIVE_EVENT_RECEIVED_EVENT = "alive-event-received";
         sessionPerEndpoint = new Map();
@@ -109698,8 +110786,8 @@
         };
         async _subscribeToAccounts(e) {
           const t = this.subscriptions.map((e) => e.account);
-          for (const n of t) uF(n, e) || this.unsubscribeFromAccount(n);
-          for (const n of e) uF(n, t) || (await this.subscribeToAccount(n));
+          for (const n of t) bF(n, e) || this.unsubscribeFromAccount(n);
+          for (const n of e) bF(n, t) || (await this.subscribeToAccount(n));
         }
         sessionForAccount(e) {
           return this.sessionPerEndpoint.get(e.endpoint);
@@ -109722,7 +110810,7 @@
           }
           if (null === r) return null;
           const i = {
-            session: new cF(r, () => n.getAliveWebSocketURL(), !1, this.notify),
+            session: new vF(r, () => n.getAliveWebSocketURL(), !1, this.notify),
             webSocketUrl: r,
           };
           return this.sessionPerEndpoint.set(e.endpoint, i), i;
@@ -109764,8 +110852,8 @@
           ("pr-checks-failed" !== n.type && "pr-review-submit" !== n.type) ||
             this.emitter.emit(this.ALIVE_EVENT_RECEIVED_EVENT, n);
         };
-      })(bF),
-      _F = new (class {
+      })(_F),
+      FF = new (class {
         accountsStore;
         aliveStore;
         pullRequestCoordinator;
@@ -109780,11 +110868,11 @@
             (this.aliveStore = t),
             (this.pullRequestCoordinator = n),
             (this.statsStore = r),
-            this.aliveStore.setEnabled(Sh()),
+            this.aliveStore.setEnabled(kh()),
             this.aliveStore.onAliveEventReceived(this.onAliveEventReceived);
         }
         setNotificationsEnabled(e) {
-          In(Ch, !0) !== e && (Mn(Ch, e), this.aliveStore.setEnabled(e));
+          In(Sh, !0) !== e && (Mn(Sh, e), this.aliveStore.setEnabled(e));
         }
         onAliveEventReceived = async (e) => this.handleAliveEvent(e, !1);
         onNotificationEventReceived = async (e, t, n) =>
@@ -109824,9 +110912,9 @@
             })(s)
           )
             return;
-          const a = wh(s),
+          const a = Ch(s),
             l = `@${s.user.login} ${a} 您的拉取请求`,
-            c = `${r.title} #${r.pullRequestNumber}\n${fu(s.body, 50)}`,
+            c = `${r.title} #${r.pullRequestNumber}\n${mu(s.body, 50)}`,
             u = () => {
               this.statsStore.recordPullRequestReviewNotificationClicked(
                 s.state
@@ -109840,7 +110928,7 @@
             };
           t
             ? u()
-            : (du({ title: l, body: c, userInfo: e, onClick: u }),
+            : (fu({ title: l, body: c, userInfo: e, onClick: u }),
               this.statsStore.recordPullRequestReviewNotificationShown(
                 s.state
               ));
@@ -109856,7 +110944,7 @@
           if (null === i) return;
           const o = e.commit_sha;
           if (this.skipCommitShas.has(o)) return;
-          const s = this.cachedCommits.get(o) ?? (await Zo(n, o));
+          const s = this.cachedCommits.get(o) ?? (await Xo(n, o));
           if (null === s) return void this.skipCommitShas.add(o);
           if (
             (this.cachedCommits.set(o, s),
@@ -109876,7 +110964,7 @@
             };
           t
             ? p()
-            : (du({
+            : (fu({
                 title: "拉取请求检查失败",
                 body: h,
                 userInfo: e,
@@ -109909,11 +110997,11 @@
             ]),
             l = new Array();
           if (null === s || null === a) return null;
-          if ((null !== s && l.push(...s.statuses.map(Kc)), null !== a)) {
-            const e = ru(a.check_runs);
-            l.push(...e.map(Jc));
+          if ((null !== s && l.push(...s.statuses.map(Yc)), null !== a)) {
+            const e = iu(a.check_runs);
+            l.push(...e.map(Qc));
           }
-          const c = Qc(l);
+          const c = eu(l);
           return null === c || 0 === c.checks.length ? null : c.checks;
         }
         onChecksFailedNotification(e) {
@@ -109922,8 +111010,8 @@
         onPullRequestReviewSubmitNotification(e) {
           this.onPullRequestReviewSubmitCallback = e;
         }
-      })(bF, TF, SF, yF),
-      DF = new (class extends or {
+      })(_F, BF, PF, RF),
+      LF = new (class extends or {
         gitHubUserStore;
         cloningRepositoriesStore;
         issuesStore;
@@ -109955,9 +111043,9 @@
         appMenu = null;
         highlightAccessKeys = !1;
         appIsFocused = !1;
-        sidebarWidth = Kh(250);
-        commitSummaryWidth = Kh(250);
-        stashedFilesWidth = Kh(250);
+        sidebarWidth = Zh(250);
+        commitSummaryWidth = Zh(250);
+        stashedFilesWidth = Zh(250);
         windowState = null;
         windowZoomFactor = 1;
         isUpdateAvailableBannerVisible = !1;
@@ -109967,7 +111055,7 @@
         confirmDiscardChanges = !0;
         confirmDiscardChangesPermanently = !0;
         askForConfirmationOnForcePush = !0;
-        imageDiffType = Lh;
+        imageDiffType = Uh;
         hideWhitespaceInChangesDiff = !1;
         hideWhitespaceInHistoryDiff = !1;
         commitSpellcheckEnabled = !0;
@@ -110027,8 +111115,8 @@
             this.wireupStoreEventHandlers(),
             ee(),
             (this.tutorialAssessor = new Vs(this.getResolvedExternalEditor)),
-            void 0 === In($h) && Mn($h, !0),
-            (this.repositoryIndicatorsEnabled = In($h) ?? !0),
+            void 0 === In(Gh) && Mn(Gh, !0),
+            (this.repositoryIndicatorsEnabled = In(Gh) ?? !0),
             (this.repositoryIndicatorUpdater = new Ia(
               this.getRepositoriesForIndicatorRefresh,
               this.refreshIndicatorForRepository
@@ -110246,11 +111334,11 @@
           const e = this.getState();
           super.emitUpdate(e),
             (function (e, t) {
-              const n = co(e);
+              const n = io(e);
               if (t)
                 for (const [e, r] of n.entries()) {
                   const i = t.getItemById(e);
-                  i && ao(r, i) && n.delete(e);
+                  i && no(r, i) && n.delete(e);
                 }
               if (0 === n.size) return;
               const r = new Array();
@@ -110342,7 +111430,7 @@
             currentDragElement: this.currentDragElement,
             lastThankYou: this.lastThankYou,
             showCIStatusPopover: this.showCIStatusPopover,
-            notificationsEnabled: Sh(),
+            notificationsEnabled: kh(),
           };
         }
         onGitStoreUpdated(e, t) {
@@ -110399,6 +111487,7 @@
             return {
               tip: t.tip,
               defaultBranch: t.defaultBranch,
+              upstreamDefaultBranch: t.upstreamDefaultBranch,
               allBranches: t.allBranches,
               recentBranches: t.recentBranches,
               pullWithRebase: t.pullWithRebase,
@@ -110485,17 +111574,52 @@
             diff: null,
           }));
         }
-        async _changeCommitSelection(e, t, n) {
-          const { commitSelection: r } = this.repositoryStateCache.get(e);
-          (r.shas.length === t.length && r.shas.every((e, n) => e === t[n])) ||
-            (this.repositoryStateCache.updateCommitSelection(e, () => ({
+        _changeCommitSelection(e, t, n) {
+          const {
+            commitSelection: r,
+            commitLookup: i,
+            compareState: o,
+          } = this.repositoryStateCache.get(e);
+          if (r.shas.length === t.length && r.shas.every((e, n) => e === t[n]))
+            return;
+          const s = this.getShasInDiff(t, n, i);
+          t.length > 1 && n && this.recordMultiCommitDiff(t, s, o),
+            this.repositoryStateCache.updateCommitSelection(e, () => ({
               shas: t,
+              shasInDiff: s,
               isContiguous: n,
               file: null,
               changesetData: { files: [], linesAdded: 0, linesDeleted: 0 },
               diff: null,
             })),
-            this.emitUpdate());
+            this.emitUpdate();
+        }
+        recordMultiCommitDiff(e, t, n) {
+          n.formState.kind === Xe.History
+            ? this.statsStore.recordMultiCommitDiffFromHistoryCount()
+            : this.statsStore.recordMultiCommitDiffFromCompareCount();
+          const r = !e.every((e) => t.includes(e));
+          r &&
+            this.statsStore.recordMultiCommitDiffWithUnreachableCommitWarningCount();
+        }
+        async _updateShasToHighlight(e, t) {
+          this.repositoryStateCache.updateCompareState(e, () => ({
+            shasToHighlight: t,
+          })),
+            this.emitUpdate();
+        }
+        getShasInDiff(e, t, n) {
+          const r = new Array();
+          if (e.length <= 1 || !t) return e;
+          const i = [e.at(-1)];
+          do {
+            const t = i.pop();
+            if (void 0 === t) continue;
+            r.push(t);
+            const o = (n.get(t)?.parentSHAs || []).filter((t) => e.includes(t));
+            i.push(...o);
+          } while (i.length > 0);
+          return r;
         }
         updateOrSelectFirstCommit(e, t) {
           const n = this.repositoryStateCache.get(e);
@@ -110618,7 +111742,7 @@
           )
             return this.currentMergeTreePromise;
           if (h.kind === Ar.Valid && l.behind > 0) {
-            const n = xo(() => xh(e, h.branch, t.branch), 500)
+            const n = xo(() => Th(e, h.branch, t.branch), 500)
                 .catch(
                   (e) => (
                     log.warn(
@@ -110672,58 +111796,29 @@
           const t = this.repositoryStateCache.get(e),
             { commitSelection: n } = t,
             { shas: r, isContiguous: i } = n;
-          if (0 === r.length || (r.length > 1 && (!oo() || !i))) return;
+          if (0 === r.length || (r.length > 1 && (!mo() || !i))) return;
           const o = this.gitStoreCache.get(e),
             s = await o.performFailableOperation(() =>
               r.length > 1
                 ? ic(e, r)
                 : (async function (e, t) {
                     const n = [
-                      "log",
-                      t,
-                      "-C",
-                      "-M",
-                      "-m",
-                      "-1",
-                      "--no-show-signature",
-                      "--first-parent",
-                      "--format=format:",
-                      "-z",
-                    ];
-                    return {
-                      files: Yo(
-                        (
-                          await ty(
-                            [...n, "--name-status", "--"],
-                            e.path,
-                            "getChangedFilesNameStatus"
-                          )
-                        ).stdout,
-                        t
-                      ),
-                      ...(function (e) {
-                        const t = e.split("\0");
-                        let n = 0,
-                          r = 0;
-                        for (const e of t) {
-                          const t = e.split("\t");
-                          if (3 !== t.length) continue;
-                          const [i, o] = t;
-                          "-" !== i &&
-                            "-" !== o &&
-                            ((n += parseInt(i, 10)), (r += parseInt(o, 10)));
-                        }
-                        return { linesAdded: n, linesDeleted: r };
-                      })(
-                        (
-                          await ty(
-                            [...n, "--numstat", "--"],
-                            e.path,
-                            "getChangedFilesNumStats"
-                          )
-                        ).stdout
-                      ),
-                    };
+                        "log",
+                        t,
+                        "-C",
+                        "-M",
+                        "-m",
+                        "-1",
+                        "--no-show-signature",
+                        "--first-parent",
+                        "--raw",
+                        "--format=format:",
+                        "--numstat",
+                        "-z",
+                        "--",
+                      ],
+                      { stdout: r } = await ry(n, e.path, "getChangesFiles");
+                    return Zo(r, t, `${t}^`);
                   })(e, r[0])
             );
           if (!s) return;
@@ -110750,7 +111845,7 @@
           const n = this.repositoryStateCache.get(e),
             { shas: r, isContiguous: i } = n.commitSelection;
           if (0 === r.length) return;
-          if (r.length > 1 && (!oo() || !i)) return;
+          if (r.length > 1 && (!mo() || !i)) return;
           const o =
               r.length > 1
                 ? await rc(e, t, r, this.hideWhitespaceInHistoryDiff)
@@ -110782,7 +111877,7 @@
           )
             return Promise.resolve(null);
           if (!(e instanceof Wr)) return Promise.resolve(null);
-          Nn(Rh, e.id);
+          Nn(_h, e.id);
           const n = t ? t.id : null;
           this.updateRecentRepositories(n, e.id);
           const r = await this.recoverMissingRepository(e);
@@ -110794,10 +111889,10 @@
         }
         updateRecentRepositories(e, t) {
           if (e === t) return;
-          const n = Bn(Th).filter((n) => n !== t && n !== e);
+          const n = Bn(Dh).filter((n) => n !== t && n !== e);
           null !== e && n.unshift(e);
           const r = n.slice(0, 3);
-          Fn(Th, r), (this.recentRepositories = r), this.emitUpdate();
+          Fn(Dh, r), (this.recentRepositories = r), this.emitUpdate();
         }
         async _selectRepositoryRefreshTasks(e, t) {
           if ((this._refreshRepository(e), jr(e))) {
@@ -110933,15 +112028,15 @@
             (this.accounts = e),
             (this.repositories = t),
             this.updateRepositorySelectionAfterRepositoriesChanged(),
-            (this.sidebarWidth = Kh(On(_h, 250))),
-            (this.commitSummaryWidth = Kh(On(Dh, 250))),
-            (this.stashedFilesWidth = Kh(On(Ah, 250))),
+            (this.sidebarWidth = Zh(On(Ah, 250))),
+            (this.commitSummaryWidth = Zh(On(Ph, 250))),
+            (this.stashedFilesWidth = Zh(On(Ih, 250))),
             this.updateResizableConstraints(),
-            (this.askToMoveToApplicationsFolderSetting = In(Ph, !0)),
-            (this.askForConfirmationOnRepositoryRemoval = In(Ih, !0)),
-            (this.confirmDiscardChanges = In(Mh, !0)),
-            (this.confirmDiscardChangesPermanently = In(Oh, !0)),
-            (this.askForConfirmationOnForcePush = In(Nh, !0)),
+            (this.askToMoveToApplicationsFolderSetting = In(Mh, !0)),
+            (this.askForConfirmationOnRepositoryRemoval = In(Oh, !0)),
+            (this.confirmDiscardChanges = In(Nh, !0)),
+            (this.confirmDiscardChangesPermanently = In(Bh, !0)),
+            (this.askForConfirmationOnForcePush = In(Fh, !0)),
             (this.uncommittedChangesStrategy =
               (function (e, t) {
                 const n = localStorage.getItem(
@@ -110954,17 +112049,17 @@
             ).catch((e) =>
               log.error("Failed resolving current editor at startup", e)
             );
-          const n = localStorage.getItem(jh);
+          const n = localStorage.getItem(qh);
           (this.selectedShell = n ? ko(n) : Co),
             this.updateMenuLabelsForSelectedRepository();
-          const r = localStorage.getItem(Hh);
-          (this.imageDiffType = null === r ? Lh : parseInt(r)),
-            (this.hideWhitespaceInChangesDiff = In(Uh, !1)),
-            (this.hideWhitespaceInHistoryDiff = In(zh, !1)),
-            (this.commitSpellcheckEnabled = In(Wh, !0)),
+          const r = localStorage.getItem(zh);
+          (this.imageDiffType = null === r ? Uh : parseInt(r)),
+            (this.hideWhitespaceInChangesDiff = In(Wh, !1)),
+            (this.hideWhitespaceInHistoryDiff = In(jh, !1)),
+            (this.commitSpellcheckEnabled = In($h, !0)),
             (this.showSideBySideDiff = Va()),
             (this.selectedTheme = tr()),
-            (this.customTheme = Hn(Gh)),
+            (this.customTheme = Hn(Kh)),
             nr(this.selectedTheme),
             (this.currentTheme =
               this.selectedTheme !== Zn.HighContrast
@@ -110973,18 +112068,18 @@
             ni.onThemeChanged((e) => {
               (this.currentTheme = e), this.emitUpdate();
             }),
-            (this.lastThankYou = Hn(qh)),
+            (this.lastThankYou = Hn(Vh)),
             this.emitUpdateNow(),
             this.accountsStore.refresh();
         }
         updateResizableConstraints() {
           let e = window.innerWidth;
           const t = e - 460;
-          (this.sidebarWidth = Kh(this.sidebarWidth, 220, t)),
-            (e -= uo(this.sidebarWidth));
+          (this.sidebarWidth = Zh(this.sidebarWidth, 220, t)),
+            (e -= oo(this.sidebarWidth));
           const n = e - 150;
-          (this.commitSummaryWidth = Kh(this.commitSummaryWidth, 100, n)),
-            (this.stashedFilesWidth = Kh(this.stashedFilesWidth, 100, n));
+          (this.commitSummaryWidth = Zh(this.commitSummaryWidth, 100, n)),
+            (this.stashedFilesWidth = Zh(this.stashedFilesWidth, 100, n));
         }
         updateSelectedExternalEditor(e) {
           return (
@@ -110993,11 +112088,11 @@
         }
         async lookupSelectedExternalEditor() {
           const e = (await bi()).map((e) => e.editor),
-            t = localStorage.getItem(Fh);
+            t = localStorage.getItem(Hh);
           if (t && e.includes(t)) return t;
           if (e.length) {
             const t = e[0];
-            return localStorage.setItem(Fh, t), t;
+            return localStorage.setItem(Hh, t), t;
           }
           return null;
         }
@@ -111010,29 +112105,28 @@
         updateMenuItemLabels(e) {
           const {
               selectedShell: t,
-              selectedExternalEditor: n,
-              askForConfirmationOnRepositoryRemoval: r,
-              askForConfirmationOnForcePush: i,
+              selectedRepository: n,
+              selectedExternalEditor: r,
+              askForConfirmationOnRepositoryRemoval: i,
+              askForConfirmationOnForcePush: o,
             } = this,
-            o = {
+            s = {
               selectedShell: t,
-              selectedExternalEditor: n,
-              askForConfirmationOnRepositoryRemoval: r,
-              askForConfirmationOnForcePush: i,
+              selectedExternalEditor: r,
+              askForConfirmationOnRepositoryRemoval: i,
+              askForConfirmationOnForcePush: o,
             };
-          if (null === e) return void ne(o);
-          const { changesState: s, branchesState: a, aheadBehind: l } = e,
-            { defaultBranch: c, currentPullRequest: u } = a,
-            h =
-              null === c || null === c.upstreamWithoutRemote
-                ? void 0
-                : c.upstreamWithoutRemote,
-            p = po(a, l),
-            d = s.selection.kind === Ze.Stash,
-            f = null !== s.stashEntry;
+          if (null === e) return void ne(s);
+          const { changesState: a, branchesState: l, aheadBehind: c } = e,
+            { currentPullRequest: u } = l;
+          let h;
+          n instanceof Wr && (h = Eh(n, l)?.name ?? void 0);
+          const p = ao(l, c),
+            d = a.selection.kind === Ze.Stash,
+            f = null !== a.stashEntry;
           ne({
-            ...o,
-            defaultBranchName: h,
+            ...s,
+            contributionTargetDefaultBranch: h,
             isForcePushForCurrentRepository: p,
             isStashedChangesVisible: d,
             hasCurrentPullRequest: null !== u,
@@ -111050,7 +112144,7 @@
                 ) || null),
             null === t && this.repositories.length > 0)
           ) {
-            const e = On(Rh, 0);
+            const e = On(_h, 0);
             e > 0 && (t = this.repositories.find((t) => t.id === e) || null),
               t || (t = this.repositories[0]);
           }
@@ -111149,7 +112243,7 @@
                 commits: c,
                 currentTip: n.baseBranchTip,
               });
-            const r = await Zo(e, n.originalBranchTip);
+            const r = await Xo(e, n.originalBranchTip);
             null !== r &&
               (l = new yr(
                 n.targetBranch,
@@ -111271,7 +112365,7 @@
                   "--points-at=MERGE_HEAD",
                   "--format=%(refname:short)",
                 ],
-                { stdout: r, exitCode: i } = await ty(
+                { stdout: r, exitCode: i } = await ry(
                   n,
                   e.path,
                   "branchPointedAt",
@@ -111488,7 +112582,7 @@
           return this.withIsCommitting(e, async () => {
             const o = await i.performFailableOperation(async () => {
               const n = await Oi(e, t);
-              return Sy(e, n, r, t.amend);
+              return Ry(e, n, r, t.amend);
             });
             return (
               void 0 !== o &&
@@ -111592,7 +112686,7 @@
         async recoverMissingRepository(e) {
           return e.missing &&
             (await S(e.path)) &&
-            "regular" === (await _y(e.path)).kind &&
+            "regular" === (await Iy(e.path)).kind &&
             null !== (await this._loadStatus(e))
             ? await this._updateRepositoryMissing(e, !1)
             : e;
@@ -111711,7 +112805,7 @@
         }
         _setRepositoryIndicatorsEnabled(e) {
           this.repositoryIndicatorsEnabled !== e &&
-            (Mn($h, e),
+            (Mn(Gh, e),
             (this.repositoryIndicatorsEnabled = e),
             e
               ? this.repositoryIndicatorUpdater.start()
@@ -111720,7 +112814,7 @@
         }
         _setCommitSpellcheckEnabled(e) {
           this.commitSpellcheckEnabled !== e &&
-            (Mn(Wh, e), (this.commitSpellcheckEnabled = e), this.emitUpdate());
+            (Mn($h, e), (this.commitSpellcheckEnabled = e), this.emitUpdate());
         }
         _setUseWindowsOpenSSH(e) {
           Mn(Wc, e), (this.useWindowsOpenSSH = e), this.emitUpdate();
@@ -111750,7 +112844,7 @@
         }
         async _refreshAuthor(e) {
           const t = this.gitStoreCache.get(e),
-            n = (await t.performFailableOperation(() => Dy(e))) || null;
+            n = (await t.performFailableOperation(() => My(e))) || null;
           this.repositoryStateCache.update(e, () => ({ commitAuthor: n })),
             this.emitUpdate();
         }
@@ -111870,13 +112964,13 @@
           try {
             await this.checkoutIgnoringChanges(e, t, n);
           } catch (r) {
-            if (!Vh(r)) throw r;
+            if (!Yh(r)) throw r;
             const i = (await this.createStashEntry(e, t))
-              ? await ns(e, t)
+              ? await rs(e, t)
               : null;
             if (null === i) throw r;
             await this.checkoutIgnoringChanges(e, t, n),
-              await os(e, i.stashSha),
+              await ss(e, i.stashSha),
               this.statsStore.recordChangesTakenToNewBranch();
           }
         }
@@ -111899,7 +112993,7 @@
           return (
             this.updateCheckoutProgress(e, {
               kind: "checkout",
-              title: "正在刷新仓库",
+              title: "Refreshing repository",
               value: 1,
               targetBranch: t.name,
             }),
@@ -112002,7 +113096,7 @@
           return (
             await r.performFailableOperation(() =>
               (async function (e, t, n) {
-                await ty(
+                await ry(
                   ["branch", "-m", t.nameWithoutRemote, n],
                   e.path,
                   "renameBranch"
@@ -112022,7 +113116,7 @@
                   `Could not determine remote name from: ${t.ref}.`
                 );
               return (
-                await s.performFailableOperation(() => by(i, o, e, r)),
+                await s.performFailableOperation(() => ky(i, o, e, r)),
                 log.info(
                   `Deleted branch ${t.upstreamWithoutRemote} (was ${n.sha})`
                 ),
@@ -112041,11 +113135,11 @@
           });
         }
         async deleteLocalBranchAndUpstreamBranch(e, t, n, r) {
-          await vy(e, t.name),
+          await Sy(e, t.name),
             !0 === r &&
               null !== t.upstreamRemoteName &&
               null !== t.upstreamWithoutRemote &&
-              (await by(e, n, t.upstreamRemoteName, t.upstreamWithoutRemote));
+              (await ky(e, n, t.upstreamRemoteName, t.upstreamWithoutRemote));
         }
         getBranchToCheckoutAfterDelete(e, t) {
           const { branchesState: n } = this.repositoryStateCache.get(t),
@@ -112099,10 +113193,10 @@
                 const u = 0.1,
                   h = (1 / (l + c)) * (1 - u);
                 (l *= h), (c *= h);
-                const p = { type: fo.Push, repository: e },
+                const p = { type: lo.Push, repository: e },
                   d = { name: s, url: i.url };
                 d.name !== i.name &&
-                  Bg(
+                  Lg(
                     "remoteNameMismatch",
                     new Error(
                       "The current remote name differs from the branch remote"
@@ -112121,7 +113215,7 @@
                       s = { forceWithLease: !1 },
                       a
                     ) {
-                      const l = [...sy(), "push", n.name, i ? `${r}:${i}` : r];
+                      const l = [...ly(), "push", n.name, i ? `${r}:${i}` : r];
                       null !== o && l.push(...o),
                         i
                           ? !0 === s.forceWithLease &&
@@ -112159,8 +113253,8 @@
                             branch: r,
                           });
                       }
-                      const h = await ty(l, e.path, "push", u);
-                      if (h.gitErrorDescription) throw new ey(h, l);
+                      const h = await ry(l, e.path, "push", u);
+                      if (h.gitErrorDescription) throw new ny(h, l);
                     })(
                       e,
                       t,
@@ -112278,7 +113372,7 @@
                 const l = 0.1,
                   c = (1 / (i + a)) * (1 - l);
                 (i *= c), (a *= c);
-                const u = { type: fo.Pull, repository: e };
+                const u = { type: lo.Pull, repository: e };
                 n.pullWithRebase
                   ? this.statsStore.recordPullWithRebaseEnabled()
                   : this.statsStore.recordPullWithDefaultSetting(),
@@ -112329,21 +113423,21 @@
                                 return [];
                               })(e),
                               o = [
-                                ...sy(),
+                                ...ly(),
                                 "-c",
                                 "rebase.backend=merge",
                                 "pull",
                                 ...i,
                               ];
                             return (
-                              ro() && o.push("--recurse-submodules"),
+                              po() && o.push("--recurse-submodules"),
                               null != r && o.push("--progress"),
                               o.push(t),
                               o
                             );
                           })(e, n.name, 0, r),
-                          s = await ty(o, e.path, "pull", i);
-                        if (s.gitErrorDescription) throw new ey(s, o);
+                          s = await ry(o, e.path, "pull", i);
+                        if (s.gitErrorDescription) throw new ny(s, o);
                       })(e, t, r, (t) => {
                         this.updatePushPullFetchProgress(e, {
                           ...t,
@@ -112351,7 +113445,8 @@
                         });
                       }),
                     { gitContext: o, retryAction: u }
-                  );
+                  ),
+                  await wy(e, t, r);
                 const h = i + a,
                   p = "正在刷新仓库";
                 this.updatePushPullFetchProgress(e, {
@@ -112385,7 +113480,7 @@
                   symref: "%(symref)",
                   head: "%(HEAD)",
                 }),
-                r = await ty(
+                r = await ry(
                   ["for-each-ref", ...t, "refs/heads", "refs/remotes"],
                   e.path,
                   "getBranchesDifferingFromUpstream",
@@ -112426,7 +113521,7 @@
                   env: { GIT_REFLOG_ACTION: "pull" },
                   stdin: n.join("\n"),
                 };
-              await ty(
+              await ry(
                 [
                   "fetch",
                   ".",
@@ -112449,7 +113544,7 @@
             l = this.gitStoreCache.get(e);
           return (
             await l.performFailableOperation(() =>
-              my(e, "origin", a.clone_url)
+              yy(e, "origin", a.clone_url)
             ),
             await l.loadRemotes(),
             l.tip.kind === Ar.Valid && (await this.performPush(e, i)),
@@ -112549,7 +113644,7 @@
                 commit: t,
               })
             : (await this._changeRepositorySection(e, Ye.Changes),
-              await r.performFailableOperation(() => Cy(e, 2, t.sha)),
+              await r.performFailableOperation(() => xy(e, 2, t.sha)),
               this._refreshRepository(e));
         }
         async _fetchRefspec(e, t) {
@@ -112623,7 +113718,7 @@
         _setSidebarWidth(e) {
           return (
             (this.sidebarWidth = { ...this.sidebarWidth, value: e }),
-            Nn(_h, e),
+            Nn(Ah, e),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -112632,7 +113727,7 @@
         _resetSidebarWidth() {
           return (
             (this.sidebarWidth = { ...this.sidebarWidth, value: 250 }),
-            localStorage.removeItem(_h),
+            localStorage.removeItem(Ah),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -112644,7 +113739,7 @@
               ...this.commitSummaryWidth,
               value: e,
             }),
-            Nn(Dh, e),
+            Nn(Ph, e),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -112656,7 +113751,7 @@
               ...this.commitSummaryWidth,
               value: 250,
             }),
-            localStorage.removeItem(Dh),
+            localStorage.removeItem(Ph),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -112760,7 +113855,7 @@
                     o = Rc(i, { commits: s, progressCallback: r });
                   }
                   return Tc(
-                    await ty(
+                    await ry(
                       ["-c", "rebase.backend=merge", "rebase", t.name, n.name],
                       e.path,
                       "rebase",
@@ -112770,7 +113865,7 @@
                 })(e, t, n, r),
               {
                 retryAction: {
-                  type: fo.Rebase,
+                  type: lo.Rebase,
                   repository: e,
                   baseBranch: t,
                   targetBranch: n,
@@ -112783,7 +113878,7 @@
           const t = this.gitStoreCache.get(e);
           return await t.performFailableOperation(() =>
             (async function (e) {
-              await ty(["rebase", "--abort"], e.path, "abortRebase");
+              await ry(["rebase", "--abort"], e.path, "abortRebase");
             })(e)
           );
         }
@@ -112803,7 +113898,7 @@
                       );
                 }
                 const a = s.filter((e) => !r.has(e.path));
-                await Qo(t, a);
+                await es(t, a);
                 const l = await Pc(t);
                 if (null == l)
                   return (
@@ -112854,7 +113949,7 @@
                       `[rebase] no tracked changes to commit for ${c}, continuing rebase but skipping this commit`
                     ),
                     Tc(
-                      await ty(
+                      await ry(
                         ["rebase", "--skip"],
                         t.path,
                         "continueRebaseSkipCurrentCommit",
@@ -112862,7 +113957,7 @@
                       )
                     ))
                   : Tc(
-                      await ty(
+                      await ry(
                         ["rebase", "--continue"],
                         t.path,
                         "continueRebase",
@@ -112877,7 +113972,7 @@
           const t = this.gitStoreCache.get(e);
           return await t.performFailableOperation(() =>
             (async function (e) {
-              await ty(["merge", "--abort"], e.path, "abortMerge");
+              await ry(["merge", "--abort"], e.path, "abortMerge");
             })(e)
           );
         }
@@ -112893,7 +113988,7 @@
             );
           const { tip: i } = n;
           i.kind === Ar.Valid
-            ? await t.performFailableOperation(() => Cy(e, 0, i.branch.tip.sha))
+            ? await t.performFailableOperation(() => xy(e, 0, i.branch.tip.sha))
             : log.error(
                 "[_abortSquashMerge] - Could not abort squash merge - tip was invalid"
               );
@@ -112913,9 +114008,9 @@
               }
               const r = t.filter((e) => !n.has(e.path));
               return (
-                await Qo(e, r),
-                ay(
-                  await ty(
+                await es(e, r),
+                cy(
+                  await ry(
                     ["commit", "--no-edit", "--cleanup=strip"],
                     e.path,
                     "createMergeCommit"
@@ -113081,7 +114176,7 @@
           }
         }
         async _saveGitIgnore(e, t) {
-          return await Oy(e, t), this._refreshRepository(e);
+          return await Ly(e, t), this._refreshRepository(e);
         }
         async setStatsOptOut(e, t) {
           await this.statsStore.setOptOut(e, t), this.emitUpdate();
@@ -113089,7 +114184,7 @@
         _setAskToMoveToApplicationsFolderSetting(e) {
           return (
             (this.askToMoveToApplicationsFolderSetting = e),
-            Mn(Ph, e),
+            Mn(Mh, e),
             this.emitUpdate(),
             Promise.resolve()
           );
@@ -113097,7 +114192,7 @@
         _setConfirmRepositoryRemovalSetting(e) {
           return (
             (this.askForConfirmationOnRepositoryRemoval = e),
-            Mn(Ih, e),
+            Mn(Oh, e),
             this.updateMenuLabelsForSelectedRepository(),
             this.emitUpdate(),
             Promise.resolve()
@@ -113106,7 +114201,7 @@
         _setConfirmDiscardChangesSetting(e) {
           return (
             (this.confirmDiscardChanges = e),
-            Mn(Mh, e),
+            Mn(Nh, e),
             this.emitUpdate(),
             Promise.resolve()
           );
@@ -113114,7 +114209,7 @@
         _setConfirmDiscardChangesPermanentlySetting(e) {
           return (
             (this.confirmDiscardChangesPermanently = e),
-            Mn(Oh, e),
+            Mn(Bh, e),
             this.emitUpdate(),
             Promise.resolve()
           );
@@ -113122,7 +114217,7 @@
         _setConfirmForcePushSetting(e) {
           return (
             (this.askForConfirmationOnForcePush = e),
-            Mn(Nh, e),
+            Mn(Fh, e),
             this.updateMenuLabelsForSelectedRepository(),
             this.emitUpdate(),
             Promise.resolve()
@@ -113131,7 +114226,7 @@
         _setUncommittedChangesStrategySetting(e) {
           return (
             (this.uncommittedChangesStrategy = e),
-            localStorage.setItem(Bh, e),
+            localStorage.setItem(Lh, e),
             this.emitUpdate(),
             Promise.resolve()
           );
@@ -113139,7 +114234,7 @@
         _setExternalEditor(e) {
           const t = this.updateSelectedExternalEditor(e);
           return (
-            localStorage.setItem(Fh, e),
+            localStorage.setItem(Hh, e),
             this.emitUpdate(),
             this.updateMenuLabelsForSelectedRepository(),
             t
@@ -113148,7 +114243,7 @@
         _setShell(e) {
           return (
             (this.selectedShell = e),
-            localStorage.setItem(jh, e),
+            localStorage.setItem(qh, e),
             this.emitUpdate(),
             this.updateMenuLabelsForSelectedRepository(),
             Promise.resolve()
@@ -113157,14 +114252,14 @@
         _changeImageDiffType(e) {
           return (
             (this.imageDiffType = e),
-            localStorage.setItem(Hh, JSON.stringify(this.imageDiffType)),
+            localStorage.setItem(zh, JSON.stringify(this.imageDiffType)),
             this.emitUpdate(),
             Promise.resolve()
           );
         }
         _setHideWhitespaceInChangesDiff(e, t) {
           return (
-            Mn(Uh, e),
+            Mn(Wh, e),
             (this.hideWhitespaceInChangesDiff = e),
             this.refreshChangesSection(t, {
               includingStatus: !0,
@@ -113174,7 +114269,7 @@
         }
         _setHideWhitespaceInHistoryDiff(e, t, n) {
           return (
-            Mn(zh, e),
+            Mn(jh, e),
             (this.hideWhitespaceInHistoryDiff = e),
             null === n
               ? this.updateChangesWorkingDirectoryDiff(t)
@@ -113212,16 +114307,16 @@
           return this.statsStore.recordLaunchStats(e);
         }
         async _appendIgnoreRule(e, t) {
-          return await Ny(e, t), this._refreshRepository(e);
+          return await Hy(e, t), this._refreshRepository(e);
         }
         async _appendIgnoreFile(e, t) {
           return (
             await (async function (e, t) {
               if (t instanceof Array) {
-                const n = t.map((e) => By(e));
-                return Ny(e, n);
+                const n = t.map((e) => Uy(e));
+                return Hy(e, n);
               }
-              return Ny(e, By(t));
+              return Hy(e, Uy(t));
             })(e, t),
             this._refreshRepository(e)
           );
@@ -113297,7 +114392,7 @@
           );
         }
         async _addTutorialRepository(e, t, n) {
-          const r = await _y(e);
+          const r = await Iy(e);
           if ("regular" === r.kind) {
             const e = r.topLevelWorkingDirectory;
             log.info(`[AppStore] adding tutorial repository at ${e} to store`),
@@ -113313,7 +114408,7 @@
             n = new Array(),
             r = new Array();
           for (const i of e) {
-            const e = await _y(i).catch(
+            const e = await Iy(i).catch(
               (e) => (
                 log.error("Could not determine repository type", e),
                 { kind: "missing" }
@@ -113453,7 +114548,7 @@
             await (async function (e) {
               const t = ["lfs", "install", "--skip-repo"];
               e && t.push("--force"),
-                await ty(t, __dirname, "installGlobalLFSFilter");
+                await ry(t, __dirname, "installGlobalLFSFilter");
             })(e);
           } catch (e) {
             this.emitError(e);
@@ -113464,7 +114559,7 @@
             return await (async function (e) {
               return (
                 (
-                  await ty(["lfs", "track"], e.path, "isUsingLFS", {
+                  await ry(["lfs", "track"], e.path, "isUsingLFS", {
                     env: { GIT_LFS_TRACK_NO_INSTALL_HOOKS: "1" },
                   })
                 ).stdout.length > 0
@@ -113612,11 +114707,11 @@
         }
         async _findPullRequestBranch(e, t, n, r, i) {
           const o = this.gitStoreCache.get(e);
-          let s = (await fy(e)).find((e) => qi(r, e));
+          let s = (await gy(e)).find((e) => qi(r, e));
           if (void 0 === s)
             try {
               const t = `github-desktop-${n}`;
-              s = await my(e, t, r);
+              s = await yy(e, t, r);
             } catch (e) {
               return void this.emitError(
                 new Error(
@@ -113667,7 +114762,7 @@
         }
         _setCustomTheme(e) {
           return (
-            Un(Gh, e),
+            Un(Kh, e),
             (this.customTheme = e),
             this.emitUpdate(),
             Promise.resolve()
@@ -113714,7 +114809,7 @@
           }));
         }
         async createStashAndDropPreviousEntry(e, t) {
-          const n = await ns(e, t),
+          const n = await rs(e, t),
             r = this.gitStoreCache.get(e),
             i = await r.performFailableOperation(() =>
               this.createStashEntry(e, t)
@@ -113722,7 +114817,7 @@
           if (!0 === i && null !== n) {
             const { stashSha: t, branchName: i } = n;
             await r.performFailableOperation(async () => {
-              await is(e, t),
+              await os(e, t),
                 log.info(`Dropped stash '${t}' associated with ${i}`);
             });
           }
@@ -113733,7 +114828,7 @@
             { workingDirectory: r } = n;
           return (async function (e, t, n) {
             const r = n.map((e) => e.withIncludeAll(!0));
-            await Qo(e, r);
+            await es(e, r);
             const i = [
                 "stash",
                 "push",
@@ -113741,13 +114836,13 @@
                 ((s = "string" == typeof t ? t : t.name),
                 `!!GitHub_Desktop<${s}>`),
               ],
-              o = await ty(i, e.path, "createStashEntry", {
+              o = await ry(i, e.path, "createStashEntry", {
                 successExitCodes: new Set([0, 1]),
               });
             var s;
             if (1 === o.exitCode) {
               const e = /^error: /m.exec(o.stderr);
-              if (null !== e && e.length > 0) throw new ey(o, i);
+              if (null !== e && e.length > 0) throw new ny(o, i);
               log.info(
                 `[createDesktopStashEntry] a stash was created successfully but exit code ${o.exitCode} reported. stderr: ${o.stderr}`
               );
@@ -113761,7 +114856,7 @@
         }
         async _popStashEntry(e, t) {
           const n = this.gitStoreCache.get(e);
-          await n.performFailableOperation(() => os(e, t.stashSha)),
+          await n.performFailableOperation(() => ss(e, t.stashSha)),
             log.info(
               `[AppStore. _popStashEntry] popped stash with commit id ${t.stashSha}`
             ),
@@ -113770,7 +114865,7 @@
         }
         async _dropStashEntry(e, t) {
           const n = this.gitStoreCache.get(e);
-          await n.performFailableOperation(() => is(e, t.stashSha)),
+          await n.performFailableOperation(() => os(e, t.stashSha)),
             log.info(
               `[AppStore. _dropStashEntry] dropped stash with commit id ${t.stashSha}`
             ),
@@ -113780,7 +114875,7 @@
         _setStashedFilesWidth(e) {
           return (
             (this.stashedFilesWidth = { ...this.stashedFilesWidth, value: e }),
-            Nn(Ah, e),
+            Nn(Ih, e),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -113792,7 +114887,7 @@
               ...this.stashedFilesWidth,
               value: 250,
             }),
-            localStorage.removeItem(Ah),
+            localStorage.removeItem(Ih),
             this.updateResizableConstraints(),
             this.emitUpdate(),
             Promise.resolve()
@@ -113868,7 +114963,7 @@
                   a = s.default_branch ?? (await ds());
                 i("Initializing local repository", 0.2),
                   await (0, y.mkdir)(r, { recursive: !0 }),
-                  await ty(
+                  await ry(
                     ["-c", `init.defaultBranch=${a}`, "init"],
                     r,
                     "tutorial:init"
@@ -113877,15 +114972,15 @@
                     e.join(r, "README.md"),
                     "# Welcome to GitHub Desktop!\r\n\r\nThis is your README. READMEs are where you can communicate what your project is and how to use it.\r\n\r\nWrite your name on line 6, save it, and then head back to GitHub Desktop.\r\n"
                   ),
-                  await ty(["add", "--", "README.md"], r, "tutorial:add"),
-                  await ty(
+                  await ry(["add", "--", "README.md"], r, "tutorial:add"),
+                  await ry(
                     ["commit", "-m", "Initial commit"],
                     r,
                     "tutorial:commit"
                   );
                 const l = { name: "origin", url: s.clone_url };
                 return (
-                  await ty(
+                  await ry(
                     ["remote", "add", l.name, l.url],
                     r,
                     "tutorial:add-remote"
@@ -113902,7 +114997,7 @@
                         }
                       ),
                       a = ["push", "-u", n.name, r];
-                    await ty(a, e, "tutorial:push", s);
+                    await ry(a, e, "tutorial:push", s);
                   })(r, t, l, a, (e, t, n) => {
                     i(e, 0.3 + 0.6 * t, n);
                   }),
@@ -113926,8 +115021,8 @@
             await this._addTutorialRepository(r, t.endpoint, i),
               await this.statsStore.recordTutorialRepoCreated();
           } catch (e) {
-            Bg("tutorialRepoCreation", e),
-              e instanceof ey
+            Lg("tutorialRepoCreation", e),
+              e instanceof ny
                 ? this.emitError(e)
                 : this.emitError(
                     new Error(
@@ -113984,7 +115079,7 @@
                   ]),
                 };
                 void 0 !== n && (r = await Nc(r, t, n));
-                const i = await ty(
+                const i = await ry(
                   [
                     "cherry-pick",
                     ...t.map((e) => e.sha),
@@ -114057,7 +115152,7 @@
                       );
                 }
                 const o = i.filter((e) => !n.has(e.path));
-                await Qo(e, o);
+                await es(e, o);
                 const s = await Pc(e);
                 if (null == s)
                   return (
@@ -114094,7 +115189,7 @@
                       "[cherryPick] no tracked changes to commit, continuing cherry-pick but skipping this commit"
                     ),
                     Bc(
-                      await ty(
+                      await ry(
                         ["commit", "--allow-empty"],
                         e.path,
                         "continueCherryPickSkipCurrentCommit",
@@ -114102,7 +115197,7 @@
                       )
                     ))
                   : Bc(
-                      await ty(
+                      await ry(
                         [
                           "cherry-pick",
                           "--continue",
@@ -114158,7 +115253,7 @@
             n =
               void 0 !== this.lastThankYou &&
               this.lastThankYou.checkedUsers.length === e.checkedUsers.length;
-          (t && n) || (Un(qh, e), (this.lastThankYou = e), this.emitUpdate());
+          (t && n) || (Un(Vh, e), (this.lastThankYou = e), this.emitUpdate());
         }
         async _reorderCommits(e, t, n, r) {
           if (0 === t.length)
@@ -114177,7 +115272,7 @@
                       "[reorder] No commits provided to reorder."
                     );
                   const a = new Set(t.map((e) => e.sha)),
-                    l = await Ko(e, null === r ? void 0 : gc(r, "HEAD"));
+                    l = await Yo(e, null === r ? void 0 : gc(r, "HEAD"));
                   if (0 === l.length)
                     throw new Error(
                       "[reorder] Could not find commits in log for last retained commit ref."
@@ -114259,7 +115354,7 @@
                     throw new Error(
                       "[squash] The commits to squash cannot contain the commit to squash onto."
                     );
-                  const u = await Ko(e, null === r ? void 0 : gc(r, "HEAD"));
+                  const u = await Yo(e, null === r ? void 0 : gc(r, "HEAD"));
                   if (0 === u.length)
                     throw new Error(
                       "[squash] Could not find commits in log for last retained commit ref."
@@ -114364,7 +115459,7 @@
           if ("Cherry-pick" === s.kind && s.branchCreated)
             return this._deleteBranch(t, u.branch, !1, s.sourceBranch), !0;
           const h = this.gitStoreCache.get(t);
-          if (!0 !== (await h.performFailableOperation(() => Cy(t, 0, l))))
+          if (!0 !== (await h.performFailableOperation(() => xy(t, 0, l))))
             return !1;
           let p;
           switch (a) {
@@ -114534,11 +115629,11 @@
             numberOfComments: r,
           });
         };
-      })(fF, mF, gF, yF, vF, bF, wF, SF, kF, EF, _F);
-    DF.onDidUpdate((e) => {
-      pF = e;
+      })(kF, EF, xF, RF, TF, _F, DF, PF, IF, MF, FF);
+    LF.onDidUpdate((e) => {
+      CF = e;
     });
-    const AF = new (class {
+    const HF = new (class {
       appStore;
       repositoryStateManager;
       statsStore;
@@ -114579,6 +115674,9 @@
       }
       changeCommitSelection(e, t, n) {
         return this.appStore._changeCommitSelection(e, t, n);
+      }
+      updateShasToHighlight(e, t) {
+        this.appStore._updateShasToHighlight(e, t);
       }
       changeFileSelection(e, t) {
         return this.appStore._changeFileSelection(e, t);
@@ -114633,7 +115731,7 @@
       }
       async warnAboutRemoteCommits(e, t, n) {
         if (null === t.upstream) return !1;
-        if (0 === (await xy(e, `refs/remotes/${t.upstream}`)).length) return !1;
+        if (0 === (await Dy(e, `refs/remotes/${t.upstream}`)).length) return !1;
         if (null === n) return !0;
         const r = await bc(e, n, t.upstream);
         return null !== r && r.length > 0;
@@ -115227,7 +116325,7 @@
             try {
               log.info("[Dispatcher] requesting authenticated user");
               const n = await (async function (e, t) {
-                if (!Zm || t !== Zm.state)
+                if (!Jm || t !== Jm.state)
                   return void log.warn(
                     "requestAuthenticatedUser was not called with valid OAuth state. This is likely due to a browser reloading the callback URL. Contact GitHub Support if you believe this is an error"
                   );
@@ -115251,28 +116349,28 @@
                       null
                     );
                   }
-                })(Zm.endpoint, e);
-                return n ? Rn(Zm.endpoint, n) : null;
+                })(Jm.endpoint, e);
+                return n ? Rn(Jm.endpoint, n) : null;
               })(e.code, e.state);
               n
                 ? ((t = n),
-                  Zm ||
+                  Jm ||
                     ot(
                       "`askUserToOAuth` must be called before resolving an auth request."
                     ),
-                  Zm.resolve(t),
-                  (Zm = null))
+                  Jm.resolve(t),
+                  (Jm = null))
                 : null === n &&
-                  Xm(new Error("Unable to fetch authenticated user."));
+                  Qm(new Error("Unable to fetch authenticated user."));
             } catch (e) {
-              Xm(e);
+              Qm(e);
             }
             break;
           case "open-repository-from-url":
             this.openRepositoryFromUrl(e);
             break;
           case "open-repository-from-path":
-            const n = await _y(e.path)
+            const n = await Iy(e.path)
                 .then((t) =>
                   "regular" === t.kind ? t.topLevelWorkingDirectory : e.path
                 )
@@ -115343,16 +116441,16 @@
             if (
               (await (async function () {
                 try {
-                  return await (0, y.readlink)(Hy);
+                  return await (0, y.readlink)(jy);
                 } catch {
                   return null;
                 }
-              })()) !== Uy
+              })()) !== $y
             )
               try {
-                await zy(!1);
+                await qy(!1);
               } catch (e) {
-                await zy(!0);
+                await qy(!0);
               }
           })(),
             this.showPopup({ type: Pr.CLIInstalled });
@@ -115381,30 +116479,30 @@
       }
       async performRetry(e) {
         switch (e.type) {
-          case fo.Push:
+          case lo.Push:
             return this.push(e.repository);
-          case fo.Pull:
+          case lo.Pull:
             return this.pull(e.repository);
-          case fo.Fetch:
+          case lo.Fetch:
             return this.fetch(e.repository, xr.UserInitiatedTask);
-          case fo.Clone:
+          case lo.Clone:
             await this.clone(e.url, e.path, e.options);
             break;
-          case fo.Checkout:
+          case lo.Checkout:
             await this.checkoutBranch(e.repository, e.branch);
             break;
-          case fo.Merge:
+          case lo.Merge:
             return this.mergeBranch(e.repository, e.theirBranch, null);
-          case fo.Rebase:
+          case lo.Rebase:
             return this.rebase(e.repository, e.baseBranch, e.targetBranch);
-          case fo.CherryPick:
+          case lo.CherryPick:
             return this.cherryPick(
               e.repository,
               e.targetBranch,
               e.commits,
               e.sourceBranch
             );
-          case fo.CreateBranchForCherryPick:
+          case lo.CreateBranchForCherryPick:
             return this.startCherryPickWithBranchName(
               e.repository,
               e.targetBranchName,
@@ -115413,7 +116511,7 @@
               e.commits,
               e.sourceBranch
             );
-          case fo.Squash:
+          case lo.Squash:
             return this.squash(
               e.repository,
               e.toSquash,
@@ -115421,14 +116519,14 @@
               e.lastRetainedCommitRef,
               e.commitContext
             );
-          case fo.Reorder:
+          case lo.Reorder:
             return this.reorderCommits(
               e.repository,
               e.commitsToReorder,
               e.beforeCommit,
               e.lastRetainedCommitRef
             );
-          case fo.DiscardChanges:
+          case lo.DiscardChanges:
             return this.discardChanges(e.repository, e.files, !1);
           default:
             return st(0, `Unknown retry action: ${e}`);
@@ -115736,7 +116834,7 @@
           this.appStore._initializeCherryPickProgress(e, n),
           this.switchMultiCommitOperationToShowProgress(e);
         const i = {
-          type: fo.CherryPick,
+          type: lo.CherryPick,
           repository: e,
           targetBranch: t,
           commits: n,
@@ -115762,7 +116860,7 @@
       }
       async startCherryPickWithBranchName(e, t, n, r = !1, i, o) {
         const s = {
-          type: fo.CreateBranchForCherryPick,
+          type: lo.CreateBranchForCherryPick,
           repository: e,
           targetBranchName: t,
           startPoint: n,
@@ -115786,8 +116884,8 @@
       }
       async startCherryPickWithBranch(e, t) {
         const { branchesState: n } = this.repositoryStateManager.get(e),
-          { dragData: r } = Gy;
-        if (null == r || r.type !== Wy.Commit)
+          { dragData: r } = Yy;
+        if (null == r || r.type !== Gy.Commit)
           return (
             log.error(
               "[cherryPick] Invalid Cherry-picking State: Could not determine selected commits."
@@ -115924,16 +117022,19 @@
       }
       async setCherryPickCreateBranchFlowStep(e, t, n, r) {
         const { branchesState: i } = this.repositoryStateManager.get(e),
-          { defaultBranch: o, allBranches: s, tip: a } = i;
-        if (a.kind !== Ar.Valid)
+          {
+            defaultBranch: o,
+            upstreamDefaultBranch: s,
+            allBranches: a,
+            tip: l,
+          } = i;
+        if (l.kind !== Ar.Valid)
           return (
             this.appStore._clearCherryPickingHead(e, null),
             this.endMultiCommitOperation(e),
             void log.error("Tip is in unknown state. Cherry-pick aborted.")
           );
-        const l = jr(e),
-          c = l ? Vr(e) : null,
-          u = l ? qy(e, s) : null;
+        const c = jr(e) ? Vr(e) : null;
         this.initializeMultiCommitOperation(
           e,
           {
@@ -115944,18 +117045,18 @@
           },
           null,
           n,
-          a.branch.tip.sha
+          l.branch.tip.sha
         );
-        const h = {
+        const u = {
           kind: "CreateBranch",
-          allBranches: s,
+          allBranches: a,
           defaultBranch: o,
-          upstreamDefaultBranch: u,
+          upstreamDefaultBranch: s,
           upstreamGhRepo: c,
-          tip: a,
+          tip: l,
           targetBranchName: t,
         };
-        return this.appStore._setMultiCommitOperationStep(e, h);
+        return this.appStore._setMultiCommitOperationStep(e, u);
       }
       setMultiCommitOperationTargetBranch(e, t) {
         this.repositoryStateManager.updateMultiCommitOperationState(e, () => ({
@@ -115973,7 +117074,7 @@
       }
       async reorderCommits(e, t, n, r, i = !1) {
         const o = {
-          type: fo.Reorder,
+          type: lo.Reorder,
           repository: e,
           commitsToReorder: t,
           beforeCommit: n,
@@ -116026,7 +117127,7 @@
       }
       async squash(e, t, n, r, i, o = !1) {
         const s = {
-          type: fo.Squash,
+          type: lo.Squash,
           repository: e,
           toSquash: t,
           squashOnto: n,
@@ -116300,9 +117401,13 @@
       recordPullRequestReviewDialogSwitchToPullRequest(e) {
         this.statsStore.recordPullRequestReviewDialogSwitchToPullRequest(e);
       }
-    })(DF, kF, yF, xF);
-    AF.registerErrorHandler(Yy),
-      AF.registerErrorHandler(async function (e, t) {
+      showUnreachableCommits(e) {
+        this.statsStore.recordMultiCommitDiffUnreachableCommitsDialogOpenedCount(),
+          this.showPopup({ type: Pr.UnreachableCommits, selectedTab: e });
+      }
+    })(LF, IF, RF, OF);
+    HF.registerErrorHandler(Jy),
+      HF.registerErrorHandler(async function (e, t) {
         return e instanceof Ho
           ? (t.showPopup({
               type: Pr.UpstreamAlreadyExists,
@@ -116312,7 +117417,7 @@
             null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
+      HF.registerErrorHandler(async function (e, t) {
         const n = (function (e) {
           return e instanceof ri ? e : null;
         })(e);
@@ -116328,7 +117433,7 @@
           null
         );
       }),
-      AF.registerErrorHandler(async function (e, t) {
+      HF.registerErrorHandler(async function (e, t) {
         return e instanceof wo
           ? (await t.showPopup({
               type: Pr.OpenShellFailed,
@@ -116337,10 +117442,10 @@
             null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r) return e;
         const i = r.result.gitError;
         if (!i) return e;
@@ -116360,8 +117465,8 @@
         const { currentBranch: a, theirBranch: l } = s;
         return t.handleConflictsDetectedOnError(o, a, l), null;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Ky(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Xy(e);
         if (!n) return e;
         const r = n.result.gitError;
         return r
@@ -116370,23 +117475,23 @@
             : (t.showPopup({ type: Pr.LFSAttributeMismatch }), null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r || null === r.result.gitError) return e;
-        if (!ny(r.result.gitError)) return e;
+        if (!iy(r.result.gitError)) return e;
         const { repository: i, retryAction: o } = n.metadata;
         return i instanceof Wr && jr(i)
-          ? void 0 === o || o.type !== fo.Push || zr(i.gitHubRepository)
+          ? void 0 === o || o.type !== lo.Push || zr(i.gitHubRepository)
             ? e
             : (t.showCreateForkDialog(i), null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r) return e;
         const i = r.result.gitError;
         if (!i) return e;
@@ -116403,10 +117508,10 @@
             ),
             e);
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r) return e;
         const i = r.result.gitError;
         if (!i) return e;
@@ -116416,12 +117521,12 @@
           ? (t.showPopup({ type: Pr.PushNeedsPull, repository: o }), null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r || null === r.result.gitError) return e;
-        if (!ny(r.result.gitError)) return e;
+        if (!iy(r.result.gitError)) return e;
         const { repository: i } = n.metadata;
         if (!(i instanceof Wr)) return e;
         if (null === i.gitHubRepository) return e;
@@ -116433,7 +117538,7 @@
               .map((e) => e.substring(t.length))
               .join("\n");
           })(r.result.stderr),
-          s = Xy.exec(o);
+          s = ev.exec(o);
         if (!s) return e;
         const a = s[1],
           l = i.gitHubRepository.endpoint;
@@ -116447,12 +117552,12 @@
           null
         );
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         return n && n.metadata.backgroundTask ? null : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
         const r = n.metadata.repository;
         if (!(r && r instanceof Wr)) return e;
@@ -116464,16 +117569,16 @@
               ? e
               : null;
           })(n.underlyingError),
-          o = Ky(n.underlyingError);
+          o = Xy(n.underlyingError);
         return (o && o.result.gitError === bt.ko.NotAGitRepository) ||
           (i && i.code === bt.Jb)
           ? (await t.updateRepositoryMissing(r, !0), null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (null === n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (null === r) return e;
         const i = r.result.gitError;
         if (
@@ -116512,10 +117617,10 @@
           null
         );
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        const r = Ky(n.underlyingError);
+        const r = Xy(n.underlyingError);
         if (!r) return e;
         const i = r.result.gitError;
         if (!i) return e;
@@ -116528,14 +117633,14 @@
         const { currentBranch: a } = s;
         return t.launchRebaseOperation(o, a), null;
       }),
-      AF.registerErrorHandler(async function (e, t) {
-        const n = Vy(e);
+      HF.registerErrorHandler(async function (e, t) {
+        const n = Zy(e);
         if (!n) return e;
-        if (!Ky(n.underlyingError)) return e;
+        if (!Xy(n.underlyingError)) return e;
         const { repository: r } = n.metadata;
         if (!(r instanceof Wr)) return e;
         if (!jr(r)) return e;
-        const i = Zy.exec(e.message);
+        const i = Qy.exec(e.message);
         return i
           ? (t.showPopup({
               type: Pr.PushRejectedDueToMissingWorkflowScope,
@@ -116545,7 +117650,7 @@
             null)
           : e;
       }),
-      AF.registerErrorHandler(async function (e, t) {
+      HF.registerErrorHandler(async function (e, t) {
         if (!(e instanceof Fo)) return e;
         const { retryAction: n } = e.metadata;
         return void 0 === n
@@ -116554,37 +117659,37 @@
             null);
       }),
       document.body.classList.add("platform-win32"),
-      AF.initializeAppFocusState(),
+      HF.initializeAppFocusState(),
       (function (e) {
         m("notification-event", (t, n, r, i) => {
           if ("click" !== n) return;
           A();
-          const o = pu.get(r);
-          if (void 0 !== o) return o?.(), void pu.delete(r);
+          const o = du.get(r);
+          if (void 0 !== o) return o?.(), void du.delete(r);
           e.onNotificationEventReceived(n, r, i);
         });
-      })(_F),
-      jg.setDispatcher(AF),
+      })(FF),
+      qg.setDispatcher(HF),
       m("focus", () => {
-        const { selectedState: e } = DF.getState();
+        const { selectedState: e } = LF.getState();
         e &&
           e.type !== Ve.CloningRepository &&
-          AF.refreshRepository(e.repository),
-          AF.setAppFocusState(!0);
+          HF.refreshRepository(e.repository),
+          HF.setAppFocusState(!0);
       }),
       m("blur", () => {
-        AF.setAccessKeyHighlightState(!1), AF.setAppFocusState(!1);
+        HF.setAccessKeyHighlightState(!1), HF.setAppFocusState(!1);
       }),
-      m("url-action", (e, t) => AF.dispatchURLAction(t)),
+      m("url-action", (e, t) => HF.dispatchURLAction(t)),
       we.render(
-        ve.createElement(DB, {
-          dispatcher: AF,
-          appStore: DF,
-          repositoryStateManager: kF,
-          issuesStore: gF,
-          gitHubUserStore: fF,
-          aheadBehindStore: RF,
-          startTime: hF,
+        ve.createElement(LB, {
+          dispatcher: HF,
+          appStore: LF,
+          repositoryStateManager: IF,
+          issuesStore: xF,
+          gitHubUserStore: kF,
+          aheadBehindStore: NF,
+          startTime: wF,
         }),
         document.getElementById("desktop-app-container")
       );
