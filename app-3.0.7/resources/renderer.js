@@ -77292,7 +77292,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `View the files of your repository in ${e}`,
+          `在中查看仓库的文件 ${e}`,
           void 0,
           this.onShowInFileManagerClicked
         );
