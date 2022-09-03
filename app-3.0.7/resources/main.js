@@ -15903,7 +15903,7 @@
             p,
             {
               id: "find",
-              label: "&Find",
+              label: "&查找",
               accelerator: "CmdOrCtrl+F",
               click: ce("find-text"),
             },
