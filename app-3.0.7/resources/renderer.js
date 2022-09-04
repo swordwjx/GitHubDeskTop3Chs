@@ -65282,25 +65282,25 @@
         const { repository: t } = e,
           n = t instanceof Wr && t.missing,
           r = t instanceof Wr && null != t.gitHubRepository,
-          i = e.externalEditorLabel ? `Open in ${e.externalEditorLabel}` : za;
+          i = e.externalEditorLabel ? `打开自 ${e.externalEditorLabel}` : za;
         return [
           ...qv(e),
           {
-            label: "Copy repo name",
+            label: "复制仓库名称",
             action: () => f.clipboard.writeText(t.name),
           },
           {
-            label: "Copy repo path",
+            label: "复制仓库路径",
             action: () => f.clipboard.writeText(t.path),
           },
           { type: "separator" },
           {
-            label: "View on GitHub",
+            label: "查看GitHub",
             action: () => e.onViewOnGitHub(t),
             enabled: r,
           },
           {
-            label: `Open in ${e.shellLabel}`,
+            label: `打开自 ${e.shellLabel}`,
             action: () => e.onOpenInShell(t),
             enabled: !n,
           },
@@ -65308,9 +65308,7 @@
           { label: i, action: () => e.onOpenInExternalEditor(t), enabled: !n },
           { type: "separator" },
           {
-            label: e.askForConfirmationOnRemoveRepository
-              ? "Remove…"
-              : "Remove",
+            label: e.askForConfirmationOnRemoveRepository ? "删除…" : "删除",
             action: () => e.onRemoveRepository(t),
           },
         ];
@@ -65320,14 +65318,14 @@
         if (!(t instanceof Wr)) return [];
         const n = [
           {
-            label: (null == t.alias ? "Create" : "Change") + " alias",
+            label: (null == t.alias ? "创建" : "更改") + " 别名",
             action: () => e.onChangeRepositoryAlias(t),
           },
         ];
         return (
           null !== t.alias &&
             n.push({
-              label: "Remove alias",
+              label: "删除别名",
               action: () => e.onRemoveRepositoryAlias(t),
             }),
           n
@@ -72731,14 +72729,14 @@
         action: () => f.clipboard.writeText(e.normalize(t.path)),
       });
       getCopySelectedPathsMenuItem = (t) => ({
-        label: "Copy paths",
+        label: "复制路径",
         action: () => {
           const n = t.map((t) => e.join(this.props.repository.path, t.path));
           f.clipboard.writeText(n.join(Tt.EOL));
         },
       });
       getCopySelectedRelativePathsMenuItem = (t) => ({
-        label: "Copy relative paths",
+        label: "复制相对路径",
         action: () => {
           const n = t.map((t) => e.normalize(t.path));
           f.clipboard.writeText(n.join(Tt.EOL));
@@ -74647,7 +74645,7 @@
       onContextMenu = (e, t) => {
         const n = [
             {
-              label: "Copy",
+              label: "复制",
               action: () => {
                 this.onCopy(e, t);
               },
@@ -74665,13 +74663,13 @@
         const t = this.state.diff;
         return null === this.diffToRestore
           ? {
-              label: "Expand whole file",
+              label: "展开整个文件",
               action: this.onExpandWholeFile,
               enabled:
                 1 !== t.hunks.length || t.hunks[0].expansionType !== kr.None,
             }
           : {
-              label: "Collapse expanded lines",
+              label: "收缩展开行",
               action: this.onCollapseExpandedLines,
             };
       }
@@ -76401,7 +76399,7 @@
       onContextMenuText = () => {
         const e = window.getSelection()?.toString().length ?? 0,
           t = [
-            { label: "Copy", role: e > 0 ? "copy" : void 0, enabled: e > 0 },
+            { label: "复制", role: e > 0 ? "复制" : void 0, enabled: e > 0 },
           ],
           n = this.buildExpandMenuItem();
         null !== n && t.push({ type: "separator" }, n), Uv(t);
@@ -76427,13 +76425,13 @@
         return this.canExpandDiff()
           ? null === this.diffToRestore
             ? {
-                label: "Expand whole file",
+                label: "展开整个文件",
                 action: this.onExpandWholeFile,
                 enabled:
                   1 !== e.hunks.length || e.hunks[0].expansionType !== kr.None,
               }
             : {
-                label: "Collapse expanded lines",
+                label: "收缩展开行",
                 action: this.onCollapseExpandedLines,
               }
           : null;
@@ -77292,7 +77290,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `在中查看仓库的文件 ${e}`,
+          `在 ${e} 中查看仓库的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -79259,10 +79257,7 @@
           } = this.props,
           a = e.join(o.path, t.path),
           l = await S(a);
-        if (!l)
-          return void Uv([
-            { label: "File does not exist on disk", enabled: !1 },
-          ]);
+        if (!l) return void Uv([{ label: "文件在磁盘上不存在", enabled: !1 }]);
         const c = qa(e.extname(t.path)),
           u = [
             { label: Wa, action: () => it(o, t.path), enabled: l },
@@ -80015,13 +80010,13 @@
         o = new Array();
       return (
         void 0 !== r &&
-          o.push({ label: "Rename…", action: () => r(t), enabled: n }),
+          o.push({ label: "重命名…", action: () => r(t), enabled: n }),
         o.push({
-          label: "Copy branch name",
+          label: "复制分支名称",
           action: () => f.clipboard.writeText(t),
         }),
         o.push({ type: "separator" }),
-        void 0 !== i && o.push({ label: "Delete…", action: () => i(t) }),
+        void 0 !== i && o.push({ label: "删除…", action: () => i(t) }),
         o
       );
     }
@@ -83812,21 +83807,18 @@
             selectedValue: this.state.selectedOperation,
             options: [
               {
-                label: "Create a merge commit",
-                description:
-                  "The commits from the selected branch will be added to the current branch via a merge commit.",
+                label: "创建合并提交",
+                description: "来自所选分支的提交将通过合并提交添加到当前分支。",
                 value: "Merge",
               },
               {
-                label: "Squash and merge",
-                description:
-                  "The commits in the selected branch will be combined into one commit in the current branch.",
+                label: "挤压合并",
+                description: "所选分支中的提交将合并为当前分支中的一个提交。",
                 value: "Squash",
               },
               {
-                label: "Rebase",
-                description:
-                  "The commits from the selected branch will be rebased and added to the current branch.",
+                label: "变基",
+                description: "来自所选分支的提交将变基并添加到当前分支。",
                 value: "Rebase",
               },
             ],
@@ -85460,7 +85452,7 @@
             rC,
             null,
             ve.createElement(Yx, {
-              label: "Name",
+              label: "名称",
               initialValue: this.props.branch.name,
               onValueChange: this.onNameChange,
             }),
@@ -87099,7 +87091,7 @@
       renderConfirmDiscardChanges() {
         return this.props.showDiscardChangesSetting
           ? ve.createElement(sw, {
-              label: "Do not show this message again",
+              label: "不再显示此消息",
               value: this.state.confirmDiscardChanges ? ow.Off : ow.On,
               onChange: this.onConfirmDiscardChangesChanged,
             })
@@ -87448,7 +87440,7 @@
             SR,
             { onSubmit: this.signIn },
             ve.createElement(jb, {
-              label: "Authentication code",
+              label: "验证码",
               disabled: e,
               autoFocus: !0,
               onValueChanged: this.onOTPChange,
@@ -87486,7 +87478,7 @@
           SR,
           { onSubmit: this.onSubmit },
           ve.createElement(jb, {
-            label: "Enterprise or AE 地址",
+            label: "Enterprise 和 AE 地址",
             autoFocus: !0,
             disabled: e,
             onValueChanged: this.onServerAddressChanged,
@@ -94389,12 +94381,12 @@
                           "div",
                           { style: o.actions },
                           be().createElement(LM, {
-                            label: "OK",
+                            label: "确定",
                             onClick: this.props.onAccept,
                             active: !0,
                           }),
                           be().createElement(LM, {
-                            label: "Cancel",
+                            label: "取消",
                             onClick: this.props.onCancel,
                           }),
                           be().createElement(NM, {
@@ -98497,7 +98489,7 @@
           $b,
           null,
           ve.createElement(fT, {
-            label: "Create branch based on…",
+            label: "创建分支基于…",
             items: e,
             selectedKey: t,
             onSelectionChanged: this.onBaseBranchChanged,
@@ -98617,7 +98609,7 @@
             $b,
             null,
             ve.createElement(jb, {
-              label: "Enterprise address",
+              label: "企业地址",
               value: this.state.endpoint,
               onValueChanged: this.onEndpointChanged,
               placeholder: "https://github.example.com",
@@ -99182,7 +99174,7 @@
             $b,
             null,
             ve.createElement(jb, {
-              label: "Description",
+              label: "描述",
               value: this.props.settings.description,
               onValueChanged: this.onDescriptionChange,
             })
@@ -101432,7 +101424,7 @@
             rC,
             null,
             ve.createElement(Yx, {
-              label: "Name",
+              label: "名称",
               initialValue: this.props.initialName,
               onValueChange: this.updateTagName,
             }),
@@ -101685,7 +101677,7 @@
               )
             ),
             ve.createElement(sw, {
-              label: "Do not show this message again",
+              label: "不再显示此消息",
               value: this.state.confirmDiscardSelection ? ow.Off : ow.On,
               onChange: this.onConfirmDiscardSelectionChanged,
             })
@@ -102002,7 +101994,7 @@
               "div",
               null,
               ve.createElement(sw, {
-                label: "Do not show this message again",
+                label: "不再显示此消息",
                 value: this.state.askToMoveToApplicationsFolder
                   ? ow.Off
                   : ow.On,
@@ -102347,7 +102339,7 @@
         ve.createElement(
           Hw,
           { onClick: tB(e.path, e.repository, e.dispatcher) },
-          "Undo"
+          "撤消"
         )
       );
     };
@@ -102790,7 +102782,7 @@
               "div",
               null,
               ve.createElement(sw, {
-                label: "Do not show this message again",
+                label: "不再显示此消息",
                 value: this.state.askForConfirmationOnForcePush
                   ? ow.Off
                   : ow.On,
@@ -103131,21 +103123,19 @@
               selectedValue: n,
               options: [
                 {
-                  label: "Create a merge commit",
+                  label: "创建合并提交",
                   description:
-                    "The commits from the selected branch will be added to the current branch via a merge commit.",
+                    "来自所选分支的提交将通过合并提交添加到当前分支。",
                   value: "Merge",
                 },
                 {
-                  label: "Squash and merge",
-                  description:
-                    "The commits in the selected branch will be combined into one commit in the current branch.",
+                  label: "挤压合并",
+                  description: "所选分支中的提交将合并为当前分支中的一个提交。",
                   value: "Squash",
                 },
                 {
-                  label: "Rebase",
-                  description:
-                    "The commits from the selected branch will be rebased and added to the current branch.",
+                  label: "变基",
+                  description: "来自所选分支的提交将变基并添加到当前分支。",
                   value: "Rebase",
                 },
               ],
@@ -104062,7 +104052,7 @@
               $b,
               null,
               ve.createElement(jb, {
-                label: `Enter passphrase for key '${this.props.keyPath}':`,
+                label: `输入密钥的密码 '${this.props.keyPath}':`,
                 value: this.state.passphrase,
                 type: "password",
                 onValueChanged: this.onValueChanged,
@@ -104072,7 +104062,7 @@
               $b,
               null,
               ve.createElement(sw, {
-                label: "Remember passphrase",
+                label: "记住密码",
                 value: this.state.rememberPassphrase ? ow.On : ow.Off,
                 onChange: this.onRememberPassphraseChanged,
               })
@@ -104658,7 +104648,7 @@
       }
       renderConfirmDiscardChanges() {
         return ve.createElement(sw, {
-          label: "Do not show this message again",
+          label: "不再显示此消息",
           value: this.state.confirmDiscardChanges ? ow.Off : ow.On,
           onChange: this.onConfirmDiscardChangesChanged,
         });
@@ -104924,7 +104914,7 @@
               $b,
               null,
               ve.createElement(jb, {
-                label: `Enter password for '${this.props.username}':`,
+                label: `输入密码 '${this.props.username}':`,
                 value: this.state.password,
                 type: "password",
                 onValueChanged: this.onValueChanged,
@@ -104934,7 +104924,7 @@
               $b,
               null,
               ve.createElement(sw, {
-                label: "Remember password",
+                label: "记住密码",
                 value: this.state.rememberPassword ? ow.On : ow.Off,
                 onChange: this.onRememberPasswordChanged,
               })
