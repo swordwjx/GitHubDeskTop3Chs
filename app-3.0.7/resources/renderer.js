@@ -76399,7 +76399,7 @@
       onContextMenuText = () => {
         const e = window.getSelection()?.toString().length ?? 0,
           t = [
-            { label: "复制", role: e > 0 ? "复制" : void 0, enabled: e > 0 },
+            { label: "Copy", role: e > 0 ? "Copy" : void 0, enabled: e > 0 },
           ],
           n = this.buildExpandMenuItem();
         null !== n && t.push({ type: "separator" }, n), Uv(t);
