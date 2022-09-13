@@ -89227,7 +89227,7 @@
             ve.createElement("div", { className: "name" }, e.name),
             ve.createElement("div", { className: "login" }, "@", e.login)
           ),
-          ve.createElement(Qb, { onClick: this.logout(e) }, "Sign out")
+          ve.createElement(Qb, { onClick: this.logout(e) }, "注销")
         );
       }
       onDotComSignIn = () => {
@@ -89359,7 +89359,7 @@
               {
                 className: "git-settings-description",
               },
-              "允许在仓库列表中显示最新状态，禁用此选项可以大量提高仓库性能。"
+              "允许在仓库列表中显示最新状态，禁用此选项可以提高仓库性能。"
             )
           ),
           this.renderSSHSettings(),
@@ -98506,7 +98506,7 @@
     const eN = ve.createElement(
       Hw,
       { uri: "https://help.github.com/articles/setting-the-default-branch/" },
-      "default branch"
+      "默认分支"
     );
     function tN(e, t) {
       return e === fr.UpstreamDefaultBranch
@@ -98927,11 +98927,9 @@
               n = this.state.altKeyPressed
                 ? this.props.onCheckForNonStaggeredUpdates
                 : this.props.onCheckForUpdates,
-              r = this.state.altKeyPressed
-                ? "Ensure Latest Version"
-                : "Check for Updates",
+              r = this.state.altKeyPressed ? "确保最新版本" : "检查更新",
               i = this.state.altKeyPressed
-                ? "GitHub Desktop may release updates to our user base gradually to ensure we catch any problems early. This lets you bypass the gradual rollout and jump straight to the latest version if there's one available."
+                ? "GitHub Desktop可能会逐步向我们的用户群发布更新，以确保我们及早发现任何问题。您可以绕过逐步推出，并直接跳转到最新版本（如果有）。"
                 : "";
             return ve.createElement(
               $b,
