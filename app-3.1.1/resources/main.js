@@ -16179,7 +16179,7 @@
           },
         },
         {
-          label: "&在浏览器中显示日志",
+          label: "&显示本地日志",
           click() {
             const e = s();
             (0, g.mkdir)(e, { recursive: !0 })

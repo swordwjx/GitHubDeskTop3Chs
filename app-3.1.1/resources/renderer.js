@@ -55258,7 +55258,7 @@
                 ? 1 / 0
                 : Date.now() - this.lastRefreshStartedAt,
             t = Math.max(9e5 - e, 0) + Ia,
-            n = isFinite(e) ? `${(e / 1e3).toFixed(3)}s ago` : "never",
+            n = isFinite(e) ? `${(e / 1e3).toFixed(3)}s 之前` : "never",
             r = `${(t / 1e3).toFixed(3)}s`;
           log.debug(
             `[RepositoryIndicatorUpdater] Last refresh: ${n}, scheduling in ${r}`
@@ -70980,7 +70980,7 @@
           cC,
           null,
           ve.createElement(uC, {
-            okButtonText: this.props.buttonText || "Close",
+            okButtonText: this.props.buttonText || "关闭",
             okButtonTitle: this.props.buttonTitle,
             onOkButtonClick: this.props.onButtonClick,
             okButtonDisabled: this.props.disabled,
@@ -73343,7 +73343,7 @@
               r
             )
           : r < eS
-          ? this.updateAndSchedule(i, "just now", eS - r)
+          ? this.updateAndSchedule(i, "刚刚", eS - r)
           : r < tS
           ? this.updateAndSchedule(i, o, eS)
           : r < nS
@@ -79835,7 +79835,7 @@
             )
           );
         const e =
-          ((n = "local commit"),
+          ((n = "本地 commit"),
           1 === (t = this.props.unPushedCommits) ? `${t} ${n}` : `${t} ${n}s`);
         var t, n;
         return ve.createElement(
