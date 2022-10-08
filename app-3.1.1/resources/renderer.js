@@ -61678,17 +61678,15 @@
               const t = Tm(e.keys, e.trans._cache, "clone" === e.cache);
               return t
                 ? _d.resolve(t)
-                : n
-                    .getMany(e)
-                    .then(
-                      (t) => (
-                        (e.trans._cache = {
-                          keys: e.keys,
-                          values: "clone" === e.cache ? xp(t) : t,
-                        }),
-                        t
-                      )
-                    );
+                : n.getMany(e).then(
+                    (t) => (
+                      (e.trans._cache = {
+                        keys: e.keys,
+                        values: "clone" === e.cache ? xp(t) : t,
+                      }),
+                      t
+                    )
+                  );
             },
             mutate: (e) => (
               "add" !== e.type && (e.trans._cache = null), n.mutate(e)
@@ -63713,7 +63711,7 @@
                     case bt.ko.NoExistingRemoteBranch:
                       return "远程分支不存在。";
                     case bt.ko.LocalChangesOverwritten:
-                      return "无法切换分支，因为存在将被覆盖的工作目录更改。请提交或隐藏您的更改。";
+                      return "无法切换分支，因为存在将被覆盖的工作目录更改，请提交或隐藏您的更改。";
                     case bt.ko.UnresolvedConflicts:
                       return "工作目录中存在未解决的冲突。";
                     case bt.ko.ConfigLockFileAlreadyExists:
@@ -64339,12 +64337,7 @@
               const t = e.trim(),
                 n = av.exec(t);
               if (null === n)
-                return (
-                  log.debug(
-                    `[发布说明] 无法将文本转换为输入: ${e}`
-                  ),
-                  null
-                );
+                return log.debug(`[发布说明] 无法将文本转换为输入: ${e}`), null;
               const r = n[1].toLowerCase(),
                 i = n[2];
               return "new" === r ||
@@ -64354,9 +64347,7 @@
                 "pretext" === r ||
                 "removed" === r
                 ? { kind: r, message: i }
-                : (log.debug(
-                    `[发布说明] 找到种类 ${r} 但不是有效条目`
-                  ),
+                : (log.debug(`[发布说明] 找到种类 ${r} 但不是有效条目`),
                   { kind: "other", message: i });
             })(e)
           )
@@ -65462,9 +65453,7 @@
           { label: i, action: () => e.onOpenInExternalEditor(t), enabled: !n },
           { type: "separator" },
           {
-            label: e.askForConfirmationOnRemoveRepository
-              ? "删除…"
-              : "删除",
+            label: e.askForConfirmationOnRemoveRepository ? "删除…" : "删除",
             action: () => e.onRemoveRepository(t),
           },
         ];
@@ -69072,7 +69061,7 @@
             className: "new-repository-button",
             onClick: this.onNewRepositoryButtonClick,
           },
-          "Add",
+          "添加",
           ve.createElement(Pv, { symbol: mh })
         );
       renderNoItems = () =>
@@ -71006,13 +70995,7 @@
         return ve.createElement(
           oC,
           null,
-          ve.createElement(
-            "p",
-            null,
-            "主远程仓库 (",
-            e.name,
-            ")"
-          ),
+          ve.createElement("p", null, "主远程仓库 (", e.name, ")"),
           ve.createElement(qb, {
             placeholder: "远程 URL",
             value: e.url,
@@ -71071,7 +71054,7 @@
             null,
             "编辑 ",
             ve.createElement(fC, null, ".gitignore"),
-            ". 文件，该文件指定Git应该忽略的故意未跟踪的文件，Git已经跟踪的文件不受影响。",
+            ". 文件，该文件指定Git应该忽略的故意未跟踪文件，Git已经跟踪文件不受影响。",
             " ",
             ve.createElement(
               zw,
@@ -72101,9 +72084,7 @@
         this.props.onShowCoAuthoredByChanged(!this.props.showCoAuthoredBy);
       };
       get toggleCoAuthorsText() {
-        return this.props.showCoAuthoredBy
-          ? "Remove co-authors"
-          : "Add co-authors";
+        return this.props.showCoAuthoredBy ? "删除合著者" : "添加合著者";
       }
       getAddRemoveCoAuthorsMenuItem() {
         return {
@@ -72863,10 +72844,7 @@
         }
       };
       getDiscardChangesMenuItemLabel = (e) => {
-        const t =
-          1 === e.length
-            ? "Discard changes"
-            : `Discard ${e.length} selected changes`;
+        const t = 1 === e.length ? "放弃更改" : `放弃 ${e.length} 选择的更改`;
         return this.props.askForConfirmationOnDiscardChanges ? `${t}…` : t;
       };
       onContextMenu = (e) => {
@@ -73408,9 +73386,7 @@
       render() {
         const e =
             this.props.isPushPullFetchInProgress || this.props.isCommitting,
-          t = e
-            ? "更新仓库时禁用撤消"
-            : void 0,
+          t = e ? "更新仓库时禁用撤消" : void 0,
           n = this.props.commit.author.date;
         return ve.createElement(
           "div",
@@ -77785,7 +77761,7 @@
           ve.Fragment,
           null,
           t,
-          " menu or",
+          " 菜单或快捷键",
           " ",
           this.renderDiscoverabilityKeyboardShortcut(e)
         );
@@ -77813,7 +77789,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `View the files of your repository in ${e}`,
+          `在 ${e} 查看仓库中的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -77824,7 +77800,7 @@
         return null !== this.props.repository.gitHubRepository
           ? this.renderMenuBackedAction(
               "view-repository-on-github",
-              "Open the repository page on GitHub in your browser",
+              "在浏览器中打开 GitHub 上的仓库页面",
               void 0,
               this.onViewOnGitHubClicked
             )
@@ -77848,7 +77824,7 @@
         const t = ve.createElement(
           ve.Fragment,
           null,
-          "Select your editor in",
+          "选择您的编辑器",
           " ",
           ve.createElement(
             zw,
@@ -78020,9 +77996,9 @@
             " ",
             this.renderDiscoverabilityKeyboardShortcut(i)
           ),
-          l = `拉取 ${n.behind} ${
-            1 === n.behind ? "提交" : "提交"
-          } 来自远程 ${t.name} `,
+          l = `拉取 ${n.behind} ${1 === n.behind ? "提交" : "提交"} 来自远程 ${
+            t.name
+          } `,
           c = `拉取 ${t.name}`;
         return ve.createElement(lk, {
           key: "pull-branch-action",
@@ -78045,9 +78021,7 @@
           l = [];
         n.ahead > 0 &&
           (a.push("commits"),
-          l.push(
-            1 === n.ahead ? "1个本地提交" : `${n.ahead} 个本地提交`
-          )),
+          l.push(1 === n.ahead ? "1个本地提交" : `${n.ahead} 个本地提交`)),
           null !== r &&
             r.length > 0 &&
             (a.push("tags"),
@@ -78148,7 +78122,7 @@
                 ve.createElement(
                   "p",
                   null,
-                  "此仓库中没有未提交的更改。下面是一些关于下一步工作建议。"
+                  "此仓库中没有未提交的更改，下面是一些关于下一步工作建议。"
                 )
               ),
               ve.createElement("img", {
@@ -79770,10 +79744,7 @@
           } = this.props,
           a = e.join(o.path, t.path),
           l = await S(a);
-        if (!l)
-          return void zv([
-            { label: "文件在磁盘上不存在", enabled: !1 },
-          ]);
+        if (!l) return void zv([{ label: "文件在磁盘上不存在", enabled: !1 }]);
         const c = Ga(e.extname(t.path)),
           u = [
             { label: ja, action: () => it(o, t.path), enabled: l },
@@ -79854,11 +79825,7 @@
           return ve.createElement(
             oC,
             null,
-            ve.createElement(
-              "p",
-              null,
-              "在打开请求之前，必须先发布分支。"
-            ),
+            ve.createElement("p", null, "在打开请求之前，必须先发布分支。"),
             ve.createElement(
               "p",
               null,
@@ -79874,13 +79841,7 @@
         return ve.createElement(
           oC,
           null,
-          ve.createElement(
-            "p",
-            null,
-            "你有 ",
-            e,
-            " 还没有推到远程上。"
-          ),
+          ve.createElement("p", null, "你有 ", e, " 还没有推到远程上。"),
           ve.createElement(
             "p",
             null,
@@ -80333,11 +80294,7 @@
           : ve.createElement(
               "div",
               null,
-              ve.createElement(
-                "div",
-                { className: "title" },
-                "你都准备好了!"
-              ),
+              ve.createElement("div", { className: "title" }, "你都准备好了!"),
               ve.createElement(
                 "div",
                 { className: "no-prs" },
@@ -83713,8 +83670,8 @@
                 ve.createElement(Pv, { className: "icon", symbol: $u }),
                 ve.createElement(
                   "span",
-                  { title: `Merge a branch into ${e.name}` },
-                  "Choose a branch to merge into ",
+                  { title: `将分支合并到 ${e.name}` },
+                  "选择要合并到的分支",
                   ve.createElement("strong", null, e.name)
                 )
               )
@@ -86623,9 +86580,7 @@
           })(a);
         if (null === n)
           return (function (e, t, n) {
-            const r = e
-                ? "将此分支发布到GitHub"
-                : "将此分支发布到远程",
+            const r = e ? "将此分支发布到GitHub" : "将此分支发布到远程",
               i = dl()(hR.className, "nudge-arrow", { "nudge-arrow-up": n });
             return ve.createElement(aR, {
               ...hR,
@@ -87604,9 +87559,7 @@
           });
       }
       getOkButtonLabel() {
-        return this.props.discardingAllChanges
-          ? "放弃所有更改"
-          : "放弃更改";
+        return this.props.discardingAllChanges ? "放弃所有更改" : "放弃更改";
       }
       getDialogTitle() {
         return this.props.discardingAllChanges
@@ -87825,11 +87778,7 @@
             ? ve.createElement(
                 ve.Fragment,
                 null,
-                ve.createElement(
-                  "p",
-                  null,
-                  "GitHub现在要求您使用浏览器登录。"
-                ),
+                ve.createElement("p", null, "GitHub现在要求您使用浏览器登录。"),
                 ve.createElement("p", null, DR)
               )
             : ve.createElement(
@@ -89803,7 +89752,7 @@
             ve.createElement("div", { className: "name" }, e.name),
             ve.createElement("div", { className: "login" }, "@", e.login)
           ),
-          ve.createElement(tw, { onClick: this.logout(e) }, "Sign out")
+          ve.createElement(tw, { onClick: this.logout(e) }, "注销")
         );
       }
       onDotComSignIn = () => {
@@ -89897,11 +89846,7 @@
           ve.createElement(
             "div",
             { className: "advanced-section" },
-            ve.createElement(
-              "h2",
-              null,
-              "如果我有更改并切换分支..."
-            ),
+            ve.createElement("h2", null, "如果我有更改并切换分支..."),
             ve.createElement(bC, {
               value: Ms.AskForConfirmation,
               checked:
@@ -89930,8 +89875,7 @@
             { className: "advanced-section" },
             ve.createElement("h2", null, "后台更新"),
             ve.createElement(lw, {
-              label:
-                "定期获取和刷新所有仓库的状态",
+              label: "定期获取和刷新所有仓库的状态",
               value: this.props.repositoryIndicatorsEnabled ? aw.On : aw.Off,
               onChange: this.onRepositoryIndicatorsEnabledChanged,
             }),
@@ -90100,11 +90044,7 @@
         return ve.createElement(
           "div",
           { className: "default-branch-component" },
-          ve.createElement(
-            "h2",
-            null,
-            "新仓库的默认分支名称"
-          ),
+          ve.createElement("h2", null, "新仓库的默认分支名称"),
           ds.map((t) =>
             ve.createElement(bC, {
               key: t,
@@ -98040,7 +97980,7 @@
               ve.createElement(
                 tw,
                 { onClick: this.showFilePicker, disabled: t || n },
-                "Choose…"
+                "选择…"
               )
             ),
             this.renderGitRepositoryWarning(),
@@ -98921,9 +98861,7 @@
         );
       }
       getHeaderText = () =>
-        void 0 !== this.props.headerText
-          ? this.props.headerText
-          : "创建分支";
+        void 0 !== this.props.headerText ? this.props.headerText : "创建分支";
       getOkButtonText = () =>
         void 0 !== this.props.okButtonText
           ? this.props.okButtonText
@@ -99533,9 +99471,7 @@
               n = this.state.altKeyPressed
                 ? this.props.onCheckForNonStaggeredUpdates
                 : this.props.onCheckForUpdates,
-              r = this.state.altKeyPressed
-                ? "确保最新版本"
-                : "检查更新",
+              r = this.state.altKeyPressed ? "确保最新版本" : "检查更新",
               i = this.state.altKeyPressed
                 ? "GitHub Desktop可能会逐步向用户发布更新，以确保我们及早发现任何问题，您可以绕过逐步推出，并直接跳转到最新版本（如果有）。"
                 : "";
@@ -100107,11 +100043,7 @@
               "."
             ),
             t,
-            ve.createElement(
-              "p",
-              null,
-              "GitHub Desktop 还分发以下库："
-            ),
+            ve.createElement("p", null, "GitHub Desktop 还分发以下库："),
             e ? this.renderLicenses(e) : ve.createElement(Cw, null)
           ),
           ve.createElement(hC, null)
@@ -100973,10 +100905,7 @@
             "仓库必须具有GitHub仓库才能添加上游远程",
             this.props.repository.gitHubRepository
           ),
-          n = at(
-            "仓库必须具有父仓库才能添加上游远程",
-            t.parent
-          ),
+          n = at("仓库必须具有父仓库才能添加上游远程", t.parent),
           r = n.fullName,
           i = this.props.existingRemote.url,
           o = n.cloneURL;
@@ -101583,14 +101512,12 @@
           t = [
             {
               title: `保留我的更改 ${this.state.currentBranchName}`,
-              description:
-                "您正在进行的工作将保存在此分支上，以便您稍后返回",
+              description: "您正在进行的工作将保存在此分支上，以便您稍后返回",
               key: UN.StashOnCurrentBranch,
             },
             {
               title: `将我的更改带到 ${e.name}`,
-              description:
-                "您正在进行的工作将跟随您进入新的分支",
+              description: "您正在进行的工作将跟随您进入新的分支",
               key: UN.MoveToNewBranch,
             },
           ];
@@ -101598,8 +101525,7 @@
           Gb,
           null,
           ve.createElement(wT, {
-            label:
-              "您对此分支进行了更改，你想用它们做什么？",
+            label: "您对此分支进行了更改，你想用它们做什么？",
             items: t,
             selectedKey: this.state.selectedStashAction,
             onSelectionChanged: this.onSelectionChanged,
@@ -101708,11 +101634,7 @@
           ve.createElement(
             oC,
             null,
-            ve.createElement(
-              Gb,
-              null,
-              "是否确实要放弃这些隐藏的更改?"
-            )
+            ve.createElement(Gb, null, "是否确实要放弃这些隐藏的更改?")
           ),
           ve.createElement(
             cC,
@@ -102225,8 +102147,7 @@
               Gb,
               null,
               ve.createElement(wT, {
-                label:
-                  "您对此分支进行了更改,你想用它们做什么?",
+                label: "您对此分支进行了更改,你想用它们做什么?",
                 items: e,
                 selectedKey: this.state.forkContributionTarget,
                 onSelectionChanged: this.onSelectionChanged,
@@ -102681,13 +102602,7 @@
           ve.createElement(
             oC,
             null,
-            ve.createElement(
-              "p",
-              null,
-              '为仓库选择新别名 "',
-              qr(e),
-              '". '
-            ),
+            ve.createElement("p", null, '为仓库选择新别名 "', qr(e), '". '),
             ve.createElement(
               "p",
               null,
@@ -104845,8 +104760,7 @@
       }
       render() {
         let e = "切换到pull请求";
-        this.props.shouldChangeRepository &&
-          (e = "切换到仓库并拉取请求");
+        this.props.shouldChangeRepository && (e = "切换到仓库并拉取请求");
         const { pullRequest: t } = this.props,
           n = this.loadingChecksInfo,
           r = this.state.checks.filter(ru),
@@ -105288,13 +105202,7 @@
           ve.createElement(
             oC,
             null,
-            ve.createElement(
-              "p",
-              null,
-              "未能放弃对 ",
-              $a,
-              "."
-            ),
+            ve.createElement("p", null, "未能放弃对 ", $a, "."),
             ve.createElement(
               "div",
               null,
@@ -105309,11 +105217,7 @@
                   $a,
                   " 配置为立即删除项目。"
                 ),
-                ve.createElement(
-                  "li",
-                  null,
-                  "移动文件的访问受限。"
-                )
+                ve.createElement("li", null, "移动文件的访问受限。")
               )
             ),
             ve.createElement(
@@ -105341,8 +105245,7 @@
           null,
           ve.createElement(uC, {
             okButtonText: "永久放弃更改",
-            okButtonTitle:
-              "这将丢弃更改，并且不可恢复。",
+            okButtonTitle: "这将丢弃更改，并且不可恢复。",
             cancelButtonText: "取消",
             destructive: !0,
           })
@@ -105494,9 +105397,7 @@
         } = this.props;
         let r;
         "APPROVED" === e.state ||
-          (t
-            ? (r = "切换到仓库并请求拉取")
-            : n && (r = "切换到pull请求"));
+          (t ? (r = "切换到仓库并请求拉取") : n && (r = "切换到pull请求"));
         const i = ve.createElement(uC, {
           onCancelButtonClick: this.props.onDismissed,
           cancelButtonText: "取消",
@@ -105708,7 +105609,7 @@
           ve.createElement(
             "div",
             { className: "branch-select-dropdown-header" },
-            "Choose a base branch",
+            "选择基本分支",
             ve.createElement(
               "button",
               {
@@ -114145,7 +114046,7 @@
               if (o.kind === Ar.Valid) {
                 const { branch: r } = o,
                   s = r.upstreamRemoteName || i.name,
-                  a = `Pushing to ${s}`;
+                  a = `推送到 ${s}`;
                 this.updatePushPullFetchProgress(e, {
                   kind: "push",
                   title: a,
@@ -115922,8 +115823,7 @@
                         "仓库创建失败。" === n.apiError.message &&
                         n.apiError.errors &&
                         n.apiError.errors.some(
-                          (e) =>
-                            "此帐户上已存在名称" === e.message
+                          (e) => "此帐户上已存在名称" === e.message
                         )
                       )
                         throw new Error(
