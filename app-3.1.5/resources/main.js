@@ -16021,7 +16021,7 @@
           },
           {
             id: "fetch",
-            label: "&Fetch",
+            label: "&获取",
             accelerator: "CmdOrCtrl+Shift+T",
             click: fe("fetch"),
           },
