@@ -15869,21 +15869,21 @@
         return r.length <= 25 ? e : `${r.slice(0, 25).join("")}…`;
       })(a);
       const f = r ? "&删除…" : "&删除",
-        h = o ? "&在 GitHub 上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
+        h = o ? "&在GitHub上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
         d = new Array(),
         p = { type: "separator" },
         m = {
           label: "&文件",
           submenu: [
             {
-              label: "新建&仓库",
+              label: "&新建仓库",
               id: "new-repository",
               click: fe("create-repository"),
               accelerator: "CmdOrCtrl+N",
             },
             p,
             {
-              label: "导入&本地仓库",
+              label: "&导入本地仓库",
               id: "add-local-repository",
               accelerator: "CmdOrCtrl+O",
               click: fe("add-local-repository"),
@@ -15947,7 +15947,7 @@
               click: fe("show-history"),
             },
             {
-              label: "仓库&列表",
+              label: "&仓库列表",
               id: "show-repository-list",
               accelerator: "CmdOrCtrl+T",
               click: fe("choose-repository"),
@@ -15960,7 +15960,7 @@
             },
             p,
             {
-              label: "填写提交&备注",
+              label: "&填写提交备注",
               id: "go-to-commit-message",
               accelerator: "CmdOrCtrl+G",
               click: fe("go-to-commit-message"),
@@ -15971,7 +15971,7 @@
               accelerator: "Ctrl+H",
               click: fe(l ? "hide-stashed-changes" : "show-stashed-changes"),
             },
-            { label: "切换为&全屏", role: "togglefullscreen" },
+            { label: "&切换为全屏", role: "togglefullscreen" },
             p,
             {
               label: "重置缩放",
@@ -16034,7 +16034,7 @@
           p,
           {
             id: "view-repository-on-github",
-            label: "&在 GitHub 上查看",
+            label: "&在GitHub上查看",
             accelerator: "CmdOrCtrl+Shift+G",
             click: fe("view-repository-on-github"),
           },
@@ -16051,7 +16051,7 @@
             click: fe("open-working-directory"),
           },
           {
-            label: `&在 ${e ?? ""}中打开`,
+            label: `&在${e ?? ""}中打开`,
             id: "open-external-editor",
             accelerator: "CmdOrCtrl+Shift+A",
             click: fe("open-external-editor"),
@@ -16059,13 +16059,13 @@
           p,
           {
             id: "create-issue-in-repository-on-github",
-            label: "在GitHub上创建 &issue",
+            label: "&在GitHub上创建issue",
             accelerator: "CmdOrCtrl+I",
             click: fe("create-issue-in-repository-on-github"),
           },
           p,
           {
-            label: "仓库&设置",
+            label: "&仓库设置",
             id: "show-repository-settings",
             click: fe("show-repository-settings"),
           },
@@ -16073,7 +16073,7 @@
       });
       const b = [
         {
-          label: "新建&分支",
+          label: "&新建分支",
           id: "create-branch",
           accelerator: "CmdOrCtrl+Shift+N",
           click: fe("create-branch"),
@@ -16136,13 +16136,13 @@
         },
         p,
         {
-          label: "在 &GitHub 上进行比较",
+          label: "&在GitHub上进行比较",
           id: "compare-on-github",
           accelerator: "CmdOrCtrl+Shift+C",
           click: fe("compare-on-github"),
         },
         {
-          label: "查看 GitHub 上的分支",
+          label: "查看GitHub上的分支",
           id: "branch-on-github",
           accelerator: "CmdOrCtrl+Alt+B",
           click: fe("branch-on-github"),
@@ -16150,7 +16150,7 @@
       ];
       re() &&
         b.push({
-          label: "Preview pull request",
+          label: "预览拉取请求",
           id: "preview-pull-request",
           accelerator: "CmdOrCtrl+Alt+P",
           click: fe("preview-pull-request"),
@@ -16222,7 +16222,7 @@
             ..._,
             p,
             {
-              label: "&关于 GitHub Desktop",
+              label: "&关于GitHub Desktop",
               click: fe("show-about"),
               id: "about",
             },
@@ -17129,7 +17129,7 @@
                                   r &&
                                     s.push(
                                       new i.MenuItem({
-                                        label: "Add to dictionary",
+                                        label: "添加到词典",
                                         click: () =>
                                           n.session.addWordToSpellCheckerDictionary(
                                             r
