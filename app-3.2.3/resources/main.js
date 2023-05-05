@@ -26697,7 +26697,7 @@
         return n.length <= 25 ? e : `${n.slice(0, 25).join("")}…`;
       })(a);
       const f = n ? "&删除" : "&删除",
-        h = o ? "&在GitHub上查看Pull(拉取)请求" : "&创建Pull(拉取)请求",
+        h = o ? "&在GitHub上查看拉取请求" : "&创建拉取请求",
         d = new Array(),
         p = { type: "separator" },
         m = {
@@ -26813,13 +26813,13 @@
               click: de(ae.Out),
             },
             {
-              label: "Expand active resizable",
+              label: "扩大活动项大小",
               id: "increase-active-resizable-width",
               accelerator: "CmdOrCtrl+9",
               click: ce("increase-active-resizable-width"),
             },
             {
-              label: "Contract active resizable",
+              label: "缩小活动项大小",
               id: "decrease-active-resizable-width",
               accelerator: "CmdOrCtrl+8",
               click: ce("decrease-active-resizable-width"),

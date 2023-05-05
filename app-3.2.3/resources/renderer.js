@@ -52247,12 +52247,12 @@
         );
       },
       Ga = [".cmd", ".exe", ".bat", ".sh"],
-      Ka = "Copy file path",
-      Ya = "Copy relative file path",
-      Za = "Open in external editor",
-      Xa = "Show in Explorer",
-      Ja = "Recycle Bin",
-      Qa = "Open with default program";
+      Ka = "复制文件路径",
+      Ya = "复制相对文件路径",
+      Za = "在外部编辑器中打开",
+      Xa = "在资源管理器中显示",
+      Ja = "回收站",
+      Qa = "使用默认程序打开";
     function el(e) {
       return -1 === Ga.indexOf(e.toLowerCase());
     }
@@ -62549,25 +62549,25 @@
         const { repository: t } = e,
           n = t instanceof Vr && t.missing,
           r = t instanceof Vr && null != t.gitHubRepository,
-          i = e.externalEditorLabel ? `Open in ${e.externalEditorLabel}` : Za;
+          i = e.externalEditorLabel ? `在${e.externalEditorLabel}中打开` : Za;
         return [
           ...cb(e),
           {
-            label: "Copy repo name",
+            label: "复制仓库名称",
             action: () => m.clipboard.writeText(t.name),
           },
           {
-            label: "Copy repo path",
+            label: "复制仓库路径",
             action: () => m.clipboard.writeText(t.path),
           },
           { type: "separator" },
           {
-            label: "View on GitHub",
+            label: "查看GitHub",
             action: () => e.onViewOnGitHub(t),
             enabled: r,
           },
           {
-            label: `Open in ${e.shellLabel}`,
+            label: `在${e.shellLabel}中打开`,
             action: () => e.onOpenInShell(t),
             enabled: !n,
           },
@@ -62713,7 +62713,7 @@
           ab,
           {
             className: "change-indicator-wrapper",
-            tooltip: "There are uncommitted changes in this repository",
+            tooltip: "此存储库中存在未提交的更改",
           },
           we.createElement(Gv, { symbol: qu })
         ),
@@ -65818,7 +65818,7 @@
           ref: this.onTextBoxRef,
           type: "search",
           autoFocus: !0,
-          placeholder: this.props.placeholderText || "Filter",
+          placeholder: this.props.placeholderText || "筛选",
           className: "filter-list-filter-field",
           onValueChanged: this.onFilterValueChanged,
           onEnterPressed: this.onEnterPressed,
@@ -66284,9 +66284,9 @@
         );
       onNewRepositoryButtonClick = () => {
         ib([
-          { label: "Clone repository…", action: this.onCloneRepository },
+          { label: "克隆仓库…", action: this.onCloneRepository },
           {
-            label: "Create new repository…",
+            label: "创建新的仓库…",
             action: this.onCreateNewRepository,
           },
           {
@@ -68379,7 +68379,7 @@
                 tooltip: this.props.cancelButtonTitle,
                 type: !0 === this.props.destructive ? "submit" : "reset",
               },
-              this.props.cancelButtonText || "Cancel"
+              this.props.cancelButtonText || "取消"
             );
       }
       renderButtons() {
@@ -69779,13 +69779,7 @@
       };
       getButtonVerb() {
         const { isCommitting: e, commitToAmend: t } = this.props;
-        return null !== t
-          ? e
-            ? "Amending"
-            : "Amend"
-          : e
-          ? "Committing"
-          : "Commit";
+        return null !== t ? (e ? "正在修改" : "修改") : e ? "正在提交" : "提交";
       }
       getCommittingButtonText() {
         const { branch: e } = this.props,
@@ -69796,14 +69790,14 @@
               we.Fragment,
               null,
               t,
-              " to ",
+              " 到 ",
               we.createElement("strong", null, e)
             );
       }
       getCommittingButtonTitle() {
         const { branch: e } = this.props,
           t = this.getButtonVerb();
-        return null === e ? t : `${t} to ${e}`;
+        return null === e ? t : `${t} 到 ${e}`;
       }
       getButtonText() {
         const { commitToAmend: e, commitButtonText: t } = this.props;
@@ -69817,7 +69811,7 @@
         return (
           t ||
           (null !== e
-            ? `${this.getButtonVerb()} last commit`
+            ? `${this.getButtonVerb()} 最后提交`
             : this.getCommittingButtonTitle())
         );
       }
@@ -69928,7 +69922,7 @@
             },
             we.createElement(Pw, {
               className: t,
-              placeholder: "Description",
+              placeholder: "描述",
               value: this.state.description || "",
               onValueChanged: this.onDescriptionChanged,
               autocompletionProviders:
@@ -70432,10 +70426,7 @@
         }
       };
       getDiscardChangesMenuItemLabel = (e) => {
-        const t =
-          1 === e.length
-            ? "Discard changes"
-            : `Discard ${e.length} selected changes`;
+        const t = 1 === e.length ? "放弃更改" : `放弃 ${e.length} 选定的更改`;
         return this.props.askForConfirmationOnDiscardChanges ? `${t}…` : t;
       };
       onContextMenu = (e) => {
@@ -70451,12 +70442,12 @@
             eo(this.props.workingDirectory);
         ib([
           {
-            label: "Discard all changes…",
+            label: "放弃所有更改…",
             action: this.onDiscardAllChanges,
             enabled: t,
           },
           {
-            label: n ? "Stash all changes…" : "Stash all changes",
+            label: n ? "保存所有更改…" : "保存所有更改",
             action: this.onStashChanges,
             enabled: t && null !== this.props.branch && !r,
           },
@@ -70478,14 +70469,14 @@
         action: () => m.clipboard.writeText(e.normalize(t.path)),
       });
       getCopySelectedPathsMenuItem = (t) => ({
-        label: "Copy paths",
+        label: "复制路径",
         action: () => {
           const n = t.map((t) => e.join(this.props.repository.path, t.path));
           m.clipboard.writeText(n.join(xt.EOL));
         },
       });
       getCopySelectedRelativePathsMenuItem = (t) => ({
-        label: "Copy relative paths",
+        label: "复制相对路径",
         action: () => {
           const n = t.map((t) => e.normalize(t.path));
           m.clipboard.writeText(n.join(xt.EOL));
@@ -70499,7 +70490,7 @@
       getOpenInExternalEditorMenuItem = (t, n) => {
         const { externalEditorLabel: r, repository: i } = this.props;
         return {
-          label: r ? `Open in ${r}` : Za,
+          label: r ? `在${r}中打开` : Za,
           action: () => {
             const n = e.join(i.path, t.path);
             this.props.onOpenInExternalEditor(n);
@@ -70526,13 +70517,13 @@
         const d = [this.getDiscardChangesMenuItem(c), { type: "separator" }];
         1 === c.length
           ? d.push({
-              label: "Ignore file (add to .gitignore)",
+              label: "忽略文件 (添加到 .gitignore)",
               action: () => this.props.onIgnoreFile(r),
               enabled: e.basename(r) !== cS,
             })
           : c.length > 1 &&
             d.push({
-              label: `Ignore ${c.length} selected files (add to .gitignore)`,
+              label: `忽略 ${c.length} 选择文件 (添加到 .gitignore)`,
               action: () => {
                 this.props.onIgnoreFile(c.filter((t) => e.basename(t) !== cS));
               },
@@ -70542,7 +70533,7 @@
             .slice(0, 5)
             .forEach((e) => {
               d.push({
-                label: `Ignore all ${e} files (add to .gitignore)`,
+                label: `忽略所有 ${e} 文件 (添加到 .gitignore)`,
                 action: () => this.props.onIgnorePattern(`*${e}`),
               });
             }),
@@ -70550,13 +70541,13 @@
             ? d.push(
                 { type: "separator" },
                 {
-                  label: "Include selected files",
+                  label: "包括所选文件",
                   action: () => {
                     l.map((e) => this.props.onIncludeChanged(e.path, !0));
                   },
                 },
                 {
-                  label: "Exclude selected files",
+                  label: "排除所选文件",
                   action: () => {
                     l.map((e) => this.props.onIncludeChanged(e.path, !1));
                   },
@@ -70622,17 +70613,17 @@
           ));
       };
       getPlaceholderMessage(t, n) {
-        if (!n) return "Summary (required)";
+        if (!n) return "备注（必填）";
         const r = t[0],
           i = (0, e.basename)(r.path);
         switch (r.status.kind) {
           case zr.New:
           case zr.Untracked:
-            return `Create ${i}`;
+            return `创建 ${i}`;
           case zr.Deleted:
-            return `Delete ${i}`;
+            return `删除 ${i}`;
           default:
-            return `Update ${i}`;
+            return `更新 ${i}`;
         }
       }
       onScroll = (e, t) => {
@@ -70773,8 +70764,8 @@
             isCommitting: n,
           } = this.props,
           { files: r } = e,
-          i = 1 === r.length ? "file" : "files",
-          o = `${r.length} changed ${i}`,
+          i = 1 === r.length ? "文件" : "文件",
+          o = `${r.length} 更改的 ${i}`,
           s = r.filter(
             (e) => e.selection.getSelectionType() !== Cr.None
           ).length,
@@ -71338,8 +71329,8 @@
           we.createElement(
             "h3",
             { id: "diff-options-popover-header" },
-            "Diff ",
-            "Options"
+            "差异 ",
+            "选项"
           ),
           this.renderHideWhitespaceChanges(),
           this.renderShowSideBySide()
@@ -71355,11 +71346,11 @@
         return we.createElement(
           "section",
           null,
-          we.createElement("h4", null, "Diff display"),
+          we.createElement("h4", null, "差异显示"),
           we.createElement(IC, {
             value: "Unified",
             checked: !this.props.showSideBySideDiff,
-            label: "Unified",
+            label: "统一",
             onSelected: this.onUnifiedSelected,
           }),
           we.createElement(IC, {
@@ -71368,7 +71359,7 @@
             label: we.createElement(
               we.Fragment,
               null,
-              we.createElement("div", null, "Split")
+              we.createElement("div", null, "分离")
             ),
             onSelected: this.onSideBySideSelected,
           })
@@ -71378,17 +71369,17 @@
         return we.createElement(
           "section",
           null,
-          we.createElement("h4", null, "Whitespace"),
+          we.createElement("h4", null, "空白"),
           we.createElement(Rw, {
             value: this.props.hideWhitespaceChanges ? Ew.On : Ew.Off,
             onChange: this.onHideWhitespaceChangesChanged,
-            label: "Hide whitespace changes",
+            label: "隐藏空白更改",
           }),
           this.props.isInteractiveDiff &&
             we.createElement(
               "p",
               { className: "secondary-text" },
-              "Interacting with individual lines or hunks will be disabled while hiding whitespace."
+              "隐藏空白时，将禁用与单个行或大块的交互。"
             )
         );
       }
@@ -72453,7 +72444,7 @@
       onContextMenu = (e, t) => {
         const n = [
             {
-              label: "Copy",
+              label: "复制",
               action: () => {
                 this.onCopy(e, t);
               },
@@ -72539,13 +72530,13 @@
         let r = "";
         return (
           e === Rl.Additions
-            ? (r = "added")
+            ? (r = "添加的")
             : e === Rl.Deletions
-            ? (r = "removed")
+            ? (r = "删除的")
             : e === Rl.Mixed
-            ? (r = "modified")
+            ? (r = "修改的")
             : ot(0, `Invalid range type: ${e}`),
-          `Discard ${r} line${t > 1 ? "s" : ""}${n}`
+          `放弃 ${r} 行 ${t > 1 ? "s" : ""}${n}`
         );
       }
       onCopy = (e, t) => {
@@ -74331,8 +74322,8 @@
       onContextMenuText = () => {
         const e = window.getSelection()?.toString().length ?? 0,
           t = [
-            { label: "Copy", role: e > 0 ? "copy" : void 0, enabled: e > 0 },
-            { label: "Select all", action: () => this.onSelectAll() },
+            { label: "复制", role: e > 0 ? "copy" : void 0, enabled: e > 0 },
+            { label: "全选", action: () => this.onSelectAll() },
           ],
           n = this.buildExpandMenuItem();
         null !== n && t.push({ type: "separator" }, n), ib(t);
@@ -74403,13 +74394,13 @@
         let r = "";
         return (
           e === Rl.Additions
-            ? (r = "added")
+            ? (r = "添加的")
             : e === Rl.Deletions
-            ? (r = "removed")
+            ? (r = "删除的")
             : e === Rl.Mixed
-            ? (r = "modified")
+            ? (r = "修改")
             : ot(0, `Invalid range type: ${e}`),
-          `Discard ${r} line${t > 1 ? "s" : ""}${n}`
+          `放弃 ${r} 行 ${t > 1 ? "s" : ""}${n}`
         );
       }
       onDiscardChanges(e, t = e) {
@@ -74692,7 +74683,7 @@
           Ce().createElement(
             "button",
             { onClick: this.onCopySHAButtonClick },
-            "Copy"
+            "复制"
           )
         );
       }
@@ -75641,7 +75632,7 @@
           we.Fragment,
           null,
           t,
-          " menu or",
+          " 菜单 或",
           " ",
           this.renderDiscoverabilityKeyboardShortcut(e)
         );
@@ -75670,7 +75661,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `View the files of your repository in ${e}`,
+          `在${e}中查看仓库的文件`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -75681,7 +75672,7 @@
         return null !== this.props.repository.gitHubRepository
           ? this.renderMenuBackedAction(
               "view-repository-on-github",
-              "Open the repository page on GitHub in your browser",
+              "在浏览器中打开GitHub上的仓库页面",
               void 0,
               this.onViewOnGitHubClicked
             )
@@ -75705,17 +75696,17 @@
         const t = we.createElement(
           we.Fragment,
           null,
-          "Select your editor in",
+          "在选项中选择编辑器",
           " ",
           we.createElement(
             Xw,
             { onClick: this.openIntegrationPreferences },
-            "Options"
+            "选项"
           )
         );
         return this.renderMenuBackedAction(
           e,
-          "Open the repository in your external editor",
+          "在外部编辑器中打开仓库",
           t,
           this.onOpenInExternalEditorClicked
         );
@@ -76037,11 +76028,11 @@
               we.createElement(
                 "div",
                 { className: "text" },
-                we.createElement("h1", null, "No local changes"),
+                we.createElement("h1", null, "没有本地更改"),
                 we.createElement(
                   "p",
                   null,
-                  "There are no uncommitted changes in this repository. Here are some friendly suggestions for what to do next."
+                  "此仓库中没有未提交的更改，下面是一些关于下一步工作建议。"
                 )
               ),
               we.createElement("img", {
@@ -76473,15 +76464,15 @@
           ib(t);
       };
       getContextMenuForSingleCommit() {
-        let e = "View on GitHub";
+        let e = "查看GitHub";
         const t = this.props.gitHubRepository;
-        t && t.endpoint !== Dn() && (e = "View on GitHub Enterprise");
+        t && t.endpoint !== Dn() && (e = "在GitHub Enterprise上查看");
         const n = [];
         this.props.canBeAmended &&
-          n.push({ label: "Amend commit…", action: this.onAmendCommit }),
+          n.push({ label: "提交修改…", action: this.onAmendCommit }),
           this.props.canBeUndone &&
             n.push({
-              label: "Undo commit…",
+              label: "撤消提交…",
               action: () => {
                 this.props.onUndoCommit &&
                   this.props.onUndoCommit(this.props.commit);
@@ -76490,7 +76481,7 @@
             }),
           ao() &&
             n.push({
-              label: "Reset to commit…",
+              label: "重置以提交…",
               action: () => {
                 this.props.onResetToCommit &&
                   this.props.onResetToCommit(this.props.commit);
@@ -76501,7 +76492,7 @@
             }),
           n.push(
             {
-              label: "Revert changes in commit",
+              label: "恢复提交中的更改",
               action: () => {
                 this.props.onRevertCommit &&
                   this.props.onRevertCommit(this.props.commit);
@@ -76510,14 +76501,14 @@
             },
             { type: "separator" },
             {
-              label: "Create branch from commit",
+              label: "从提交创建分支",
               action: () => {
                 this.props.onCreateBranch &&
                   this.props.onCreateBranch(this.props.commit);
               },
             },
             {
-              label: "Create Tag…",
+              label: "创建标记…",
               action: this.onCreateTag,
               enabled: void 0 !== this.props.onCreateTag,
             }
@@ -76525,16 +76516,16 @@
         const r = this.getDeleteTagsMenuItem();
         null !== r && n.push({ type: "separator" }, r),
           this.props.commit.tags.length;
-        const i = this.props.commit.tags.length > 1 ? "Copy tags" : "Copy tag";
+        const i = this.props.commit.tags.length > 1 ? "复制标记" : "复制标记";
         return (
           n.push(
             {
-              label: "Cherry-pick commit…",
+              label: "优选提交…",
               action: this.onCherryPick,
               enabled: this.canCherryPick(),
             },
             { type: "separator" },
-            { label: "Copy SHA", action: this.onCopySHA },
+            { label: "复制 SHA", action: this.onCopySHA },
             {
               label: i,
               action: this.onCopyTags,
@@ -76553,12 +76544,12 @@
         const e = this.props.selectedCommits.length;
         return [
           {
-            label: `Cherry-pick ${e} commits…`,
+            label: `优选 ${e} 提交…`,
             action: this.onCherryPick,
             enabled: this.canCherryPick(),
           },
           {
-            label: `Squash ${e} commits…`,
+            label: `挤压 ${e} 提交…`,
             action: this.onSquash,
             enabled: this.canSquash(),
           },
@@ -76591,7 +76582,7 @@
         if (1 === n.tags.length) {
           const r = n.tags[0];
           return {
-            label: `Delete tag ${r}`,
+            label: `删除标记 ${r}`,
             action: () => t(r),
             enabled: e.includes(r),
           };
@@ -77242,7 +77233,7 @@
                 "li",
                 {
                   className: "commit-summary-meta-item without-truncation",
-                  title: "Diff Options",
+                  title: "差异选项",
                 },
                 we.createElement(SS, {
                   isInteractiveDiff: !1,
@@ -77263,7 +77254,7 @@
       }
       renderChangedFilesDescription = () => {
         const e = this.props.changesetData.files.length,
-          t = `${e} changed ${1 === e ? "file" : "files"}`;
+          t = `${e} 更改 ${1 === e ? "文件" : "文件"}`;
         let n = 0,
           r = 0,
           i = 0,
@@ -77682,7 +77673,7 @@
           u = [
             { label: Xa, action: () => rt(o, t.path), enabled: l },
             {
-              label: s ? `Open in ${s}` : Za,
+              label: s ? `在${s}中打开` : Za,
               action: () => this.props.onOpenInExternalEditor(a),
               enabled: l,
             },
@@ -77699,9 +77690,9 @@
             },
             { type: "separator" },
           ];
-        let h = "View on GitHub";
+        let h = "查看GitHub";
         const d = o.gitHubRepository;
-        d && d.endpoint !== Dn() && (h = "View on GitHub Enterprise"),
+        d && d.endpoint !== Dn() && (h = "在GitHub Enterprise上查看"),
           u.push({
             label: h,
             action: () => this.onViewOnGitHub(r[0].sha, t),
@@ -77970,11 +77961,11 @@
       };
       getGroupLabel(e) {
         return "default" === e
-          ? "Default branch"
+          ? "默认分支"
           : "recent" === e
-          ? "Recent branches"
+          ? "最近的分支"
           : "other" === e
-          ? "Other branches"
+          ? "其它分支"
           : ot(0, `Unknown identifier: ${e}`);
       }
       onRenderNoItems = () =>
@@ -77991,7 +77982,7 @@
                 className: "new-branch-button",
                 onClick: this.onCreateNewBranch,
               },
-              "New branch"
+              "新分支"
             )
           : null;
       onItemClick = (e, t) => {
@@ -78235,12 +78226,12 @@
               we.createElement(
                 "div",
                 { className: "title" },
-                "You're all set!"
+                "你已经准备好了!"
               ),
               we.createElement(
                 "div",
                 { className: "no-prs" },
-                "No open pull requests in ",
+                "没有打开的拉取请求 ",
                 we.createElement(TC, null, this.props.repositoryName)
               )
             );
@@ -78250,34 +78241,34 @@
           ? we.createElement(
               "div",
               { className: "call-to-action" },
-              "Loading pull requests as fast as I can!"
+              "尽快加载拉取请求!"
             )
           : this.props.isOnDefaultBranch
           ? we.createElement(
               "div",
               { className: "call-to-action" },
-              "Would you like to",
+              "你想",
               " ",
               we.createElement(
                 Xw,
                 { onClick: this.props.onCreateBranch },
-                "create a new branch"
+                "创建一个新分支"
               ),
               " ",
-              "and get going on your next project?"
+              "开始你的下一个项目?"
             )
           : we.createElement(
               "div",
               { className: "call-to-action" },
-              "Would you like to",
+              "你想",
               " ",
               we.createElement(
                 Xw,
                 { onClick: this.props.onCreatePullRequest },
-                "create a pull request"
+                "创建拉取请求"
               ),
               " ",
-              "from the current branch?"
+              "来自当前分支?"
             );
       }
     }
@@ -78407,7 +78398,7 @@
           {
             disabled: this.props.isLoadingPullRequests,
             onClick: this.onRefreshPullRequests,
-            tooltip: "Refresh the list of pull requests",
+            tooltip: "刷新拉取请求列表",
           },
           we.createElement(Gv, {
             symbol: nb,
@@ -78450,7 +78441,7 @@
         void 0 !== r &&
           o.push({ label: "Rename…", action: () => r(t), enabled: n }),
         o.push({
-          label: "Copy branch name",
+          label: "复制分支名称",
           action: () => m.clipboard.writeText(t),
         }),
         o.push({ type: "separator" }),
@@ -81477,7 +81468,7 @@
           we.createElement(
             vw,
             { className: "button-with-icon", onClick: this.onViewOnGitHub },
-            "View on GitHub",
+            "查看GitHub",
             we.createElement(Gv, { symbol: lh })
           )
         );
@@ -81613,7 +81604,7 @@
                 we.createElement(
                   "span",
                   { title: `Merge a branch into ${e.name}` },
-                  "Choose a branch to merge into ",
+                  "选择要合并分支到 ",
                   we.createElement("strong", null, e.name)
                 )
               )
@@ -81634,11 +81625,11 @@
                 selectedIndex: this.props.selectedTab,
                 allowDragOverSwitching: !0,
               },
-              we.createElement("span", null, "Branches"),
+              we.createElement("span", null, "分支"),
               we.createElement(
                 "span",
                 { className: "pull-request-tab" },
-                "Pull requests",
+                "拉取请求",
                 this.renderOpenPullRequestsBubble()
               )
             )
@@ -82282,9 +82273,9 @@
             const { branches: t, formState: n } = e;
             return t.some((e) => !e.isDesktopForkRemoteBranch)
               ? n.kind === Ze.History
-                ? "Select branch to compare..."
+                ? "选择要比较的分支..."
                 : void 0
-              : "No branches to compare";
+              : "没有可比较的分支";
           })(this.props.compareState);
         return we.createElement(
           "div",
@@ -83253,25 +83244,25 @@
               xk,
               null,
               we.createElement(Sk, {
-                title: "Explore projects on GitHub",
+                title: "在GitHub上探索项目",
                 description: "Contribute to a project that interests you",
-                buttonText: "Open in browser",
+                buttonText: "在浏览器中打开",
                 onClick: this.openDotcomExplore,
                 type: "normal",
                 image: ax,
               }),
               we.createElement(Sk, {
-                title: "Create a new repository",
+                title: "创建新仓库",
                 description: "Get started on a brand new project",
-                buttonText: "Create repository",
+                buttonText: "创建仓库",
                 onClick: this.onCreateNewRepository,
                 type: "normal",
                 image: lx,
               }),
               we.createElement(Sk, {
-                title: "Add a local repository",
+                title: "添加本地仓库",
                 description: "Work on an existing project in GitHub Desktop",
-                buttonText: "Add repository",
+                buttonText: "添加仓库",
                 onClick: this.onAddExistingRepository,
                 type: "normal",
                 image: cx,
@@ -83359,13 +83350,13 @@
           we.createElement(
             "span",
             { className: "with-indicator", id: "changes-tab" },
-            we.createElement("span", null, "Changes"),
+            we.createElement("span", null, "更改"),
             this.renderChangesBadge()
           ),
           we.createElement(
             "div",
             { className: "with-indicator", id: "history-tab" },
-            we.createElement("span", null, "History")
+            we.createElement("span", null, "历史")
           )
         );
       }
@@ -85398,14 +85389,14 @@
           c,
           u,
           h = Qu,
-          d = "Current branch",
+          d = "当前分支",
           p = !0,
           m = !1;
         if ((this.props.currentPullRequest && (h = nh), i.kind === $r.Unknown))
           return null;
         if (i.kind === $r.Unborn)
           (l = i.ref),
-            (c = `Current branch is ${i.ref}`),
+            (c = `当前分支是 ${i.ref}`),
             (p = t.allBranches.some((e) => !e.isDesktopForkRemoteBranch));
         else if (i.kind === $r.Detached)
           (l = `On ${i.currentSha.substring(0, 7)}`),
@@ -85575,9 +85566,9 @@
     class qx extends we.Component {
       render() {
         const e = this.props.progress,
-          t = e.title || "Hang on…";
+          t = e.title || "稍等…";
         return we.createElement(kx, {
-          title: "Reverting…",
+          title: "正在回退…",
           description: t,
           progressValue: e.value,
           className: "revert-progress",
@@ -85597,14 +85588,12 @@
           });
       }
       getOkButtonLabel() {
-        return this.props.discardingAllChanges
-          ? "Discard all changes"
-          : "Discard changes";
+        return this.props.discardingAllChanges ? "放弃所有更改" : "放弃更改";
       }
       getDialogTitle() {
         return this.props.discardingAllChanges
-          ? "Confirm discard all changes"
-          : "Confirm discard changes";
+          ? "确认放弃所有更改"
+          : "确认放弃更改";
       }
       render() {
         const e = this.state.isDiscardingChanges;
@@ -87748,7 +87737,7 @@
           this.props.dotComAccount
             ? this.renderAccount(this.props.dotComAccount)
             : this.renderSignIn(NT.DotCom),
-          we.createElement("h2", null, "GitHub Enterprise"),
+          we.createElement("h2", null, "GitHub企业版"),
           this.props.enterpriseAccount
             ? this.renderAccount(this.props.enterpriseAccount)
             : this.renderSignIn(NT.Enterprise)
@@ -87771,7 +87760,7 @@
             we.createElement("div", { className: "name" }, e.name),
             we.createElement("div", { className: "login" }, "@", e.login)
           ),
-          we.createElement(vw, { onClick: this.logout(e) }, "Sign out")
+          we.createElement(vw, { onClick: this.logout(e) }, "注销")
         );
       }
       onDotComSignIn = () => {
@@ -87781,7 +87770,7 @@
         this.props.onEnterpriseSignIn();
       };
       renderSignIn(e) {
-        const t = "Sign in";
+        const t = "登录";
         switch (e) {
           case NT.DotCom:
             return we.createElement(
@@ -87790,7 +87779,7 @@
               we.createElement(
                 "div",
                 null,
-                "Sign in to your GitHub.com account to access your repositories."
+                "登录您的GitHub.com帐户以访问您的仓库。"
               )
             );
           case NT.Enterprise:
@@ -87800,7 +87789,7 @@
               we.createElement(
                 "div",
                 null,
-                "If you have a GitHub Enterprise or AE account at work, sign in to it to get access to your repositories."
+                "如果你有一个GitHub Enterprise或AE帐户在工作，请登录它以访问你的仓库。"
               )
             );
           default:
@@ -87842,9 +87831,9 @@
         return we.createElement(
           "span",
           null,
-          "Help GitHub Desktop improve by submitting",
+          "通过提交帮助GitHub Desktop 改进",
           " ",
-          we.createElement(Xw, { uri: Bg }, "usage stats")
+          we.createElement(Xw, { uri: Bg }, "使用情况报告")
         );
       }
       render() {
@@ -87854,24 +87843,23 @@
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement("h2", null, "Background updates"),
+            we.createElement("h2", null, "后台更新"),
             we.createElement(Rw, {
-              label:
-                "Periodically fetch and refresh status of all repositories",
+              label: "定期获取和刷新所有仓库的状态",
               value: this.props.repositoryIndicatorsEnabled ? Ew.On : Ew.Off,
               onChange: this.onRepositoryIndicatorsEnabledChanged,
             }),
             we.createElement(
               "p",
               { className: "git-settings-description" },
-              "Allows the display of up-to-date status indicators in the repository list. Disabling this may improve performance with many repositories."
+              "允许在仓库列表中显示最新的状态指示器，禁用此功能可以提高较多仓库的性能。"
             )
           ),
           this.renderSSHSettings(),
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement("h2", null, "Usage"),
+            we.createElement("h2", null, "使用情况"),
             we.createElement(Rw, {
               label: this.reportDesktopUsageLabel(),
               value: this.state.optOutOfUsageTracking ? Ew.Off : Ew.On,
@@ -87887,7 +87875,7 @@
               { className: "advanced-section" },
               we.createElement("h2", null, "SSH"),
               we.createElement(Rw, {
-                label: "Use system OpenSSH (recommended)",
+                label: "使用系统 OpenSSH (推荐)",
                 value: this.props.useWindowsOpenSSH ? Ew.On : Ew.Off,
                 onChange: this.onUseWindowsOpenSSHChanged,
               })
@@ -87947,11 +87935,7 @@
         return we.createElement(
           "div",
           { className: "default-branch-component" },
-          we.createElement(
-            "h2",
-            null,
-            "Default branch name for new repositories"
-          ),
+          we.createElement("h2", null, "新仓库的默认分支名称"),
           Cs.map((t) =>
             we.createElement(IC, {
               key: t,
@@ -87965,7 +87949,7 @@
             key: "",
             checked: e,
             value: "",
-            label: "Other…",
+            label: "其它…",
             onSelected: this.onDefaultBranchChanged,
           }),
           e &&
@@ -87978,7 +87962,7 @@
           we.createElement(
             "p",
             { className: "git-settings-description" },
-            "These preferences will edit your global Git config."
+            "这些首选项将编辑您的全局Git配置。"
           )
         );
       }
@@ -88054,7 +88038,7 @@
               we.createElement(
                 "span",
                 { className: "theme-value-label" },
-                "Light"
+                "亮色"
               )
             );
           case Yn.Dark:
@@ -88065,7 +88049,7 @@
               we.createElement(
                 "span",
                 { className: "theme-value-label" },
-                "Dark"
+                "暗色"
               )
             );
           case Yn.System:
@@ -88082,7 +88066,7 @@
               we.createElement(
                 "span",
                 { className: "theme-value-label" },
-                "System"
+                "跟随系统"
               )
             );
         }
@@ -88093,13 +88077,13 @@
           return we.createElement(
             gC,
             null,
-            we.createElement(cw, null, "Loading system theme")
+            we.createElement(cw, null, "加载系统主题")
           );
         const t = [Yn.Light, Yn.Dark, ...(nr() ? [Yn.System] : [])];
         return we.createElement(
           gC,
           null,
-          we.createElement("h2", { id: "theme-heading" }, "Theme"),
+          we.createElement("h2", { id: "theme-heading" }, "主题"),
           we.createElement(LT, {
             ariaLabelledBy: "theme-heading",
             className: "theme-selector",
@@ -88146,7 +88130,7 @@
       renderExternalEditor() {
         const e = this.props.availableEditors,
           t = this.state.selectedExternalEditor,
-          n = "External editor";
+          n = "外部编辑器";
         return 0 === e.length
           ? we.createElement(
               "div",
@@ -88155,9 +88139,9 @@
               we.createElement(
                 "span",
                 null,
-                "No editors found.",
+                "找不到编辑器。",
                 " ",
-                we.createElement(Xw, { uri: ui }, "Install ", ci, "?")
+                we.createElement(Xw, { uri: ui }, "安装 ", ci, "?")
               )
             )
           : we.createElement(
@@ -88186,7 +88170,7 @@
         return we.createElement(
           gC,
           null,
-          we.createElement("h2", null, "Applications"),
+          we.createElement("h2", null, "应用程序"),
           we.createElement(cw, null, this.renderExternalEditor()),
           we.createElement(cw, null, this.renderSelectedShell())
         );
@@ -88247,40 +88231,36 @@
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement(
-              "h2",
-              null,
-              "Show a confirmation dialog before..."
-            ),
+            we.createElement("h2", null, "在之前显示确认对话框..."),
             we.createElement(Rw, {
-              label: "Removing repositories",
+              label: "删除仓库",
               value: this.state.confirmRepositoryRemoval ? Ew.On : Ew.Off,
               onChange: this.onConfirmRepositoryRemovalChanged,
             }),
             we.createElement(Rw, {
-              label: "Discarding changes",
+              label: "放弃更改",
               value: this.state.confirmDiscardChanges ? Ew.On : Ew.Off,
               onChange: this.onConfirmDiscardChangesChanged,
             }),
             we.createElement(Rw, {
-              label: "Discarding changes permanently",
+              label: "永久放弃更改",
               value: this.state.confirmDiscardChangesPermanently
                 ? Ew.On
                 : Ew.Off,
               onChange: this.onConfirmDiscardChangesPermanentlyChanged,
             }),
             we.createElement(Rw, {
-              label: "Discarding stash",
+              label: "放弃隐藏更改",
               value: this.state.confirmDiscardStash ? Ew.On : Ew.Off,
               onChange: this.onConfirmDiscardStashChanged,
             }),
             we.createElement(Rw, {
-              label: "Force pushing",
+              label: "强制推送",
               value: this.state.confirmForcePush ? Ew.On : Ew.Off,
               onChange: this.onConfirmForcePushChanged,
             }),
             we.createElement(Rw, {
-              label: "Undo commit",
+              label: "撤消提交",
               value: this.state.confirmUndoCommit ? Ew.On : Ew.Off,
               onChange: this.onConfirmUndoCommitChanged,
             })
@@ -88288,23 +88268,19 @@
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement(
-              "h2",
-              null,
-              "If I have changes and I switch branches..."
-            ),
+            we.createElement("h2", null, "如果我有更改并切换分支..."),
             we.createElement(IC, {
               value: Ws.AskForConfirmation,
               checked:
                 this.state.uncommittedChangesStrategy === Ws.AskForConfirmation,
-              label: "Ask me where I want the changes to go",
+              label: "如果我有更改并切换分支",
               onSelected: this.onUncommittedChangesStrategyChanged,
             }),
             we.createElement(IC, {
               value: Ws.MoveToNewBranch,
               checked:
                 this.state.uncommittedChangesStrategy === Ws.MoveToNewBranch,
-              label: "Always bring my changes to my new branch",
+              label: "总是将我的更改带到我的新分支",
               onSelected: this.onUncommittedChangesStrategyChanged,
             }),
             we.createElement(IC, {
@@ -88312,7 +88288,7 @@
               checked:
                 this.state.uncommittedChangesStrategy ===
                 Ws.StashOnCurrentBranch,
-              label: "Always stash and leave my changes on the current branch",
+              label: "总是将我的更改保存在当前分支上",
               onSelected: this.onUncommittedChangesStrategyChanged,
             })
           )
@@ -88341,16 +88317,16 @@
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement("h2", null, "Notifications"),
+            we.createElement("h2", null, "通知"),
             we.createElement(Rw, {
-              label: "Enable notifications",
+              label: "启用通知",
               value: this.props.notificationsEnabled ? Ew.On : Ew.Off,
               onChange: this.onNotificationsEnabledChanged,
             }),
             we.createElement(
               "p",
               { className: "git-settings-description" },
-              "Allows the display of notifications when high-signal events take place in the current repository.",
+              "允许在当前仓库中发生高信号事件时显示通知。",
               this.renderNotificationHint()
             )
           )
@@ -88379,15 +88355,15 @@
             we.Fragment,
             null,
             " ",
-            "You need to",
+            "你需要",
             " ",
             we.createElement(
               Xw,
               { onClick: this.onGrantNotificationPermission },
-              "grant permission"
+              "批准"
             ),
             " ",
-            "to display these notifications from GitHub Desktop."
+            " GitHub Desktop 显示这些通知."
           );
         const r = (0, Su.Y4)();
         if (null === r) return null;
@@ -88398,21 +88374,21 @@
             we.createElement("br", null),
             we.createElement("br", null),
             we.createElement("span", { className: "warning-icon" }, "⚠️"),
-            " GitHub Desktop has no permission to display notifications. Please, enable them in the",
+            " GitHub Desktop 没有显示通知的权限。请在系统中中启用它们",
             " ",
-            we.createElement(Xw, { uri: r }, "Notifications Settings"),
+            we.createElement(Xw, { uri: r }, "通知设置"),
             "."
           );
-        const i = n ? "properly configured" : "enabled";
+        const i = n ? "正确配置" : "启用";
         return we.createElement(
           we.Fragment,
           null,
           " ",
-          "Make sure notifications are ",
+          "确保通知权限 ",
           i,
-          " for GitHub Desktop in the",
+          " 在GitHub Desktop上已设置",
           " ",
-          we.createElement(Xw, { uri: r }, "Notifications Settings"),
+          we.createElement(Xw, { uri: r }, "通知设置"),
           "."
         );
       }
@@ -88493,7 +88469,7 @@
           wC,
           {
             id: "preferences",
-            title: "Options",
+            title: "选项",
             onDismissed: this.onCancel,
             onSubmit: this.onSave,
           },
@@ -88742,7 +88718,7 @@
         return we.createElement(
           SC,
           null,
-          we.createElement(kC, { okButtonText: "Save", okButtonDisabled: e })
+          we.createElement(kC, { okButtonText: "保存", okButtonDisabled: e })
         );
       }
       onSave = async () => {
@@ -88918,7 +88894,7 @@
           SC,
           null,
           we.createElement(kC, {
-            okButtonText: "Retry clone",
+            okButtonText: "重试克隆",
             onOkButtonClick: this.onRetryAction,
             onCancelButtonClick: this.onCloseButtonClick,
           })
@@ -88929,9 +88905,9 @@
           SC,
           null,
           we.createElement(kC, {
-            okButtonText: "Close",
+            okButtonText: "关闭",
             onOkButtonClick: this.onCloseButtonClick,
-            cancelButtonText: "Open options",
+            cancelButtonText: "打开选项",
             onCancelButtonClick: this.showPreferencesDialog,
           })
         );
@@ -89291,7 +89267,7 @@
           wC,
           {
             id: "add-existing-repository",
-            title: "Add local repository",
+            title: "添加本地仓库",
             onSubmit: this.addRepository,
             onDismissed: this.props.onDismissed,
             loading: this.state.isTrustingRepository,
@@ -89304,11 +89280,11 @@
               null,
               we.createElement(lw, {
                 value: this.state.path,
-                label: "Local path",
-                placeholder: "repository path",
+                label: "本地路径",
+                placeholder: "仓库路径",
                 onValueChanged: this.onPathChanged,
               }),
-              we.createElement(vw, { onClick: this.showFilePicker }, "Choose…")
+              we.createElement(vw, { onClick: this.showFilePicker }, "选择…")
             ),
             this.renderWarning()
           ),
@@ -89316,7 +89292,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Add repository",
+              okButtonText: "添加仓库",
               okButtonDisabled: e,
             })
           )
@@ -89811,7 +89787,7 @@
           wC,
           {
             id: "create-repository",
-            title: "Create a new repository",
+            title: "创建新的仓库",
             loading: this.state.creating,
             onSubmit: this.createRepository,
             onDismissed: this.props.onDismissed,
@@ -89825,8 +89801,8 @@
               null,
               we.createElement(lw, {
                 value: this.state.name,
-                label: "Name",
-                placeholder: "repository name",
+                label: "名称",
+                placeholder: "仓库名称",
                 onValueChanged: this.onNameChanged,
               })
             ),
@@ -89836,7 +89812,7 @@
               null,
               we.createElement(lw, {
                 value: this.state.description,
-                label: "Description",
+                label: "描述",
                 onValueChanged: this.onDescriptionChanged,
               })
             ),
@@ -89845,15 +89821,15 @@
               null,
               we.createElement(lw, {
                 value: this.state.path ?? "",
-                label: "Local path",
-                placeholder: "repository path",
+                label: "本地路径",
+                placeholder: "仓库路径",
                 onValueChanged: this.onPathChanged,
                 disabled: t || n,
               }),
               we.createElement(
                 vw,
                 { onClick: this.showFilePicker, disabled: t || n },
-                "Choose…"
+                "选择…"
               )
             ),
             this.renderGitRepositoryWarning(),
@@ -89861,7 +89837,7 @@
               cw,
               null,
               we.createElement(Rw, {
-                label: "Initialize this repository with a README",
+                label: "使用README文件初始化此仓库",
                 value: this.state.createWithReadme ? Ew.On : Ew.Off,
                 onChange: this.onCreateWithReadmeChange,
               })
@@ -89874,7 +89850,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Create repository",
+              okButtonText: "创建仓库",
               okButtonDisabled: e || n,
             })
           )
@@ -89939,7 +89915,7 @@
               label: we.createElement(
                 "span",
                 null,
-                "Repository URL or GitHub username and repository",
+                "仓库URL或GitHub用户名和仓库",
                 we.createElement("br", null),
                 "(",
                 we.createElement(TC, null, "hubot/cool-repo"),
@@ -89952,14 +89928,14 @@
             null,
             we.createElement(lw, {
               value: this.props.path,
-              label: "Local path",
+              label: "本地路径",
               placeholder: "repository path",
               onValueChanged: this.props.onPathChanged,
             }),
             we.createElement(
               vw,
               { onClick: this.props.onChooseDirectory },
-              "Choose…"
+              "选择…"
             )
           )
         );
@@ -90040,7 +90016,7 @@
           renderNoItems: this.renderNoItems,
           renderPostFilter: this.renderPostFilter,
           onItemClick: this.props.onItemClicked ? this.onItemClick : void 0,
-          placeholderText: "Filter your repositories",
+          placeholderText: "筛选您的仓库",
         });
       }
       onItemClick = (e, t) => {
@@ -90085,7 +90061,7 @@
           {
             disabled: this.props.loading,
             onClick: this.refreshRepositories,
-            tooltip: "Refresh the list of repositories",
+            tooltip: "刷新仓库列表",
           },
           we.createElement(Gv, {
             symbol: nb,
@@ -90106,7 +90082,7 @@
                 we.createElement(
                   "div",
                   null,
-                  "Sorry, I can't find any repository matching",
+                  "对不起，我找不到任何匹配的仓库",
                   " ",
                   we.createElement(TC, null, this.props.filterText)
                 )
@@ -90248,7 +90224,7 @@
           wC,
           {
             className: "clone-repository",
-            title: "Clone a repository",
+            title: "克隆仓库",
             onSubmit: this.clone,
             onDismissed: this.props.onDismissed,
             loading: this.state.loading,
@@ -90281,7 +90257,7 @@
         return we.createElement(
           SC,
           null,
-          we.createElement(kC, { okButtonText: "Clone", okButtonDisabled: t })
+          we.createElement(kC, { okButtonText: "克隆", okButtonDisabled: t })
         );
       }
       onTabClicked = (e) => {
@@ -90412,7 +90388,7 @@
               we.createElement(
                 "div",
                 null,
-                "If you have a GitHub Enterprise or AE account at work, sign in to it to get access to your repositories."
+                "如果你有一个GitHub Enterprise或AE帐户，请登录它以访问你的仓库。"
               )
             );
           case fr.Generic:
@@ -90773,11 +90749,11 @@
           return we.createElement(
             "p",
             null,
-            "Your new branch will be based on the commit '",
+            "您的新分支将基于 '",
             n.summary,
             "' (",
             n.sha.substring(0, 7),
-            ") from your repository."
+            ") 从您的存储库提交。"
           );
         if (e.kind === $r.Detached)
           return we.createElement(
@@ -90834,7 +90810,7 @@
             gC,
             null,
             we.createElement(fx, {
-              label: "Name",
+              label: "名称",
               initialValue: this.props.initialName,
               onValueChange: this.onBranchNameChange,
             }),
@@ -90871,13 +90847,11 @@
         );
       }
       getHeaderText = () =>
-        void 0 !== this.props.headerText
-          ? this.props.headerText
-          : "Create a branch";
+        void 0 !== this.props.headerText ? this.props.headerText : "创建分支";
       getOkButtonText = () =>
         void 0 !== this.props.okButtonText
           ? this.props.okButtonText
-          : "Create branch";
+          : "创建分支";
       onBranchNameChange = (e) => {
         this.updateBranchName(e);
       };
@@ -90930,7 +90904,7 @@
           return we.createElement(
             "div",
             null,
-            "Your new branch will be based on your currently checked out branch (",
+            "您的新分支将以您当前签出的分支 (",
             we.createElement(TC, null, e),
             ")",
             this.renderForkLinkSuffix(),
@@ -90941,9 +90915,9 @@
                 we.Fragment,
                 null,
                 we.createElement(TC, null, e),
-                " is the ",
+                " 为基础，是你的仓库的 ",
                 xD,
-                " for your repository."
+                " ."
               )
           );
         {
@@ -90951,13 +90925,13 @@
               {
                 title: t.name,
                 description:
-                  "The default branch in your repository. Pick this to start on something new that's not dependent on your current branch.",
+                  "存储库中的默认分支，选择这个可以开始一些不依赖于当前分支的新内容。",
                 key: pr.DefaultBranch,
               },
               {
                 title: e,
                 description:
-                  "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+                  "当前签出的分支，如果您需要在此分支上完成的工作的基础上进行构建，请选择此选项。",
                 key: pr.CurrentBranch,
               },
             ],
@@ -91750,7 +91724,7 @@
             cw,
             null,
             we.createElement(lw, {
-              label: "Description",
+              label: "描述",
               value: this.props.settings.description,
               onValueChanged: this.onDescriptionChange,
             })
@@ -91923,7 +91897,7 @@
               we.createElement(
                 "div",
                 null,
-                "If you have a GitHub Enterprise or AE account at work, sign in to it to get access to your repositories."
+                "如果你有一个GitHub Enterprise或AE帐户在工作，请登录它以访问你的仓库。"
               )
             );
           default:
@@ -91938,7 +91912,7 @@
               SC,
               null,
               we.createElement(kC, {
-                okButtonText: "Publish repository",
+                okButtonText: "发布仓库",
                 okButtonDisabled: e,
               })
             )
@@ -93636,7 +93610,7 @@
           {
             id: "discard-stash",
             type: "warning",
-            title: "Discard stash?",
+            title: "放弃隐藏更改?",
             loading: this.state.isDiscarding,
             disabled: this.state.isDiscarding,
             onSubmit: this.onSubmit,
@@ -93645,11 +93619,7 @@
           we.createElement(
             gC,
             null,
-            we.createElement(
-              cw,
-              null,
-              "Are you sure you want to discard these stashed changes?"
-            ),
+            we.createElement(cw, null, "你确定要放弃这些隐藏的更改吗?"),
             we.createElement(
               cw,
               null,
@@ -93663,7 +93633,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Discard" })
+            we.createElement(kC, { destructive: !0, okButtonText: "放弃" })
           )
         );
       }
@@ -94195,7 +94165,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { okButtonText: "Continue" })
+            we.createElement(kC, { okButtonText: "继续" })
           )
         );
       }
@@ -94219,7 +94189,7 @@
           });
       }
       getOkButtonLabel() {
-        return "Discard changes";
+        return "放弃更改";
       }
       render() {
         const e = this.state.isDiscardingSelection;
@@ -94238,11 +94208,7 @@
           we.createElement(
             gC,
             null,
-            we.createElement(
-              "p",
-              null,
-              "Are you sure you want to discard the selected changes to:"
-            ),
+            we.createElement("p", null, "是否确实要放弃所选更改:"),
             we.createElement(
               "ul",
               null,
@@ -94442,7 +94408,7 @@
               we.createElement(
                 "span",
                 null,
-                we.createElement("span", { className: "copy-to" }, "Copy to"),
+                we.createElement("span", { className: "copy-to" }, "复制到"),
                 we.createElement(
                   "span",
                   { className: "branch-name" },
@@ -95179,7 +95145,7 @@
               we.createElement(
                 "div",
                 null,
-                we.createElement(Xw, { onClick: n }, "Open in command line,"),
+                we.createElement(Xw, { onClick: n }, "在命令行中打开,"),
                 " ",
                 "your tool of choice, or close to resolve manually."
               ))
@@ -97307,7 +97273,7 @@
             okButtonText: "Permanently discard changes",
             okButtonTitle:
               "This will discard changes and they will be unrecoverable.",
-            cancelButtonText: "Cancel",
+            cancelButtonText: "取消",
             destructive: !0,
           })
         );
@@ -97540,7 +97506,7 @@
           we.createElement(
             "div",
             { className: "footer-links" },
-            we.createElement(Xw, { uri: e.html_url }, "Open in browser")
+            we.createElement(Xw, { uri: e.html_url }, "在浏览器中打开")
           ),
           i
         );
@@ -97892,7 +97858,7 @@
           c = [
             { label: Xa, action: () => rt(r, t.path), enabled: o },
             {
-              label: void 0 !== s ? `Open in ${s}` : Za,
+              label: void 0 !== s ? `在${s}中打开` : Za,
               action: () => a.openInExternalEditor(i),
               enabled: o,
             },
@@ -97913,7 +97879,7 @@
           { gitHubRepository: h } = r,
           d = h && h.endpoint !== Dn();
         c.push({
-          label: "View on GitHub" + (d ? " Enterprise" : ""),
+          label: "查看GitHub" + (d ? " Enterprise" : ""),
           action: () => this.onViewOnGitHub(t),
           enabled: null !== u && null !== h,
         }),
@@ -98154,18 +98120,18 @@
                 we.Fragment,
                 null,
                 we.createElement(TC, null, r.name),
-                " is up to date with all commits from",
+                " 来自",
                 " ",
                 we.createElement(TC, null, t.name),
-                "."
+                "的所有提交都是最新的."
               )
             : we.createElement(
                 we.Fragment,
                 null,
                 we.createElement(TC, null, r.name),
-                " and ",
+                " 和 ",
                 we.createElement(TC, null, t.name),
-                " are entirely different commit histories."
+                " 是完全不同的提交历史。"
               );
         return we.createElement(
           "div",
@@ -98174,7 +98140,7 @@
             "div",
             null,
             we.createElement(Gv, { symbol: nh }),
-            we.createElement("h3", null, "There are no changes."),
+            we.createElement("h3", null, "没有任何更改。"),
             s
           )
         );
@@ -98189,12 +98155,8 @@
               "div",
               null,
               we.createElement(Gv, { symbol: nh }),
-              we.createElement(
-                "h3",
-                null,
-                "Could not find a default branch to compare against."
-              ),
-              "Select a base branch above."
+              we.createElement("h3", null, "找不到可进行比较的默认分支。"),
+              "选择上面的基础分支。"
             )
           );
       }
@@ -98206,7 +98168,7 @@
           } = this.props,
           { mergeStatus: r, commitSHAs: i } = t,
           o = n.gitHubRepository,
-          s = e ? "View" : " Create",
+          s = e ? "显示" : " 创建",
           a = `${s} pull request on GitHub${
             o && o.endpoint !== Dn() ? " Enterprise" : ""
           }.`,
@@ -98214,7 +98176,7 @@
             we.Fragment,
             null,
             e && we.createElement(Gv, { symbol: lh }),
-            `${s} pull request`
+            `${s} 拉取请求`
           );
         return we.createElement(
           SC,
@@ -98223,7 +98185,7 @@
           we.createElement(kC, {
             okButtonText: l,
             okButtonTitle: a,
-            cancelButtonText: "Cancel",
+            cancelButtonText: "取消",
             okButtonDisabled: null === i || 0 === i.length,
           })
         );
@@ -98761,7 +98723,7 @@
           we.createElement(
             "div",
             { className: "footer-links" },
-            we.createElement(Xw, { uri: n.html_url }, "Open in browser")
+            we.createElement(Xw, { uri: n.html_url }, "在浏览器中打开")
           ),
           i
         );
@@ -100490,7 +100452,7 @@
         return we.createElement(Ex, {
           icon: n,
           title: r,
-          description: "Current repository",
+          description: "当前仓库",
           tooltip: s,
           foldoutStyle: l,
           onContextMenu: this.onRepositoryToolbarButtonContextMenu,
