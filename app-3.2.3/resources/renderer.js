@@ -66237,7 +66237,7 @@
             className: "new-repository-button",
             onClick: this.onNewRepositoryButtonClick,
           },
-          "Add",
+          "添加",
           we.createElement(Gv, { symbol: Th })
         );
       renderNoItems = () =>
@@ -67164,7 +67164,7 @@
               : e === n.length - 1
               ? null
               : Math.min(i.length - 1, e));
-        let s = `Removed ${r.username}`;
+        let s = `删除 ${r.username}`;
         Go(r) && (s += ` (${r.name})`),
           this.setState({ focusedAuthorIndex: o, lastActionDescription: s }),
           this.emitAuthorsUpdated(i);
@@ -68423,13 +68423,7 @@
         return we.createElement(
           gC,
           null,
-          we.createElement(
-            "p",
-            null,
-            "Primary remote repository (",
-            e.name,
-            ")"
-          ),
+          we.createElement("p", null, "主要远程存储库 (", e.name, ")"),
           we.createElement(lw, {
             placeholder: "Remote URL",
             value: e.url,
@@ -68486,14 +68480,14 @@
           we.createElement(
             "p",
             null,
-            "Editing ",
+            "编辑 ",
             we.createElement(TC, null, ".gitignore"),
-            ". This file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected.",
+            ". 这个文件指定了Git应该忽略的有意未跟踪的文件，Git已经跟踪的文件不受影响。",
             " ",
             we.createElement(
               Xw,
               { onClick: this.props.onShowExamples },
-              "Learn more about gitignore files"
+              "了解有关gitignore文件的更多信息"
             )
           ),
           we.createElement(xC, {
@@ -68891,7 +68885,7 @@
           we.createElement(
             "div",
             { className: "advanced-section" },
-            we.createElement("h2", null, "For this repository I wish to"),
+            we.createElement("h2", null, "对于这个存储库，我希望"),
             we.createElement(
               cw,
               null,
@@ -68899,13 +68893,13 @@
                 "div",
                 null,
                 we.createElement(IC, {
-                  label: "Use my global Git config",
+                  label: "使用我的全局Git配置",
                   checked: this.props.gitConfigLocation === FC.Global,
                   value: FC.Global,
                   onSelected: this.onGitConfigLocationChanged,
                 }),
                 we.createElement(IC, {
-                  label: "Use a local Git config",
+                  label: "使用本地Git配置",
                   checked: this.props.gitConfigLocation === FC.Local,
                   value: FC.Local,
                   onSelected: this.onGitConfigLocationChanged,
@@ -69009,7 +69003,7 @@
           wC,
           {
             id: "repository-settings",
-            title: "Repository settings",
+            title: "存储库设置",
             onDismissed: this.props.onDismissed,
             onSubmit: this.onSubmit,
             disabled: this.state.disabled,
@@ -69029,19 +69023,19 @@
                 "span",
                 null,
                 we.createElement(Gv, { className: "icon", symbol: wh }),
-                "Remote"
+                "远程"
               ),
               we.createElement(
                 "span",
                 null,
                 we.createElement(Gv, { className: "icon", symbol: ju }),
-                "Ignored files"
+                "忽略文件"
               ),
               we.createElement(
                 "span",
                 null,
                 we.createElement(Gv, { className: "icon", symbol: eh }),
-                "Git config"
+                "Git 设置"
               ),
               e &&
                 we.createElement(
@@ -71016,7 +71010,7 @@
             we.createElement(
               vw,
               { size: "small", disabled: e, onClick: this.props.onUndo },
-              "Undo"
+              "撤销"
             )
           )
         );
@@ -75864,7 +75858,7 @@
           a = we.createElement(
             we.Fragment,
             null,
-            "Always available in the toolbar when there are remote changes or",
+            "当有远程更改或",
             " ",
             this.renderDiscoverabilityKeyboardShortcut(i)
           ),
@@ -75893,20 +75887,18 @@
           l = [];
         n.ahead > 0 &&
           (a.push("commits"),
-          l.push(
-            1 === n.ahead ? "1 local commit" : `${n.ahead} local commits`
-          )),
+          l.push(1 === n.ahead ? "1 本地提交" : `${n.ahead} 本地提交`)),
           null !== r &&
             r.length > 0 &&
             (a.push("tags"),
-            l.push(1 === r.length ? "1 tag" : `${r.length} tags`));
-        const c = `You have ${l.join(" and ")} waiting to be pushed to ${
-            s ? "GitHub" : "the remote"
+            l.push(1 === r.length ? "1 标记" : `${r.length} 标记`));
+        const c = `你有 ${l.join(" 和 ")} 等待被推送到 ${
+            s ? "GitHub" : "远程"
           }.`,
           u = we.createElement(
             we.Fragment,
             null,
-            "Always available in the toolbar when there are local commits waiting to be pushed or ",
+            "当有本地提交等待推送或 ",
             this.renderDiscoverabilityKeyboardShortcut(o)
           ),
           h = `推送 ${a.join(" 和 ")} 到 ${t.name} 远程`,
@@ -83844,7 +83836,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: `Rename ${this.props.branch.name}`,
+              okButtonText: `重命名 ${this.props.branch.name}`,
               okButtonDisabled: 0 === this.state.newName.length,
             })
           )
@@ -84449,10 +84441,10 @@
         ? we.createElement(
             "span",
             null,
-            "Last fetched ",
+            "上次获取 ",
             we.createElement(vS, { date: e })
           )
-        : "Never fetched";
+        : "从未获取";
     }
     !(function (e) {
       (e.Fetch = "fetch"), (e.ForcePush = "force-push");
@@ -84545,7 +84537,7 @@
         return we.createElement(kx, {
           ...this.defaultButtonProps(),
           title: e.title,
-          description: e.description || "Hang on…",
+          description: e.description || "稍等…",
           progressValue: e.value,
           icon: nb,
           iconClassName: t ? "spin" : "",
@@ -85423,7 +85415,7 @@
             (h = Qu),
             (p = !1),
             (m = !0),
-            (c = `Rebasing ${o.targetBranch}`));
+            (c = `返回 ${o.targetBranch}`));
         const f = this.props.isOpen,
           g = f && p ? "open" : "closed",
           y = Cl()("branch-toolbar-button", "nudge-arrow", {
@@ -85635,7 +85627,7 @@
       renderConfirmDiscardChanges() {
         return this.props.showDiscardChangesSetting
           ? we.createElement(Rw, {
-              label: "Do not show this message again",
+              label: "不在显示此消息",
               value: this.state.confirmDiscardChanges ? Ew.Off : Ew.On,
               onChange: this.onConfirmDiscardChangesChanged,
             })
@@ -87410,7 +87402,7 @@
       };
       renderUndo = () => {
         if (void 0 !== this.props.onUndo)
-          return we.createElement(Xw, { onClick: this.undo }, "Undo");
+          return we.createElement(Xw, { onClick: this.undo }, "撤销");
       };
       render() {
         return we.createElement(
@@ -93618,7 +93610,7 @@
               cw,
               null,
               we.createElement(Rw, {
-                label: "Do not show this message again",
+                label: "不在显示此消息",
                 value: this.state.confirmDiscardStash ? Ew.Off : Ew.On,
                 onChange: this.onAskForConfirmationOnDiscardStashChanged,
               })
@@ -94213,7 +94205,7 @@
               )
             ),
             we.createElement(Rw, {
-              label: "Do not show this message again",
+              label: "不在显示此消息",
               value: this.state.confirmDiscardSelection ? Ew.Off : Ew.On,
               onChange: this.onConfirmDiscardSelectionChanged,
             })
@@ -94530,7 +94522,7 @@
               "div",
               null,
               we.createElement(Rw, {
-                label: "Do not show this message again",
+                label: "不在显示此消息",
                 value: this.state.askToMoveToApplicationsFolder
                   ? Ew.Off
                   : Ew.On,
@@ -94890,7 +94882,7 @@
         we.createElement(
           Xw,
           { onClick: T_(e.path, e.repository, e.dispatcher) },
-          "Undo"
+          "撤销"
         )
       );
     };
@@ -95334,7 +95326,7 @@
               "div",
               null,
               we.createElement(Rw, {
-                label: "Do not show this message again",
+                label: "不在显示此消息",
                 value: this.state.askForConfirmationOnForcePush
                   ? Ew.Off
                   : Ew.On,
@@ -96378,7 +96370,7 @@
           {
             id: "warn-local-changes-before-undo",
             type: "warning",
-            title: "Undo commit",
+            title: "撤销提交",
             loading: this.state.isLoading,
             disabled: this.state.isLoading,
             onSubmit: this.onSubmit,
@@ -96403,13 +96395,13 @@
               we.createElement(
                 cw,
                 { id: "undo-warning-message" },
-                "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?"
+                "您正在进行更改,撤消提交可能会导致其中一些更改丢失,是否仍要继续?"
               ),
               we.createElement(
                 cw,
                 null,
                 we.createElement(Rw, {
-                  label: "Do not show this message again",
+                  label: "不在显示此消息",
                   value: this.state.confirmUndoCommit ? Ew.Off : Ew.On,
                   onChange: this.onConfirmUndoCommitChanged,
                 })
@@ -96714,7 +96706,7 @@
               "div",
               null,
               we.createElement(Rw, {
-                label: "Do not show this message again",
+                label: "不在显示此消息",
                 value: this.state.askForConfirmationOnForcePush
                   ? Ew.Off
                   : Ew.On,
@@ -97254,7 +97246,7 @@
       }
       renderConfirmDiscardChanges() {
         return we.createElement(Rw, {
-          label: "Do not show this message again",
+          label: "不在显示此消息",
           value: this.state.confirmDiscardChanges ? Ew.Off : Ew.On,
           onChange: this.onConfirmDiscardChangesChanged,
         });
