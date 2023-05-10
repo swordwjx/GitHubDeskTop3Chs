@@ -50701,7 +50701,7 @@
                 env: await Ba(t, n.url),
               };
               if (r) {
-                const e = `Fetching ${n.name}`,
+                const e = `获取 ${n.name}`,
                   t = "fetch";
                 (i = await Ta({ ...i, trackLFSProgress: !0 }, new fa(), (i) => {
                   if (
@@ -68408,7 +68408,7 @@
           SC,
           null,
           we.createElement(kC, {
-            okButtonText: this.props.buttonText || "Close",
+            okButtonText: this.props.buttonText || "关闭",
             okButtonTitle: this.props.buttonTitle,
             onOkButtonClick: this.props.onButtonClick,
             okButtonDisabled: this.props.disabled,
@@ -70944,7 +70944,7 @@
               r
             )
           : r < fS
-          ? this.updateAndSchedule(i, "just now", fS - r)
+          ? this.updateAndSchedule(i, "刚刚", fS - r)
           : r < gS
           ? this.updateAndSchedule(i, o, fS)
           : r < yS
@@ -75868,10 +75868,10 @@
             " ",
             this.renderDiscoverabilityKeyboardShortcut(i)
           ),
-          l = `Pull ${n.behind} ${
+          l = `拉取 ${n.behind} ${
             1 === n.behind ? "commit" : "commits"
           } from the ${t.name} remote`,
-          c = `Pull ${t.name}`;
+          c = `拉取 ${t.name}`;
         return we.createElement(kk, {
           key: "pull-branch-action",
           title: l,
@@ -75909,8 +75909,8 @@
             "Always available in the toolbar when there are local commits waiting to be pushed or ",
             this.renderDiscoverabilityKeyboardShortcut(o)
           ),
-          h = `Push ${a.join(" and ")} to the ${t.name} remote`,
-          d = `Push ${t.name}`;
+          h = `推送 ${a.join(" 和 ")} 到 ${t.name} 远程`,
+          d = `推送 ${t.name}`;
         return we.createElement(kk, {
           key: "push-branch-action",
           title: h,
@@ -84353,7 +84353,7 @@
         switch (e) {
           case Tx.Fetch:
             return {
-              title: `Fetch ${t}`,
+              title: `获取 ${t}`,
               description: `Fetch the latest changes from ${t}`,
               action: this.props.fetch,
               icon: nb,
@@ -84378,7 +84378,7 @@
                   )
                 );
             return {
-              title: `Force push ${t}`,
+              title: `强制推送 ${t}`,
               description: Ce().createElement(
                 Ce().Fragment,
                 null,
@@ -84601,7 +84601,7 @@
         });
       }
       fetchButton(e, t, n) {
-        const r = `Fetch ${e}`;
+        const r = `获取 ${e}`;
         return we.createElement(kx, {
           ...this.defaultButtonProps(),
           title: r,
@@ -84611,7 +84611,7 @@
         });
       }
       pullButton(e, t, n, r, i, o, s) {
-        const a = i ? `Pull ${e} with rebase` : `Pull ${e}`,
+        const a = i ? `拉取 ${e} with rebase` : `拉取 ${e}`,
           l = [Tx.Fetch];
         return (
           o !== go.NotAvailable && l.push(Tx.ForcePush),
@@ -84634,7 +84634,7 @@
           Ex,
           {
             ...this.defaultDropdownProps(),
-            title: `Push ${e}`,
+            title: `推送 ${e}`,
             description: _x(r),
             icon: _u,
             onClick: i,
@@ -84650,7 +84650,7 @@
           Ex,
           {
             ...this.defaultDropdownProps(),
-            title: `Force push ${e}`,
+            title: `强制推送 ${e}`,
             description: _x(r),
             icon: Ax,
             onClick: i,
@@ -91376,8 +91376,8 @@
               SC,
               null,
               we.createElement(kC, {
-                okButtonText: "Close",
-                cancelButtonText: "Open options",
+                okButtonText: "关闭",
+                cancelButtonText: "打开选项",
                 onCancelButtonClick: this.onShowPreferencesDialog,
               })
             )
@@ -91386,8 +91386,8 @@
               SC,
               null,
               we.createElement(kC, {
-                okButtonText: "Close",
-                cancelButtonText: "Download Visual Studio Code",
+                okButtonText: "关闭",
+                cancelButtonText: "下载 Visual Studio Code",
                 onCancelButtonClick: this.onExternalLink,
               })
             )
@@ -91399,7 +91399,7 @@
           {
             id: "external-editor-error",
             type: "error",
-            title: "Unable to open external editor",
+            title: "无法打开外部编辑器",
             onSubmit: this.props.onDismissed,
             onDismissed: this.props.onDismissed,
           },
@@ -91466,7 +91466,7 @@
               we.createElement(
                 vw,
                 { onClick: this.onQuitAndInstall },
-                "Quit and Install Update"
+                "退出并安装更新"
               )
             );
           case Iv.UpdateNotAvailable:
@@ -91477,11 +91477,9 @@
               n = this.state.altKeyPressed
                 ? this.props.onCheckForNonStaggeredUpdates
                 : this.props.onCheckForUpdates,
-              r = this.state.altKeyPressed
-                ? "Ensure Latest Version"
-                : "Check for Updates",
+              r = this.state.altKeyPressed ? "确保最新版本" : "检查更新",
               i = this.state.altKeyPressed
-                ? "GitHub Desktop may release updates to our user base gradually to ensure we catch any problems early. This lets you bypass the gradual rollout and jump straight to the latest version if there's one available."
+                ? "GitHub Desktop可能会逐步向我们的用户发布更新，以确保我们尽早发现任何问题，这使您可以绕过常规更新，直接跳到最新版本（如果有）。"
                 : "";
             return we.createElement(
               cw,
@@ -91497,7 +91495,7 @@
           cw,
           { className: "update-status" },
           we.createElement(Hw, null),
-          we.createElement("span", null, "Checking for updates…")
+          we.createElement("span", null, "检查更新…")
         );
       }
       renderUpdateAvailable() {
@@ -91505,7 +91503,7 @@
           cw,
           { className: "update-status" },
           we.createElement(Hw, null),
-          we.createElement("span", null, "Downloading update…")
+          we.createElement("span", null, "下载更新…")
         );
       }
       renderUpdateNotAvailable() {
@@ -91514,7 +91512,7 @@
           ? we.createElement(
               "p",
               { className: "update-status" },
-              "You have the latest version (last checked",
+              "您有最新版本（上次检查",
               " ",
               we.createElement(vS, { date: e }),
               ")"
@@ -91525,7 +91523,7 @@
         return we.createElement(
           "p",
           { className: "update-status" },
-          "An update has been downloaded and is ready to be installed."
+          "已经下载了一个更新，可以进行安装了。"
         );
       }
       renderUpdateDetails() {
@@ -91551,27 +91549,23 @@
           : we.createElement(
               CC,
               null,
-              "Couldn't determine the last time an update check was performed. You may be running an old version. Please try manually checking for updates and contact GitHub Support if the problem persists"
+              "无法确定上次执行更新检查的时间，您可能正在运行旧版本，请尝试手动检查更新，如果问题仍然存在，请联系GitHub支持"
             );
       }
       renderBetaLink() {
         return we.createElement(
           "div",
           null,
+          we.createElement("p", { className: "no-padding" }, "查找最新功能?"),
           we.createElement(
             "p",
             { className: "no-padding" },
-            "Looking for the latest features?"
-          ),
-          we.createElement(
-            "p",
-            { className: "no-padding" },
-            "Check out the",
+            "查看",
             " ",
             we.createElement(
               Xw,
               { uri: "https://desktop.github.com/beta" },
-              "Beta Channel"
+              "测试版"
             )
           )
         );
@@ -91579,8 +91573,8 @@
       render() {
         const e = this.props.applicationName,
           t = this.props.applicationVersion,
-          n = we.createElement(Xw, { uri: wT }, "release notes"),
-          r = `Version ${t}`;
+          n = we.createElement(Xw, { uri: wT }, "发行说明"),
+          r = `版本 ${t}`;
         return we.createElement(
           wC,
           {
@@ -91625,7 +91619,7 @@
               we.createElement(
                 Xw,
                 { onClick: this.props.onShowTermsAndConditions },
-                "Terms and Conditions"
+                "服务条款"
               )
             ),
             we.createElement(
@@ -91634,7 +91628,7 @@
               we.createElement(
                 Xw,
                 { onClick: this.props.onShowAcknowledgements },
-                "License and Open Source Notices"
+                "许可证和开源声明"
               )
             ),
             this.renderUpdateDetails(),
@@ -91699,7 +91693,7 @@
         return we.createElement(
           tC,
           {
-            label: "Organization",
+            label: "组织",
             value: t.toString(),
             onChange: this.onOrgChange,
           },
@@ -91714,7 +91708,7 @@
             cw,
             null,
             we.createElement(lw, {
-              label: "Name",
+              label: "名称",
               value: this.name,
               onValueChanged: this.onNameChange,
             })
@@ -92129,7 +92123,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Add certificate",
+              okButtonText: "添加证书",
             })
           )
         );
@@ -92443,7 +92437,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Remove" })
+            we.createElement(kC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -92706,7 +92700,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Save and retry",
+              okButtonText: "保存并重试",
               okButtonDisabled: e,
             })
           )
@@ -92753,7 +92747,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Close",
+              okButtonText: "关闭",
               cancelButtonText: "Open options",
               onCancelButtonClick: this.onShowPreferencesDialog,
             })
@@ -92777,7 +92771,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Initialize Git LFS",
+              okButtonText: "初始化 Git LFS",
               cancelButtonText: "Not now",
               onCancelButtonClick: this.props.onDismissed,
             })
@@ -92900,7 +92894,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Update existing filters",
+              okButtonText: "更新现有筛选器",
               cancelButtonText: "Not now",
             })
           )
@@ -92975,7 +92969,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Update",
+              okButtonText: "更新",
               cancelButtonText: "Ignore",
               onCancelButtonClick: this.onIgnore,
             })
@@ -93092,8 +93086,8 @@
             )
           : we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Install and restart",
-              cancelButtonText: "Close",
+              okButtonText: "安装并重新启动",
+              cancelButtonText: "关闭",
             });
       render() {
         const e = this.getDisplayRelease();
@@ -93197,7 +93191,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Delete" })
+            we.createElement(kC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -93272,7 +93266,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Yes, commit files",
+              okButtonText: "是，提交文件",
             })
           )
         );
@@ -93359,7 +93353,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Commit anyway",
+              okButtonText: "强制提交",
             })
           )
         );
@@ -93419,7 +93413,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Fetch",
+              okButtonText: "获取",
               okButtonDisabled: this.state.isLoading,
             })
           )
@@ -93470,7 +93464,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { okButtonText: "Switch branch" })
+            we.createElement(kC, { okButtonText: "切换分支" })
           )
         );
       }
@@ -93573,7 +93567,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Overwrite" })
+            we.createElement(kC, { destructive: !0, okButtonText: "覆盖" })
           )
         );
       }
@@ -93707,7 +93701,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { okButtonText: "Continue" })
+            we.createElement(kC, { okButtonText: "继续" })
           )
         );
       }
@@ -93746,7 +93740,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { okButtonText: "Continue in browser" })
+            we.createElement(kC, { okButtonText: "在浏览器中继续" })
           )
         );
       }
@@ -93795,7 +93789,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { okButtonText: "Continue in browser" })
+            we.createElement(kC, { okButtonText: "在浏览器中继续" })
           )
         );
       }
@@ -93932,7 +93926,7 @@
                   null,
                   we.createElement(kC, {
                     destructive: !0,
-                    okButtonText: "Fork this repository",
+                    okButtonText: "分支此存储库",
                     okButtonDisabled: n,
                     cancelButtonDisabled: n,
                   })
@@ -93979,7 +93973,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Create tag",
+              okButtonText: "创建标记",
               okButtonDisabled: t,
             })
           )
@@ -94079,7 +94073,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Delete" })
+            we.createElement(kC, { destructive: !0, okButtonText: "删除" })
           )
         );
       }
@@ -94325,10 +94319,10 @@
               SC,
               null,
               we.createElement(kC, {
-                okButtonText: "Stash changes and continue",
+                okButtonText: "暂停更改并继续",
                 okButtonTitle:
-                  "This will create a stash with your current changes. You can recover them by restoring the stash afterwards.",
-                cancelButtonText: "Close",
+                  "这将创建一个包含您当前更改的存储库，你可以通过事后恢复隐藏项来找回它们。",
+                cancelButtonText: "关闭",
               })
             );
       }
@@ -94552,9 +94546,9 @@
           SC,
           null,
           we.createElement(kC, {
-            okButtonText: "Move and Restart",
+            okButtonText: "移动并重新启动",
             okButtonTitle:
-              "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
+              "这将把GitHub Desktop移到您机器中的Applications文件夹中，然后重新启动应用程序。",
             cancelButtonText: "Not Now",
             onCancelButtonClick: this.onNotNow,
           })
@@ -94624,7 +94618,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: `${t} alias`,
+              okButtonText: `${t} 别名`,
               okButtonDisabled: 0 === this.state.newAlias.length,
             })
           )
@@ -95239,7 +95233,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: `Abort ${e.toLowerCase()}`,
+              okButtonText: `中止 ${e.toLowerCase()}`,
             })
           )
         );
@@ -95352,7 +95346,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: `Begin ${e.toLowerCase()}`,
+              okButtonText: `开始 ${e.toLowerCase()}`,
               onCancelButtonClick: this.props.onDismissed,
             })
           )
@@ -96396,7 +96390,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Continue" })
+            we.createElement(kC, { destructive: !0, okButtonText: "继续" })
           )
         );
       }
@@ -96504,7 +96498,7 @@
           we.createElement(
             SC,
             null,
-            we.createElement(kC, { destructive: !0, okButtonText: "Continue" })
+            we.createElement(kC, { destructive: !0, okButtonText: "继续" })
           )
         );
       }
@@ -96551,8 +96545,8 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Yes",
-              cancelButtonText: "No",
+              okButtonText: "确定",
+              cancelButtonText: "取消",
             })
           )
         );
@@ -96604,8 +96598,8 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Yes",
-              cancelButtonText: "No",
+              okButtonText: "确定",
+              cancelButtonText: "取消",
               onCancelButtonClick: this.onCancel,
             })
           )
@@ -97270,9 +97264,8 @@
           SC,
           null,
           we.createElement(kC, {
-            okButtonText: "Permanently discard changes",
-            okButtonTitle:
-              "This will discard changes and they will be unrecoverable.",
+            okButtonText: "永久放弃更改",
+            okButtonTitle: "这将丢弃更改，并且这些更改将不可恢复。",
             cancelButtonText: "取消",
             destructive: !0,
           })
@@ -97710,7 +97703,7 @@
         return we.createElement(
           cA,
           {
-            contentTitle: "Choose a base branch",
+            contentTitle: "选择基本分支",
             buttonContent: s?.name ?? "",
             label: "base:",
             ref: this.popoverRef,
@@ -97753,7 +97746,7 @@
         return we.createElement(
           yC,
           {
-            title: "Open a pull request",
+            title: "打开拉取请求",
             titleId: this.state.titleId,
             dismissable: !0,
             onDismissed: a,
@@ -97762,9 +97755,9 @@
           we.createElement(
             "div",
             { className: "base-branch-details" },
-            "Merge ",
+            "合并 ",
             l,
-            " into",
+            " 到",
             " ",
             we.createElement(uA, {
               branch: e,
@@ -97776,13 +97769,13 @@
               noBranchesMessage: we.createElement(
                 we.Fragment,
                 null,
-                "Sorry, I can't find that remote branch. ",
+                "对不起，我找不到那个远程分支。 ",
                 we.createElement("br", null),
-                "You can only open pull requests against remote branches."
+                "您只能打开针对远程分支的拉取请求。"
               ),
             }),
             " ",
-            "from ",
+            "来自 ",
             we.createElement(TC, null, t.name),
             "."
           )
@@ -98252,7 +98245,7 @@
             SC,
             null,
             we.createElement(kC, {
-              okButtonText: "Quit anyway",
+              okButtonText: "强制退出",
               onOkButtonClick: this.onQuitAnywayButtonClicked,
               onCancelButtonClick: this.props.onDismissed,
               destructive: !0,
@@ -98634,7 +98627,7 @@
             SC,
             null,
             Ce().createElement(kC, {
-              okButtonText: "Close",
+              okButtonText: "关闭",
               okButtonDisabled: !1,
               cancelButtonDisabled: !1,
               cancelButtonVisible: null !== this.state.selectedFlow,
@@ -98766,7 +98759,7 @@
             null,
             we.createElement(kC, {
               destructive: !0,
-              okButtonText: "Commit anyway",
+              okButtonText: "强制提交",
             })
           )
         );
@@ -107482,7 +107475,7 @@
               if (o.kind === $r.Valid) {
                 const { branch: r } = o,
                   s = r.upstreamRemoteName || i.name,
-                  a = `Pushing to ${s}`;
+                  a = `推送到 ${s}`;
                 this.updatePushPullFetchProgress(e, {
                   kind: "push",
                   title: a,
@@ -107528,7 +107521,7 @@
                       let u = { env: await Ba(t, n.url), expectedErrors: c };
                       if (a) {
                         l.push("--progress");
-                        const e = `Pushing to ${n.name}`,
+                        const e = `推送到 ${n.name}`,
                           t = "push";
                         (u = await Ta(
                           { ...u, trackLFSProgress: !0 },
@@ -107660,7 +107653,7 @@
                   theirBranch: i.branch.upstream,
                   currentBranch: i.branch.name,
                 }));
-              const a = `Pulling ${r.name}`,
+              const a = `拉取 ${r.name}`,
                 l = "pull";
               this.updatePushPullFetchProgress(e, {
                 kind: l,
@@ -107683,7 +107676,7 @@
                       (async function (e, t, n, r) {
                         let i = { env: await Ba(t, n.url), expectedErrors: Pa };
                         if (r) {
-                          const e = `Pulling ${n.name}`,
+                          const e = `拉取 ${n.name}`,
                             t = "pull";
                           (i = await Ta(
                             { ...i, trackLFSProgress: !0 },
@@ -109308,7 +109301,7 @@
                     "tutorial:add-remote"
                   ),
                   await (async function (e, t, n, r, i) {
-                    const o = `Pushing repository to ${_a(t)}`;
+                    const o = `将存储库推送到 ${_a(t)}`;
                     i(o, 0);
                     const s = await Ta(
                         { env: await Ba(t, n.url) },

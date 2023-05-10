@@ -26879,7 +26879,7 @@
             click: ce("view-repository-on-github"),
           },
           {
-            label: `&在 ${t ?? "命令行"}中打开`,
+            label: `&在${t ?? "命令行"}中打开`,
             id: "open-in-shell",
             accelerator: "Ctrl+`",
             click: ce("open-in-shell"),
@@ -26891,7 +26891,7 @@
             click: ce("open-working-directory"),
           },
           {
-            label: `&在 ${e ?? "外部编辑器"}中打开`,
+            label: `&在${e ?? "外部编辑器"}中打开`,
             id: "open-external-editor",
             accelerator: "CmdOrCtrl+Shift+A",
             click: ce("open-external-editor"),
