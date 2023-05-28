@@ -92145,12 +92145,8 @@
           we.createElement(
             "header",
             null,
-            we.createElement("h1", null, "Let's get started!"),
-            we.createElement(
-              "p",
-              null,
-              "Add a repository to GitHub Desktop to start collaborating"
-            )
+            we.createElement("h1", null, "让我们开始吧!"),
+            we.createElement("p", null, "将仓库添加到GitHub Desktop以开始协作")
           ),
           we.createElement(
             "div",
@@ -92319,7 +92315,7 @@
             )
           : this.renderButtonGroupButton(
               dh,
-              "Create a tutorial repository…",
+              "创建教程存储库…",
               this.props.onCreateTutorialRepository,
               "submit"
             );
@@ -92327,21 +92323,21 @@
       renderCloneButton() {
         return this.renderButtonGroupButton(
           vh,
-          "Clone a repository from the Internet…",
+          "从Internet克隆存储库…",
           this.onShowClone
         );
       }
       renderCreateRepositoryButton() {
         return this.renderButtonGroupButton(
           fh,
-          "Create a New Repository on your hard drive…",
+          "在硬盘上创建新存储库…",
           this.props.onCreate
         );
       }
       renderAddExistingRepositoryButton() {
         return this.renderButtonGroupButton(
           Ku,
-          "Add an Existing Repository from your hard drive…",
+          "从硬盘添加现有存储库…",
           this.props.onAdd
         );
       }
@@ -92365,7 +92361,7 @@
               "div",
               null,
               we.createElement("strong", null, "ProTip!"),
-              " You can drag & drop an existing repository folder here to add it to Desktop"
+              " 您可以在此处拖放现有的存储库文件夹以将其添加到桌面"
             )
           )
         );
