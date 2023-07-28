@@ -19096,7 +19096,7 @@
             recursiveCopy(e, t, n) {
               s.spawnAsAdmin(
                 "cmd",
-                ["/c", 3131, e, t],
+                ["/c", 4793, e, t],
                 a.testMode,
                 l("robocopy", n)
               );
@@ -38103,10 +38103,6 @@
           throw new Error("Cannot open " + r + ": " + e);
         }
       },
-      3131: (e, t, n) => {
-        "use strict";
-        n.p;
-      },
       5717: (e) => {
         "function" == typeof Object.create
           ? (e.exports = function (e, t) {
@@ -45581,6 +45577,10 @@
           };
         };
       },
+      4793: (e, t, n) => {
+        "use strict";
+        e.exports = n.p + "a7b45a45d471743a8d54.cmd";
+      },
       9491: (e) => {
         "use strict";
         e.exports = require("assert");
@@ -46683,7 +46683,7 @@
       let c = {
         Accept: "application/vnd.github.v3+json, application/json",
         "Content-Type": "application/json",
-        "User-Agent": "GitHubDesktop/3.2.6 (Windows)",
+        "User-Agent": "GitHubDesktop/3.2.7 (Windows)",
       };
       t && (c.Authorization = `token ${t}`), (c = { ...c, ...s });
       const u = { headers: c, method: n, body: JSON.stringify(i) };
@@ -52256,12 +52256,12 @@
         );
       },
       Ka = [".cmd", ".exe", ".bat", ".sh"],
-      Ya = "复制文件路径",
-      Za = "复制相对文件路径",
-      Xa = "在外部编辑器中打开",
-      Ja = "在资源管理器中显示",
-      Qa = "回收站",
-      el = "使用默认程序打开";
+      Ya = "Copy file path",
+      Za = "Copy relative file path",
+      Xa = "Open in external editor",
+      Ja = "Show in Explorer",
+      Qa = "Recycle Bin",
+      el = "Open with default program";
     function tl(e) {
       return -1 === Ka.indexOf(e.toLowerCase());
     }
@@ -58794,15 +58794,17 @@
               const t = Kf(e.keys, e.trans._cache, "clone" === e.cache);
               return t
                 ? Yp.resolve(t)
-                : n.getMany(e).then(
-                    (t) => (
-                      (e.trans._cache = {
-                        keys: e.keys,
-                        values: "clone" === e.cache ? Gd(t) : t,
-                      }),
-                      t
-                    )
-                  );
+                : n
+                    .getMany(e)
+                    .then(
+                      (t) => (
+                        (e.trans._cache = {
+                          keys: e.keys,
+                          values: "clone" === e.cache ? Gd(t) : t,
+                        }),
+                        t
+                      )
+                    );
             },
             mutate: (e) => (
               "add" !== e.type && (e.trans._cache = null), n.mutate(e)
@@ -61471,7 +61473,7 @@
     }
     async function _v(e) {
       const t = await Dv(),
-        n = new Kt.SemVer(e ?? "3.2.6"),
+        n = new Kt.SemVer(e ?? "3.2.7"),
         r = t.filter(
           (e) =>
             Kt.gt(new Kt.SemVer(e.version), n) &&
@@ -61556,7 +61558,7 @@
               this.supportsImmediateUpdateFromEmulatedX64ToARM64() &&
               null !== this.newReleases &&
               1 === this.newReleases.length &&
-              "3.2.6" === this.newReleases[0].latestVersion &&
+              "3.2.7" === this.newReleases[0].latestVersion &&
               (await ee())),
             (this.status = Nv.UpdateReady),
             this.emitDidChange();
@@ -61598,12 +61600,12 @@
           let t = null;
           try {
             t = new URL(
-              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.2.6&env=production"
+              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.2.7&env=production"
             );
           } catch (e) {
             return (
               log.error("Error parsing updates url", e),
-              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.2.6&env=production"
+              "https://central.github.com/api/deployments/desktop/desktop/latest?version=3.2.7&env=production"
             );
           }
           return (
@@ -66299,7 +66301,7 @@
             onClick: this.onNewRepositoryButtonClick,
             ariaExpanded: this.state.newRepositoryMenuExpanded,
           },
-          "添加",
+          "Add",
           we.createElement(Yv, { symbol: _h })
         );
       renderNoItems = () =>
@@ -66346,9 +66348,9 @@
         );
       onNewRepositoryButtonClick = () => {
         const e = [
-          { label: "克隆仓库…", action: this.onCloneRepository },
+          { label: "Clone repository…", action: this.onCloneRepository },
           {
-            label: "创建新的仓库…",
+            label: "Create new repository…",
             action: this.onCreateNewRepository,
           },
           {
@@ -67952,24 +67954,25 @@
         this.setState({ autocompletionState: null });
       }
       async attemptAutocompletion(e, t) {
-        for (const n of this.props.autocompletionProviders) {
-          const r = new RegExp(n.getRegExp());
+        const n = e.toLowerCase();
+        for (const e of this.props.autocompletionProviders) {
+          const r = new RegExp(e.getRegExp());
           r.global ||
             it(
-              `The regex (${r}) returned from ${n} isn't global, but it should be!`
+              `The regex (${r}) returned from ${e} isn't global, but it should be!`
             );
           let i = null;
-          for (; (i = r.exec(e)); ) {
-            const e = r.lastIndex,
+          for (; (i = r.exec(n)); ) {
+            const n = r.lastIndex,
               o = i[1] || "";
-            if (e === t || this.props.alwaysAutocomplete) {
-              const t = { start: e - o.length, length: o.length };
-              let r = await n.getAutocompletionItems(o);
+            if (n === t || this.props.alwaysAutocomplete) {
+              const t = { start: n - o.length, length: o.length };
+              let r = await e.getAutocompletionItems(o);
               return (
                 this.props.autocompleteItemFilter &&
                   (r = r.filter(this.props.autocompleteItemFilter)),
                 {
-                  provider: n,
+                  provider: e,
                   items: r,
                   range: t,
                   selectedItem: null,
@@ -68060,19 +68063,16 @@
       }
       renderHighlightedTitle(e) {
         const t = e.emoji.replaceAll(":", "");
-        return e.matchLength
-          ? we.createElement(
-              "div",
-              { className: "title" },
-              t.substring(0, e.matchStart),
-              we.createElement(
-                "mark",
-                null,
-                t.substring(e.matchStart, e.matchStart + e.matchLength)
-              ),
-              t.substring(e.matchStart + e.matchLength)
-            )
-          : we.createElement("div", { className: "title" }, t);
+        if (!e.matchLength)
+          return we.createElement("div", { className: "title" }, t);
+        const n = e.matchStart - 1;
+        return we.createElement(
+          "div",
+          { className: "title" },
+          t.substring(0, n),
+          we.createElement("mark", null, t.substring(n, n + e.matchLength)),
+          t.substring(n + e.matchLength)
+        );
       }
       getCompletionText(e) {
         return e.emoji;
@@ -70803,10 +70803,12 @@
       getCoAuthorTrailers() {
         const { coAuthors: e } = this.props;
         return this.isCoAuthorInputEnabled
-          ? e.filter(Ko).map((e) => ({
-              token: "Co-Authored-By",
-              value: `${e.name} <${e.email}>`,
-            }))
+          ? e
+              .filter(Ko)
+              .map((e) => ({
+                token: "Co-Authored-By",
+                value: `${e.name} <${e.email}>`,
+              }))
           : [];
       }
       get summaryOrPlaceholder() {
@@ -77948,6 +77950,7 @@
     }
     class eR extends we.Component {
       commitsHash = qn(nR, Ys);
+      commitIndexBySha = qn((e) => new Map(e.map((e, t) => [e, t])));
       listRef = we.createRef();
       getVisibleCommits() {
         const e = new Array();
@@ -78061,8 +78064,7 @@
         this.props.onScroll?.(r, i), this.props.onCompareListScrolled?.(e);
       };
       rowForSHA(e) {
-        const t = e;
-        return t ? this.props.commitSHAs.findIndex((e) => e === t) : -1;
+        return this.commitIndexBySha(this.props.commitSHAs).get(e) ?? -1;
       }
       getRowCustomClassMap = () => {
         const { commitSHAs: e, shasToHighlight: t } = this.props;
@@ -78317,16 +78319,18 @@
         hasEmptySummary: l,
       };
     }
-    function sR(e, t) {
-      return 1 === e.length
-        ? 0
-        : e.filter(({ sha: e }) => !t.includes(e)).length;
-    }
-    class aR extends we.Component {
+    class sR extends we.Component {
       descriptionScrollViewRef = null;
       resizeObserver = null;
       updateOverflowTimeoutId = null;
       descriptionRef = null;
+      getCountCommitsNotInDiff = qn((e, t) => {
+        if (1 === e.length) return 0;
+        {
+          const n = new Set(t);
+          return e.reduce((e, t) => e + (n.has(t.sha) ? 0 : 1), 0);
+        }
+      });
       constructor(e) {
         super(e), (this.state = oR(!1, e));
         const t = window.ResizeObserver;
@@ -78453,7 +78457,7 @@
       renderCommitsNotReachable = () => {
         const { selectedCommits: e, shasInDiff: t } = this.props;
         if (1 === e.length) return;
-        const n = sR(e, t);
+        const n = this.getCountCommitsNotInDiff(e, t);
         if (0 === n) return;
         const r = n > 1 ? "commits" : "commit";
         return we.createElement(
@@ -78516,7 +78520,7 @@
             repository: this.props.repository,
             text: n,
           });
-        const o = sR(e, t),
+        const o = this.getCountCommitsNotInDiff(e, t),
           s = e.length - o,
           a = s > 1 ? "commits" : "commit";
         return we.createElement(
@@ -78724,7 +78728,7 @@
           : void 0;
       }
     }
-    class lR extends we.Component {
+    class aR extends we.Component {
       onContextMenu = (e) => {
         void 0 !== this.props.onContextMenu &&
           this.props.onContextMenu(this.props.file, e);
@@ -78750,13 +78754,13 @@
         );
       }
     }
-    class cR extends we.Component {
+    class lR extends we.Component {
       onSelectedRowChanged = (e) => {
         const t = this.props.files[e];
         this.props.onSelectedFileChanged(t);
       };
       renderFile = (e) =>
-        we.createElement(lR, {
+        we.createElement(aR, {
           file: this.props.files[e],
           availableWidth: this.props.availableWidth,
           onContextMenu: this.props.onContextMenu,
@@ -78778,7 +78782,7 @@
         );
       }
     }
-    class uR extends we.Component {
+    class cR extends we.Component {
       loadChangedFilesScheduler = new WC(200);
       historyRef = null;
       constructor(e) {
@@ -78827,7 +78831,7 @@
         });
       }
       renderCommitSummary(e) {
-        return we.createElement(aR, {
+        return we.createElement(sR, {
           selectedCommits: e,
           shasInDiff: this.props.shasInDiff,
           changesetData: this.props.changesetData,
@@ -78885,7 +78889,7 @@
             "No files in commit"
           );
         const t = go(this.props.commitSummaryWidth) - 1;
-        return we.createElement(cR, {
+        return we.createElement(lR, {
           files: e,
           onSelectedFileChanged: this.onFileSelected,
           selectedFile: this.props.selectedFile,
@@ -78899,7 +78903,7 @@
       render() {
         const { selectedCommits: e, isContiguous: t } = this.props;
         if (e.length > 1 && !t) return this.renderMultipleCommitsBlankSlate();
-        if (0 === e.length) return we.createElement(hR, null);
+        if (0 === e.length) return we.createElement(uR, null);
         const n = this.state.isExpanded ? "expanded" : "collapsed",
           { commitSummaryWidth: r } = this.props;
         return we.createElement(
@@ -79022,7 +79026,7 @@
             },
             { type: "separator" },
           ];
-        let h = "查看GitHub";
+        let h = "View on GitHub";
         const d = o.gitHubRepository;
         d && d.endpoint !== Dn() && (h = "在GitHub Enterprise上查看"),
           u.push({
@@ -79040,7 +79044,7 @@
         this.props.onViewCommitOnGitHub(e, t.path);
       };
     }
-    function hR() {
+    function uR() {
       const e = Fo(__dirname, "static/empty-no-commit.svg");
       return we.createElement(
         "div",
@@ -79053,10 +79057,10 @@
         "No commit selected"
       );
     }
-    function dR(e) {
+    function hR(e) {
       return void 0 === e;
     }
-    class pR extends we.Component {
+    class dR extends we.Component {
       constructor(e) {
         super(e), (this.state = { isPushingOrPublishing: !1 });
       }
@@ -79077,7 +79081,7 @@
         );
       }
       renderDialogContent() {
-        if (dR(this.props.unPushedCommits))
+        if (hR(this.props.unPushedCommits))
           return we.createElement(
             mS,
             null,
@@ -79119,12 +79123,12 @@
         );
       }
       renderDialogTitle() {
-        return dR(this.props.unPushedCommits)
+        return hR(this.props.unPushedCommits)
           ? "Publish branch?"
           : "Push local changes?";
       }
       renderButtonGroup() {
-        return dR(this.props.unPushedCommits)
+        return hR(this.props.unPushedCommits)
           ? we.createElement(CS, { okButtonText: "Publish branch" })
           : we.createElement(CS, {
               okButtonText: "Push commits",
@@ -79148,15 +79152,15 @@
         this.props.onConfirm(e, t), this.props.onDismissed();
       };
     }
-    const mR = Fo(__dirname, "static/empty-no-branches.svg");
-    class fR extends we.Component {
+    const pR = Fo(__dirname, "static/empty-no-branches.svg");
+    class mR extends we.Component {
       render() {
         return this.props.canCreateNewBranch
           ? we.createElement(
               "div",
               { className: "no-branches" },
               we.createElement("img", {
-                src: mR,
+                src: pR,
                 className: "blankslate-image",
                 alt: "",
               }),
@@ -79199,7 +79203,7 @@
             );
       }
     }
-    function gR(e) {
+    function fR(e) {
       const { name: t, isLocal: n, onRenameBranch: r, onDeleteBranch: i } = e,
         o = new Array();
       return (
@@ -79214,7 +79218,7 @@
         o
       );
     }
-    function yR(e) {
+    function gR(e) {
       const t = (function (e, t, n, r) {
         const i = new Array();
         e &&
@@ -79246,13 +79250,13 @@
             break;
       return { groups: t, selectedItem: n };
     }
-    class vR extends we.Component {
+    class yR extends we.Component {
       branchFilterList = null;
       constructor(e) {
-        super(e), (this.state = yR(e));
+        super(e), (this.state = gR(e));
       }
       componentWillReceiveProps(e) {
-        this.setState(yR(e));
+        this.setState(gR(e));
       }
       selectNextItem(e = !1, t) {
         null !== this.branchFilterList &&
@@ -79289,7 +79293,7 @@
         if (void 0 === n && void 0 === r) return;
         const { type: i, name: o } = e.branch;
         sw(
-          gR({
+          fR({
             name: o,
             isLocal: i === pr.Local,
             onRenameBranch: n,
@@ -79331,7 +79335,7 @@
           : ot(0, `Unknown identifier: ${e}`);
       }
       onRenderNoItems = () =>
-        we.createElement(fR, {
+        we.createElement(mR, {
           onCreateNewBranch: this.onCreateNewBranch,
           canCreateNewBranch: this.props.canCreateNewBranch,
           noBranchesMessage: this.props.noBranchesMessage,
@@ -79359,7 +79363,7 @@
           this.props.onCreateNewBranch(this.props.filterText);
       };
     }
-    class bR extends we.PureComponent {
+    class vR extends we.PureComponent {
       statusSubscription = null;
       constructor(e) {
         super(e);
@@ -79410,15 +79414,15 @@
           : we.createElement(Yv, {
               className: Sl()(
                 "ci-status",
-                `ci-status-${CR(e)}`,
+                `ci-status-${wR(e)}`,
                 this.props.className
               ),
-              symbol: wR(e),
-              title: kR(e),
+              symbol: bR(e),
+              title: SR(e),
             });
       }
     }
-    function wR(e) {
+    function bR(e) {
       switch (e.conclusion) {
         case "timed_out":
         case "failure":
@@ -79438,7 +79442,7 @@
       }
       return qu;
     }
-    function CR(e) {
+    function wR(e) {
       switch (e.conclusion) {
         case "timed_out":
           return "timed-out";
@@ -79454,16 +79458,16 @@
       }
       return "pending";
     }
-    function SR(e) {
+    function CR(e) {
       switch (e.conclusion) {
         case "success":
           return Mu;
         case "failure":
           return Bh;
       }
-      return wR(e);
+      return bR(e);
     }
-    function kR(e) {
+    function SR(e) {
       if (1 === e.checks.length) {
         const { name: t, description: n } = e.checks[0];
         return `${t}: ${n}`;
@@ -79472,7 +79476,7 @@
         e.checks.length
       } checks OK`;
     }
-    class ER extends we.Component {
+    class kR extends we.Component {
       constructor(e) {
         super(e), (this.state = { isDragInProgress: !1 });
       }
@@ -79550,7 +79554,7 @@
         return we.createElement(
           "div",
           { className: "ci-status-container" },
-          we.createElement(bR, {
+          we.createElement(vR, {
             dispatcher: this.props.dispatcher,
             repository: this.props.repository,
             commitRef: e,
@@ -79558,14 +79562,14 @@
         );
       }
     }
-    const RR = Fo(__dirname, "static/empty-no-pull-requests.svg");
-    class xR extends we.Component {
+    const ER = Fo(__dirname, "static/empty-no-pull-requests.svg");
+    class RR extends we.Component {
       render() {
         return we.createElement(
           "div",
           { className: "no-pull-requests" },
           we.createElement("img", {
-            src: RR,
+            src: ER,
             className: "blankslate-image",
             alt: "",
           }),
@@ -79634,24 +79638,24 @@
             );
       }
     }
-    function TR(e, t, n) {
+    function xR(e, t, n) {
       let r = null;
       return (
-        null != t.selectedPullRequest && (r = PR(e, t.selectedPullRequest)),
-        null == r && null != n && (r = PR(e, n.pullRequest)),
+        null != t.selectedPullRequest && (r = AR(e, t.selectedPullRequest)),
+        null == r && null != n && (r = AR(e, n.pullRequest)),
         r
       );
     }
-    class DR extends we.Component {
+    class TR extends we.Component {
       constructor(e) {
         super(e);
-        const t = AR(e.pullRequests),
-          n = TR(t, e, null);
+        const t = _R(e.pullRequests),
+          n = xR(t, e, null);
         this.state = { filterText: "", groupedItems: [t], selectedItem: n };
       }
       componentWillReceiveProps(e) {
-        const t = AR(e.pullRequests),
-          n = TR(t, e, this.state.selectedItem);
+        const t = _R(e.pullRequests),
+          n = xR(t, e, this.state.selectedItem);
         this.setState({ groupedItems: [t], selectedItem: n });
       }
       render() {
@@ -79673,7 +79677,7 @@
         });
       }
       renderNoItems = () =>
-        we.createElement(xR, {
+        we.createElement(RR, {
           isSearch: this.state.filterText.length > 0,
           isLoadingPullRequests: this.props.isLoadingPullRequests,
           repositoryName: this.getRepositoryName(),
@@ -79683,7 +79687,7 @@
         });
       renderPullRequest = (e, t) => {
         const n = e.pullRequest;
-        return we.createElement(ER, {
+        return we.createElement(kR, {
           title: n.title,
           number: n.pullRequestNumber,
           created: n.created,
@@ -79775,28 +79779,28 @@
           this.props.dispatcher.createPullRequest(this.props.repository);
       };
     }
-    function _R(e) {
+    function DR(e) {
       const t = Os(e.created.getTime() - Date.now());
       return `#${e.pullRequestNumber} opened ${t} by ${e.author}`;
     }
-    function AR(e) {
+    function _R(e) {
       return {
         identifier: "pull-requests",
         items: e.map((e) => ({
-          text: [e.title, _R(e)],
+          text: [e.title, DR(e)],
           id: e.pullRequestNumber.toString(),
           pullRequest: e,
         })),
       };
     }
-    function PR(e, t) {
+    function AR(e, t) {
       return (
         e.items.find(
           (e) => e.pullRequest.pullRequestNumber === t.pullRequestNumber
         ) || null
       );
     }
-    class IR extends we.Component {
+    class PR extends we.Component {
       constructor(e) {
         super(e), (this.state = { isDragInProgress: !1 });
       }
@@ -79860,11 +79864,11 @@
         );
       }
     }
-    function MR(e, t, n, r, i) {
+    function IR(e, t, n, r, i) {
       const o = e.branch,
         s = o.tip,
         a = n ? n.name : null;
-      return we.createElement(IR, {
+      return we.createElement(PR, {
         name: o.name,
         isCurrentBranch: o.name === a,
         lastCommitDate: s ? s.author.date : null,
@@ -79873,18 +79877,18 @@
         onDropOntoCurrentBranch: i,
       });
     }
-    const NR = new WeakMap();
-    function BR(e) {
-      let t = NR.get(e);
+    const MR = new WeakMap();
+    function NR(e) {
+      let t = MR.get(e);
       return (
         void 0 === t &&
-          ((t = (0, Ut.randomBytes)(8).toString("base64url")), NR.set(e, t)),
+          ((t = (0, Ut.randomBytes)(8).toString("base64url")), MR.set(e, t)),
         t
       );
     }
-    var OR = n(746),
-      FR = n.n(OR);
-    let LR = {
+    var BR = n(746),
+      OR = n.n(BR);
+    let FR = {
       baseUrl: null,
       breaks: !1,
       extensions: null,
@@ -79905,27 +79909,27 @@
       walkTokens: null,
       xhtml: !1,
     };
-    const UR = /[&<>"']/,
-      HR = /[&<>"']/g,
-      WR = /[<>"']|&(?!#?\w+;)/,
-      zR = /[<>"']|&(?!#?\w+;)/g,
-      $R = {
+    const LR = /[&<>"']/,
+      UR = /[&<>"']/g,
+      HR = /[<>"']|&(?!#?\w+;)/,
+      WR = /[<>"']|&(?!#?\w+;)/g,
+      zR = {
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;",
       },
-      qR = (e) => $R[e];
-    function jR(e, t) {
+      $R = (e) => zR[e];
+    function qR(e, t) {
       if (t) {
-        if (UR.test(e)) return e.replace(HR, qR);
-      } else if (WR.test(e)) return e.replace(zR, qR);
+        if (LR.test(e)) return e.replace(UR, $R);
+      } else if (HR.test(e)) return e.replace(WR, $R);
       return e;
     }
-    const GR = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi;
-    function VR(e) {
-      return e.replace(GR, (e, t) =>
+    const jR = /&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi;
+    function GR(e) {
+      return e.replace(jR, (e, t) =>
         "colon" === (t = t.toLowerCase())
           ? ":"
           : "#" === t.charAt(0)
@@ -79935,24 +79939,24 @@
           : ""
       );
     }
-    const KR = /(^|[^\[])\^/g;
-    function YR(e, t) {
+    const VR = /(^|[^\[])\^/g;
+    function KR(e, t) {
       (e = e.source || e), (t = t || "");
       const n = {
         replace: (t, r) => (
-          (r = (r = r.source || r).replace(KR, "$1")), (e = e.replace(t, r)), n
+          (r = (r = r.source || r).replace(VR, "$1")), (e = e.replace(t, r)), n
         ),
         getRegex: () => new RegExp(e, t),
       };
       return n;
     }
-    const ZR = /[^\w:]/g,
-      XR = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
-    function JR(e, t, n) {
+    const YR = /[^\w:]/g,
+      ZR = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
+    function XR(e, t, n) {
       if (e) {
         let e;
         try {
-          e = decodeURIComponent(VR(n)).replace(ZR, "").toLowerCase();
+          e = decodeURIComponent(GR(n)).replace(YR, "").toLowerCase();
         } catch (e) {
           return null;
         }
@@ -79964,21 +79968,21 @@
           return null;
       }
       t &&
-        !XR.test(n) &&
+        !ZR.test(n) &&
         (n = (function (e, t) {
-          QR[" " + e] ||
-            (ex.test(e)
-              ? (QR[" " + e] = e + "/")
-              : (QR[" " + e] = sx(e, "/", !0)));
-          const n = -1 === (e = QR[" " + e]).indexOf(":");
+          JR[" " + e] ||
+            (QR.test(e)
+              ? (JR[" " + e] = e + "/")
+              : (JR[" " + e] = ox(e, "/", !0)));
+          const n = -1 === (e = JR[" " + e]).indexOf(":");
           return "//" === t.substring(0, 2)
             ? n
               ? t
-              : e.replace(tx, "$1") + t
+              : e.replace(ex, "$1") + t
             : "/" === t.charAt(0)
             ? n
               ? t
-              : e.replace(nx, "$1") + t
+              : e.replace(tx, "$1") + t
             : e + t;
         })(t, n));
       try {
@@ -79988,12 +79992,12 @@
       }
       return n;
     }
-    const QR = {},
-      ex = /^[^:]+:\/*[^/]*$/,
-      tx = /^([^:]+:)[\s\S]*$/,
-      nx = /^([^:]+:\/*[^/]*)[\s\S]*$/,
-      rx = { exec: function () {} };
-    function ix(e) {
+    const JR = {},
+      QR = /^[^:]+:\/*[^/]*$/,
+      ex = /^([^:]+:)[\s\S]*$/,
+      tx = /^([^:]+:\/*[^/]*)[\s\S]*$/,
+      nx = { exec: function () {} };
+    function rx(e) {
       let t,
         n,
         r = 1;
@@ -80002,7 +80006,7 @@
           Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
       return e;
     }
-    function ox(e, t) {
+    function ix(e, t) {
       const n = e
         .replace(/\|/g, (e, t, n) => {
           let r = !1,
@@ -80022,7 +80026,7 @@
       for (; r < n.length; r++) n[r] = n[r].trim().replace(/\\\|/g, "|");
       return n;
     }
-    function sx(e, t, n) {
+    function ox(e, t, n) {
       const r = e.length;
       if (0 === r) return "";
       let i = 0;
@@ -80035,7 +80039,7 @@
       }
       return e.substr(0, r - i);
     }
-    function ax(e) {
+    function sx(e) {
       e &&
         e.sanitize &&
         !e.silent &&
@@ -80043,15 +80047,15 @@
           "marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options"
         );
     }
-    function lx(e, t) {
+    function ax(e, t) {
       if (t < 1) return "";
       let n = "";
       for (; t > 1; ) 1 & t && (n += e), (t >>= 1), (e += e);
       return n + e;
     }
-    function cx(e, t, n, r) {
+    function lx(e, t, n, r) {
       const i = t.href,
-        o = t.title ? jR(t.title) : null,
+        o = t.title ? qR(t.title) : null,
         s = e[1].replace(/\\([\[\]])/g, "$1");
       if ("!" !== e[0].charAt(0)) {
         r.state.inLink = !0;
@@ -80065,11 +80069,11 @@
         };
         return (r.state.inLink = !1), e;
       }
-      return { type: "image", raw: n, href: i, title: o, text: jR(s) };
+      return { type: "image", raw: n, href: i, title: o, text: qR(s) };
     }
-    class ux {
+    class cx {
       constructor(e) {
-        this.options = e || LR;
+        this.options = e || FR;
       }
       space(e) {
         const t = this.rules.block.newline.exec(e);
@@ -80083,7 +80087,7 @@
             type: "code",
             raw: t[0],
             codeBlockStyle: "indented",
-            text: this.options.pedantic ? e : sx(e, "\n"),
+            text: this.options.pedantic ? e : ox(e, "\n"),
           };
         }
       }
@@ -80118,7 +80122,7 @@
         if (t) {
           let e = t[2].trim();
           if (/#$/.test(e)) {
-            const t = sx(e, "#");
+            const t = ox(e, "#");
             this.options.pedantic
               ? (e = t.trim())
               : (t && !/ $/.test(t)) || (e = t.trim());
@@ -80276,7 +80280,7 @@
               ((e.type = "paragraph"),
               (e.text = this.options.sanitizer
                 ? this.options.sanitizer(t[0])
-                : jR(t[0])),
+                : qR(t[0])),
               (e.tokens = []),
               this.lexer.inline(e.text, e.tokens)),
             e
@@ -80302,7 +80306,7 @@
         if (t) {
           const e = {
             type: "table",
-            header: ox(t[1]).map((e) => ({ text: e })),
+            header: ix(t[1]).map((e) => ({ text: e })),
             align: t[2].replace(/^ *|\| *$/g, "").split(/ *\| */),
             rows: t[3] ? t[3].replace(/\n[ \t]*$/, "").split("\n") : [],
           };
@@ -80322,7 +80326,7 @@
                 ? (e.align[n] = "left")
                 : (e.align[n] = null);
             for (s = e.rows.length, n = 0; n < s; n++)
-              e.rows[n] = ox(e.rows[n], e.header.length).map((e) => ({
+              e.rows[n] = ix(e.rows[n], e.header.length).map((e) => ({
                 text: e,
               }));
             for (s = e.header.length, r = 0; r < s; r++)
@@ -80371,7 +80375,7 @@
       }
       escape(e) {
         const t = this.rules.inline.escape.exec(e);
-        if (t) return { type: "escape", raw: t[0], text: jR(t[1]) };
+        if (t) return { type: "escape", raw: t[0], text: qR(t[1]) };
       }
       tag(e) {
         const t = this.rules.inline.tag.exec(e);
@@ -80396,7 +80400,7 @@
               text: this.options.sanitize
                 ? this.options.sanitizer
                   ? this.options.sanitizer(t[0])
-                  : jR(t[0])
+                  : qR(t[0])
                 : t[0],
             }
           );
@@ -80407,7 +80411,7 @@
           const e = t[2].trim();
           if (!this.options.pedantic && /^</.test(e)) {
             if (!/>$/.test(e)) return;
-            const t = sx(e.slice(0, -1), "\\");
+            const t = ox(e.slice(0, -1), "\\");
             if ((e.length - t.length) % 2 == 0) return;
           } else {
             const e = (function (e, t) {
@@ -80441,7 +80445,7 @@
                 this.options.pedantic && !/>$/.test(e)
                   ? n.slice(1)
                   : n.slice(1, -1)),
-            cx(
+            lx(
               t,
               {
                 href: n ? n.replace(this.rules.inline._escapes, "$1") : n,
@@ -80464,7 +80468,7 @@
             const e = n[0].charAt(0);
             return { type: "text", raw: e, text: e };
           }
-          return cx(n, e, n[0], this.lexer);
+          return lx(n, e, n[0], this.lexer);
         }
       }
       emStrong(e, t, n = "") {
@@ -80525,7 +80529,7 @@
             r = /^ /.test(e) && / $/.test(e);
           return (
             n && r && (e = e.substring(1, e.length - 1)),
-            (e = jR(e, !0)),
+            (e = qR(e, !0)),
             { type: "codespan", raw: t[0], text: e }
           );
         }
@@ -80550,9 +80554,9 @@
           let e, r;
           return (
             "@" === n[2]
-              ? ((e = jR(this.options.mangle ? t(n[1]) : n[1])),
+              ? ((e = qR(this.options.mangle ? t(n[1]) : n[1])),
                 (r = "mailto:" + e))
-              : ((e = jR(n[1])), (r = e)),
+              : ((e = qR(n[1])), (r = e)),
             {
               type: "link",
               raw: n[0],
@@ -80568,13 +80572,13 @@
         if ((n = this.rules.inline.url.exec(e))) {
           let e, r;
           if ("@" === n[2])
-            (e = jR(this.options.mangle ? t(n[0]) : n[0])), (r = "mailto:" + e);
+            (e = qR(this.options.mangle ? t(n[0]) : n[0])), (r = "mailto:" + e);
           else {
             let t;
             do {
               (t = n[0]), (n[0] = this.rules.inline._backpedal.exec(n[0])[0]);
             } while (t !== n[0]);
-            (e = jR(n[0])), (r = "www." === n[1] ? "http://" + e : e);
+            (e = qR(n[0])), (r = "www." === n[1] ? "http://" + e : e);
           }
           return {
             type: "link",
@@ -80594,15 +80598,15 @@
               ? this.options.sanitize
                 ? this.options.sanitizer
                   ? this.options.sanitizer(n[0])
-                  : jR(n[0])
+                  : qR(n[0])
                 : n[0]
-              : jR(this.options.smartypants ? t(n[0]) : n[0])),
+              : qR(this.options.smartypants ? t(n[0]) : n[0])),
             { type: "text", raw: n[0], text: e }
           );
         }
       }
     }
-    const hx = {
+    const ux = {
       newline: /^(?: *(?:\n|$))+/,
       code: /^( {4}[^\n]+(?:\n(?: *(?:\n|$))*)?)+/,
       fences:
@@ -80613,7 +80617,7 @@
       list: /^( {0,3}bull)( [^\n]+?)?(?:\n|$)/,
       html: "^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>\\n*|$)|<![A-Z][\\s\\S]*?(?:>\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n *)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n *)+\\n|$))",
       def: /^ {0,3}\[(label)\]: *(?:\n *)?<?([^\s>]+)>?(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
-      table: rx,
+      table: nx,
       lheading: /^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,
       _paragraph:
         /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,
@@ -80621,35 +80625,35 @@
       _label: /(?!\s*\])(?:\\.|[^\[\]\\])+/,
       _title: /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/,
     };
-    (hx.def = YR(hx.def)
-      .replace("label", hx._label)
-      .replace("title", hx._title)
+    (ux.def = KR(ux.def)
+      .replace("label", ux._label)
+      .replace("title", ux._title)
       .getRegex()),
-      (hx.bullet = /(?:[*+-]|\d{1,9}[.)])/),
-      (hx.listItemStart = YR(/^( *)(bull) */)
-        .replace("bull", hx.bullet)
+      (ux.bullet = /(?:[*+-]|\d{1,9}[.)])/),
+      (ux.listItemStart = KR(/^( *)(bull) */)
+        .replace("bull", ux.bullet)
         .getRegex()),
-      (hx.list = YR(hx.list)
-        .replace(/bull/g, hx.bullet)
+      (ux.list = KR(ux.list)
+        .replace(/bull/g, ux.bullet)
         .replace(
           "hr",
           "\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))"
         )
-        .replace("def", "\\n+(?=" + hx.def.source + ")")
+        .replace("def", "\\n+(?=" + ux.def.source + ")")
         .getRegex()),
-      (hx._tag =
+      (ux._tag =
         "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul"),
-      (hx._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/),
-      (hx.html = YR(hx.html, "i")
-        .replace("comment", hx._comment)
-        .replace("tag", hx._tag)
+      (ux._comment = /<!--(?!-?>)[\s\S]*?(?:-->|$)/),
+      (ux.html = KR(ux.html, "i")
+        .replace("comment", ux._comment)
+        .replace("tag", ux._tag)
         .replace(
           "attribute",
           / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/
         )
         .getRegex()),
-      (hx.paragraph = YR(hx._paragraph)
-        .replace("hr", hx.hr)
+      (ux.paragraph = KR(ux._paragraph)
+        .replace("hr", ux.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("|lheading", "")
         .replace("|table", "")
@@ -80660,18 +80664,18 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", hx._tag)
+        .replace("tag", ux._tag)
         .getRegex()),
-      (hx.blockquote = YR(hx.blockquote)
-        .replace("paragraph", hx.paragraph)
+      (ux.blockquote = KR(ux.blockquote)
+        .replace("paragraph", ux.paragraph)
         .getRegex()),
-      (hx.normal = ix({}, hx)),
-      (hx.gfm = ix({}, hx.normal, {
+      (ux.normal = rx({}, ux)),
+      (ux.gfm = rx({}, ux.normal, {
         table:
           "^ *([^\\n ].*\\|.*)\\n {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)",
       })),
-      (hx.gfm.table = YR(hx.gfm.table)
-        .replace("hr", hx.hr)
+      (ux.gfm.table = KR(ux.gfm.table)
+        .replace("hr", ux.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("blockquote", " {0,3}>")
         .replace("code", " {4}[^\\n]")
@@ -80681,13 +80685,13 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", hx._tag)
+        .replace("tag", ux._tag)
         .getRegex()),
-      (hx.gfm.paragraph = YR(hx._paragraph)
-        .replace("hr", hx.hr)
+      (ux.gfm.paragraph = KR(ux._paragraph)
+        .replace("hr", ux.hr)
         .replace("heading", " {0,3}#{1,6} ")
         .replace("|lheading", "")
-        .replace("table", hx.gfm.table)
+        .replace("table", ux.gfm.table)
         .replace("blockquote", " {0,3}>")
         .replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n")
         .replace("list", " {0,3}(?:[*+-]|1[.)]) ")
@@ -80695,13 +80699,13 @@
           "html",
           "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)"
         )
-        .replace("tag", hx._tag)
+        .replace("tag", ux._tag)
         .getRegex()),
-      (hx.pedantic = ix({}, hx.normal, {
-        html: YR(
+      (ux.pedantic = rx({}, ux.normal, {
+        html: KR(
           "^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:\"[^\"]*\"|'[^']*'|\\s[^'\"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))"
         )
-          .replace("comment", hx._comment)
+          .replace("comment", ux._comment)
           .replace(
             /tag/g,
             "(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b"
@@ -80709,21 +80713,21 @@
           .getRegex(),
         def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
         heading: /^(#{1,6})(.*)(?:\n+|$)/,
-        fences: rx,
-        paragraph: YR(hx.normal._paragraph)
-          .replace("hr", hx.hr)
+        fences: nx,
+        paragraph: KR(ux.normal._paragraph)
+          .replace("hr", ux.hr)
           .replace("heading", " *#{1,6} *[^\n]")
-          .replace("lheading", hx.lheading)
+          .replace("lheading", ux.lheading)
           .replace("blockquote", " {0,3}>")
           .replace("|fences", "")
           .replace("|list", "")
           .replace("|html", "")
           .getRegex(),
       }));
-    const dx = {
+    const hx = {
       escape: /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,
       autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/,
-      url: rx,
+      url: nx,
       tag: "^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",
       link: /^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,
       reflink: /^!?\[(label)\]\[(ref)\]/,
@@ -80738,11 +80742,11 @@
       },
       code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
       br: /^( {2,}|\\)\n(?!\s*$)/,
-      del: rx,
+      del: nx,
       text: /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/,
       punctuation: /^([\spunctuation])/,
     };
-    function px(e) {
+    function dx(e) {
       return e
         .replace(/---/g, "—")
         .replace(/--/g, "–")
@@ -80752,7 +80756,7 @@
         .replace(/"/g, "”")
         .replace(/\.{3}/g, "…");
     }
-    function mx(e) {
+    function px(e) {
       let t,
         n,
         r = "";
@@ -80763,58 +80767,58 @@
           (r += "&#" + n + ";");
       return r;
     }
-    (dx._punctuation = "!\"#$%&'()+\\-.,/:;<=>?@\\[\\]`^{|}~"),
-      (dx.punctuation = YR(dx.punctuation)
-        .replace(/punctuation/g, dx._punctuation)
+    (hx._punctuation = "!\"#$%&'()+\\-.,/:;<=>?@\\[\\]`^{|}~"),
+      (hx.punctuation = KR(hx.punctuation)
+        .replace(/punctuation/g, hx._punctuation)
         .getRegex()),
-      (dx.blockSkip = /\[[^\]]*?\]\([^\)]*?\)|`[^`]*?`|<[^>]*?>/g),
-      (dx.escapedEmSt = /\\\*|\\_/g),
-      (dx._comment = YR(hx._comment)
+      (hx.blockSkip = /\[[^\]]*?\]\([^\)]*?\)|`[^`]*?`|<[^>]*?>/g),
+      (hx.escapedEmSt = /\\\*|\\_/g),
+      (hx._comment = KR(ux._comment)
         .replace("(?:--\x3e|$)", "--\x3e")
         .getRegex()),
-      (dx.emStrong.lDelim = YR(dx.emStrong.lDelim)
-        .replace(/punct/g, dx._punctuation)
+      (hx.emStrong.lDelim = KR(hx.emStrong.lDelim)
+        .replace(/punct/g, hx._punctuation)
         .getRegex()),
-      (dx.emStrong.rDelimAst = YR(dx.emStrong.rDelimAst, "g")
-        .replace(/punct/g, dx._punctuation)
+      (hx.emStrong.rDelimAst = KR(hx.emStrong.rDelimAst, "g")
+        .replace(/punct/g, hx._punctuation)
         .getRegex()),
-      (dx.emStrong.rDelimUnd = YR(dx.emStrong.rDelimUnd, "g")
-        .replace(/punct/g, dx._punctuation)
+      (hx.emStrong.rDelimUnd = KR(hx.emStrong.rDelimUnd, "g")
+        .replace(/punct/g, hx._punctuation)
         .getRegex()),
-      (dx._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g),
-      (dx._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/),
-      (dx._email =
+      (hx._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g),
+      (hx._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/),
+      (hx._email =
         /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/),
-      (dx.autolink = YR(dx.autolink)
-        .replace("scheme", dx._scheme)
-        .replace("email", dx._email)
+      (hx.autolink = KR(hx.autolink)
+        .replace("scheme", hx._scheme)
+        .replace("email", hx._email)
         .getRegex()),
-      (dx._attribute =
+      (hx._attribute =
         /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/),
-      (dx.tag = YR(dx.tag)
-        .replace("comment", dx._comment)
-        .replace("attribute", dx._attribute)
+      (hx.tag = KR(hx.tag)
+        .replace("comment", hx._comment)
+        .replace("attribute", hx._attribute)
         .getRegex()),
-      (dx._label = /(?:\[(?:\\.|[^\[\]\\])*\]|\\.|`[^`]*`|[^\[\]\\`])*?/),
-      (dx._href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/),
-      (dx._title =
+      (hx._label = /(?:\[(?:\\.|[^\[\]\\])*\]|\\.|`[^`]*`|[^\[\]\\`])*?/),
+      (hx._href = /<(?:\\.|[^\n<>\\])+>|[^\s\x00-\x1f]*/),
+      (hx._title =
         /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/),
-      (dx.link = YR(dx.link)
-        .replace("label", dx._label)
-        .replace("href", dx._href)
-        .replace("title", dx._title)
+      (hx.link = KR(hx.link)
+        .replace("label", hx._label)
+        .replace("href", hx._href)
+        .replace("title", hx._title)
         .getRegex()),
-      (dx.reflink = YR(dx.reflink)
-        .replace("label", dx._label)
-        .replace("ref", hx._label)
+      (hx.reflink = KR(hx.reflink)
+        .replace("label", hx._label)
+        .replace("ref", ux._label)
         .getRegex()),
-      (dx.nolink = YR(dx.nolink).replace("ref", hx._label).getRegex()),
-      (dx.reflinkSearch = YR(dx.reflinkSearch, "g")
-        .replace("reflink", dx.reflink)
-        .replace("nolink", dx.nolink)
+      (hx.nolink = KR(hx.nolink).replace("ref", ux._label).getRegex()),
+      (hx.reflinkSearch = KR(hx.reflinkSearch, "g")
+        .replace("reflink", hx.reflink)
+        .replace("nolink", hx.nolink)
         .getRegex()),
-      (dx.normal = ix({}, dx)),
-      (dx.pedantic = ix({}, dx.normal, {
+      (hx.normal = rx({}, hx)),
+      (hx.pedantic = rx({}, hx.normal, {
         strong: {
           start: /^__|\*\*/,
           middle:
@@ -80828,15 +80832,15 @@
           endAst: /\*(?!\*)/g,
           endUnd: /_(?!_)/g,
         },
-        link: YR(/^!?\[(label)\]\((.*?)\)/)
-          .replace("label", dx._label)
+        link: KR(/^!?\[(label)\]\((.*?)\)/)
+          .replace("label", hx._label)
           .getRegex(),
-        reflink: YR(/^!?\[(label)\]\s*\[([^\]]*)\]/)
-          .replace("label", dx._label)
+        reflink: KR(/^!?\[(label)\]\s*\[([^\]]*)\]/)
+          .replace("label", hx._label)
           .getRegex(),
       })),
-      (dx.gfm = ix({}, dx.normal, {
-        escape: YR(dx.escape).replace("])", "~|])").getRegex(),
+      (hx.gfm = rx({}, hx.normal, {
+        escape: KR(hx.escape).replace("])", "~|])").getRegex(),
         _extended_email:
           /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
         url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
@@ -80845,43 +80849,43 @@
         del: /^(~~?)(?=[^\s~])([\s\S]*?[^\s~])\1(?=[^~]|$)/,
         text: /^([`~]+|[^`~])(?:(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/,
       })),
-      (dx.gfm.url = YR(dx.gfm.url, "i")
-        .replace("email", dx.gfm._extended_email)
+      (hx.gfm.url = KR(hx.gfm.url, "i")
+        .replace("email", hx.gfm._extended_email)
         .getRegex()),
-      (dx.breaks = ix({}, dx.gfm, {
-        br: YR(dx.br).replace("{2,}", "*").getRegex(),
-        text: YR(dx.gfm.text)
+      (hx.breaks = rx({}, hx.gfm, {
+        br: KR(hx.br).replace("{2,}", "*").getRegex(),
+        text: KR(hx.gfm.text)
           .replace("\\b_", "\\b_| {2,}\\n")
           .replace(/\{2,\}/g, "*")
           .getRegex(),
       }));
-    class fx {
+    class mx {
       constructor(e) {
         (this.tokens = []),
           (this.tokens.links = Object.create(null)),
-          (this.options = e || LR),
-          (this.options.tokenizer = this.options.tokenizer || new ux()),
+          (this.options = e || FR),
+          (this.options.tokenizer = this.options.tokenizer || new cx()),
           (this.tokenizer = this.options.tokenizer),
           (this.tokenizer.options = this.options),
           (this.tokenizer.lexer = this),
           (this.inlineQueue = []),
           (this.state = { inLink: !1, inRawBlock: !1, top: !0 });
-        const t = { block: hx.normal, inline: dx.normal };
+        const t = { block: ux.normal, inline: hx.normal };
         this.options.pedantic
-          ? ((t.block = hx.pedantic), (t.inline = dx.pedantic))
+          ? ((t.block = ux.pedantic), (t.inline = hx.pedantic))
           : this.options.gfm &&
-            ((t.block = hx.gfm),
-            this.options.breaks ? (t.inline = dx.breaks) : (t.inline = dx.gfm)),
+            ((t.block = ux.gfm),
+            this.options.breaks ? (t.inline = hx.breaks) : (t.inline = hx.gfm)),
           (this.tokenizer.rules = t);
       }
       static get rules() {
-        return { block: hx, inline: dx };
+        return { block: ux, inline: hx };
       }
       static lex(e, t) {
-        return new fx(t).lex(e);
+        return new mx(t).lex(e);
       }
       static lexInline(e, t) {
-        return new fx(t).inlineTokens(e);
+        return new mx(t).inlineTokens(e);
       }
       lex(e) {
         let t;
@@ -81020,7 +81024,7 @@
                 (l =
                   l.slice(0, o.index) +
                   "[" +
-                  lx("a", o[0].length - 2) +
+                  ax("a", o[0].length - 2) +
                   "]" +
                   l.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex));
         }
@@ -81028,7 +81032,7 @@
           l =
             l.slice(0, o.index) +
             "[" +
-            lx("a", o[0].length - 2) +
+            ax("a", o[0].length - 2) +
             "]" +
             l.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
         for (; null != (o = this.tokenizer.rules.inline.escapedEmSt.exec(l)); )
@@ -81074,9 +81078,9 @@
               (e = e.substring(n.raw.length)), t.push(n);
             else if ((n = this.tokenizer.del(e)))
               (e = e.substring(n.raw.length)), t.push(n);
-            else if ((n = this.tokenizer.autolink(e, mx)))
+            else if ((n = this.tokenizer.autolink(e, px)))
               (e = e.substring(n.raw.length)), t.push(n);
-            else if (this.state.inLink || !(n = this.tokenizer.url(e, mx))) {
+            else if (this.state.inLink || !(n = this.tokenizer.url(e, px))) {
               if (
                 ((i = e),
                 this.options.extensions && this.options.extensions.startInline)
@@ -81090,7 +81094,7 @@
                 }),
                   t < 1 / 0 && t >= 0 && (i = e.substring(0, t + 1));
               }
-              if ((n = this.tokenizer.inlineText(i, px)))
+              if ((n = this.tokenizer.inlineText(i, dx)))
                 (e = e.substring(n.raw.length)),
                   "_" !== n.raw.slice(-1) && (a = n.raw.slice(-1)),
                   (s = !0),
@@ -81110,9 +81114,9 @@
         return t;
       }
     }
-    class gx {
+    class fx {
       constructor(e) {
-        this.options = e || LR;
+        this.options = e || FR;
       }
       code(e, t, n) {
         const r = (t || "").match(/\S*/)[0];
@@ -81125,11 +81129,11 @@
           r
             ? '<pre><code class="' +
               this.options.langPrefix +
-              jR(r, !0) +
+              qR(r, !0) +
               '">' +
-              (n ? e : jR(e, !0)) +
+              (n ? e : qR(e, !0)) +
               "</code></pre>\n"
-            : "<pre><code>" + (n ? e : jR(e, !0)) + "</code></pre>\n"
+            : "<pre><code>" + (n ? e : qR(e, !0)) + "</code></pre>\n"
         );
       }
       blockquote(e) {
@@ -81218,13 +81222,13 @@
         return "<del>" + e + "</del>";
       }
       link(e, t, n) {
-        if (null === (e = JR(this.options.sanitize, this.options.baseUrl, e)))
+        if (null === (e = XR(this.options.sanitize, this.options.baseUrl, e)))
           return n;
-        let r = '<a href="' + jR(e) + '"';
+        let r = '<a href="' + qR(e) + '"';
         return t && (r += ' title="' + t + '"'), (r += ">" + n + "</a>"), r;
       }
       image(e, t, n) {
-        if (null === (e = JR(this.options.sanitize, this.options.baseUrl, e)))
+        if (null === (e = XR(this.options.sanitize, this.options.baseUrl, e)))
           return n;
         let r = '<img src="' + e + '" alt="' + n + '"';
         return (
@@ -81237,7 +81241,7 @@
         return e;
       }
     }
-    class yx {
+    class gx {
       strong(e) {
         return e;
       }
@@ -81266,7 +81270,7 @@
         return "";
       }
     }
-    class vx {
+    class yx {
       constructor() {
         this.seen = {};
       }
@@ -81297,20 +81301,20 @@
         return this.getNextSafeSlug(n, t.dryrun);
       }
     }
-    class bx {
+    class vx {
       constructor(e) {
-        (this.options = e || LR),
-          (this.options.renderer = this.options.renderer || new gx()),
+        (this.options = e || FR),
+          (this.options.renderer = this.options.renderer || new fx()),
           (this.renderer = this.options.renderer),
           (this.renderer.options = this.options),
-          (this.textRenderer = new yx()),
-          (this.slugger = new vx());
+          (this.textRenderer = new gx()),
+          (this.slugger = new yx());
       }
       static parse(e, t) {
-        return new bx(t).parse(e);
+        return new vx(t).parse(e);
       }
       static parseInline(e, t) {
-        return new bx(t).parseInline(e);
+        return new vx(t).parseInline(e);
       }
       parse(e, t = !0) {
         let n,
@@ -81370,7 +81374,7 @@
                 C += this.renderer.heading(
                   this.parseInline(h.tokens),
                   h.depth,
-                  VR(this.parseInline(h.tokens, this.textRenderer)),
+                  GR(this.parseInline(h.tokens, this.textRenderer)),
                   this.slugger
                 );
                 continue;
@@ -81531,7 +81535,7 @@
         return o;
       }
     }
-    function wx(e, t, n) {
+    function bx(e, t, n) {
       if (null == e)
         throw new Error("marked(): input parameter is undefined or null");
       if ("string" != typeof e)
@@ -81542,13 +81546,13 @@
         );
       if (
         ("function" == typeof t && ((n = t), (t = null)),
-        ax((t = ix({}, wx.defaults, t || {}))),
+        sx((t = rx({}, bx.defaults, t || {}))),
         n)
       ) {
         const r = t.highlight;
         let i;
         try {
-          i = fx.lex(e, t);
+          i = mx.lex(e, t);
         } catch (e) {
           return n(e);
         }
@@ -81556,8 +81560,8 @@
           let o;
           if (!e)
             try {
-              t.walkTokens && wx.walkTokens(i, t.walkTokens),
-                (o = bx.parse(i, t));
+              t.walkTokens && bx.walkTokens(i, t.walkTokens),
+                (o = vx.parse(i, t));
             } catch (t) {
               e = t;
             }
@@ -81567,7 +81571,7 @@
         if ((delete t.highlight, !i.length)) return o();
         let s = 0;
         return (
-          wx.walkTokens(i, function (e) {
+          bx.walkTokens(i, function (e) {
             "code" === e.type &&
               (s++,
               setTimeout(() => {
@@ -81583,8 +81587,8 @@
         );
       }
       try {
-        const n = fx.lex(e, t);
-        return t.walkTokens && wx.walkTokens(n, t.walkTokens), bx.parse(n, t);
+        const n = mx.lex(e, t);
+        return t.walkTokens && bx.walkTokens(n, t.walkTokens), vx.parse(n, t);
       } catch (e) {
         if (
           ((e.message +=
@@ -81592,17 +81596,17 @@
           t.silent)
         )
           return (
-            "<p>An error occurred:</p><pre>" + jR(e.message + "", !0) + "</pre>"
+            "<p>An error occurred:</p><pre>" + qR(e.message + "", !0) + "</pre>"
           );
         throw e;
       }
     }
-    (wx.options = wx.setOptions =
+    (bx.options = bx.setOptions =
       function (e) {
         var t;
-        return ix(wx.defaults, e), (t = wx.defaults), (LR = t), wx;
+        return rx(bx.defaults, e), (t = bx.defaults), (FR = t), bx;
       }),
-      (wx.getDefaults = function () {
+      (bx.getDefaults = function () {
         return {
           baseUrl: null,
           breaks: !1,
@@ -81625,10 +81629,10 @@
           xhtml: !1,
         };
       }),
-      (wx.defaults = LR),
-      (wx.use = function (...e) {
-        const t = ix({}, ...e),
-          n = wx.defaults.extensions || { renderers: {}, childTokens: {} };
+      (bx.defaults = FR),
+      (bx.use = function (...e) {
+        const t = rx({}, ...e),
+          n = bx.defaults.extensions || { renderers: {}, childTokens: {} };
         let r;
         e.forEach((e) => {
           if (
@@ -81667,7 +81671,7 @@
               })),
             e.renderer)
           ) {
-            const n = wx.defaults.renderer || new gx();
+            const n = bx.defaults.renderer || new fx();
             for (const t in e.renderer) {
               const r = n[t];
               n[t] = (...i) => {
@@ -81678,7 +81682,7 @@
             t.renderer = n;
           }
           if (e.tokenizer) {
-            const n = wx.defaults.tokenizer || new ux();
+            const n = bx.defaults.tokenizer || new cx();
             for (const t in e.tokenizer) {
               const r = n[t];
               n[t] = (...i) => {
@@ -81689,38 +81693,38 @@
             t.tokenizer = n;
           }
           if (e.walkTokens) {
-            const n = wx.defaults.walkTokens;
+            const n = bx.defaults.walkTokens;
             t.walkTokens = function (t) {
               e.walkTokens.call(this, t), n && n.call(this, t);
             };
           }
-          r && (t.extensions = n), wx.setOptions(t);
+          r && (t.extensions = n), bx.setOptions(t);
         });
       }),
-      (wx.walkTokens = function (e, t) {
+      (bx.walkTokens = function (e, t) {
         for (const n of e)
-          switch ((t.call(wx, n), n.type)) {
+          switch ((t.call(bx, n), n.type)) {
             case "table":
-              for (const e of n.header) wx.walkTokens(e.tokens, t);
+              for (const e of n.header) bx.walkTokens(e.tokens, t);
               for (const e of n.rows)
-                for (const n of e) wx.walkTokens(n.tokens, t);
+                for (const n of e) bx.walkTokens(n.tokens, t);
               break;
             case "list":
-              wx.walkTokens(n.items, t);
+              bx.walkTokens(n.items, t);
               break;
             default:
-              wx.defaults.extensions &&
-              wx.defaults.extensions.childTokens &&
-              wx.defaults.extensions.childTokens[n.type]
-                ? wx.defaults.extensions.childTokens[n.type].forEach(function (
+              bx.defaults.extensions &&
+              bx.defaults.extensions.childTokens &&
+              bx.defaults.extensions.childTokens[n.type]
+                ? bx.defaults.extensions.childTokens[n.type].forEach(function (
                     e
                   ) {
-                    wx.walkTokens(n[e], t);
+                    bx.walkTokens(n[e], t);
                   })
-                : n.tokens && wx.walkTokens(n.tokens, t);
+                : n.tokens && bx.walkTokens(n.tokens, t);
           }
       }),
-      (wx.parseInline = function (e, t) {
+      (bx.parseInline = function (e, t) {
         if (null == e)
           throw new Error(
             "marked.parseInline(): input parameter is undefined or null"
@@ -81731,11 +81735,11 @@
               Object.prototype.toString.call(e) +
               ", string expected"
           );
-        ax((t = ix({}, wx.defaults, t || {})));
+        sx((t = rx({}, bx.defaults, t || {})));
         try {
-          const n = fx.lexInline(e, t);
+          const n = mx.lexInline(e, t);
           return (
-            t.walkTokens && wx.walkTokens(n, t.walkTokens), bx.parseInline(n, t)
+            t.walkTokens && bx.walkTokens(n, t.walkTokens), vx.parseInline(n, t)
           );
         } catch (e) {
           if (
@@ -81745,29 +81749,29 @@
           )
             return (
               "<p>An error occurred:</p><pre>" +
-              jR(e.message + "", !0) +
+              qR(e.message + "", !0) +
               "</pre>"
             );
           throw e;
         }
       }),
-      (wx.Parser = bx),
-      (wx.parser = bx.parse),
-      (wx.Renderer = gx),
-      (wx.TextRenderer = yx),
-      (wx.Lexer = fx),
-      (wx.lexer = fx.lex),
-      (wx.Tokenizer = ux),
-      (wx.Slugger = vx),
-      (wx.parse = wx),
-      wx.options,
-      wx.setOptions,
-      wx.use,
-      wx.walkTokens,
-      wx.parseInline,
-      bx.parse,
-      fx.lex;
-    class Cx {
+      (bx.Parser = vx),
+      (bx.parser = vx.parse),
+      (bx.Renderer = fx),
+      (bx.TextRenderer = gx),
+      (bx.Lexer = mx),
+      (bx.lexer = mx.lex),
+      (bx.Tokenizer = cx),
+      (bx.Slugger = yx),
+      (bx.parse = bx),
+      bx.options,
+      bx.setOptions,
+      bx.use,
+      bx.walkTokens,
+      bx.parseInline,
+      vx.parse,
+      mx.lex;
+    class wx {
       emojiRegex;
       emojiFilePath;
       emojiBase64URICache = new Map();
@@ -81829,7 +81833,7 @@
         return new RegExp("(" + t + ")", "g");
       }
     }
-    function Sx(e) {
+    function Cx(e) {
       const t = Tn(e.endpoint);
       return new RegExp(
         (0, C.escapeRegExp)(t) +
@@ -81841,7 +81845,7 @@
           /(?<refNumber>\d+)(?<anchor>#[\w-]+)?\b/.source
       );
     }
-    class kx {
+    class Sx {
       repository;
       constructor(e) {
         this.repository = e;
@@ -81863,13 +81867,13 @@
           !!/(issue|pull|discussion)/.test(e.href) &&
           !/\d+\/(files|commits|conflicts|checks)/.test(e.href) &&
           !/\.[a-z]+\z/.test(e.href) &&
-          Sx(this.repository).test(e.href)
+          Cx(this.repository).test(e.href)
         );
       }
       async filter(e) {
         const { textContent: t } = e;
         if (!(e instanceof HTMLAnchorElement) || null === t) return null;
-        const n = t.match(Sx(this.repository));
+        const n = t.match(Cx(this.repository));
         if (null === n || void 0 === n.groups) return null;
         const { refNumber: r, anchor: i } = n.groups,
           o = e.cloneNode(!0);
@@ -81895,7 +81899,7 @@
         return "(comment)";
       }
     }
-    function Ex(e, t) {
+    function kx(e, t) {
       if (void 0 === e) return [];
       const n = e.split("/");
       return n.length > 3 || (1 === n.length && n[0] !== t.owner.login)
@@ -81904,17 +81908,17 @@
         ? []
         : n;
     }
-    const Rx = /(?<marker>#|gh-|\/(?:issues|pull|discussions)\/)(?=\d)/i,
-      xx = /(?<=^|\W)/,
-      Tx = new RegExp(
+    const Ex = /(?<marker>#|gh-|\/(?:issues|pull|discussions)\/)(?=\d)/i,
+      Rx = /(?<=^|\W)/,
+      xx = new RegExp(
         /(?<ownerOrOwnerRepo>\w+(?:-\w+)*(?:\/[.\w-]+)?)/.source +
           "?" +
-          Rx.source +
+          Ex.source +
           /(?<refNumber>\d+)\b/.source,
         "i"
       );
-    class Dx {
-      issueReferenceWithLeader = new RegExp(xx.source + Tx.source, "ig");
+    class Tx {
+      issueReferenceWithLeader = new RegExp(Rx.source + xx.source, "ig");
       repository;
       constructor(e) {
         this.repository = e;
@@ -81931,7 +81935,7 @@
       }
       async filter(e) {
         const { textContent: t } = e;
-        if (e.nodeType !== e.TEXT_NODE || null === t || !Rx.test(t))
+        if (e.nodeType !== e.TEXT_NODE || null === t || !Ex.test(t))
           return null;
         let n = 0;
         const r = [],
@@ -81953,7 +81957,7 @@
       }
       createLinkElement(e, t, n) {
         let r = `${e}${t}`;
-        const i = Ex(n, this.repository);
+        const i = kx(n, this.repository);
         if (null === i) return null;
         let [o, s] = i;
         void 0 !== o && void 0 !== s
@@ -81964,7 +81968,7 @@
         return (l.textContent = r), (l.href = a), l;
       }
     }
-    class _x {
+    class Dx {
       repository;
       beginStringNonWord = /(^|[^a-zA-Z0-9_`])/;
       userNameRef =
@@ -82025,14 +82029,14 @@
         return (n.textContent = e), (n.href = t), n;
       }
     }
-    const Ax = new RegExp(
+    const _x = new RegExp(
       "^" +
         (0, C.escapeRegExp)("https://user-images.githubusercontent.com") +
         ".+" +
         /(mp4|webm|ogg|mov|qt|avi|wmv|3gp|mpg|mpeg|)$/.source,
       "i"
     );
-    class Px {
+    class Ax {
       createFilterTreeWalker(e) {
         return e.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
           acceptNode: (e) =>
@@ -82051,26 +82055,26 @@
         return e instanceof HTMLParagraphElement &&
           1 === e.childElementCount &&
           e.firstChild instanceof HTMLAnchorElement &&
-          Ax.test(e.firstChild.href)
+          _x.test(e.firstChild.href)
           ? e.firstChild.href
           : null;
       }
     }
-    class Ix {
+    class Px {
       createFilterTreeWalker(e) {
         return e.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
           acceptNode: function (e) {
-            return e instanceof HTMLVideoElement && !Ax.test(e.src)
+            return e instanceof HTMLVideoElement && !_x.test(e.src)
               ? NodeFilter.FILTER_ACCEPT
               : NodeFilter.FILTER_SKIP;
           },
         });
       }
       async filter(e) {
-        return e instanceof HTMLVideoElement && !Ax.test(e.src) ? [] : null;
+        return e instanceof HTMLVideoElement && !_x.test(e.src) ? [] : null;
       }
     }
-    class Mx {
+    class Ix {
       repository;
       beginStringNonWordRegix = /(^|\W)/;
       orgRegix = /(?<org>@[a-z0-9][a-z0-9-]*)/;
@@ -82131,7 +82135,7 @@
         return (r.textContent = `@${e}/${t}`), (r.href = n), r;
       }
     }
-    class Nx {
+    class Mx {
       repository;
       sharedLeader = /^|[\s({\[]/;
       sharedLeaderWithAt = new RegExp(this.sharedLeader.source + "|@");
@@ -82239,7 +82243,7 @@
         );
       }
       createOwnerSpecifiedCommitLinkElement(e, t) {
-        const n = Ex(e, this.repository);
+        const n = kx(e, this.repository);
         if (null === n) return;
         const r = this.trimCommitSha(t);
         if (n.length < 2) return this.createCommitMentionLinkElement(r);
@@ -82267,14 +82271,14 @@
         return e.length >= 30 ? e.slice(0, 7) : e;
       }
     }
-    const Bx = ["Commit", "PullRequest"];
-    class Ox {
+    const Nx = ["Commit", "PullRequest"];
+    class Bx {
       markdownContext;
       repository;
       closesWithTextReference = new RegExp(
         this.closeText("closeTextWIssue").source +
           "(?<issueReference>" +
-          Tx.source +
+          xx.source +
           ")"
       );
       closesAtEndOfText = new RegExp(
@@ -82343,7 +82347,7 @@
           e.href !== e.innerText
         )
           return;
-        const t = e.href.match(Sx(this.repository));
+        const t = e.href.match(Cx(this.repository));
         return null !== t &&
           void 0 !== t.groups &&
           void 0 !== t.groups.refNumber
@@ -82362,7 +82366,7 @@
         );
       }
     }
-    class Fx {
+    class Ox {
       nameWithOwner =
         /(?<owner>-?[a-z0-9][a-z0-9\-\_]*)\/(?<name>(?:\w|\.|\-)+)/;
       commitPath = /^commit\/(?<pathFragment>.+)$/;
@@ -82476,24 +82480,24 @@
         return e.length >= 30 ? e.slice(0, 7) : e;
       }
     }
-    const Lx = qn((e) => {
+    const Fx = qn((e) => {
       const { emoji: t, repository: n, markdownContext: r } = e,
         i = [];
       return (
         void 0 !== n &&
           (void 0 !== r &&
             (function (e) {
-              return Bx.includes(e);
+              return Nx.includes(e);
             })(r) &&
-            i.push(new Ox(r, n)),
-          i.push(new Dx(n), new kx(n))),
-        i.push(new Cx(t)),
-        void 0 !== n && i.push(new Mx(n), new _x(n), new Nx(n), new Fx(n)),
-        i.push(new Ix(), new Px()),
+            i.push(new Bx(r, n)),
+          i.push(new Tx(n), new Sx(n))),
+        i.push(new wx(t)),
+        void 0 !== n && i.push(new Ix(n), new Dx(n), new Mx(n), new Ox(n)),
+        i.push(new Px(), new Ax()),
         i
       );
     });
-    async function Ux(e, t) {
+    async function Lx(e, t) {
       const n = e.createFilterTreeWalker(t);
       let r = n.nextNode();
       for (; null !== r; ) {
@@ -82505,7 +82509,7 @@
         }
       }
     }
-    class Hx extends tt.Emitter {
+    class Ux extends tt.Emitter {
       markdown;
       constructor(e = null) {
         super(), (this.markdown = e);
@@ -82522,7 +82526,7 @@
         return this.markdown;
       }
     }
-    class Wx extends we.PureComponent {
+    class Hx extends we.PureComponent {
       frameRef = null;
       frameContainingDivRef = null;
       contentDivRef = null;
@@ -82569,9 +82573,9 @@
           "string" != typeof this.props.markdown
             ? this.props.markdown
             : (function (e, t) {
-                const n = wx(e, { gfm: !0, breaks: !0 }),
-                  r = FR().sanitize(n),
-                  i = new Hx(r);
+                const n = bx(e, { gfm: !0, breaks: !0 }),
+                  r = OR().sanitize(n),
+                  i = new Ux(r);
                 return (
                   void 0 !== t &&
                     (function (e, t) {
@@ -82582,10 +82586,10 @@
                           "text/html"
                         );
                         for (const r of e) {
-                          if ((await Ux(r, n), t.disposed)) break;
+                          if ((await Lx(r, n), t.disposed)) break;
                           t.emit(n.documentElement.innerHTML);
                         }
-                      })(Lx(t), e);
+                      })(Fx(t), e);
                     })(i, t),
                   i
                 );
@@ -82723,14 +82727,14 @@
           e.map((e) =>
             we.createElement(
               jv,
-              { target: Uv(e), key: BR(e), tooltipOffset: t },
+              { target: Uv(e), key: NR(e), tooltipOffset: t },
               e.ariaLabel
             )
           )
         );
       }
     }
-    class zx extends we.Component {
+    class Wx extends we.Component {
       quickViewRef = we.createRef();
       get quickViewHeight() {
         return this.quickViewRef.current?.clientHeight ?? 556;
@@ -82829,13 +82833,13 @@
             "div",
             { className: "title" },
             we.createElement("h2", null, e),
-            we.createElement(qx, {
+            we.createElement($x, {
               number: t,
               dispatcher: this.props.dispatcher,
               repository: n.gitHubRepository,
             })
           ),
-          we.createElement(Wx, {
+          we.createElement(Hx, {
             markdown: o,
             emoji: this.props.emoji,
             baseHref: n.gitHubRepository.htmlURL ?? void 0,
@@ -82870,7 +82874,7 @@
         );
       }
     }
-    class $x extends we.Component {
+    class zx extends we.Component {
       static getDerivedStateFromProps(e, t) {
         return t.currentPullRequest !== e.currentPullRequest
           ? {
@@ -82906,7 +82910,7 @@
       renderPullRequestQuickView = () => {
         if (!lo() || null === this.state.pullRequestBeingViewed) return null;
         const { pr: e, prListItemTop: t } = this.state.pullRequestBeingViewed;
-        return we.createElement(zx, {
+        return we.createElement(Wx, {
           dispatcher: this.props.dispatcher,
           emoji: this.props.emoji,
           pullRequest: e,
@@ -82968,7 +82972,7 @@
           : null;
       }
       renderBranch = (e, t) =>
-        MR(
+        IR(
           e,
           t,
           this.props.currentBranch,
@@ -82981,7 +82985,7 @@
           (this.props.repository.gitHubRepository || (e = fr.Branches), e)
         ) {
           case fr.Branches:
-            return we.createElement(vR, {
+            return we.createElement(yR, {
               defaultBranch: this.props.defaultBranch,
               currentBranch: this.props.currentBranch,
               allBranches: this.props.allBranches,
@@ -83042,7 +83046,7 @@
           this.props.defaultBranch &&
           this.props.currentBranch &&
           this.props.defaultBranch.name === this.props.currentBranch.name;
-        return we.createElement(DR, {
+        return we.createElement(TR, {
           key: "pr-list",
           pullRequests: this.props.pullRequests,
           selectedPullRequest: this.state.selectedPullRequest,
@@ -83132,7 +83136,7 @@
           (this.pullRequestQuickViewTimerId = null));
       };
     }
-    class qx extends we.Component {
+    class $x extends we.Component {
       badgeRef = null;
       badgeBoundingBottom = 0;
       constructor(e) {
@@ -83171,7 +83175,7 @@
             "#",
             this.props.number
           ),
-          we.createElement(bR, {
+          we.createElement(vR, {
             commitRef: e,
             dispatcher: this.props.dispatcher,
             repository: this.props.repository,
@@ -83180,7 +83184,7 @@
         );
       }
     }
-    class jx extends we.Component {
+    class qx extends we.Component {
       static getDerivedStateFromProps(e, t) {
         const { repository: n, aheadBehindStore: r } = e,
           i = e.currentBranch?.tip.sha,
@@ -83263,7 +83267,7 @@
         );
       }
     }
-    class Gx extends we.Component {
+    class jx extends we.Component {
       constructor(e) {
         super(e), (this.state = { isFocused: !1 });
       }
@@ -83304,7 +83308,7 @@
           this.setState({ isFocused: !1 });
       };
     }
-    class Vx extends we.Component {
+    class Gx extends we.Component {
       render() {
         const { status: e, classNamePrefix: t } = this.props;
         if (null === e) return null;
@@ -83315,12 +83319,12 @@
           { className: r },
           we.createElement(Yv, {
             className: Sl()(t, `${t}-${n}`, this.props.className),
-            symbol: Kx(n),
+            symbol: Vx(n),
           })
         );
       }
     }
-    function Kx(e) {
+    function Vx(e) {
       switch (e) {
         case Ws.Loading:
           return qu;
@@ -83334,7 +83338,7 @@
           return ot(0, `Unknown state: ${JSON.stringify(e)}`);
       }
     }
-    async function Yx(e, t, n, r) {
+    async function Kx(e, t, n, r) {
       const i = e.name;
       r({ kind: Ws.Loading });
       const { commits: o, base: s } = await Po(
@@ -83349,7 +83353,7 @@
       const a = s === e.tip.sha ? [] : o;
       r({ kind: Ws.Clean, commits: a });
     }
-    class Zx extends we.Component {
+    class Yx extends we.Component {
       get computedAction() {
         return "Rebase" === this.state.selectedOperation
           ? null !== this.state.rebasePreview
@@ -83381,7 +83385,7 @@
       }
       updateRebasePreview = async (e) => {
         const { currentBranch: t, repository: n } = this.props;
-        Yx(e, t, n, (e) => {
+        Kx(e, t, n, (e) => {
           this.setState({ rebasePreview: e });
         });
       };
@@ -83467,7 +83471,7 @@
           : we.createElement(
               "div",
               { className: "merge-status-component" },
-              we.createElement(Vx, {
+              we.createElement(Gx, {
                 status: { kind: this.computedAction },
                 classNamePrefix: "merge-status",
               }),
@@ -83556,7 +83560,7 @@
         );
       }
     }
-    class Xx extends we.Component {
+    class Zx extends we.Component {
       textbox = null;
       loadChangedFilesScheduler = new WC(200);
       branchList = null;
@@ -83619,7 +83623,7 @@
           we.createElement(
             "div",
             { className: "compare-form" },
-            we.createElement(Gx, {
+            we.createElement(jx, {
               symbol: th,
               type: "search",
               placeholder: r,
@@ -83697,7 +83701,7 @@
           onViewCommitOnGitHub: this.props.onViewCommitOnGitHub,
           onUndoCommit: this.onUndoCommit,
           onResetToCommit: this.onResetToCommit,
-          onRevertCommit: Jx(this.props.compareState.formState)
+          onRevertCommit: Xx(this.props.compareState.formState)
             ? this.props.onRevertCommit
             : void 0,
           onAmendCommit: this.props.onAmendCommit,
@@ -83763,7 +83767,7 @@
           recentBranches: n,
           filterText: r,
         } = this.props.compareState;
-        return we.createElement(vR, {
+        return we.createElement(yR, {
           ref: this.onBranchesListRef,
           defaultBranch: e,
           currentBranch: this.props.currentBranch,
@@ -83783,7 +83787,7 @@
       renderMergeCallToAction(e) {
         return null == this.props.currentBranch
           ? null
-          : we.createElement(Zx, {
+          : we.createElement(Yx, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               mergeStatus: this.props.compareState.mergeStatus,
@@ -83818,7 +83822,7 @@
         );
       }
       renderCompareBranchListItem = (e, t) =>
-        we.createElement(jx, {
+        we.createElement(qx, {
           branch: e.branch,
           currentBranch: this.props.currentBranch,
           matches: t,
@@ -83987,10 +83991,10 @@
             }));
       };
     }
-    function Jx(e) {
+    function Xx(e) {
       return e.kind === Ze.History || e.comparisonMode === Xe.Ahead;
     }
-    class Qx extends we.Component {
+    class Jx extends we.Component {
       constructor(e) {
         super(e), (this.state = { isRestoring: !1, isDiscarding: !1 });
       }
@@ -84069,7 +84073,7 @@
         });
       };
     }
-    class eT extends we.PureComponent {
+    class Qx extends we.PureComponent {
       onSelectedFileChanged = (e) =>
         this.props.dispatcher.selectStashedFile(this.props.repository, e);
       onResize = (e) => this.props.dispatcher.setStashedFilesWidth(e);
@@ -84110,7 +84114,7 @@
         return we.createElement(
           "section",
           { id: "stash-diff-viewer" },
-          we.createElement(Qx, {
+          we.createElement(Jx, {
             stashEntry: e,
             repository: r,
             dispatcher: i,
@@ -84130,7 +84134,7 @@
                 onResize: this.onResize,
                 onReset: this.onReset,
               },
-              we.createElement(cR, {
+              we.createElement(lR, {
                 files: h,
                 onSelectedFileChanged: this.onSelectedFileChanged,
                 selectedFile: t,
@@ -84142,7 +84146,7 @@
         );
       }
     }
-    class tT extends we.Component {
+    class eT extends we.Component {
       render() {
         return we.createElement(
           "li",
@@ -84199,8 +84203,8 @@
         e.preventDefault(), this.props.onSummaryClick(this.props.sectionId);
       };
     }
-    const nT = Fo(__dirname, "static/required-status-check.svg");
-    class rT extends we.Component {
+    const tT = Fo(__dirname, "static/required-status-check.svg");
+    class nT extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -84239,7 +84243,7 @@
             { className: "titleArea" },
             we.createElement("h3", null, "Get started"),
             we.createElement("img", {
-              src: nT,
+              src: tT,
               alt: "Partially checked check list",
             })
           ),
@@ -84247,14 +84251,14 @@
             "ol",
             null,
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Install a text editor",
                 isComplete: this.isStepComplete,
                 isNextStepTodo: this.isStepNextTodo,
                 sectionId: qs.PickEditor,
                 currentlyOpenSectionId: this.state.currentlyOpenSectionId,
-                skipLinkButton: we.createElement(iT, {
+                skipLinkButton: we.createElement(rT, {
                   onClick: this.skipEditorInstall,
                 }),
                 onSummaryClick: this.onStepSummaryClick,
@@ -84317,7 +84321,7 @@
                   )
             ),
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Create a branch",
                 isComplete: this.isStepComplete,
@@ -84341,7 +84345,7 @@
               )
             ),
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Edit a file",
                 isComplete: this.isStepComplete,
@@ -84375,7 +84379,7 @@
                 )
             ),
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Make a commit",
                 isComplete: this.isStepComplete,
@@ -84391,7 +84395,7 @@
               )
             ),
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Publish to GitHub",
                 isComplete: this.isStepComplete,
@@ -84415,14 +84419,14 @@
               )
             ),
             we.createElement(
-              tT,
+              eT,
               {
                 summaryText: "Open a pull request",
                 isComplete: this.isStepComplete,
                 isNextStepTodo: this.isStepNextTodo,
                 sectionId: qs.OpenPullRequest,
                 currentlyOpenSectionId: this.state.currentlyOpenSectionId,
-                skipLinkButton: we.createElement(iT, {
+                skipLinkButton: we.createElement(rT, {
                   onClick: this.skipCreatePR,
                 }),
                 onSummaryClick: this.onStepSummaryClick,
@@ -84469,11 +84473,11 @@
         });
       };
     }
-    const iT = (e) => we.createElement(rS, { onClick: e.onClick }, "Skip"),
-      oT = Fo(__dirname, "static/code.svg"),
-      sT = Fo(__dirname, "static/github-for-teams.svg"),
-      aT = Fo(__dirname, "static/github-for-business.svg");
-    class lT extends we.Component {
+    const rT = (e) => we.createElement(rS, { onClick: e.onClick }, "Skip"),
+      iT = Fo(__dirname, "static/code.svg"),
+      oT = Fo(__dirname, "static/github-for-teams.svg"),
+      sT = Fo(__dirname, "static/github-for-business.svg");
+    class aT extends we.Component {
       render() {
         return we.createElement(
           "div",
@@ -84494,7 +84498,7 @@
             we.createElement(
               "li",
               null,
-              we.createElement("img", { src: oT, alt: "Html syntax icon" }),
+              we.createElement("img", { src: iT, alt: "Html syntax icon" }),
               we.createElement(
                 "p",
                 null,
@@ -84506,7 +84510,7 @@
               "li",
               null,
               we.createElement("img", {
-                src: sT,
+                src: oT,
                 alt: "People with discussion bubbles overhead",
               }),
               we.createElement(
@@ -84520,7 +84524,7 @@
               "li",
               null,
               we.createElement("img", {
-                src: aT,
+                src: sT,
                 alt: "Server stack with cloud",
               }),
               we.createElement(
@@ -84534,8 +84538,8 @@
         );
       }
     }
-    const cT = Fo(__dirname, "static/admin-mentoring.svg"),
-      uT = we.createElement(Yv, {
+    const lT = Fo(__dirname, "static/admin-mentoring.svg"),
+      cT = we.createElement(Yv, {
         symbol: {
           w: 16,
           h: 16,
@@ -84543,9 +84547,9 @@
           fr: "evenodd",
         },
       }),
-      hT = we.createElement(Yv, { symbol: yh }),
-      dT = we.createElement(Yv, { symbol: Zu });
-    class pT extends we.Component {
+      uT = we.createElement(Yv, { symbol: yh }),
+      hT = we.createElement(Yv, { symbol: Zu });
+    class dT extends we.Component {
       render() {
         return we.createElement(
           "div",
@@ -84567,7 +84571,7 @@
                 )
               ),
               we.createElement("img", {
-                src: cT,
+                src: lT,
                 className: "image",
                 alt: "Hands clapping",
               })
@@ -84581,7 +84585,7 @@
                 buttonText: "Open in browser",
                 onClick: this.openDotcomExplore,
                 type: "normal",
-                image: uT,
+                image: cT,
               }),
               we.createElement(RE, {
                 title: "Create a new repository",
@@ -84589,7 +84593,7 @@
                 buttonText: "Create repository",
                 onClick: this.onCreateNewRepository,
                 type: "normal",
-                image: hT,
+                image: uT,
               }),
               we.createElement(RE, {
                 title: "Add a local repository",
@@ -84597,7 +84601,7 @@
                 buttonText: "Add repository",
                 onClick: this.onAddExistingRepository,
                 type: "normal",
-                image: dT,
+                image: hT,
               })
             )
           )
@@ -84613,7 +84617,7 @@
         this.props.dispatcher.showPopup({ type: Gr.AddRepository });
       };
     }
-    class mT extends we.Component {
+    class pT extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -84643,7 +84647,7 @@
         this.props.onContinue() && this.props.onDismissed();
       };
     }
-    class fT extends we.Component {
+    class mT extends we.Component {
       previousSection = this.props.state.selectedSection;
       forceCompareListScrollTop = !1;
       changesSidebarRef = we.createRef();
@@ -84769,7 +84773,7 @@
         return (
           (this.previousSection = Ke.History),
           (this.forceCompareListScrollTop = !1),
-          we.createElement(Xx, {
+          we.createElement(Zx, {
             ref: this.compareSidebarRef,
             repository: e,
             isLocalRepository: null === o,
@@ -84841,7 +84845,7 @@
         return t.kind !== Ye.Stash || null === n
           ? null
           : n.files.kind === Zo.Loaded
-          ? we.createElement(eT, {
+          ? we.createElement(Qx, {
               stashEntry: n,
               selectedStashedFile: t.selectedStashedFile,
               stashedFileDiff: t.selectedStashedFileDiff,
@@ -84885,7 +84889,7 @@
           void 0 !== n && c.push(n);
         }
         const u = mv.isDragOfTypeInProgress(hv.Commit);
-        return we.createElement(uR, {
+        return we.createElement(cR, {
           repository: this.props.repository,
           isLocalRepository: null === this.props.state.remote,
           dispatcher: this.props.dispatcher,
@@ -84916,11 +84920,11 @@
       };
       renderTutorialPane() {
         return this.props.currentTutorialStep === qs.AllDone
-          ? we.createElement(pT, {
+          ? we.createElement(dT, {
               dispatcher: this.props.dispatcher,
               repository: this.props.repository,
             })
-          : we.createElement(lT, null);
+          : we.createElement(aT, null);
       }
       renderContentForChanges() {
         const { changesState: e } = this.props.state,
@@ -85041,7 +85045,7 @@
       };
       maybeRenderTutorialPanel() {
         return Js(this.props.currentTutorialStep)
-          ? we.createElement(rT, {
+          ? we.createElement(nT, {
               dispatcher: this.props.dispatcher,
               repository: this.props.repository,
               resolvedExternalEditor: this.props.resolvedExternalEditor,
@@ -85051,16 +85055,16 @@
           : null;
       }
     }
-    const gT = /[\x00-\x20\x7F~^:?*\[\\|""<>]+|@{|\.\.+|^\.|\.$|\.lock$|\/$/g;
-    function yT(e) {
-      return e.replace(gT, "-").replace(/^[-\+]*/g, "");
+    const fT = /[\x00-\x20\x7F~^:?*\[\\|""<>]+|@{|\.\.+|^\.|\.$|\.lock$|\/$/g;
+    function gT(e) {
+      return e.replace(fT, "-").replace(/^[-\+]*/g, "");
     }
-    class vT extends we.Component {
+    class yT extends we.Component {
       textBoxRef = we.createRef();
       constructor(e) {
         super(e);
         const t = e.initialValue || "";
-        this.state = { proposedValue: t, sanitizedValue: yT(t) };
+        this.state = { proposedValue: t, sanitizedValue: gT(t) };
       }
       componentDidMount() {
         this.state.sanitizedValue !== this.props.initialValue &&
@@ -85085,7 +85089,7 @@
         null !== this.textBoxRef.current && this.textBoxRef.current.focus();
       }
       onValueChange = (e) => {
-        const t = yT(e),
+        const t = gT(e),
           n = this.state.sanitizedValue;
         this.setState({ proposedValue: e, sanitizedValue: t }),
           t !== n &&
@@ -85093,7 +85097,7 @@
             this.props.onValueChange(t);
       };
       onBlur = (e) => {
-        void 0 !== this.props.onBlur && this.props.onBlur(yT(e));
+        void 0 !== this.props.onBlur && this.props.onBlur(gT(e));
       };
       renderRefValueWarning() {
         const { proposedValue: e, sanitizedValue: t } = this.state;
@@ -85124,7 +85128,7 @@
             );
       }
     }
-    class bT extends we.Component {
+    class vT extends we.Component {
       constructor(e) {
         super(e), (this.state = { newName: e.branch.name });
       }
@@ -85140,7 +85144,7 @@
           we.createElement(
             mS,
             null,
-            we.createElement(vT, {
+            we.createElement(yT, {
               label: "Name",
               initialValue: this.props.branch.name,
               onValueChange: this.onNameChange,
@@ -85176,7 +85180,7 @@
             wS,
             null,
             we.createElement(CS, {
-              okButtonText: `重命名 ${this.props.branch.name}`,
+              okButtonText: `Rename ${this.props.branch.name}`,
               okButtonDisabled: 0 === this.state.newName.length,
             })
           )
@@ -85195,7 +85199,7 @@
           this.props.onDismissed();
       };
     }
-    class wT extends we.Component {
+    class bT extends we.Component {
       constructor(e) {
         super(e), (this.state = { includeRemoteBranch: !1, isDeleting: !1 });
       }
@@ -85266,7 +85270,7 @@
           this.props.onDismissed();
       };
     }
-    class CT extends we.Component {
+    class wT extends we.Component {
       constructor(e) {
         super(e), (this.state = { isDeleting: !1 });
       }
@@ -85315,7 +85319,7 @@
           this.props.onDismissed();
       };
     }
-    class ST extends we.Component {
+    class CT extends we.Component {
       render() {
         const e = this.props.progress.value || void 0;
         return we.createElement(
@@ -85341,7 +85345,7 @@
         );
       }
     }
-    class kT extends we.Component {
+    class ST extends we.Component {
       render() {
         return we.createElement(
           "div",
@@ -85350,11 +85354,11 @@
         );
       }
     }
-    var ET, RT;
+    var kT, ET;
     !(function (e) {
       (e[(e.Standard = 0)] = "Standard"), (e[(e.Subtitle = 1)] = "Subtitle");
-    })(ET || (ET = {}));
-    class xT extends we.Component {
+    })(kT || (kT = {}));
+    class RT extends we.Component {
       wrapperRef = Uv();
       innerButton = null;
       onClick = (e) => {
@@ -85449,11 +85453,11 @@
                   this.props.description
                 )
               : null,
-          n = this.props.style || ET.Standard;
+          n = this.props.style || kT.Standard;
         switch (n) {
-          case ET.Standard:
+          case kT.Standard:
             return we.createElement("div", { className: "text" }, t, e);
-          case ET.Subtitle:
+          case kT.Subtitle:
             return we.createElement(
               "div",
               { className: "text" },
@@ -85468,8 +85472,8 @@
     !(function (e) {
       (e[(e.Foldout = 0)] = "Foldout"),
         (e[(e.MultiOption = 1)] = "MultiOption");
-    })(RT || (RT = {}));
-    class TT extends we.Component {
+    })(ET || (ET = {}));
+    class xT extends we.Component {
       innerButton = we.createRef();
       rootDiv = we.createRef();
       focusTrapOptions;
@@ -85499,9 +85503,9 @@
             symbol: this.dropdownIcon(e),
             className: "dropdownArrow",
           });
-        return this.props.dropdownStyle === RT.MultiOption
+        return this.props.dropdownStyle === ET.MultiOption
           ? we.createElement(
-              xT,
+              RT,
               {
                 className: "toolbar-dropdown-arrow-button",
                 onClick: this.onToggleDropdownClick,
@@ -85518,7 +85522,7 @@
         this.props.onDropdownStateChanged(t, n);
       };
       onMainButtonClick = (e) => {
-        this.props.dropdownStyle !== RT.MultiOption
+        this.props.dropdownStyle !== ET.MultiOption
           ? this.onToggleDropdownClick(e)
           : this.props.onClick?.(e);
       };
@@ -85559,7 +85563,7 @@
         const e = this.state.clientRect;
         if (!e) return;
         const t =
-          this.props.dropdownStyle === RT.MultiOption
+          this.props.dropdownStyle === ET.MultiOption
             ? { maxHeight: "100%", width: e.width }
             : { height: "100%", minWidth: e.width };
         return { position: "absolute", marginLeft: e.left, top: 0, ...t };
@@ -85609,7 +85613,7 @@
       render() {
         const e = Sl()(
           "toolbar-dropdown",
-          this.props.dropdownStyle === RT.MultiOption
+          this.props.dropdownStyle === ET.MultiOption
             ? "multi-option-style"
             : "foldout-style",
           this.props.dropdownState,
@@ -85626,7 +85630,7 @@
           },
           this.renderDropdownContents(),
           we.createElement(
-            xT,
+            RT,
             {
               className: this.props.buttonClassName,
               ref: this.innerButton,
@@ -85647,21 +85651,21 @@
                 this.props.onlyShowTooltipWhenOverflowed,
               isOverflowed: this.props.isOverflowed,
               ariaExpanded:
-                this.props.dropdownStyle === RT.MultiOption
+                this.props.dropdownStyle === ET.MultiOption
                   ? void 0
                   : this.isOpen,
               ariaHaspopup: this.props.buttonAriaHaspopup,
             },
             this.props.children,
-            this.props.dropdownStyle !== RT.MultiOption &&
+            this.props.dropdownStyle !== ET.MultiOption &&
               this.renderDropdownArrow()
           ),
-          this.props.dropdownStyle === RT.MultiOption &&
+          this.props.dropdownStyle === ET.MultiOption &&
             this.renderDropdownArrow()
         );
       }
     }
-    class DT extends Ce().Component {
+    class TT extends Ce().Component {
       buttonsContainerRef = null;
       componentDidMount() {
         window.addEventListener("keydown", this.onDropdownKeyDown);
@@ -85675,7 +85679,7 @@
       onDropdownKeyDown = (e) => {
         if ("ArrowDown" !== e.key && "ArrowUp" !== e.key) return;
         e.preventDefault();
-        const t = this.buttonsContainerRef?.querySelectorAll(`.${_T}`);
+        const t = this.buttonsContainerRef?.querySelectorAll(`.${DT}`);
         if (void 0 === t) return;
         const n = this.buttonsContainerRef?.querySelector(":focus");
         if (!n) return;
@@ -85687,14 +85691,14 @@
       getDropdownItemWithType(e) {
         const { remoteName: t } = this.props;
         switch (e) {
-          case AT.Fetch:
+          case _T.Fetch:
             return {
               title: `Fetch ${t}`,
               description: `Fetch the latest changes from ${t}`,
               action: this.props.fetch,
               icon: ib,
             };
-          case AT.ForcePush: {
+          case _T.ForcePush: {
             const e = this.props.askForConfirmationOnForcePush
               ? null
               : Ce().createElement(
@@ -85724,7 +85728,7 @@
                 e
               ),
               action: this.props.forcePushWithLease,
-              icon: MT,
+              icon: IT,
             };
           }
         }
@@ -85733,7 +85737,7 @@
         const t = this.getDropdownItemWithType(e);
         return Ce().createElement(
           bw,
-          { className: _T, key: e, onClick: t.action },
+          { className: DT, key: e, onClick: t.action },
           Ce().createElement(Yv, { symbol: t.icon }),
           Ce().createElement(
             "div",
@@ -85752,9 +85756,9 @@
         );
       }
     }
-    const _T = "push-pull-dropdown-item";
-    var AT;
-    function PT(e, t) {
+    const DT = "push-pull-dropdown-item";
+    var _T;
+    function AT(e, t) {
       const { ahead: n, behind: r } = e;
       if (0 === n && 0 === r && 0 === t) return null;
       const i = new Array();
@@ -85780,7 +85784,7 @@
         we.createElement("div", { className: "ahead-behind" }, i)
       );
     }
-    function IT(e) {
+    function PT(e) {
       return e
         ? we.createElement(
             "span",
@@ -85792,22 +85796,22 @@
     }
     !(function (e) {
       (e.Fetch = "fetch"), (e.ForcePush = "force-push");
-    })(AT || (AT = {}));
-    const MT = {
+    })(_T || (_T = {}));
+    const IT = {
       w: 10,
       h: 16,
       d: "M0 6a.75.75 0 0 0 .974.714L4.469 3.22a.75.75 0 0 1 1.06 0l3.478 3.478a.75.75 0 0 0 .772-1.228L5.53 1.22a.75.75 0 0 0-1.06 0L.22 5.47A.75.75 0 0 0 0 6zm0 3a.75.75 0 0 0 1.28.53l2.97-2.97V14a.75.75 0 1 0 1.5 0V6.56l2.97 2.97a.75.75 0 0 0 1.06-1.06L5.53 4.22a.75.75 0 0 0-1.06 0L.22 8.47A.75.75 0 0 0 0 9z",
       fr: "evenodd",
     };
-    class NT extends we.Component {
+    class MT extends we.Component {
       defaultButtonProps() {
-        return { className: "push-pull-button", style: ET.Subtitle };
+        return { className: "push-pull-button", style: kT.Subtitle };
       }
       defaultDropdownProps() {
         return {
           buttonClassName: "push-pull-button",
-          style: ET.Subtitle,
-          dropdownStyle: RT.MultiOption,
+          style: kT.Subtitle,
+          dropdownStyle: ET.MultiOption,
           dropdownState: this.props.isDropdownOpen ? "open" : "closed",
           onDropdownStateChanged: this.props.onDropdownStateChanged,
         };
@@ -85834,7 +85838,7 @@
       };
       getDropdownContentRenderer(e) {
         return () =>
-          we.createElement(DT, {
+          we.createElement(TT, {
             itemTypes: e,
             remoteName: this.props.remoteName,
             fetch: this.fetch,
@@ -85878,10 +85882,10 @@
           : this.pushButton(i, n, r, l, this.push);
       }
       progressButton(e, t) {
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           ...this.defaultButtonProps(),
           title: e.title,
-          description: e.description || "稍等…",
+          description: e.description || "Hang on…",
           progressValue: e.value,
           icon: ib,
           iconClassName: t ? "spin" : "",
@@ -85890,18 +85894,18 @@
         });
       }
       publishRepositoryButton(e) {
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           ...this.defaultButtonProps(),
           title: "Publish repository",
           description: "Publish this repository to GitHub",
           className: "push-pull-button",
           icon: Mh,
-          style: ET.Subtitle,
+          style: kT.Subtitle,
           onClick: e,
         });
       }
       unbornRepositoryButton() {
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           ...this.defaultButtonProps(),
           title: "Publish branch",
           description: "Cannot publish unborn HEAD",
@@ -85911,7 +85915,7 @@
       }
       detachedHeadButton(e) {
         const t = e ? "Rebase in progress" : "Cannot publish detached HEAD";
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           ...this.defaultButtonProps(),
           title: "Publish branch",
           description: t,
@@ -85926,79 +85930,79 @@
           i = Sl()(this.defaultDropdownProps().className, "nudge-arrow", {
             "nudge-arrow-up": n,
           });
-        return we.createElement(TT, {
+        return we.createElement(xT, {
           ...this.defaultDropdownProps(),
           title: "Publish branch",
           description: r,
           icon: Mh,
           onClick: t,
           className: i,
-          dropdownContentRenderer: this.getDropdownContentRenderer([AT.Fetch]),
+          dropdownContentRenderer: this.getDropdownContentRenderer([_T.Fetch]),
         });
       }
       fetchButton(e, t, n) {
         const r = `Fetch ${e}`;
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           ...this.defaultButtonProps(),
           title: r,
-          description: IT(t),
+          description: PT(t),
           icon: ib,
           onClick: n,
         });
       }
       pullButton(e, t, n, r, i, o, s) {
         const a = i ? `Pull ${e} with rebase` : `Pull ${e}`,
-          l = [AT.Fetch];
+          l = [_T.Fetch];
         return (
-          o !== yo.NotAvailable && l.push(AT.ForcePush),
+          o !== yo.NotAvailable && l.push(_T.ForcePush),
           we.createElement(
-            TT,
+            xT,
             {
               ...this.defaultDropdownProps(),
               title: a,
-              description: IT(r),
+              description: PT(r),
               icon: Du,
               onClick: s,
               dropdownContentRenderer: this.getDropdownContentRenderer(l),
             },
-            PT(t, n)
+            AT(t, n)
           )
         );
       }
       pushButton(e, t, n, r, i) {
         return we.createElement(
-          TT,
+          xT,
           {
             ...this.defaultDropdownProps(),
             title: `Push ${e}`,
-            description: IT(r),
+            description: PT(r),
             icon: Au,
             onClick: i,
             dropdownContentRenderer: this.getDropdownContentRenderer([
-              AT.Fetch,
+              _T.Fetch,
             ]),
           },
-          PT(t, n)
+          AT(t, n)
         );
       }
       forcePushButton(e, t, n, r, i) {
         return we.createElement(
-          TT,
+          xT,
           {
             ...this.defaultDropdownProps(),
             title: `Force push ${e}`,
-            description: IT(r),
-            icon: MT,
+            description: PT(r),
+            icon: IT,
             onClick: i,
             dropdownContentRenderer: this.getDropdownContentRenderer([
-              AT.Fetch,
+              _T.Fetch,
             ]),
           },
-          PT(t, n)
+          AT(t, n)
         );
       }
     }
-    class BT extends we.PureComponent {
+    class NT extends we.PureComponent {
       onViewJobStepExternally = () => {
         this.props.onViewJobStepExternally(this.props.step);
       };
@@ -86020,8 +86024,8 @@
             "div",
             { className: "job-step-status-symbol" },
             we.createElement(Yv, {
-              className: Sl()("ci-status", `ci-status-${CR(e)}`),
-              symbol: SR(e),
+              className: Sl()("ci-status", `ci-status-${wR(e)}`),
+              symbol: CR(e),
             })
           ),
           we.createElement(
@@ -86050,7 +86054,7 @@
         );
       }
     }
-    class OT extends we.PureComponent {
+    class BT extends we.PureComponent {
       constructor(e) {
         super(e), (this.state = { firstFailedStep: this.props.steps.find(pu) });
       }
@@ -86060,7 +86064,7 @@
       render() {
         const { steps: e } = this.props,
           t = e.map((e, t) =>
-            we.createElement(BT, {
+            we.createElement(NT, {
               key: t,
               step: e,
               firstFailedStep: this.state.firstFailedStep,
@@ -86074,7 +86078,7 @@
         );
       }
     }
-    class FT extends we.PureComponent {
+    class OT extends we.PureComponent {
       constructor(e) {
         super(e), (this.state = { isMouseOver: !1 });
       }
@@ -86104,8 +86108,8 @@
           "div",
           { className: "ci-check-status-symbol" },
           we.createElement(Yv, {
-            className: Sl()("ci-status", `ci-status-${CR(e)}`),
-            symbol: wR(e),
+            className: Sl()("ci-status", `ci-status-${wR(e)}`),
+            symbol: bR(e),
           })
         );
       };
@@ -86210,7 +86214,7 @@
             this.renderCheckJobStepToggle()
           ),
           t && void 0 !== e.actionJobSteps
-            ? we.createElement(OT, {
+            ? we.createElement(BT, {
                 steps: e.actionJobSteps,
                 onViewJobStep: this.onViewJobStep,
               })
@@ -86218,7 +86222,7 @@
         );
       }
     }
-    class LT extends we.PureComponent {
+    class FT extends we.PureComponent {
       constructor(e) {
         super(e),
           (this.state = this.setupStateAfterCheckRunPropChange(
@@ -86281,7 +86285,7 @@
         const t = e.map((e, t) => {
           const n = this.state.checkRunExpanded === e.id.toString(),
             r = !0 === this.props.selectable;
-          return we.createElement(FT, {
+          return we.createElement(OT, {
             checkRun: e,
             key: t,
             loadingActionLogs: this.props.loadingActionLogs,
@@ -86325,7 +86329,7 @@
         );
       }
     }
-    class UT extends we.Component {
+    class LT extends we.Component {
       render() {
         const { valueMap: e } = this.props,
           {
@@ -86354,17 +86358,17 @@
                 continue;
               }
               const u = l + c,
-                h = ["M", ...HT(l, t, o, i)];
+                h = ["M", ...UT(l, t, o, i)];
               h.push("A", t, t, 0),
                 h.push(e > 0.5 ? 1 : 0),
                 h.push(1),
-                h.push(...HT(u, t, o, i)),
+                h.push(...UT(u, t, o, i)),
                 h.push("L"),
-                h.push(...HT(u, n, o, i)),
+                h.push(...UT(u, n, o, i)),
                 h.push("A", n, n, 0),
                 h.push(e > 0.5 ? 1 : 0),
                 h.push(0),
-                h.push(...HT(l, n, o, i)),
+                h.push(...UT(l, n, o, i)),
                 (l += c),
                 a.push({ name: r, path: h.join(" ") });
             }
@@ -86381,11 +86385,11 @@
         );
       }
     }
-    function HT(e, t, n, r) {
+    function UT(e, t, n, r) {
       const i = (e / r) * Math.PI * 2 - Math.PI / 2;
       return [t * Math.cos(i) + n, t * Math.sin(i) + n];
     }
-    class WT extends we.PureComponent {
+    class HT extends we.PureComponent {
       get failedChecksExist() {
         return this.props.checkRuns.some((e) => e.conclusion === bn.Failure);
       }
@@ -86422,8 +86426,8 @@
         );
       }
     }
-    const zT = Fo(__dirname, "static/empty-no-pull-requests.svg");
-    class $T extends we.PureComponent {
+    const WT = Fo(__dirname, "static/empty-no-pull-requests.svg");
+    class zT extends we.PureComponent {
       statusSubscription = null;
       constructor(e) {
         super(e);
@@ -86517,7 +86521,7 @@
       renderRerunButton = () => {
         const { checkRuns: e } = this.state;
         return an(this.props.repository.endpoint)
-          ? we.createElement(WT, {
+          ? we.createElement(HT, {
               disabled: 0 === e.length || this.state.loadingActionWorkflows,
               checkRuns: e,
               canReRunFailed: ln(this.props.repository.endpoint),
@@ -86530,7 +86534,7 @@
           "div",
           { className: "loading-check-runs" },
           we.createElement("img", {
-            src: zT,
+            src: WT,
             className: "blankslate-image",
             alt: "",
           }),
@@ -86556,7 +86560,7 @@
               symbol: Bh,
             });
         }
-        return we.createElement(UT, { valueMap: Cu(r) });
+        return we.createElement(LT, { valueMap: Cu(r) });
       }
       getTitle(e, t, n, r) {
         switch (!0) {
@@ -86645,7 +86649,7 @@
           : we.createElement(
               "div",
               { className: "ci-check-run-list-container" },
-              we.createElement(LT, {
+              we.createElement(FT, {
                 checkRuns: e,
                 loadingActionLogs: t,
                 loadingActionWorkflows: n,
@@ -86680,14 +86684,14 @@
         );
       }
     }
-    class qT extends we.Component {
+    class $T extends we.Component {
       badgeRef = null;
       renderBranchFoldout = () => {
         const e = this.props.repositoryState,
           t = e.branchesState,
           n = e.branchesState.tip,
           r = n.kind === jr.Valid ? n.branch : null;
-        return we.createElement($x, {
+        return we.createElement(zx, {
           allBranches: t.allBranches,
           recentBranches: t.recentBranches,
           currentBranch: r,
@@ -86762,7 +86766,7 @@
           we.Fragment,
           null,
           we.createElement(
-            TT,
+            xT,
             {
               className: "branch-button",
               icon: h,
@@ -86780,7 +86784,7 @@
               buttonClassName: y,
               onMouseEnter: this.onMouseEnter,
               onlyShowTooltipWhenOverflowed: !0,
-              isOverflowed: jT,
+              isOverflowed: qT,
             },
             this.renderPullRequestInfo()
           ),
@@ -86797,7 +86801,7 @@
         const { tip: t } = this.props.repositoryState.branchesState;
         t.kind === jr.Valid &&
           sw(
-            gR({
+            fR({
               name: t.branch.name,
               isLocal: t.branch.type === pr.Local,
               onRenameBranch: this.onRenameBranch,
@@ -86863,7 +86867,7 @@
               : "";
         return null === e
           ? null
-          : we.createElement($T, {
+          : we.createElement(zT, {
               prNumber: e.pullRequestNumber,
               dispatcher: this.props.dispatcher,
               repository: e.base.gitHubRepository,
@@ -86879,7 +86883,7 @@
         const e = this.props.currentPullRequest;
         return null === e
           ? null
-          : we.createElement(qx, {
+          : we.createElement($x, {
               number: e.pullRequestNumber,
               dispatcher: this.props.dispatcher,
               repository: e.base.gitHubRepository,
@@ -86888,27 +86892,27 @@
             });
       }
     }
-    const jT = (e) => {
+    const qT = (e) => {
       const t = e.querySelector(".title") ?? e;
       return t.scrollWidth > t.clientWidth;
     };
-    class GT extends we.Component {
+    class jT extends we.Component {
       render() {
         const e = this.props.progress,
           t = e.title || "Hang on…";
-        return we.createElement(xT, {
+        return we.createElement(RT, {
           title: "Reverting…",
           description: t,
           progressValue: e.value,
           className: "revert-progress",
           icon: ib,
           iconClassName: "spin",
-          style: ET.Subtitle,
+          style: kT.Subtitle,
           disabled: !0,
         });
       }
     }
-    class VT extends we.Component {
+    class GT extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -87022,7 +87026,7 @@
         this.setState({ confirmDiscardChanges: t });
       };
     }
-    class KT extends we.Component {
+    class VT extends we.Component {
       render() {
         const e = Sl()("form-component", this.props.className);
         return we.createElement(
@@ -87035,7 +87039,7 @@
         e.preventDefault(), this.props.onSubmit && this.props.onSubmit();
       };
     }
-    class YT extends we.Component {
+    class KT extends we.Component {
       render() {
         const e = Sl()("errors-component", this.props.className);
         return we.createElement(
@@ -87045,7 +87049,7 @@
         );
       }
     }
-    const ZT = (e) =>
+    const YT = (e) =>
       Ce().createElement(
         "div",
         { className: "horizontal-rule" },
@@ -87055,7 +87059,7 @@
           e.title
         )
       );
-    class XT extends we.Component {
+    class ZT extends we.Component {
       textBoxRef = we.createRef();
       constructor(e) {
         super(e), (this.state = { showPassword: !1 });
@@ -87085,9 +87089,9 @@
         );
       }
     }
-    const JT =
+    const XT =
       "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to.";
-    class QT extends we.Component {
+    class JT extends we.Component {
       constructor(e) {
         super(e), (this.state = { username: "", password: "" });
       }
@@ -87096,7 +87100,7 @@
           ? this.renderSignInForm()
           : this.renderEndpointRequiresWebFlow();
         return we.createElement(
-          KT,
+          VT,
           { className: "sign-in-form", onSubmit: this.signIn },
           e
         );
@@ -87114,7 +87118,7 @@
             autoFocus: this.props.endpoint === Dn(),
             onValueChanged: this.onUsernameChange,
           }),
-          we.createElement(XT, {
+          we.createElement(ZT, {
             label: "Password",
             disabled: e,
             required: !0,
@@ -87166,7 +87170,7 @@
               we.Fragment,
               null,
               this.renderSignInWithBrowserButton(),
-              we.createElement(ZT, { title: "or" }),
+              we.createElement(YT, { title: "or" }),
               this.renderUsernamePassword()
             );
       }
@@ -87183,7 +87187,7 @@
                   null,
                   "GitHub now requires you to sign in with your browser."
                 ),
-                we.createElement("p", null, JT)
+                we.createElement("p", null, XT)
               )
             : we.createElement(
                 "p",
@@ -87209,7 +87213,7 @@
       }
       renderError() {
         const e = this.props.error;
-        return e ? we.createElement(YT, null, e.message) : null;
+        return e ? we.createElement(KT, null, e.message) : null;
       }
       onUsernameChange = (e) => {
         this.setState({ username: e });
@@ -87224,7 +87228,7 @@
         this.props.onSubmit(this.state.username, this.state.password);
       };
     }
-    class eD extends we.Component {
+    class QT extends we.Component {
       render() {
         return we.createElement(
           "section",
@@ -87239,7 +87243,7 @@
             "Welcome to GitHub Desktop"
           ),
           this.props.loadingBrowserAuth
-            ? we.createElement("p", null, JT)
+            ? we.createElement("p", null, XT)
             : we.createElement(
                 we.Fragment,
                 null,
@@ -87328,20 +87332,20 @@
       }
       signInWithBrowser = (e) => {
         e && e.preventDefault(),
-          this.props.advance(lD.SignInToDotComWithBrowser),
+          this.props.advance(aD.SignInToDotComWithBrowser),
           this.props.dispatcher.requestBrowserAuthenticationToDotcom();
       };
       cancelBrowserAuth = () => {
-        this.props.advance(lD.Start);
+        this.props.advance(aD.Start);
       };
       signInToEnterprise = () => {
-        this.props.advance(lD.SignInToEnterprise);
+        this.props.advance(aD.SignInToEnterprise);
       };
       skip = () => {
-        this.props.advance(lD.ConfigureGit);
+        this.props.advance(aD.ConfigureGit);
       };
     }
-    class tD extends we.Component {
+    class eD extends we.Component {
       constructor(e) {
         super(e), (this.state = { otp: "" });
       }
@@ -87349,7 +87353,7 @@
         const e = this.props.loading,
           t = !/\S+/.test(this.state.otp) || this.props.loading,
           n = this.props.error
-            ? we.createElement(YT, null, this.props.error.message)
+            ? we.createElement(KT, null, this.props.error.message)
             : null;
         return we.createElement(
           "div",
@@ -87360,7 +87364,7 @@
             Lt(this.props.type)
           ),
           we.createElement(
-            KT,
+            VT,
             { onSubmit: this.signIn },
             we.createElement(lw, {
               label: "Authentication code",
@@ -87390,7 +87394,7 @@
         this.props.onOTPEntered(this.state.otp);
       };
     }
-    class nD extends we.Component {
+    class tD extends we.Component {
       constructor(e) {
         super(e), (this.state = { serverAddress: "" });
       }
@@ -87398,7 +87402,7 @@
         const e = this.props.loading,
           t = 0 === this.state.serverAddress.length || this.props.loading;
         return we.createElement(
-          KT,
+          VT,
           { onSubmit: this.onSubmit },
           we.createElement(lw, {
             label: "Enterprise or AE address",
@@ -87408,7 +87412,7 @@
             placeholder: "https://github.example.com",
           }),
           this.props.error
-            ? we.createElement(YT, null, this.props.error.message)
+            ? we.createElement(KT, null, this.props.error.message)
             : null,
           we.createElement(
             "div",
@@ -87430,7 +87434,7 @@
         this.props.onSubmit(this.state.serverAddress);
       };
     }
-    class rD extends we.Component {
+    class nD extends we.Component {
       onEndpointEntered = (e) => {
         this.props.dispatcher.setSignInEndpoint(e);
       };
@@ -87445,7 +87449,7 @@
       };
       renderEndpointEntryStep(e) {
         const t = this.props.children;
-        return we.createElement(nD, {
+        return we.createElement(tD, {
           loading: e.loading,
           error: e.error,
           onSubmit: this.onEndpointEntered,
@@ -87454,7 +87458,7 @@
       }
       renderAuthenticationStep(e) {
         const t = this.props.children;
-        return we.createElement(QT, {
+        return we.createElement(JT, {
           loading: e.loading,
           error: e.error,
           supportsBasicAuth: e.supportsBasicAuth,
@@ -87466,7 +87470,7 @@
         });
       }
       renderTwoFactorAuthenticationStep(e) {
-        return we.createElement(tD, {
+        return we.createElement(eD, {
           loading: e.loading,
           error: e.error,
           type: e.type,
@@ -87491,7 +87495,7 @@
         }
       }
     }
-    class iD extends we.Component {
+    class rD extends we.Component {
       render() {
         const e = this.props.signInState;
         return e
@@ -87507,7 +87511,7 @@
                 "Sign in to your GitHub Enterprise"
               ),
               we.createElement(
-                rD,
+                nD,
                 { signInState: e, dispatcher: this.props.dispatcher },
                 we.createElement(bw, { onClick: this.cancel }, "Cancel")
               )
@@ -87515,10 +87519,10 @@
           : null;
       }
       cancel = () => {
-        this.props.advance(lD.Start);
+        this.props.advance(aD.Start);
       };
     }
-    class oD extends we.Component {
+    class iD extends we.Component {
       onDeleteLockFile = async () => {
         try {
           await (0, v.unlink)(this.props.lockFilePath);
@@ -87555,7 +87559,7 @@
         );
       }
     }
-    class sD extends we.Component {
+    class oD extends we.Component {
       globalUsernamePromise = Di("user.name");
       globalEmailPromise = Di("user.email");
       loadInitialDataPromise = null;
@@ -87631,7 +87635,7 @@
       render() {
         const e =
           void 0 !== this.state.existingLockFilePath
-            ? we.createElement(oD, {
+            ? we.createElement(iD, {
                 lockFilePath: this.state.existingLockFilePath,
                 onLockFileDeleted: this.onLockFileDeleted,
                 onError: this.onLockFileDeleteError,
@@ -87709,7 +87713,7 @@
       renderGitHubInfo() {
         if (null !== this.account)
           return we.createElement(
-            KT,
+            VT,
             { className: "sign-in-form", onSubmit: this.save },
             we.createElement(lw, {
               label: "Name",
@@ -87746,7 +87750,7 @@
       }
       renderGitConfigForm() {
         return we.createElement(
-          KT,
+          VT,
           { className: "sign-in-form", onSubmit: this.save },
           this.state.loadingGitConfig &&
             we.createElement(
@@ -87839,7 +87843,7 @@
         this.props.onSave && this.props.onSave();
       };
     }
-    class aD extends we.Component {
+    class sD extends we.Component {
       render() {
         return we.createElement(
           "section",
@@ -87855,7 +87859,7 @@
             "This is used to identify the commits you create. Anyone will be able to see this information if you publish commits."
           ),
           we.createElement(
-            sD,
+            oD,
             {
               accounts: this.props.accounts,
               onSave: this.props.done,
@@ -87866,22 +87870,22 @@
         );
       }
       cancel = () => {
-        this.props.advance(lD.Start);
+        this.props.advance(aD.Start);
       };
     }
-    var lD;
+    var aD;
     !(function (e) {
       (e.Start = "Start"),
         (e.SignInToDotComWithBrowser = "SignInToDotComWithBrowser"),
         (e.SignInToEnterprise = "SignInToEnterprise"),
         (e.ConfigureGit = "ConfigureGit");
-    })(lD || (lD = {}));
-    const cD = Fo(__dirname, "static/welcome-illustration-right.svg"),
-      uD = Fo(__dirname, "static/welcome-illustration-left-top.svg"),
-      hD = Fo(__dirname, "static/welcome-illustration-left-bottom.svg");
-    class dD extends we.Component {
+    })(aD || (aD = {}));
+    const lD = Fo(__dirname, "static/welcome-illustration-right.svg"),
+      cD = Fo(__dirname, "static/welcome-illustration-left-top.svg"),
+      uD = Fo(__dirname, "static/welcome-illustration-left-bottom.svg");
+    class hD extends we.Component {
       constructor(e) {
-        super(e), (this.state = { currentStep: lD.Start, exiting: !1 });
+        super(e), (this.state = { currentStep: aD.Start, exiting: !1 });
       }
       componentWillReceiveProps(e) {
         this.advanceOnSuccessfulSignIn(e);
@@ -87891,8 +87895,8 @@
       }
       get inSignInStep() {
         return (
-          this.state.currentStep === lD.SignInToDotComWithBrowser ||
-          this.state.currentStep === lD.SignInToEnterprise
+          this.state.currentStep === aD.SignInToDotComWithBrowser ||
+          this.state.currentStep === aD.SignInToEnterprise
         );
       }
       advanceOnSuccessfulSignIn(e) {
@@ -87901,7 +87905,7 @@
             ? e.signInState
               ? this.props.signInState.kind !== e.signInState.kind
                 ? e.signInState.kind === Tg.Success &&
-                  (this.advanceToStep(lD.ConfigureGit),
+                  (this.advanceToStep(aD.ConfigureGit),
                   this.props.dispatcher.resetSignInState())
                 : log.info(
                     `[Welcome] kind ${this.props.signInState.kind} is the same as ${e.signInState.kind}. ignoring...`
@@ -87914,26 +87918,26 @@
         const e = this.state.currentStep,
           t = this.props.signInState;
         switch (e) {
-          case lD.Start:
-          case lD.SignInToDotComWithBrowser:
+          case aD.Start:
+          case aD.SignInToDotComWithBrowser:
             const n =
-              e === lD.SignInToDotComWithBrowser &&
+              e === aD.SignInToDotComWithBrowser &&
               null !== t &&
               t.kind === Tg.Authentication &&
               t.loading;
-            return we.createElement(eD, {
+            return we.createElement(QT, {
               advance: this.advanceToStep,
               dispatcher: this.props.dispatcher,
               loadingBrowserAuth: n,
             });
-          case lD.SignInToEnterprise:
-            return we.createElement(iD, {
+          case aD.SignInToEnterprise:
+            return we.createElement(rD, {
               dispatcher: this.props.dispatcher,
               advance: this.advanceToStep,
               signInState: t,
             });
-          case lD.ConfigureGit:
-            return we.createElement(aD, {
+          case aD.ConfigureGit:
+            return we.createElement(sD, {
               advance: this.advanceToStep,
               accounts: this.props.accounts,
               done: this.done,
@@ -87944,7 +87948,7 @@
       }
       advanceToStep = (e) => {
         log.info(`[Welcome] advancing to step: ${e}`),
-          e === lD.SignInToEnterprise &&
+          e === aD.SignInToEnterprise &&
             this.props.dispatcher.beginEnterpriseSignIn(),
           this.setState({ currentStep: e });
       };
@@ -87969,12 +87973,12 @@
               this.getComponentForCurrentStep(),
               we.createElement("img", {
                 className: "welcome-graphic-top",
-                src: uD,
+                src: cD,
                 alt: "",
               }),
               we.createElement("img", {
                 className: "welcome-graphic-bottom",
-                src: hD,
+                src: uD,
                 alt: "",
               })
             )
@@ -87984,17 +87988,17 @@
             { className: "welcome-right" },
             we.createElement("img", {
               className: "welcome-graphic",
-              src: cD,
+              src: lD,
               alt: "",
             })
           )
         );
       }
     }
-    function pD(e) {
+    function dD(e) {
       return e.replace("&&", "&");
     }
-    class mD extends we.Component {
+    class pD extends we.Component {
       shouldComponentUpdate(e) {
         return (
           this.props.text !== e.text || this.props.highlight !== e.highlight
@@ -88006,7 +88010,7 @@
         const t = new Array();
         e[1] &&
           t.push(
-            we.createElement("span", { key: 1, "aria-hidden": !0 }, pD(e[1]))
+            we.createElement("span", { key: 1, "aria-hidden": !0 }, dD(e[1]))
           );
         const n = Sl()("access-key", { highlight: this.props.highlight });
         t.push(
@@ -88018,13 +88022,13 @@
         ),
           e[3] &&
             t.push(
-              we.createElement("span", { key: 3, "aria-hidden": !0 }, pD(e[3]))
+              we.createElement("span", { key: 3, "aria-hidden": !0 }, dD(e[3]))
             );
-        const r = `${e[1] ? pD(e[1]) : ""}${e[2]}${e[3] ? pD(e[3]) : ""}`;
+        const r = `${e[1] ? dD(e[1]) : ""}${e[2]}${e[3] ? dD(e[3]) : ""}`;
         return we.createElement("span", { "aria-label": r }, t);
       }
     }
-    class fD extends we.Component {
+    class mD extends we.Component {
       wrapperRef = we.createRef();
       getIcon(e) {
         return "checkbox" === e.type && e.checked
@@ -88094,7 +88098,7 @@
           we.createElement(
             "div",
             { className: "label" },
-            we.createElement(mD, {
+            we.createElement(pD, {
               text: e.label,
               highlight: this.props.highlightAccessKey,
             })
@@ -88104,7 +88108,7 @@
         );
       }
     }
-    class gD extends we.Component {
+    class fD extends we.Component {
       onRowClick = (e, t) => {
         if ("separator" !== e.type && e.enabled) {
           const n = { kind: "mouseclick", event: t };
@@ -88133,7 +88137,7 @@
         const t = { kind: "keyboard", event: e },
           { selectedItem: n } = this.props,
           { key: r } = e;
-        if (vD(r))
+        if (yD(r))
           if ((e.preventDefault(), "ArrowUp" === r || "ArrowDown" === r))
             this.tryMoveSelection("ArrowUp" === r ? "up" : "down", t);
           else if ("Home" === r || "End" === r) {
@@ -88187,7 +88191,7 @@
           this.props.items
             .filter((e) => e.visible)
             .map((e, t) =>
-              we.createElement(fD, {
+              we.createElement(mD, {
                 key: t + e.id,
                 item: e,
                 highlightAccessKey: this.props.enableAccessKeyNavigation,
@@ -88201,9 +88205,9 @@
         );
       }
     }
-    const yD = ["ArrowUp", "ArrowDown", "Home", "End", "Enter", " "],
-      vD = (e) => yD.includes(e);
-    class bD extends we.Component {
+    const gD = ["ArrowUp", "ArrowDown", "Home", "End", "Enter", " "],
+      yD = (e) => gD.includes(e);
+    class vD extends we.Component {
       expandCollapseTimer = null;
       onItemClicked = (e, t, n) => {
         if ((this.clearExpandCollapseTimer(), "submenuItem" === t.type)) {
@@ -88302,7 +88306,7 @@
                 return t.length ? `menu-pane-${t}` : void 0;
               })(t.id)
             : void 0;
-        return we.createElement(gD, {
+        return we.createElement(fD, {
           key: n,
           className: r,
           depth: e,
@@ -88329,7 +88333,7 @@
         this.clearExpandCollapseTimer();
       }
     }
-    class wD extends we.Component {
+    class bD extends we.Component {
       innerDropDown = null;
       get isMenuOpen() {
         return 0 !== this.props.menuState.length;
@@ -88349,7 +88353,7 @@
         const e = this.props.menuItem,
           t = this.isMenuOpen ? "open" : "closed";
         return we.createElement(
-          TT,
+          xT,
           {
             ref: this.onDropDownRef,
             key: e.id,
@@ -88364,7 +88368,7 @@
             buttonRole: "menuitem",
             buttonAriaHaspopup: "menu",
           },
-          we.createElement(fD, {
+          we.createElement(mD, {
             menuItemId: `app-menu-${e.label}`,
             item: e,
             highlightAccessKey: this.props.highlightMenuAccessKey,
@@ -88401,7 +88405,7 @@
       dropDownContentRenderer = () => {
         const e = this.props.menuState;
         return this.isMenuOpen
-          ? we.createElement(bD, {
+          ? we.createElement(vD, {
               dispatcher: this.props.dispatcher,
               onClose: this.onMenuClose,
               openedWithAccessKey: this.props.openedWithAccessKey,
@@ -88413,24 +88417,24 @@
           : null;
       };
     }
-    function CD(e) {
+    function wD(e) {
       if (!e.appMenu.length) return { menuItems: [] };
       const t = e.appMenu[0].items,
         n = new Array();
       for (const e of t) "submenuItem" === e.type && e.visible && n.push(e);
       return { menuItems: n };
     }
-    class SD extends we.Component {
+    class CD extends we.Component {
       menuBar = null;
       menuButtonRefsByMenuItemId = {};
       focusOutTimeout = null;
       hasFocus = !1;
       stolenFocusElement = null;
       constructor(e) {
-        super(e), (this.state = CD(e));
+        super(e), (this.state = wD(e));
       }
       componentWillReceiveProps(e) {
-        e.appMenu !== this.props.appMenu && this.setState(CD(e));
+        e.appMenu !== this.props.appMenu && this.setState(wD(e));
       }
       componentDidUpdate(e) {
         this.props.foldoutState && !e.foldoutState
@@ -88598,7 +88602,7 @@
           o =
             this.props.highlightAppMenuAccessKeys ||
             (!this.isMenuItemOpen(e) && i);
-        return we.createElement(wD, {
+        return we.createElement(bD, {
           key: e.id,
           dispatcher: this.props.dispatcher,
           menuItem: e,
@@ -88615,7 +88619,7 @@
         });
       }
     }
-    class kD extends we.Component {
+    class SD extends we.Component {
       timeoutId = null;
       render() {
         return we.createElement(
@@ -88655,11 +88659,11 @@
           window.clearTimeout(this.timeoutId);
       };
     }
-    const ED = "https://desktop.github.com/release-notes/";
-    class RD extends we.Component {
+    const kD = "https://desktop.github.com/release-notes/";
+    class ED extends we.Component {
       render() {
         return we.createElement(
-          kD,
+          SD,
           { id: "update-available", onDismissed: this.props.onDismissed },
           !this.props.isUpdateShowcaseVisible &&
             we.createElement(Yv, { className: "download-icon", symbol: Fu }),
@@ -88739,14 +88743,14 @@
       dismissUpdateShowCaseVisibility = () => {
         const e =
           null === this.props.newReleases
-            ? "3.2.6"
+            ? "3.2.7"
             : this.props.newReleases[0].latestVersion;
         localStorage.setItem(Mv, e),
           this.props.dispatcher.setUpdateShowCaseVisibility(!1);
       };
       showReleaseNotes = () => {
         null == this.props.newReleases
-          ? nt.openExternal(ED)
+          ? nt.openExternal(kD)
           : this.props.dispatcher.showPopup({
               type: Gr.ReleaseNotes,
               newReleases: this.props.newReleases,
@@ -88757,7 +88761,7 @@
         Bv.quitAndInstallUpdate();
       };
     }
-    class xD extends we.Component {
+    class RD extends we.Component {
       openDialog = () => {
         this.props.onDismissed(),
           this.props.dispatcher.showPopup(this.props.popup),
@@ -88765,7 +88769,7 @@
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "merge-conflicts-banner",
             dismissable: !1,
@@ -88788,7 +88792,7 @@
         );
       }
     }
-    class TD extends we.Component {
+    class xD extends we.Component {
       undo = () => {
         this.props.onDismissed(),
           void 0 !== this.props.onUndo && this.props.onUndo();
@@ -88799,7 +88803,7 @@
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "successful",
             timeout: this.props.timeout,
@@ -88823,7 +88827,7 @@
         );
       }
     }
-    function DD({ ourBranch: e, theirBranch: t, onDismissed: n }) {
+    function TD({ ourBranch: e, theirBranch: t, onDismissed: n }) {
       const r =
         void 0 !== t
           ? we.createElement(
@@ -88841,12 +88845,12 @@
               we.createElement("strong", null, e)
             );
       return we.createElement(
-        TD,
+        xD,
         { timeout: 5e3, onDismissed: n },
         we.createElement("div", { className: "banner-message" }, r)
       );
     }
-    class _D extends we.Component {
+    class DD extends we.Component {
       openDialog = async () => {
         this.props.onDismissed(),
           this.props.onOpenDialog(),
@@ -88859,7 +88863,7 @@
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "rebase-conflicts-banner",
             dismissable: !1,
@@ -88882,7 +88886,7 @@
         );
       }
     }
-    function AD({ baseBranch: e, targetBranch: t, onDismissed: n }) {
+    function _D({ baseBranch: e, targetBranch: t, onDismissed: n }) {
       const r =
         void 0 !== e
           ? we.createElement(
@@ -88900,12 +88904,12 @@
               we.createElement("strong", null, t)
             );
       return we.createElement(
-        TD,
+        xD,
         { timeout: 5e3, onDismissed: n },
         we.createElement("div", { className: "banner-message" }, r)
       );
     }
-    function PD({ ourBranch: e, theirBranch: t, onDismissed: n }) {
+    function AD({ ourBranch: e, theirBranch: t, onDismissed: n }) {
       const r =
         void 0 !== t
           ? we.createElement(
@@ -88922,7 +88926,7 @@
               " is already up to date"
             );
       return we.createElement(
-        kD,
+        SD,
         { id: "successful-merge", timeout: 5e3, onDismissed: n },
         we.createElement(
           "div",
@@ -88932,7 +88936,7 @@
         we.createElement("div", { className: "banner-message" }, r)
       );
     }
-    class ID extends we.Component {
+    class PD extends we.Component {
       render() {
         const {
             countCherryPicked: e,
@@ -88942,7 +88946,7 @@
           } = this.props,
           i = 1 === e ? "commit" : "commits";
         return we.createElement(
-          TD,
+          xD,
           { timeout: 15e3, onDismissed: t, onUndo: n },
           we.createElement(
             "span",
@@ -88959,7 +88963,7 @@
         );
       }
     }
-    class MD extends we.Component {
+    class ID extends we.Component {
       openDialog = async () => {
         this.props.onDismissed(), this.props.onOpenConflictsDialog();
       };
@@ -88970,7 +88974,7 @@
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "cherry-pick-conflicts-banner",
             dismissable: !1,
@@ -88993,7 +88997,7 @@
         );
       }
     }
-    class ND extends we.Component {
+    class MD extends we.Component {
       render() {
         const {
             countCherryPicked: e,
@@ -89002,7 +89006,7 @@
           } = this.props,
           r = 1 === e ? "commit" : "commits";
         return we.createElement(
-          TD,
+          xD,
           { timeout: 5e3, onDismissed: n },
           "Cherry-pick undone. Successfully removed the ",
           e,
@@ -89014,10 +89018,10 @@
         );
       }
     }
-    class BD extends we.Component {
+    class ND extends we.Component {
       render() {
         return we.createElement(
-          kD,
+          SD,
           { id: "open-thank-you-card", onDismissed: this.props.onDismissed },
           we.createElement(
             "span",
@@ -89057,12 +89061,12 @@
         this.props.onDismissed(), this.props.onThrowCardAway();
       };
     }
-    class OD extends we.Component {
+    class BD extends we.Component {
       render() {
         const { count: e, onDismissed: t, onUndo: n } = this.props,
           r = 1 === e ? "commit" : "commits";
         return we.createElement(
-          TD,
+          xD,
           { timeout: 15e3, onDismissed: t, onUndo: n },
           we.createElement(
             "span",
@@ -89076,7 +89080,7 @@
         );
       }
     }
-    class FD extends we.Component {
+    class OD extends we.Component {
       openDialog = async () => {
         this.props.onDismissed(), this.props.onOpenConflictsDialog();
       };
@@ -89087,7 +89091,7 @@
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "conflicts-found-banner",
             dismissable: !1,
@@ -89109,14 +89113,14 @@
         );
       }
     }
-    const LD = "unsupported-os-banner-dismissed-at";
-    class UD extends we.Component {
+    const FD = "unsupported-os-banner-dismissed-at";
+    class LD extends we.Component {
       onDismissed = () => {
-        Bn(LD, Date.now()), this.props.onDismissed();
+        Bn(FD, Date.now()), this.props.onDismissed();
       };
       render() {
         return we.createElement(
-          kD,
+          SD,
           {
             id: "conflicts-found-banner",
             dismissable: !0,
@@ -89142,11 +89146,11 @@
         );
       }
     }
-    var HD;
+    var UD;
     !(function (e) {
       (e[(e.DotCom = 0)] = "DotCom"), (e[(e.Enterprise = 1)] = "Enterprise");
-    })(HD || (HD = {}));
-    class WD extends we.Component {
+    })(UD || (UD = {}));
+    class HD extends we.Component {
       render() {
         return we.createElement(
           mS,
@@ -89154,11 +89158,11 @@
           we.createElement("h2", null, "GitHub.com"),
           this.props.dotComAccount
             ? this.renderAccount(this.props.dotComAccount)
-            : this.renderSignIn(HD.DotCom),
+            : this.renderSignIn(UD.DotCom),
           we.createElement("h2", null, "GitHub Enterprise"),
           this.props.enterpriseAccount
             ? this.renderAccount(this.props.enterpriseAccount)
-            : this.renderSignIn(HD.Enterprise)
+            : this.renderSignIn(UD.Enterprise)
         );
       }
       renderAccount(e) {
@@ -89190,7 +89194,7 @@
       renderSignIn(e) {
         const t = "登录";
         switch (e) {
-          case HD.DotCom:
+          case UD.DotCom:
             return we.createElement(
               PS,
               { actionTitle: t, onAction: this.onDotComSignIn },
@@ -89200,7 +89204,7 @@
                 "登录您的GitHub.com帐户以访问您的仓库。"
               )
             );
-          case HD.Enterprise:
+          case UD.Enterprise:
             return we.createElement(
               PS,
               { actionTitle: t, onAction: this.onEnterpriseSignIn },
@@ -89218,7 +89222,7 @@
         this.props.onLogout(e);
       };
     }
-    class zD extends we.Component {
+    class WD extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -89301,7 +89305,7 @@
           : null;
       }
     }
-    class $D extends we.Component {
+    class zD extends we.Component {
       defaultBranchInputRef = we.createRef();
       constructor(e) {
         super(e),
@@ -89380,7 +89384,7 @@
             onSelected: this.onDefaultBranchChanged,
           }),
           e &&
-            we.createElement(vT, {
+            we.createElement(yT, {
               initialValue: this.props.defaultBranch,
               renderWarningMessage: this.renderWarningMessage,
               onValueChange: this.props.onDefaultBranchChanged,
@@ -89398,7 +89402,7 @@
           this.props.onDefaultBranchChanged(e);
       };
     }
-    class qD extends we.Component {
+    class $D extends we.Component {
       onSelectionChanged = (e) => {
         this.props.onSelectionChanged(e);
       };
@@ -89431,7 +89435,7 @@
         );
       }
     }
-    class jD extends we.Component {
+    class qD extends we.Component {
       constructor(e) {
         super(e);
         const t = e.selectedTheme !== Zn.System || rr();
@@ -89511,7 +89515,7 @@
           mS,
           null,
           we.createElement("h2", { id: "theme-heading" }, "Theme"),
-          we.createElement(qD, {
+          we.createElement($D, {
             ariaLabelledBy: "theme-heading",
             className: "theme-selector",
             selectedKey: e,
@@ -89522,7 +89526,7 @@
         );
       }
     }
-    class GD extends we.Component {
+    class jD extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -89603,7 +89607,7 @@
         );
       }
     }
-    class VD extends we.Component {
+    class GD extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -89722,7 +89726,7 @@
         );
       }
     }
-    class KD extends we.Component {
+    class VD extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -89820,7 +89824,7 @@
         );
       }
     }
-    class YD extends we.Component {
+    class KD extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -89981,7 +89985,7 @@
         let t;
         switch (e) {
           case Fv.Accounts:
-            t = we.createElement(WD, {
+            t = we.createElement(HD, {
               dotComAccount: this.props.dotComAccount,
               enterpriseAccount: this.props.enterpriseAccount,
               onDotComSignIn: this.onDotComSignIn,
@@ -89990,7 +89994,7 @@
             });
             break;
           case Fv.Integrations:
-            t = we.createElement(GD, {
+            t = we.createElement(jD, {
               availableEditors: this.state.availableEditors,
               selectedExternalEditor: this.state.selectedExternalEditor,
               onSelectedEditorChanged: this.onSelectedEditorChanged,
@@ -90006,7 +90010,7 @@
                   ? we.createElement(
                       bS,
                       null,
-                      we.createElement(oD, {
+                      we.createElement(iD, {
                         lockFilePath: e,
                         onLockFileDeleted: this.onLockFileDeleted,
                         onError: this.onLockFileDeleteError,
@@ -90017,7 +90021,7 @@
               we.Fragment,
               null,
               n,
-              we.createElement($D, {
+              we.createElement(zD, {
                 name: this.state.committerName,
                 email: this.state.committerEmail,
                 defaultBranch: this.state.defaultBranch,
@@ -90032,19 +90036,19 @@
             break;
           }
           case Fv.Appearance:
-            t = we.createElement(jD, {
+            t = we.createElement(qD, {
               selectedTheme: this.props.selectedTheme,
               onSelectedThemeChanged: this.onSelectedThemeChanged,
             });
             break;
           case Fv.Notifications:
-            t = we.createElement(KD, {
+            t = we.createElement(VD, {
               notificationsEnabled: this.state.notificationsEnabled,
               onNotificationsEnabledChanged: this.onNotificationsEnabledChanged,
             });
             break;
           case Fv.Prompts:
-            t = we.createElement(VD, {
+            t = we.createElement(GD, {
               confirmRepositoryRemoval: this.state.confirmRepositoryRemoval,
               confirmDiscardChanges: this.state.confirmDiscardChanges,
               confirmDiscardChangesPermanently:
@@ -90067,7 +90071,7 @@
             });
             break;
           case Fv.Advanced:
-            t = we.createElement(zD, {
+            t = we.createElement(WD, {
               useWindowsOpenSSH: this.state.useWindowsOpenSSH,
               optOutOfUsageTracking: this.state.optOutOfUsageTracking,
               repositoryIndicatorsEnabled:
@@ -90226,7 +90230,7 @@
         this.setState({ selectedIndex: e });
       };
     }
-    function ZD(e) {
+    function YD(e) {
       return e.indexOf("\r") < 0
         ? e
         : e
@@ -90240,9 +90244,9 @@
             )
             .join("\n");
     }
-    class XD extends we.Component {
+    class ZD extends we.Component {
       dialogContent = null;
-      formatGitErrorMessage = qn(ZD);
+      formatGitErrorMessage = qn(YD);
       constructor(e) {
         super(e), (this.state = { error: e.error, disabled: !1 });
       }
@@ -90254,29 +90258,29 @@
         this.props.onDismissed(),
           window.setTimeout(() => {
             this.props.onShowPopup({ type: Gr.Preferences });
-          }, AP.exit);
+          }, _P.exit);
       };
       onRetryAction = (e) => {
         e.preventDefault(), this.props.onDismissed();
         const { error: t } = this.state;
-        if (null !== t && QD(t)) {
+        if (null !== t && JD(t)) {
           const { retryAction: e } = t.metadata;
           void 0 !== e && this.props.onRetryAction(e);
         }
       };
       renderErrorMessage(e) {
-        const t = JD(e);
-        if (e_(t)) {
+        const t = XD(e);
+        if (QD(t)) {
           const e = this.formatGitErrorMessage(t.message);
           return we.createElement("p", { className: "monospace" }, e);
         }
         return we.createElement("p", null, t.message);
       }
       getTitle(e) {
-        return t_(e) ? "Clone failed" : "Error";
+        return e_(e) ? "Clone failed" : "Error";
       }
       renderContentAfterErrorMessage(e) {
-        if (!QD(e)) return;
+        if (!JD(e)) return;
         const { retryAction: t } = e.metadata;
         return t && t.type === vo.Clone
           ? we.createElement(
@@ -90294,7 +90298,7 @@
       scrollToBottomOfGitErrorMessage() {
         null !== this.dialogContent &&
           null !== this.state.error &&
-          e_(JD(this.state.error)) &&
+          QD(XD(this.state.error)) &&
           (this.dialogContent.scrollTop = this.dialogContent.scrollHeight);
       }
       componentDidMount() {
@@ -90307,8 +90311,8 @@
         e.preventDefault(), this.props.onDismissed();
       };
       renderFooter(e) {
-        if (t_(e)) return this.renderRetryCloneFooter();
-        const t = JD(e);
+        if (e_(e)) return this.renderRetryCloneFooter();
+        const t = XD(e);
         if (
           (function (e) {
             return e instanceof Cy;
@@ -90359,7 +90363,7 @@
                 onSubmit: this.props.onDismissed,
                 onDismissed: this.props.onDismissed,
                 disabled: this.state.disabled,
-                className: e_(this.state.error) ? "raw-git-error" : void 0,
+                className: QD(this.state.error) ? "raw-git-error" : void 0,
               },
               we.createElement(
                 mS,
@@ -90372,23 +90376,23 @@
           : null;
       }
     }
-    function JD(e) {
-      return QD(e) ? e.underlyingError : e;
+    function XD(e) {
+      return JD(e) ? e.underlyingError : e;
     }
-    function QD(e) {
+    function JD(e) {
       return e instanceof Wo;
     }
-    function e_(e) {
+    function QD(e) {
       if (!e) return !1;
-      const t = JD(e);
+      const t = XD(e);
       return t instanceof Cy && t.isRawMessage;
     }
-    function t_(e) {
-      if (!QD(e)) return !1;
+    function e_(e) {
+      if (!JD(e)) return !1;
       const { retryAction: t } = e.metadata;
       return void 0 !== t && t.type === vo.Clone;
     }
-    class n_ extends we.Component {
+    class t_ extends we.Component {
       constructor(e) {
         super(e), (this.state = { isPathUnsafe: !1, isTrustingPath: !1 });
       }
@@ -90555,9 +90559,9 @@
           }
       };
     }
-    var r_ = n(4143),
-      i_ = n.n(r_);
-    class o_ extends we.Component {
+    var n_ = n(4143),
+      r_ = n.n(n_);
+    class i_ extends we.Component {
       constructor(e) {
         super(e);
         const t = this.props.path ? this.props.path : "";
@@ -90738,7 +90742,7 @@
         null !== e && this.updatePath(e);
       };
       resolvedPath(t) {
-        return e.resolve("/", i_()(t));
+        return e.resolve("/", r_()(t));
       }
       addRepository = async () => {
         this.props.onDismissed();
@@ -90758,7 +90762,7 @@
         });
       };
     }
-    const s_ = new RegExp(
+    const o_ = new RegExp(
       [
         "\ud83c[\udf00-\udfff]",
         "\ud83d[\udc00-\ude4f]",
@@ -90766,31 +90770,31 @@
       ].join("|"),
       "g"
     );
-    function a_(e) {
-      return e.replace(s_, "-").replace(/[^\w.-]/g, "-");
+    function s_(e) {
+      return e.replace(o_, "-").replace(/[^\w.-]/g, "-");
     }
-    const l_ = ".gitignore",
-      c_ = e.join(__dirname, "static", "gitignore");
-    let u_ = null;
-    async function h_() {
-      if (null != u_) return u_;
+    const a_ = ".gitignore",
+      l_ = e.join(__dirname, "static", "gitignore");
+    let c_ = null;
+    async function u_() {
+      if (null != c_) return c_;
       {
-        const t = (await (0, v.readdir)(c_)).filter((e) => e.endsWith(l_));
-        u_ = new Map();
-        for (const n of t) u_.set(e.basename(n, l_), e.join(c_, n));
-        return u_;
+        const t = (await (0, v.readdir)(l_)).filter((e) => e.endsWith(a_));
+        c_ = new Map();
+        for (const n of t) c_.set(e.basename(n, a_), e.join(l_, n));
+        return c_;
       }
     }
-    let d_ = null;
-    function p_(e, t, n) {
+    let h_ = null;
+    function d_(e, t, n) {
       const r = new RegExp(`\\[${t}\\]`, "g"),
         i = e.replace(r, `{${t}}`),
         o = new RegExp(`\\{${t}\\}`, "g");
       return i.replace(o, n);
     }
-    const m_ = "None",
-      f_ = { name: "None", featured: !1, body: "", hidden: !1 };
-    class g_ extends we.Component {
+    const p_ = "None",
+      m_ = { name: "None", featured: !1, body: "", hidden: !1 };
+    class f_ extends we.Component {
       checkIsTopMostDialog = gS(
         () => {
           this.updateReadMeExists(this.state.path, this.state.name),
@@ -90804,7 +90808,7 @@
         super(t);
         const n = this.props.initialPath ? this.props.initialPath : null,
           r = this.props.initialPath
-            ? a_(e.basename(this.props.initialPath))
+            ? s_(e.basename(this.props.initialPath))
             : "";
         (this.state = {
           path: n,
@@ -90813,9 +90817,9 @@
           createWithReadme: !1,
           creating: !1,
           gitIgnoreNames: null,
-          gitIgnore: m_,
+          gitIgnore: p_,
           licenses: null,
-          license: f_.name,
+          license: m_.name,
           isValidPath: null,
           isRepository: !1,
           readMeExists: !1,
@@ -90825,24 +90829,24 @@
       async componentDidMount() {
         this.checkIsTopMostDialog(this.props.isTopMost);
         const t = await (async function () {
-            const e = await h_();
+            const e = await u_();
             return Array.from(e.keys());
           })(),
           n = await (async function () {
-            if (null != d_) return d_;
+            if (null != h_) return h_;
             {
               const t = e.join(__dirname, "static", "available-licenses.json"),
                 n = await (0, v.readFile)(t, "utf8"),
                 r = JSON.parse(n);
               return (
-                (d_ = r.sort((e, t) =>
+                (h_ = r.sort((e, t) =>
                   e.featured
                     ? -1
                     : t.featured
                     ? 1
                     : e.name.localeCompare(t.name)
                 )),
-                d_
+                h_
               );
             }
           })();
@@ -90874,7 +90878,7 @@
             this.updateReadMeExists(this.state.path, e));
       };
       async updateIsRepository(t, n) {
-        const r = e.join(t, a_(n)),
+        const r = e.join(t, s_(n)),
           i = await (async (t) => {
             const n = await Xy(t).catch(
               (e) => (
@@ -90903,7 +90907,7 @@
       };
       async updateReadMeExists(t, n) {
         if (!uo() || null === t) return;
-        const r = e.join(t, a_(n), "README.md"),
+        const r = e.join(t, s_(n), "README.md"),
           i = await k(r);
         this.setState((e) => (e.path === t ? { readMeExists: i } : null));
       }
@@ -90914,7 +90918,7 @@
           try {
             return await (0, v.mkdir)(t, { recursive: !0 }), t;
           } catch {}
-        return e.join(t, a_(this.state.name));
+        return e.join(t, s_(this.state.name));
       };
       createRepository = async () => {
         const t = await this.resolveRepositoryRoot();
@@ -90967,12 +90971,12 @@
               this.props.dispatcher.postError(e);
           }
         const i = this.state.gitIgnore;
-        if (i !== m_)
+        if (i !== p_)
           try {
             await (async function (t, n) {
               const r = e.join(t, ".gitignore"),
                 i = await (async function (e) {
-                  const t = (await h_()).get(e);
+                  const t = (await u_()).get(e);
                   if (!t)
                     throw new Error(
                       `Unknown gitignore: ${e}. Only names returned from getGitIgnoreNames() can be used.`
@@ -91002,7 +91006,7 @@
             ),
               this.props.dispatcher.postError(e);
           }
-        const s = this.state.license === f_.name ? null : this.state.license,
+        const s = this.state.license === m_.name ? null : this.state.license,
           a = (this.state.licenses || []).find((e) => e.name === s);
         if (a)
           try {
@@ -91018,7 +91022,7 @@
                     "description",
                     "year",
                   ])
-                    r = p_(r, e, n[e]);
+                    r = d_(r, e, n[e]);
                   return r;
                 })(n.body, 0, r);
               await (0, v.writeFile)(i, o);
@@ -91081,7 +91085,7 @@
         this.setState({ createWithReadme: e.currentTarget.checked });
       };
       renderSanitizedName() {
-        const e = a_(this.state.name);
+        const e = s_(this.state.name);
         return this.state.name === e
           ? null
           : we.createElement(
@@ -91102,7 +91106,7 @@
       };
       renderGitIgnores() {
         const e = this.state.gitIgnoreNames || [],
-          t = [m_, ...e];
+          t = [p_, ...e];
         return we.createElement(
           cw,
           null,
@@ -91119,7 +91123,7 @@
       }
       renderLicenses() {
         const e = this.state.licenses || [],
-          t = [f_, ...e.filter((e) => e.featured)],
+          t = [m_, ...e.filter((e) => e.featured)],
           n = e.filter((e) => !e.featured);
         return we.createElement(
           cw,
@@ -91201,7 +91205,7 @@
         null !== t &&
           this.props.dispatcher.showPopup({
             type: Gr.AddRepository,
-            path: e.join(t, a_(n)),
+            path: e.join(t, s_(n)),
           });
       };
       render() {
@@ -91231,8 +91235,8 @@
               null,
               we.createElement(lw, {
                 value: this.state.name,
-                label: "名称",
-                placeholder: "仓库名称",
+                label: "Name",
+                placeholder: "repository name",
                 onValueChanged: this.onNameChanged,
               })
             ),
@@ -91242,7 +91246,7 @@
               null,
               we.createElement(lw, {
                 value: this.state.description,
-                label: "描述",
+                label: "Description",
                 onValueChanged: this.onDescriptionChanged,
               })
             ),
@@ -91251,15 +91255,15 @@
               null,
               we.createElement(lw, {
                 value: this.state.path ?? "",
-                label: "本地路径",
-                placeholder: "仓库路径",
+                label: "Local path",
+                placeholder: "repository path",
                 onValueChanged: this.onPathChanged,
                 disabled: t || n,
               }),
               we.createElement(
                 bw,
                 { onClick: this.showFilePicker, disabled: t || n },
-                "选择…"
+                "Choose…"
               )
             ),
             this.renderGitRepositoryWarning(),
@@ -91267,7 +91271,7 @@
               cw,
               null,
               we.createElement(Dw, {
-                label: "使用README文件初始化此仓库",
+                label: "Initialize this repository with a README",
                 value: this.state.createWithReadme ? Tw.On : Tw.Off,
                 onChange: this.onCreateWithReadmeChange,
               })
@@ -91290,11 +91294,11 @@
         this.updateReadMeExists(this.state.path, this.state.name);
       };
     }
-    async function y_(e, t, n) {
+    async function g_(e, t, n) {
       const r = En.fromAccount(e);
       return !!(await r.fetchRepository(t, n));
     }
-    async function v_(e, t, n = y_) {
+    async function y_(e, t, n = g_) {
       const r = [...t, Dt.anonymous()],
         i = ct(e);
       if (i) {
@@ -91329,7 +91333,7 @@
       }
       return null;
     }
-    class b_ extends we.Component {
+    class v_ extends we.Component {
       render() {
         return we.createElement(
           mS,
@@ -91374,49 +91378,49 @@
         this.props.onUrlChanged(e);
       };
     }
-    const w_ = "your-repositories";
-    function C_(e) {
+    const b_ = "your-repositories";
+    function w_(e) {
       return e.private ? dh : e.fork ? Ch : bh;
     }
-    const S_ = (e) =>
+    const C_ = (e) =>
       e
         .map((e) => ({
           id: e.html_url,
           text: [`${e.owner.login}/${e.name}`],
           url: e.clone_url,
           name: e.name,
-          icon: C_(e),
+          icon: w_(e),
         }))
         .sort((e, t) => qi(e.name, t.name));
-    function k_(e, t) {
+    function S_(e, t) {
       if (null !== t)
         for (const n of e)
           for (const e of n.items) if (e.url === t.clone_url) return e;
       return null;
     }
-    function E_(e, t) {
+    function k_(e, t) {
       return e.find((e) => e.clone_url === t.url) || null;
     }
-    class R_ extends we.PureComponent {
+    class E_ extends we.PureComponent {
       getRepositoryGroups = qn((e, t) =>
         null === e
           ? []
           : (function (e, t) {
               const n = (0, C.groupBy)(e, (e) =>
-                Gi(e.owner.login, t) ? w_ : e.owner.login
+                Gi(e.owner.login, t) ? b_ : e.owner.login
               );
               return (0, C.entries)(n)
-                .map(([e, t]) => ({ identifier: e, items: S_(t) }))
+                .map(([e, t]) => ({ identifier: e, items: C_(t) }))
                 .sort((e, t) =>
-                  e.identifier === w_
+                  e.identifier === b_
                     ? -1
-                    : t.identifier === w_
+                    : t.identifier === b_
                     ? 1
                     : qi(e.identifier, t.identifier)
                 );
             })(e, t)
       );
-      getSelectedListItem = qn(k_);
+      getSelectedListItem = qn(S_);
       componentDidMount() {
         null === this.props.repositories && this.refreshRepositories();
       }
@@ -91452,18 +91456,18 @@
       onItemClick = (e, t) => {
         const { onItemClicked: n, repositories: r } = this.props;
         if (void 0 === n || null === r) return;
-        const i = E_(r, e);
+        const i = k_(r, e);
         null !== i && n(i, t);
       };
       onSelectionChanged = (e) => {
         null === e || null === this.props.repositories
           ? this.props.onSelectionChanged(null)
-          : this.props.onSelectionChanged(E_(this.props.repositories, e));
+          : this.props.onSelectionChanged(k_(this.props.repositories, e));
       };
       renderGroupHeader = (e) => {
         let t = e;
         return (
-          e === w_ && (t = "Your repositories"),
+          e === b_ && (t = "Your repositories"),
           we.createElement(
             "div",
             {
@@ -91546,7 +91550,7 @@
             );
       };
     }
-    class x_ extends we.PureComponent {
+    class R_ extends we.PureComponent {
       render() {
         return we.createElement(
           mS,
@@ -91554,7 +91558,7 @@
           we.createElement(
             cw,
             null,
-            we.createElement(R_, {
+            we.createElement(E_, {
               account: this.props.account,
               selectedItem: this.props.selectedItem,
               onSelectionChanged: this.props.onSelectionChanged,
@@ -91584,7 +91588,7 @@
         );
       }
     }
-    class T_ extends we.Component {
+    class x_ extends we.Component {
       checkIsTopMostDialog = gS(
         () => {
           this.validatePath(),
@@ -91701,7 +91705,7 @@
         switch (e) {
           case gr.Generic:
             const t = this.state.urlTabState;
-            return we.createElement(b_, {
+            return we.createElement(v_, {
               path: t.path ?? "",
               url: t.url,
               onPathChanged: this.onPathChanged,
@@ -91716,7 +91720,7 @@
                 r = void 0 === n ? null : n.repositories,
                 i = void 0 !== n && n.loading,
                 o = this.getGitHubTabState(e);
-              return we.createElement(x_, {
+              return we.createElement(R_, {
                 path: o.path ?? "",
                 account: t,
                 selectedItem: o.selectedItem,
@@ -91935,7 +91939,7 @@
           n = new Array();
         this.props.dotComAccount && n.push(this.props.dotComAccount),
           this.props.enterpriseAccount && n.push(this.props.enterpriseAccount);
-        const r = await v_(e, n);
+        const r = await y_(e, n);
         if (null !== t && null !== r) {
           const n = En.fromAccount(r),
             { owner: i, name: o } = t,
@@ -91999,7 +92003,7 @@
         this.validatePath();
       };
     }
-    class D_ extends we.Component {
+    class T_ extends we.Component {
       onClick = () => {
         this.props.onClick(this.props.value);
       };
@@ -92027,7 +92031,7 @@
         );
       }
     }
-    class __ extends we.Component {
+    class D_ extends we.Component {
       listRef = null;
       formRef = null;
       constructor(e) {
@@ -92061,7 +92065,7 @@
         return `${this.state.listId}_Item_${e}`;
       }
       renderItem(e, t) {
-        return we.createElement(D_, {
+        return we.createElement(T_, {
           id: this.getListItemId(t),
           key: e.key,
           title: e.title,
@@ -92127,7 +92131,7 @@
         return e.findIndex((e) => e.key === this.props.selectedKey);
       }
     }
-    function A_(e, t) {
+    function __(e, t) {
       return e.tip.kind === jr.Detached
         ? mr.Head
         : (t === mr.UpstreamDefaultBranch &&
@@ -92144,28 +92148,28 @@
         ? mr.CurrentBranch
         : mr.Head;
     }
-    class P_ extends we.Component {
+    class A_ extends we.Component {
       constructor(e) {
         super(e);
-        const t = A_(e, mr.UpstreamDefaultBranch);
+        const t = __(e, mr.UpstreamDefaultBranch);
         this.state = {
           currentError: null,
           branchName: e.initialName,
           startPoint: t,
           isCreatingBranch: !1,
           tipAtCreateStart: e.tip,
-          defaultBranchAtCreateStart: M_(t, e),
+          defaultBranchAtCreateStart: I_(t, e),
         };
       }
       componentWillReceiveProps(e) {
         if (
-          (this.setState({ startPoint: A_(e, this.state.startPoint) }),
+          (this.setState({ startPoint: __(e, this.state.startPoint) }),
           !this.state.isCreatingBranch)
         ) {
-          const t = A_(e, mr.UpstreamDefaultBranch);
+          const t = __(e, mr.UpstreamDefaultBranch);
           this.setState({
             tipAtCreateStart: e.tip,
-            defaultBranchAtCreateStart: M_(t, e),
+            defaultBranchAtCreateStart: I_(t, e),
           });
         }
       }
@@ -92239,7 +92243,7 @@
           we.createElement(
             mS,
             null,
-            we.createElement(vT, {
+            we.createElement(yT, {
               label: "Name",
               initialValue: this.props.initialName,
               onValueChange: this.onBranchNameChange,
@@ -92348,7 +92352,7 @@
                 null,
                 we.createElement(_S, null, e),
                 " is the ",
-                I_,
+                P_,
                 " for your repository."
               )
           );
@@ -92388,7 +92392,7 @@
             " ",
             we.createElement("strong", null, n),
             "'s ",
-            I_,
+            P_,
             " (",
             we.createElement(_S, null, t.nameWithoutRemote),
             ")",
@@ -92455,7 +92459,7 @@
         we.createElement(
           cw,
           null,
-          we.createElement(__, {
+          we.createElement(D_, {
             label: "Create branch based on…",
             items: e,
             selectedKey: t,
@@ -92470,19 +92474,19 @@
         });
       };
     }
-    const I_ = we.createElement(
+    const P_ = we.createElement(
       rS,
       { uri: "https://help.github.com/articles/setting-the-default-branch/" },
       "default branch"
     );
-    function M_(e, t) {
+    function I_(e, t) {
       return e === mr.UpstreamDefaultBranch
         ? t.upstreamDefaultBranch
         : e === mr.DefaultBranch
         ? t.defaultBranch
         : null;
     }
-    class N_ extends we.Component {
+    class M_ extends we.Component {
       dialogRef = we.createRef();
       constructor(e) {
         super(e),
@@ -92639,7 +92643,7 @@
               we.createElement(Yv, { symbol: uh })
             )
           ),
-          we.createElement(ZT, { title: "or" }),
+          we.createElement(YT, { title: "or" }),
           we.createElement(
             cw,
             null,
@@ -92652,7 +92656,7 @@
           we.createElement(
             cw,
             null,
-            we.createElement(XT, {
+            we.createElement(ZT, {
               label: "Password",
               value: this.state.password,
               onValueChanged: this.onPasswordChanged,
@@ -92737,7 +92741,7 @@
         this.props.dispatcher.resetSignInState(), this.props.onDismissed();
       };
     }
-    class B_ extends we.Component {
+    class N_ extends we.Component {
       constructor(e) {
         super(e);
       }
@@ -92788,7 +92792,7 @@
         );
       }
     }
-    class O_ extends we.Component {
+    class B_ extends we.Component {
       constructor(e) {
         super(e);
       }
@@ -92843,8 +92847,8 @@
         );
       }
     }
-    const F_ = Fo(__dirname, "static/windows-logo-64x64@2x.png");
-    class L_ extends we.Component {
+    const O_ = Fo(__dirname, "static/windows-logo-64x64@2x.png");
+    class F_ extends we.Component {
       updateStoreEventHandle = null;
       checkIsTopMostDialog = gS(
         () => {
@@ -93026,7 +93030,7 @@
       render() {
         const e = this.props.applicationName,
           t = this.props.applicationVersion,
-          n = we.createElement(rS, { uri: ED }, "release notes"),
+          n = we.createElement(rS, { uri: kD }, "release notes"),
           r = `Version ${t}`;
         return we.createElement(
           vS,
@@ -93043,7 +93047,7 @@
               cw,
               { className: "logo" },
               we.createElement("img", {
-                src: F_,
+                src: O_,
                 alt: "GitHub Desktop",
                 width: "64",
                 height: "64",
@@ -93092,7 +93096,7 @@
         );
       }
     }
-    class U_ extends we.Component {
+    class L_ extends we.Component {
       name;
       constructor(e) {
         super(e), (this.state = { orgs: [] }), (this.name = e.settings.name);
@@ -93114,7 +93118,7 @@
         this.props.onSettingsChanged(t);
       }
       onNameChange = (e) => {
-        (this.name = e), (e = a_(e)), this.updateSettings({ name: e });
+        (this.name = e), (e = s_(e)), this.updateSettings({ name: e });
       };
       onDescriptionChange = (e) => {
         this.updateSettings({ description: e });
@@ -93206,29 +93210,29 @@
             );
       }
     }
-    var H_, W_, z_;
+    var U_, H_, W_;
     !(function (e) {
       (e[(e.enterprise = 0)] = "enterprise"), (e[(e.dotcom = 1)] = "dotcom");
-    })(H_ || (H_ = {})),
+    })(U_ || (U_ = {})),
       (function (e) {
         (e[(e.DotCom = 0)] = "DotCom"), (e[(e.Enterprise = 1)] = "Enterprise");
-      })(W_ || (W_ = {}));
-    class $_ extends we.Component {
+      })(H_ || (H_ = {}));
+    class z_ extends we.Component {
       constructor(e) {
         super(e);
-        const t = this.getAccountForTab(W_.DotCom),
-          n = this.getAccountForTab(W_.Enterprise);
-        let r = W_.DotCom;
-        !t && n && (r = W_.Enterprise);
+        const t = this.getAccountForTab(H_.DotCom),
+          n = this.getAccountForTab(H_.Enterprise);
+        let r = H_.DotCom;
+        !t && n && (r = H_.Enterprise);
         const i = { name: e.repository.name, description: "", private: !0 },
           o = {
             kind: "dotcom",
-            settings: { ...i, kind: H_.dotcom, org: null },
+            settings: { ...i, kind: U_.dotcom, org: null },
             error: null,
           },
           s = {
             kind: "enterprise",
-            settings: { ...i, kind: H_.enterprise, org: null },
+            settings: { ...i, kind: U_.enterprise, org: null },
             error: null,
           };
         this.state = {
@@ -93290,7 +93294,7 @@
           t = this.getCurrentTabState(),
           n = this.getAccountForTab(e);
         return n
-          ? we.createElement(U_, {
+          ? we.createElement(L_, {
               account: n,
               settings: t.settings,
               onSettingsChanged: this.onSettingsChanged,
@@ -93300,7 +93304,7 @@
       onSettingsChanged = (e) => {
         let t;
         (t =
-          e.kind === H_.enterprise
+          e.kind === U_.enterprise
             ? {
                 kind: "enterprise",
                 settings: e,
@@ -93316,9 +93320,9 @@
       getAccountForTab(e) {
         const t = this.props.accounts;
         switch (e) {
-          case W_.DotCom:
+          case H_.DotCom:
             return t.find((e) => e.endpoint === Dn()) || null;
-          case W_.Enterprise:
+          case H_.Enterprise:
             return t.find((e) => e.endpoint !== Dn()) || null;
           default:
             return ot(0, `Unknown tab: ${e}`);
@@ -93327,7 +93331,7 @@
       renderSignInTab(e) {
         const t = "Sign in";
         switch (e) {
-          case W_.DotCom:
+          case H_.DotCom:
             return we.createElement(
               PS,
               { actionTitle: t, onAction: this.signInDotCom },
@@ -93337,7 +93341,7 @@
                 "Sign in to your GitHub.com account to access your repositories."
               )
             );
-          case W_.Enterprise:
+          case H_.Enterprise:
             return we.createElement(
               PS,
               { actionTitle: t, onAction: this.signInEnterprise },
@@ -93397,7 +93401,7 @@
         e !== this.state.currentTab && this.setState({ currentTab: e });
       };
       getCurrentTabState = () =>
-        this.state.currentTab === W_.DotCom
+        this.state.currentTab === H_.DotCom
           ? this.state.dotcomTabState
           : this.state.enterpriseTabState;
       setTabState = (e) => {
@@ -93406,7 +93410,7 @@
           : this.setState({ dotcomTabState: e });
       };
       setCurrentTabSettings = (e) => {
-        if (e.kind === H_.enterprise) {
+        if (e.kind === U_.enterprise) {
           const t = { ...this.state.enterpriseTabState, settings: e };
           this.setTabState(t);
         } else {
@@ -93418,7 +93422,7 @@
         this.setTabState({ ...this.getCurrentTabState(), error: e });
       };
     }
-    class q_ extends we.Component {
+    class $_ extends we.Component {
       constructor(e) {
         super(e), (this.state = { licenses: null });
       }
@@ -93440,7 +93444,7 @@
             o = i.repository;
           let s, a;
           if (o) {
-            const e = j_(o);
+            const e = q_(o);
             s = we.createElement(rS, { uri: e }, r);
           } else s = r;
           a = i.sourceText
@@ -93509,7 +93513,7 @@
         );
       }
     }
-    function j_(e) {
+    function q_(e) {
       let t = e;
       return (
         (t = t.replace("git+https://github.com", "https://github.com")),
@@ -93517,7 +93521,7 @@
         t
       );
     }
-    class G_ extends we.Component {
+    class j_ extends we.Component {
       render() {
         const e = o.parse(this.props.url).hostname;
         return we.createElement(
@@ -93587,12 +93591,12 @@
     }
     !(function (e) {
       (e[(e.dotCom = 0)] = "dotCom"), (e[(e.enterprise = 1)] = "enterprise");
-    })(z_ || (z_ = {}));
-    class V_ extends we.Component {
+    })(W_ || (W_ = {}));
+    class G_ extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
-            selectedTab: z_.dotCom,
+            selectedTab: W_.dotCom,
             dotComFilterText: "",
             enterpriseFilterText: "",
             selectedDotComRepository: null,
@@ -93624,12 +93628,12 @@
             ),
             we.createElement("img", {
               className: "no-repositories-graphic-top",
-              src: uD,
+              src: cD,
               alt: "",
             }),
             we.createElement("img", {
               className: "no-repositories-graphic-bottom",
-              src: hD,
+              src: uD,
               alt: "",
             })
           )
@@ -93657,9 +93661,9 @@
       }
       getSelectedAccount() {
         const { selectedTab: e } = this.state;
-        return e === z_.dotCom
+        return e === W_.dotCom
           ? this.props.dotComAccount || this.props.enterpriseAccount
-          : e === z_.enterprise
+          : e === W_.enterprise
           ? this.props.enterpriseAccount || this.props.dotComAccount
           : ot(0, `Unknown account tab ${e}`);
       }
@@ -93690,7 +93694,7 @@
         return we.createElement(
           we.Fragment,
           null,
-          we.createElement(R_, {
+          we.createElement(E_, {
             account: e,
             selectedItem: i,
             filterText: o,
@@ -93761,8 +93765,8 @@
       }
       onTabClicked = (e) => {
         0 === e
-          ? this.setState({ selectedTab: z_.dotCom })
-          : 1 === e && this.setState({ selectedTab: z_.enterprise });
+          ? this.setState({ selectedTab: W_.dotCom })
+          : 1 === e && this.setState({ selectedTab: W_.enterprise });
       };
       onShowClone = () => this.props.onClone();
       renderButtonGroupButton(e, t, n, r, i) {
@@ -93843,7 +93847,7 @@
         );
       }
     }
-    class K_ extends we.Component {
+    class V_ extends we.Component {
       constructor(e) {
         super(e),
           (this.state = { deleteRepoFromDisk: !1, isRemovingRepository: !1 });
@@ -93910,8 +93914,8 @@
         this.setState({ deleteRepoFromDisk: t });
       };
     }
-    const Y_ = "https://github.com/contact";
-    class Z_ extends we.Component {
+    const K_ = "https://github.com/contact";
+    class Y_ extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -93951,7 +93955,7 @@
               null,
               "To the extent the terms of the licenses applicable to open source components require GitHub to make an offer to provide source code in connection with the Software, such offer is hereby made, and you may exercise it by contacting GitHub:",
               " ",
-              we.createElement(rS, { uri: Y_ }, "contact"),
+              we.createElement(rS, { uri: K_ }, "contact"),
               "."
             ),
             we.createElement(
@@ -94063,7 +94067,7 @@
                 "li",
                 null,
                 "Contact Us. Please send any questions about these Application Terms to ",
-                we.createElement(rS, { uri: Y_ }, "support@github.com"),
+                we.createElement(rS, { uri: K_ }, "support@github.com"),
                 "."
               )
             )
@@ -94072,7 +94076,7 @@
         );
       }
     }
-    class X_ extends we.Component {
+    class Z_ extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -94097,7 +94101,7 @@
         );
       }
     }
-    class J_ extends we.Component {
+    class X_ extends we.Component {
       constructor(e) {
         super(e), (this.state = { username: "", password: "" });
       }
@@ -94134,7 +94138,7 @@
             we.createElement(
               cw,
               null,
-              we.createElement(XT, {
+              we.createElement(ZT, {
                 label: "Password",
                 value: this.state.password,
                 onValueChanged: this.onPasswordChange,
@@ -94185,7 +94189,7 @@
           );
       };
     }
-    class Q_ extends we.Component {
+    class J_ extends we.Component {
       onShowPreferencesDialog = (e) => {
         e.preventDefault(),
           this.props.onDismissed(),
@@ -94218,8 +94222,8 @@
         );
       }
     }
-    const eA = "https://git-lfs.github.com/";
-    class tA extends we.Component {
+    const Q_ = "https://git-lfs.github.com/";
+    class eA extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -94253,7 +94257,7 @@
             this.props.repositories.length,
             " repositories use",
             " ",
-            we.createElement(rS, { uri: eA }, "Git LFS"),
+            we.createElement(rS, { uri: Q_ }, "Git LFS"),
             ". To contribute to them, Git LFS must first be initialized. Would you like to do so now?"
           );
         {
@@ -94268,7 +94272,7 @@
               null,
               t,
               " ",
-              we.createElement(rS, { uri: eA }, "Git LFS"),
+              we.createElement(rS, { uri: Q_ }, "Git LFS"),
               ". To contribute to",
               " ",
               n,
@@ -94289,7 +94293,7 @@
         }
       }
     }
-    class nA extends we.Component {
+    class tA extends we.Component {
       constructor(e) {
         super(e), (this.state = { globalGitConfigPath: null });
       }
@@ -94367,7 +94371,7 @@
         this.props.onUpdateExistingFilters(), this.props.onDismissed();
       };
     }
-    class rA extends we.Component {
+    class nA extends we.Component {
       render() {
         const e = this.props.repository.name,
           t = st(
@@ -94448,14 +94452,14 @@
           this.props.onDismissed();
       };
     }
-    const iA = new yg("desktop", Dn(), -1),
-      oA = new Vr(
+    const rA = new yg("desktop", Dn(), -1),
+      iA = new Vr(
         "",
         -1,
-        new Br("desktop", iA, -1, !1, "https://github.com/desktop/desktop"),
+        new Br("desktop", rA, -1, !1, "https://github.com/desktop/desktop"),
         !0
       );
-    class sA extends we.Component {
+    class oA extends we.Component {
       renderList(e, t) {
         if (0 === e.length) return null;
         const n = new Array();
@@ -94468,7 +94472,7 @@
                 text: r.message,
                 emoji: this.props.emoji,
                 renderUrlsAsLinks: !0,
-                repository: oA,
+                repository: iA,
               })
             )
           );
@@ -94531,7 +94535,7 @@
       };
       renderPretext = (e) => {
         if (0 !== e.length)
-          return we.createElement(Wx, {
+          return we.createElement(Hx, {
             markdown: e[0].message,
             emoji: this.props.emoji,
             onMarkdownLinkClicked: this.onMarkdownLinkClicked,
@@ -94541,7 +94545,7 @@
         e.preventDefault(), this.props.onDismissed();
       };
       renderButtons = () =>
-        "3.2.6" === this.props.newReleases[0].latestVersion
+        "3.2.7" === this.props.newReleases[0].latestVersion
           ? we.createElement(
               bw,
               { type: "submit", onClick: this.onDismissed },
@@ -94611,13 +94615,13 @@
         Bv.quitAndInstallUpdate();
       };
       showAllReleaseNotes = () => {
-        nt.openExternal(ED);
+        nt.openExternal(kD);
       };
       onMarkdownLinkClicked = (e) => {
         nt.openExternal(e);
       };
     }
-    class aA extends we.Component {
+    class sA extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -94669,7 +94673,7 @@
         this.props.onDismissed()
       );
     }
-    class lA extends we.Component {
+    class aA extends we.Component {
       onCancel = () => {
         this.props.onDismissed();
       };
@@ -94735,7 +94739,7 @@
         );
       }
     }
-    class cA extends we.PureComponent {
+    class lA extends we.PureComponent {
       componentDidMount() {
         this.ensureTheme();
       }
@@ -94767,7 +94771,7 @@
         return null;
       }
     }
-    class uA extends we.Component {
+    class cA extends we.Component {
       constructor(e) {
         super(e);
       }
@@ -94847,7 +94851,7 @@
           this.props.dispatcher.setCommitMessage(this.props.repository, Ho);
       };
     }
-    class hA extends we.Component {
+    class uA extends we.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
@@ -94892,17 +94896,17 @@
           this.props.onDismissed();
       };
     }
-    var dA;
+    var hA;
     !(function (e) {
       (e[(e.StashOnCurrentBranch = 0)] = "StashOnCurrentBranch"),
         (e[(e.MoveToNewBranch = 1)] = "MoveToNewBranch");
-    })(dA || (dA = {}));
-    class pA extends we.Component {
+    })(hA || (hA = {}));
+    class dA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
             isStashingChanges: !1,
-            selectedStashAction: dA.StashOnCurrentBranch,
+            selectedStashAction: hA.StashOnCurrentBranch,
             currentBranchName: e.currentBranch.name,
           });
       }
@@ -94933,7 +94937,7 @@
       }
       renderStashOverwriteWarning() {
         return this.props.hasAssociatedStash &&
-          this.state.selectedStashAction === dA.StashOnCurrentBranch
+          this.state.selectedStashAction === hA.StashOnCurrentBranch
           ? we.createElement(
               cw,
               null,
@@ -94949,19 +94953,19 @@
               title: `Leave my changes on ${this.state.currentBranchName}`,
               description:
                 "Your in-progress work will be stashed on this branch for you to return to later",
-              key: dA.StashOnCurrentBranch,
+              key: hA.StashOnCurrentBranch,
             },
             {
               title: `Bring my changes to ${e.name}`,
               description:
                 "Your in-progress work will follow you to the new branch",
-              key: dA.MoveToNewBranch,
+              key: hA.MoveToNewBranch,
             },
           ];
         return we.createElement(
           cw,
           null,
-          we.createElement(__, {
+          we.createElement(D_, {
             label:
               "You have changes on this branch. What would you like to do with them?",
             items: t,
@@ -94981,7 +94985,7 @@
             hasAssociatedStash: r,
           } = this.props,
           { selectedStashAction: i } = this.state;
-        if (i === dA.StashOnCurrentBranch && r)
+        if (i === hA.StashOnCurrentBranch && r)
           return void n.showPopup({
             type: Gr.ConfirmOverwriteStash,
             repository: e,
@@ -94990,9 +94994,9 @@
         this.setState({ isStashingChanges: !0 });
         const o = eS("stash and checkout", e);
         try {
-          i === dA.StashOnCurrentBranch
+          i === hA.StashOnCurrentBranch
             ? await n.checkoutBranch(e, t, zs.StashOnCurrentBranch)
-            : i === dA.MoveToNewBranch &&
+            : i === hA.MoveToNewBranch &&
               (await n.checkoutBranch(e, t, zs.MoveToNewBranch));
         } finally {
           o.done(),
@@ -95002,7 +95006,7 @@
         }
       };
     }
-    class mA extends we.Component {
+    class pA extends we.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
@@ -95053,7 +95057,7 @@
         r();
       };
     }
-    class fA extends we.Component {
+    class mA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -95119,7 +95123,7 @@
         r();
       };
     }
-    class gA extends we.Component {
+    class fA extends we.Component {
       onSubmit = () =>
         this.props.onCreateTutorialRepository(this.props.account);
       renderProgress() {
@@ -95173,7 +95177,7 @@
         );
       }
     }
-    class yA extends we.Component {
+    class gA extends we.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
@@ -95223,7 +95227,7 @@
           this.props.onDismissed();
       };
     }
-    class vA extends we.Component {
+    class yA extends we.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
@@ -95271,7 +95275,7 @@
           this.props.onDismissed();
       };
     }
-    class bA extends we.Component {
+    class vA extends we.Component {
       constructor(e) {
         super(e), (this.state = { loading: !1 });
       }
@@ -95403,7 +95407,7 @@
         var e, t, n;
       }
     }
-    class wA extends we.Component {
+    class bA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -95429,7 +95433,7 @@
           we.createElement(
             mS,
             null,
-            we.createElement(vT, {
+            we.createElement(yT, {
               label: "Name",
               initialValue: this.props.initialName,
               onValueChange: this.updateTagName,
@@ -95509,7 +95513,7 @@
         }
       };
     }
-    class CA extends we.Component {
+    class wA extends we.Component {
       constructor(e) {
         super(e), (this.state = { isDeleting: !1 });
       }
@@ -95551,7 +95555,7 @@
           this.props.onDismissed();
       };
     }
-    class SA extends we.Component {
+    class CA extends we.Component {
       constructor(e) {
         super(e), (this.state = { forkContributionTarget: Qr(e.repository) });
       }
@@ -95606,7 +95610,7 @@
             we.createElement(
               cw,
               null,
-              we.createElement(__, {
+              we.createElement(D_, {
                 label:
                   "You have changes on this branch. What would you like to do with them?",
                 items: e,
@@ -95641,7 +95645,7 @@
           this.props.onDismissed();
       };
     }
-    class kA extends we.Component {
+    class SA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -95717,7 +95721,7 @@
         this.setState({ confirmDiscardSelection: t });
       };
     }
-    class EA extends we.Component {
+    class kA extends we.Component {
       constructor(e) {
         super(e), (this.state = { stashingAndRetrying: !1 });
       }
@@ -95843,7 +95847,7 @@
         }
       }
     }
-    class RA extends we.Component {
+    class EA extends we.Component {
       timeoutId = null;
       onEnterDropTarget = null;
       onLeaveDropTargetDisposable = null;
@@ -95971,7 +95975,7 @@
         );
       }
     }
-    class xA extends we.Component {
+    class RA extends we.Component {
       constructor(e) {
         super(e), (this.state = { askToMoveToApplicationsFolder: !0 });
       }
@@ -96044,7 +96048,7 @@
         }
       };
     }
-    class TA extends we.Component {
+    class xA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = { newAlias: e.repository.alias ?? e.repository.name });
@@ -96109,7 +96113,7 @@
           this.props.onDismissed();
       };
     }
-    class DA extends we.Component {
+    class TA extends we.Component {
       renderList(e) {
         if (0 === e.length) return null;
         const t = new Array();
@@ -96122,7 +96126,7 @@
                 text: r.message,
                 emoji: this.props.emoji,
                 renderUrlsAsLinks: !0,
-                repository: oA,
+                repository: iA,
               })
             )
           );
@@ -96224,7 +96228,7 @@
         );
       }
     }
-    function _A(e, t, n, r) {
+    function DA(e, t, n, r) {
       const i = [n],
         o = {
           version: r,
@@ -96235,7 +96239,7 @@
         };
       e.setLastThankYou(o);
     }
-    class AA extends we.Component {
+    class _A extends we.Component {
       constructor(e) {
         super(e), (this.state = JS(e, "showCoAuthoredBy", "coAuthors"));
       }
@@ -96309,7 +96313,7 @@
           this.props.dispatcher.showCreateForkDialog(this.props.repository);
       };
     }
-    function PA(e, t) {
+    function AA(e, t) {
       return we.createElement(
         "li",
         { key: e, className: "unmerged-file-status-conflicts" },
@@ -96317,20 +96321,20 @@
         t
       );
     }
-    const IA = (e, t, n, r, i, o) => () => {
-        sw(BA(e, n, r, t, i, o));
+    const PA = (e, t, n, r, i, o) => () => {
+        sw(NA(e, n, r, t, i, o));
       },
-      MA = (e, t, n) => () => n.updateManualConflictResolution(t, e, null),
-      NA = (t, n, r, i, o, s) => () => {
+      IA = (e, t, n) => () => n.updateManualConflictResolution(t, e, null),
+      MA = (t, n, r, i, o, s) => () => {
         const a = (0, e.join)(n.path, t);
         sw([
           { label: el, action: () => kk(a, r) },
           { label: Ja, action: () => m.shell.showItemInFolder(a) },
           { type: "separator" },
-          ...BA(t, n, r, i, o, s),
+          ...NA(t, n, r, i, o, s),
         ]);
       };
-    function BA(e, t, n, r, i, o) {
+    function NA(e, t, n, r, i, o) {
       return [
         {
           label: io(r.entry.us, i),
@@ -96342,7 +96346,7 @@
         },
       ];
     }
-    const OA = (e) => {
+    const BA = (e) => {
       if (ni(e.status) && 0 === e.status.conflictMarkerCount)
         return we.createElement(
           "div",
@@ -96363,13 +96367,13 @@
         " ",
         we.createElement(
           rS,
-          { onClick: MA(e.path, e.repository, e.dispatcher) },
+          { onClick: IA(e.path, e.repository, e.dispatcher) },
           "Undo"
         )
       );
     };
-    const FA = "Manual conflict";
-    class LA extends we.Component {
+    const OA = "Manual conflict";
+    class FA extends we.Component {
       constructor(e) {
         super(e), (this.state = { isCommitting: !1, isAborting: !1 });
       }
@@ -96423,7 +96427,7 @@
                         if (null === e)
                           return "No editor configured in Options > Advanced";
                       })(e.resolvedExternalEditor),
-                      s = NA(
+                      s = MA(
                         e.path,
                         e.repository,
                         e.dispatcher,
@@ -96468,7 +96472,7 @@
                           )
                         )
                       );
-                    return PA(e.path, a);
+                    return AA(e.path, a);
                   })({
                     path: o.path,
                     status: o.status,
@@ -96484,7 +96488,7 @@
                   })
                 : ri(o.status) && no(o.status, o.manualResolution)
                 ? ((e) => {
-                    const t = IA(
+                    const t = PA(
                         e.path,
                         e.status,
                         e.repository,
@@ -96494,7 +96498,7 @@
                       ),
                       { ourBranch: n, theirBranch: r } = e,
                       { entry: i } = e.status;
-                    let o = FA;
+                    let o = OA;
                     if ([i.us, i.them].includes(zr.Deleted)) {
                       let e = "target branch";
                       i.us === zr.Deleted && void 0 !== n && (e = n),
@@ -96529,7 +96533,7 @@
                         )
                       )
                     );
-                    return PA(e.path, s);
+                    return AA(e.path, s);
                   })({
                     path: o.path,
                     status: o.status,
@@ -96553,7 +96557,7 @@
                         "div",
                         { className: "column-left" },
                         we.createElement(ak, { path: e.path }),
-                        OA({
+                        BA({
                           path: e.path,
                           status: e.status,
                           branch: e.branch,
@@ -96660,7 +96664,7 @@
         );
       }
     }
-    class UA extends we.Component {
+    class LA extends we.Component {
       constructor(e) {
         super(e), (this.state = { isAborting: !1 });
       }
@@ -96713,7 +96717,7 @@
         );
       }
     }
-    class HA extends we.Component {
+    class UA extends we.Component {
       render() {
         const { progress: e, operation: t, emoji: n } = this.props,
           {
@@ -96768,7 +96772,7 @@
         );
       }
     }
-    class WA extends we.Component {
+    class HA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -96837,7 +96841,7 @@
           this.props.onBegin();
       };
     }
-    class zA extends we.Component {
+    class WA extends we.Component {
       onFlowEnded = () => {
         this.props.dispatcher.closePopup(Gr.MultiCommitOperation),
           this.props.dispatcher.endMultiCommitOperation(this.props.repository);
@@ -96907,7 +96911,7 @@
             return this.renderChooseBranch();
           case "ShowProgress":
             const { emoji: n } = this.props;
-            return we.createElement(HA, {
+            return we.createElement(UA, {
               progress: e.progress,
               emoji: n,
               operation: e.operationDetail.kind,
@@ -96931,7 +96935,7 @@
               p = c.kind.toLowerCase(),
               m = `Continue ${p}`,
               f = `Abort ${p}`;
-            return we.createElement(LA, {
+            return we.createElement(FA, {
               dispatcher: o,
               repository: e,
               workingDirectory: s,
@@ -96952,7 +96956,7 @@
             });
           }
           case "ConfirmAbort":
-            return we.createElement(UA, {
+            return we.createElement(LA, {
               operation: this.props.state.operationDetail.kind,
               onConfirmAbort: this.onAbort,
               onReturnToConflicts: this.moveToConflictState,
@@ -96960,7 +96964,7 @@
           case "WarnForcePush":
             const { dispatcher: r, askForConfirmationOnForcePush: i } =
               this.props;
-            return we.createElement(WA, {
+            return we.createElement(HA, {
               operation: e.operationDetail.kind,
               dispatcher: r,
               askForConfirmationOnForcePush: i,
@@ -96976,7 +96980,7 @@
         }
       }
     }
-    class $A extends zA {
+    class zA extends WA {
       onContinueAfterConflicts = async () => {
         const {
             repository: e,
@@ -97031,7 +97035,7 @@
         );
       };
     }
-    class qA extends $A {
+    class $A extends zA {
       conflictDialogOperationPrefix = "squashing commits on";
       rebaseKind = "Squash";
       onBeginOperation = () => {
@@ -97047,7 +97051,7 @@
         return t.squash(e, a, i, o, s, !0);
       };
     }
-    class jA extends we.Component {
+    class qA extends we.Component {
       constructor(e) {
         super(e);
         const t = this.resolveSelectedBranch();
@@ -97112,7 +97116,7 @@
               we.createElement("p", { className: "merge-info" }, n)
             );
       }
-      renderBranch = (e, t) => MR(e, t, this.props.currentBranch);
+      renderBranch = (e, t) => IR(e, t, this.props.currentBranch);
       render() {
         const { selectedBranch: e } = this.state,
           { currentBranch: t, operation: n } = this.props,
@@ -97129,7 +97133,7 @@
           we.createElement(
             mS,
             null,
-            we.createElement(vR, {
+            we.createElement(yR, {
               allBranches: this.props.allBranches,
               currentBranch: t,
               defaultBranch: this.props.defaultBranch,
@@ -97177,7 +97181,7 @@
         );
       }
     }
-    class GA extends jA {
+    class jA extends qA {
       commitCount = 0;
       mergeStatus = null;
       start = () => {
@@ -97204,7 +97208,7 @@
           (this.mergeStatus = null);
       };
       renderActionStatusIcon = () =>
-        Ce().createElement(Vx, {
+        Ce().createElement(Gx, {
           status: this.mergeStatus,
           classNamePrefix: "merge-status",
         });
@@ -97303,7 +97307,7 @@
         );
       }
     }
-    class VA extends zA {
+    class GA extends WA {
       onContinueAfterConflicts = async () => {
         const {
           repository: e,
@@ -97372,7 +97376,7 @@
             initialBranch: c,
           } = r,
           { isSquash: u } = i;
-        return Ce().createElement(GA, {
+        return Ce().createElement(jA, {
           dispatcher: t,
           repository: e,
           allBranches: a,
@@ -97385,7 +97389,7 @@
         });
       };
     }
-    class KA extends $A {
+    class VA extends zA {
       conflictDialogOperationPrefix = "reordering commits on";
       rebaseKind = "Reorder";
       onBeginOperation = () => {
@@ -97396,7 +97400,7 @@
         return t.reorderCommits(e, i, o, s, !0);
       };
     }
-    class YA extends we.Component {
+    class KA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -97411,7 +97415,7 @@
       onSelectionChanged = (e) => {
         this.setState({ selectedBranch: e });
       };
-      renderBranch = (e, t) => MR(e, t, this.props.currentBranch);
+      renderBranch = (e, t) => IR(e, t, this.props.currentBranch);
       onEnterPressed = (e, t) => {
         if ("keyboard" !== t.kind || "Enter" !== t.event.key) return;
         t.event.preventDefault();
@@ -97474,7 +97478,7 @@
           we.createElement(
             mS,
             null,
-            we.createElement(vR, {
+            we.createElement(yR, {
               allBranches: this.props.allBranches,
               currentBranch: this.props.currentBranch,
               defaultBranch: this.props.defaultBranch,
@@ -97513,7 +97517,7 @@
           this.props.onCherryPick(e);
       };
     }
-    class ZA extends zA {
+    class YA extends WA {
       onContinueAfterConflicts = async () => {
         const {
             repository: e,
@@ -97557,7 +97561,7 @@
             recentBranches: o,
           } = e,
           { commits: s } = t;
-        return Ce().createElement(YA, {
+        return Ce().createElement(KA, {
           key: "choose-target-branch",
           allBranches: n,
           defaultBranch: r,
@@ -97585,7 +97589,7 @@
           tip: l,
           targetBranchName: c,
         } = n;
-        return Ce().createElement(P_, {
+        return Ce().createElement(A_, {
           key: "create-branch",
           tip: l,
           defaultBranch: o,
@@ -97636,7 +97640,7 @@
         r.startCherryPickWithBranchName(i, e, t, n, a, l);
       };
     }
-    class XA extends jA {
+    class ZA extends qA {
       rebasePreview = null;
       start = () => {
         const { selectedBranch: e } = this.state,
@@ -97682,13 +97686,13 @@
           Ce().createElement("strong", null, e)
         );
       renderActionStatusIcon = () =>
-        Ce().createElement(Vx, {
+        Ce().createElement(Gx, {
           status: this.rebasePreview,
           classNamePrefix: "merge-status",
         });
       updateStatus = async (e) => {
         const { currentBranch: t, repository: n } = this.props;
-        Yx(e, t, n, (t) => {
+        Kx(e, t, n, (t) => {
           (this.rebasePreview = t), this.updateRebaseStatusPreview(e);
         });
       };
@@ -97746,7 +97750,7 @@
         );
       }
     }
-    class JA extends $A {
+    class XA extends zA {
       conflictDialogOperationPrefix = "rebasing";
       rebaseKind = "Rebase";
       onBeginOperation = () => {
@@ -97769,7 +97773,7 @@
           recentBranches: a,
           initialBranch: l,
         } = r;
-        return Ce().createElement(XA, {
+        return Ce().createElement(ZA, {
           key: "choose-branch",
           dispatcher: t,
           repository: e,
@@ -97783,16 +97787,16 @@
         });
       };
     }
-    class QA extends we.Component {
+    class JA extends we.Component {
       render() {
         const { kind: e } = this.props.state.operationDetail;
         switch (e) {
           case "Cherry-pick":
-            return we.createElement(ZA, { ...this.props });
+            return we.createElement(YA, { ...this.props });
           case "Rebase":
-            return we.createElement(JA, { ...this.props });
+            return we.createElement(XA, { ...this.props });
           case "Merge":
-            return we.createElement(VA, {
+            return we.createElement(GA, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -97806,7 +97810,7 @@
               openRepositoryInShell: this.props.openRepositoryInShell,
             });
           case "Squash":
-            return we.createElement(qA, {
+            return we.createElement($A, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -97820,7 +97824,7 @@
               openRepositoryInShell: this.props.openRepositoryInShell,
             });
           case "Reorder":
-            return we.createElement(KA, {
+            return we.createElement(VA, {
               repository: this.props.repository,
               dispatcher: this.props.dispatcher,
               state: this.props.state,
@@ -97838,7 +97842,7 @@
         }
       }
     }
-    class eP extends we.Component {
+    class QA extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -97944,7 +97948,7 @@
         this.setState({ confirmUndoCommit: t });
       };
     }
-    class tP extends we.Component {
+    class eP extends we.Component {
       constructor(e) {
         super(e), (this.state = { isLoading: !1 });
       }
@@ -97992,7 +97996,7 @@
         r();
       };
     }
-    class nP extends we.Component {
+    class tP extends we.Component {
       render() {
         const e = this.isEnterpriseAccount ? " Enterprise" : "";
         return we.createElement(
@@ -98036,7 +98040,7 @@
             : e.showDotComSignInDialog();
       };
     }
-    class rP extends we.Component {
+    class nP extends we.Component {
       render() {
         return we.createElement(
           vS,
@@ -98090,7 +98094,7 @@
         this.submit(!1);
       };
     }
-    class iP extends we.Component {
+    class rP extends we.Component {
       constructor(e) {
         super(e), (this.state = { passphrase: "", rememberPassphrase: !1 });
       }
@@ -98111,7 +98115,7 @@
             we.createElement(
               cw,
               null,
-              we.createElement(XT, {
+              we.createElement(ZT, {
                 label: `Enter passphrase for key '${this.props.keyPath}':`,
                 value: this.state.passphrase,
                 onValueChanged: this.onValueChanged,
@@ -98154,7 +98158,7 @@
         this.submit(void 0, !1);
       };
     }
-    class oP extends we.Component {
+    class iP extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -98214,9 +98218,9 @@
           await this.props.dispatcher.performForcePush(this.props.repository);
       };
     }
-    const sP = Fo(__dirname, "static/paper-stack.svg"),
-      aP = Fo(__dirname, "static/empty-no-pull-requests.svg");
-    class lP extends we.Component {
+    const oP = Fo(__dirname, "static/paper-stack.svg"),
+      sP = Fo(__dirname, "static/empty-no-pull-requests.svg");
+    class aP extends we.Component {
       checkRunsLoadCancelled = !1;
       constructor(e) {
         super(e);
@@ -98345,7 +98349,7 @@
         this.rerunChecks(!1, [e]);
       };
       renderCheckRunJobs() {
-        return we.createElement(LT, {
+        return we.createElement(FT, {
           checkRuns: this.state.checks,
           loadingActionLogs: this.state.loadingActionLogs,
           loadingActionWorkflows: this.state.loadingActionWorkflows,
@@ -98366,7 +98370,7 @@
             ? this.renderCheckRunStepsLoading()
             : void 0 === e.actionJobSteps
             ? this.renderEmptyLogOutput()
-            : we.createElement(OT, {
+            : we.createElement(BT, {
                 steps: e.actionJobSteps,
                 onViewJobStep: this.onViewJobStep,
               })),
@@ -98382,7 +98386,7 @@
           "div",
           { className: "loading-check-runs" },
           we.createElement("img", {
-            src: aP,
+            src: sP,
             className: "blankslate-image",
             alt: "",
           }),
@@ -98413,7 +98417,7 @@
             )
           ),
           we.createElement("img", {
-            src: sP,
+            src: oP,
             className: "blankslate-image",
             alt: "",
           })
@@ -98437,7 +98441,7 @@
         return we.createElement(
           "div",
           { className: "ci-check-rerun" },
-          we.createElement(WT, {
+          we.createElement(HT, {
             disabled: 0 === e.length,
             checkRuns: e,
             canReRunFailed: ln(this.props.repository.gitHubRepository.endpoint),
@@ -98498,8 +98502,8 @@
           this.props.onDismissed();
       };
     }
-    const cP = Fo(__dirname, "static/empty-no-pull-requests.svg");
-    class uP extends we.Component {
+    const lP = Fo(__dirname, "static/empty-no-pull-requests.svg");
+    class cP extends we.Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -98560,7 +98564,7 @@
           : we.createElement(
               "div",
               { className: "ci-check-run-list check-run-rerun-list" },
-              we.createElement(LT, {
+              we.createElement(FT, {
                 checkRuns: this.state.rerunnable,
                 loadingActionLogs: !1,
                 loadingActionWorkflows: !1,
@@ -98625,7 +98629,7 @@
               "div",
               { className: "loading-rerun-checks" },
               we.createElement("img", {
-                src: cP,
+                src: lP,
                 className: "blankslate-image",
                 alt: "",
               }),
@@ -98665,7 +98669,7 @@
         );
       }
     }
-    class hP extends we.Component {
+    class uP extends we.Component {
       constructor(e) {
         super(e), (this.state = { retrying: !1, confirmDiscardChanges: !0 });
       }
@@ -98759,7 +98763,7 @@
           this.props.onDismissed();
       };
     }
-    class dP extends we.Component {
+    class hP extends we.Component {
       render() {
         const { title: e, pullRequestNumber: t } = this.props.pullRequest,
           n = we.createElement(
@@ -98886,7 +98890,7 @@
       renderReviewBody() {
         const { body: e, emoji: t, pullRequest: n } = this.props,
           { base: r } = n;
-        return we.createElement(Wx, {
+        return we.createElement(Hx, {
           markdown: e,
           emoji: t,
           baseHref: r.gitHubRepository.htmlURL ?? void 0,
@@ -98912,7 +98916,7 @@
         );
       };
     }
-    class pP extends we.Component {
+    class dP extends we.Component {
       constructor(e) {
         super(e), (this.state = { switchingToPullRequest: !1 });
       }
@@ -98928,7 +98932,7 @@
             onDismissed: a,
           } = this.props,
           l = Fh(o.state);
-        return we.createElement(dP, {
+        return we.createElement(hP, {
           id: "pull-request-review",
           dispatcher: e,
           accounts: t,
@@ -98998,7 +99002,7 @@
           this.props.onDismissed();
       };
     }
-    class mP extends we.Component {
+    class pP extends we.Component {
       constructor(e) {
         super(e), (this.state = { password: "", rememberPassword: !1 });
       }
@@ -99019,7 +99023,7 @@
             we.createElement(
               cw,
               null,
-              we.createElement(XT, {
+              we.createElement(ZT, {
                 label: `Enter password for '${this.props.username}':`,
                 value: this.state.password,
                 onValueChanged: this.onValueChanged,
@@ -99062,7 +99066,7 @@
         this.submit(void 0, !1);
       };
     }
-    class fP extends we.Component {
+    class mP extends we.Component {
       invokeButtonRef = null;
       constructor(e) {
         super(e), (this.state = { showPopover: !1 });
@@ -99139,12 +99143,12 @@
         );
       }
     }
-    class gP extends we.Component {
+    class fP extends we.Component {
       popoverRef = we.createRef();
       constructor(e) {
         super(e), (this.state = { selectedBranch: e.branch, filterText: "" });
       }
-      renderBranch = (e, t) => MR(e, t, this.props.currentBranch);
+      renderBranch = (e, t) => IR(e, t, this.props.currentBranch);
       onItemClick = (e, t) => {
         t.event.preventDefault(),
           this.popoverRef.current?.closePopover(),
@@ -99164,14 +99168,14 @@
           } = this.props,
           { filterText: o, selectedBranch: s } = this.state;
         return we.createElement(
-          fP,
+          mP,
           {
             contentTitle: "Choose a base branch",
             buttonContent: s?.name ?? "",
             label: "base:",
             ref: this.popoverRef,
           },
-          we.createElement(vR, {
+          we.createElement(yR, {
             allBranches: r,
             currentBranch: e,
             defaultBranch: t,
@@ -99187,7 +99191,7 @@
         );
       }
     }
-    class yP extends we.Component {
+    class gP extends we.Component {
       constructor(e) {
         super(e), (this.state = { titleId: Wv("Dialog_Open_Pull_Request") });
       }
@@ -99222,7 +99226,7 @@
             l,
             " into",
             " ",
-            we.createElement(gP, {
+            we.createElement(fP, {
               branch: e,
               defaultBranch: n,
               currentBranch: t,
@@ -99245,7 +99249,7 @@
         );
       }
     }
-    function vP(e, t, n) {
+    function yP(e, t, n) {
       const r = e.htmlURL;
       return null === r
         ? null
@@ -99255,7 +99259,7 @@
             "#diff-" + Ut.createHash("sha256").update(n).digest("hex")
           }`;
     }
-    class bP extends we.Component {
+    class vP extends we.Component {
       constructor(e) {
         super(e), (this.state = { showSideBySideDiff: e.showSideBySideDiff });
       }
@@ -99297,7 +99301,7 @@
           } = this.props,
           { gitHubRepository: i } = n;
         if (null === i || null === t) return;
-        const o = vP(i, t, e.path);
+        const o = yP(i, t, e.path);
         null !== o && r.openInBrowser(o);
       };
       onFileContextMenu = async (t, n) => {
@@ -99379,7 +99383,7 @@
             onResize: this.onFileListResize,
             onReset: this.onFileListSizeReset,
           },
-          we.createElement(cR, {
+          we.createElement(lR, {
             files: e,
             onSelectedFileChanged: this.onFileSelected,
             selectedFile: t,
@@ -99425,7 +99429,7 @@
         );
       }
     }
-    class wP extends we.Component {
+    class bP extends we.Component {
       getMergeStatusDescription = () => {
         const { mergeStatus: e } = this.props;
         if (null === e) return "";
@@ -99483,7 +99487,7 @@
         );
       }
     }
-    class CP extends we.Component {
+    class wP extends we.Component {
       onCreatePullRequest = () => {
         const {
           currentBranchHasPullRequest: e,
@@ -99513,7 +99517,7 @@
             prRecentBaseBranches: i,
           } = this.props,
           { baseBranch: o, commitSHAs: s } = t;
-        return we.createElement(yP, {
+        return we.createElement(gP, {
           baseBranch: o,
           currentBranch: e,
           defaultBranch: n,
@@ -99549,7 +99553,7 @@
         const { diff: c, file: u, changesetData: h, shas: d } = l,
           { files: p } = h;
         return 0 !== d.length
-          ? we.createElement(bP, {
+          ? we.createElement(vP, {
               diff: c,
               dispatcher: e,
               externalEditorLabel: t,
@@ -99641,7 +99645,7 @@
         return we.createElement(
           wS,
           null,
-          we.createElement(wP, { mergeStatus: r }),
+          we.createElement(bP, { mergeStatus: r }),
           we.createElement(CS, {
             okButtonText: l,
             okButtonTitle: a,
@@ -99664,7 +99668,7 @@
         );
       }
     }
-    class SP extends we.Component {
+    class CP extends we.Component {
       updateStoreEventHandle = null;
       onUpdateStateChanged = (e) => {
         e.status !== Nv.UpdateAvailable && this.props.dispatcher.quitApp(!1);
@@ -99721,27 +99725,27 @@
         );
       }
     }
-    var kP, EP;
+    var SP, kP;
     !(function (e) {
       (e[(e.PullRequestReview = 0)] = "PullRequestReview"),
         (e[(e.PullRequestComment = 1)] = "PullRequestComment");
-    })(kP || (kP = {})),
+    })(SP || (SP = {})),
       (function (e) {
         (e[(e.SelectPullRequest = 0)] = "SelectPullRequest"),
           (e[(e.SelectPullRequestReview = 1)] = "SelectPullRequestReview"),
           (e[(e.SelectPullRequestComment = 2)] = "SelectPullRequestComment");
-      })(EP || (EP = {}));
-    const RP = [
+      })(kP || (kP = {}));
+    const EP = [
       {
-        type: kP.PullRequestReview,
-        steps: [EP.SelectPullRequest, EP.SelectPullRequestReview],
+        type: SP.PullRequestReview,
+        steps: [kP.SelectPullRequest, kP.SelectPullRequestReview],
       },
       {
-        type: kP.PullRequestComment,
-        steps: [EP.SelectPullRequest, EP.SelectPullRequestComment],
+        type: SP.PullRequestComment,
+        steps: [kP.SelectPullRequest, kP.SelectPullRequestComment],
       },
     ];
-    class xP extends Ce().Component {
+    class RP extends Ce().Component {
       render() {
         const { leftAccessory: e, html_url: t, children: n } = this.props;
         return Ce().createElement(
@@ -99766,7 +99770,7 @@
         void 0 !== n && (e.stopPropagation(), t.openInBrowser(n));
       };
     }
-    class TP extends Ce().Component {
+    class xP extends Ce().Component {
       constructor(e) {
         super(e),
           (this.state = {
@@ -99783,7 +99787,7 @@
       };
       renderNotificationType = (e) => {
         const t =
-          e === kP.PullRequestReview
+          e === SP.PullRequestReview
             ? "Pull Request Review"
             : "Pull Request Comment";
         return Ce().createElement(
@@ -99793,7 +99797,7 @@
         );
       };
       getOnNotificationTypeClick = (e) => () => {
-        const t = RP.find((t) => t.type === e) ?? null;
+        const t = EP.find((t) => t.type === e) ?? null;
         this.setState({ selectedFlow: t }, () => {
           this.prepareForNextStep();
         });
@@ -99802,7 +99806,7 @@
         const e = this.state.selectedFlow;
         if (null !== e)
           switch (e.type) {
-            case kP.PullRequestReview: {
+            case SP.PullRequestReview: {
               const e = this.getPullRequest(),
                 t = this.getReview();
               if (null === e || null === t) return;
@@ -99813,7 +99817,7 @@
               );
               break;
             }
-            case kP.PullRequestComment: {
+            case SP.PullRequestComment: {
               const e = this.getPullRequest(),
                 t = this.getCommentInfo();
               if (null === e || null === t) return;
@@ -99834,7 +99838,7 @@
         const e = this.state.selectedFlow?.steps[this.state.stepResults.size];
         if (void 0 === e) return this.doFinalAction(), void this.back();
         switch (e) {
-          case EP.SelectPullRequest:
+          case kP.SelectPullRequest:
             this.setState({ loading: !0 }),
               this.props.notificationsDebugStore
                 .getPullRequests(this.props.repository)
@@ -99842,7 +99846,7 @@
                   this.setState({ pullRequests: e, loading: !1 });
                 });
             break;
-          case EP.SelectPullRequestReview: {
+          case kP.SelectPullRequestReview: {
             this.setState({ loading: !0 });
             const e = this.getPullRequest();
             if (null === e) return;
@@ -99853,7 +99857,7 @@
               });
             break;
           }
-          case EP.SelectPullRequestComment: {
+          case kP.SelectPullRequestComment: {
             this.setState({ loading: !0 });
             const e = this.getPullRequest();
             if (null === e) return;
@@ -99872,15 +99876,15 @@
         }
       }
       getPullRequest() {
-        const e = this.state.stepResults.get(EP.SelectPullRequest);
+        const e = this.state.stepResults.get(kP.SelectPullRequest);
         return void 0 === e ? null : e.pullRequest;
       }
       getReview() {
-        const e = this.state.stepResults.get(EP.SelectPullRequestReview);
+        const e = this.state.stepResults.get(kP.SelectPullRequestReview);
         return void 0 === e ? null : e.review;
       }
       getCommentInfo() {
-        const e = this.state.stepResults.get(EP.SelectPullRequestComment);
+        const e = this.state.stepResults.get(kP.SelectPullRequestComment);
         return void 0 === e
           ? null
           : { comment: e.comment, isIssueComment: e.isIssueComment };
@@ -99898,18 +99902,18 @@
             Ce().createElement(
               "div",
               { className: "notification-type-list" },
-              this.renderNotificationType(kP.PullRequestReview),
-              this.renderNotificationType(kP.PullRequestComment)
+              this.renderNotificationType(SP.PullRequestReview),
+              this.renderNotificationType(SP.PullRequestComment)
             )
           );
         const e = this.state.selectedFlow.steps.at(this.state.stepResults.size);
         if (void 0 === e) return Ce().createElement("p", null, "Done!");
         switch (e) {
-          case EP.SelectPullRequest:
+          case kP.SelectPullRequest:
             return this.renderSelectPullRequest();
-          case EP.SelectPullRequestReview:
+          case kP.SelectPullRequestReview:
             return this.renderSelectPullRequestReview();
-          case EP.SelectPullRequestComment:
+          case kP.SelectPullRequestComment:
             return this.renderSelectPullRequestComment();
           default:
             return ot(0, `Unknown step: ${e}`);
@@ -99936,8 +99940,8 @@
       onPullRequestRowClick = (e) => {
         const t = this.state.pullRequests[e],
           n = this.state.stepResults;
-        n.set(EP.SelectPullRequest, {
-          kind: EP.SelectPullRequest,
+        n.set(kP.SelectPullRequest, {
+          kind: kP.SelectPullRequest,
           pullRequest: t,
         }),
           this.setState({ stepResults: n }, () => {
@@ -99965,8 +99969,8 @@
       onPullRequestReviewRowClick = (e) => {
         const t = this.state.reviews[e],
           n = this.state.stepResults;
-        n.set(EP.SelectPullRequestReview, {
-          kind: EP.SelectPullRequestReview,
+        n.set(kP.SelectPullRequestReview, {
+          kind: kP.SelectPullRequestReview,
           review: t,
         }),
           this.setState({ stepResults: n }, () => {
@@ -99994,8 +99998,8 @@
       onPullRequestCommentRowClick = (e) => {
         const t = this.state.comments[e],
           n = this.state.stepResults;
-        n.set(EP.SelectPullRequestComment, {
-          kind: EP.SelectPullRequestComment,
+        n.set(kP.SelectPullRequestComment, {
+          kind: kP.SelectPullRequestComment,
           comment: t,
           isIssueComment: t.html_url.includes("#issuecomment-"),
         }),
@@ -100006,7 +100010,7 @@
       renderPullRequestCommentRow = (e) => {
         const t = this.state.comments[e];
         return Ce().createElement(
-          xP,
+          RP,
           {
             dispatcher: this.props.dispatcher,
             html_url: t.html_url,
@@ -100021,7 +100025,7 @@
       renderPullRequestReviewRow = (e) => {
         const t = this.state.reviews[e];
         return Ce().createElement(
-          xP,
+          RP,
           {
             dispatcher: this.props.dispatcher,
             html_url: t.html_url,
@@ -100048,7 +100052,7 @@
             t.pullRequestNumber
           }`;
         return Ce().createElement(
-          xP,
+          RP,
           {
             dispatcher: this.props.dispatcher,
             html_url: r,
@@ -100123,7 +100127,7 @@
           });
       }
     }
-    class DP extends we.Component {
+    class TP extends we.Component {
       constructor(e) {
         super(e), (this.state = { switchingToPullRequest: !1 });
       }
@@ -100139,7 +100143,7 @@
             onDismissed: a,
           } = this.props,
           l = Fh("COMMENTED");
-        return we.createElement(dP, {
+        return we.createElement(hP, {
           id: "pull-request-comment",
           dispatcher: e,
           accounts: t,
@@ -100206,7 +100210,7 @@
           this.props.onDismissed();
       };
     }
-    class _P extends we.Component {
+    class DP extends we.Component {
       constructor(e) {
         super(e);
       }
@@ -100268,9 +100272,9 @@
         this.props.onCommit(), this.props.onDismissed();
       };
     }
-    const AP = { enter: 250, exit: 100 },
-      PP = { enter: 500, exit: 400 };
-    class IP extends we.Component {
+    const _P = { enter: 250, exit: 100 },
+      AP = { enter: 500, exit: 400 };
+    class PP extends we.Component {
       loading = !0;
       lastKeyPressed = null;
       updateIntervalHandle;
@@ -100340,12 +100344,12 @@
           this.props.dispatcher.installGlobalLFSFilters(!1),
           setInterval(() => this.checkForUpdates(!0), 144e5),
           this.checkForUpdates(!0),
-          log.info(`launching: 3.2.6 (${Gn()})`),
+          log.info(`launching: 3.2.7 (${Gn()})`),
           log.info(`execPath: '${process.execPath}'`),
           this.state.askToMoveToApplicationsFolderSetting,
           this.checkIfThankYouIsInOrder(),
           Yn() &&
-            Nn(LD, 0) < As(-90, "days") &&
+            Nn(FD, 0) < As(-90, "days") &&
             this.setBanner({ type: Hs.WindowsVersionNoLongerSupported });
       }
       onMenuEvent(e) {
@@ -100879,7 +100883,7 @@
         if (this.state.showWelcomeFlow) return null;
         const e = this.state.currentFoldout,
           t = e && e.type === Ve.AppMenu ? e : null;
-        return we.createElement(SD, {
+        return we.createElement(CD, {
           appMenu: this.state.appMenuState,
           dispatcher: this.props.dispatcher,
           highlightAppMenuAccessKeys: this.state.highlightAccessKeys,
@@ -100956,7 +100960,7 @@
               this.state.selectedState.type === Ge.Repository
                 ? this.state.selectedState.state.changesState.stashEntry
                 : null;
-            return we.createElement(bT, {
+            return we.createElement(vT, {
               key: "rename-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -100965,7 +100969,7 @@
               onDismissed: n,
             });
           case Gr.DeleteBranch:
-            return we.createElement(wT, {
+            return we.createElement(bT, {
               key: "delete-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -100975,7 +100979,7 @@
               onDeleted: this.onBranchDeleted,
             });
           case Gr.DeleteRemoteBranch:
-            return we.createElement(CT, {
+            return we.createElement(wT, {
               key: "delete-remote-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -100988,7 +100992,7 @@
                 void 0 === e.showDiscardChangesSetting ||
                 e.showDiscardChangesSetting,
               o = void 0 !== e.discardingAllChanges && e.discardingAllChanges;
-            return we.createElement(VT, {
+            return we.createElement(GT, {
               key: "discard-changes",
               repository: e.repository,
               dispatcher: this.props.dispatcher,
@@ -101002,7 +101006,7 @@
                 this.onConfirmDiscardChangesChanged,
             });
           case Gr.ConfirmDiscardSelection:
-            return we.createElement(kA, {
+            return we.createElement(SA, {
               key: "discard-selection",
               repository: e.repository,
               dispatcher: this.props.dispatcher,
@@ -101015,7 +101019,7 @@
             let s = this.getRepository();
             return (
               s instanceof br && (s = null),
-              we.createElement(YD, {
+              we.createElement(KD, {
                 key: "preferences",
                 initialSelectedTab: e.initialSelectedTab,
                 dispatcher: this.props.dispatcher,
@@ -101060,21 +101064,21 @@
             });
           }
           case Gr.SignIn:
-            return we.createElement(N_, {
+            return we.createElement(M_, {
               key: "sign-in",
               signInState: this.state.signInState,
               dispatcher: this.props.dispatcher,
               onDismissed: n,
             });
           case Gr.AddRepository:
-            return we.createElement(o_, {
+            return we.createElement(i_, {
               key: "add-existing-repository",
               onDismissed: n,
               dispatcher: this.props.dispatcher,
               path: e.path,
             });
           case Gr.CreateRepository:
-            return we.createElement(g_, {
+            return we.createElement(f_, {
               key: "create-repository",
               onDismissed: n,
               dispatcher: this.props.dispatcher,
@@ -101082,7 +101086,7 @@
               isTopMost: t,
             });
           case Gr.CloneRepository:
-            return we.createElement(T_, {
+            return we.createElement(x_, {
               key: "clone-repository",
               dotComAccount: this.getDotComAccount(),
               enterpriseAccount: this.getEnterpriseAccount(),
@@ -101105,7 +101109,7 @@
               o = null;
             return (
               Kr(r) && ((i = Jr(r)), (o = t.upstreamDefaultBranch)),
-              we.createElement(P_, {
+              we.createElement(A_, {
                 key: "create-branch",
                 tip: t.tip,
                 defaultBranch: t.defaultBranch,
@@ -101122,15 +101126,15 @@
             );
           }
           case Gr.InstallGit:
-            return we.createElement(B_, {
+            return we.createElement(N_, {
               key: "install-git",
               onDismissed: n,
               onOpenShell: this.onOpenShellIgnoreWarning,
               path: e.path,
             });
           case Gr.About:
-            const a = "3.2.6";
-            return we.createElement(L_, {
+            const a = "3.2.7";
+            return we.createElement(F_, {
               key: "about",
               onDismissed: n,
               applicationName: "GitHub Desktop",
@@ -101143,7 +101147,7 @@
               isTopMost: t,
             });
           case Gr.PublishRepository:
-            return we.createElement($_, {
+            return we.createElement(z_, {
               key: "publish",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101151,7 +101155,7 @@
               onDismissed: n,
             });
           case Gr.UntrustedCertificate:
-            return we.createElement(G_, {
+            return we.createElement(j_, {
               key: "untrusted-certificate",
               certificate: e.certificate,
               url: e.url,
@@ -101159,25 +101163,25 @@
               onContinue: this.onContinueWithUntrustedCertificate,
             });
           case Gr.Acknowledgements:
-            return we.createElement(q_, {
+            return we.createElement($_, {
               key: "acknowledgements",
               onDismissed: n,
-              applicationVersion: "3.2.6",
+              applicationVersion: "3.2.7",
             });
           case Gr.RemoveRepository:
-            return we.createElement(K_, {
+            return we.createElement(V_, {
               key: "confirm-remove-repository",
               repository: e.repository,
               onConfirmation: this.onConfirmRepoRemoval,
               onDismissed: n,
             });
           case Gr.TermsAndConditions:
-            return we.createElement(Z_, {
+            return we.createElement(Y_, {
               key: "terms-and-conditions",
               onDismissed: n,
             });
           case Gr.PushBranchCommits:
-            return we.createElement(pR, {
+            return we.createElement(dR, {
               key: "push-branch-commits",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101187,12 +101191,12 @@
               onDismissed: n,
             });
           case Gr.CLIInstalled:
-            return we.createElement(X_, {
+            return we.createElement(Z_, {
               key: "cli-installed",
               onDismissed: n,
             });
           case Gr.GenericGitAuthentication:
-            return we.createElement(J_, {
+            return we.createElement(X_, {
               key: "generic-git-authentication",
               hostname: e.hostname,
               onDismiss: n,
@@ -101202,7 +101206,7 @@
           case Gr.ExternalEditorFailed:
             const l = e.openPreferences,
               c = e.suggestDefaultEditor;
-            return we.createElement(O_, {
+            return we.createElement(B_, {
               key: "editor-error",
               message: e.message,
               onDismissed: n,
@@ -101211,27 +101215,27 @@
               suggestDefaultEditor: c,
             });
           case Gr.OpenShellFailed:
-            return we.createElement(Q_, {
+            return we.createElement(J_, {
               key: "shell-error",
               message: e.message,
               onDismissed: n,
               showPreferencesDialog: this.onShowAdvancedPreferences,
             });
           case Gr.InitializeLFS:
-            return we.createElement(tA, {
+            return we.createElement(eA, {
               key: "initialize-lfs",
               repositories: e.repositories,
               onDismissed: n,
               onInitialize: this.initializeLFS,
             });
           case Gr.LFSAttributeMismatch:
-            return we.createElement(nA, {
+            return we.createElement(tA, {
               key: "lsf-attribute-mismatch",
               onDismissed: n,
               onUpdateExistingFilters: this.updateExistingLFSFilters,
             });
           case Gr.UpstreamAlreadyExists:
-            return we.createElement(rA, {
+            return we.createElement(nA, {
               key: "upstream-already-exists",
               repository: e.repository,
               existingRemote: e.existingRemote,
@@ -101240,14 +101244,14 @@
               onIgnore: this.onIgnoreExistingUpstreamRemote,
             });
           case Gr.ReleaseNotes:
-            return we.createElement(sA, {
+            return we.createElement(oA, {
               key: "release-notes",
               emoji: this.state.emoji,
               newReleases: e.newReleases,
               onDismissed: n,
             });
           case Gr.DeletePullRequest:
-            return we.createElement(aA, {
+            return we.createElement(sA, {
               key: "delete-pull-request",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101256,7 +101260,7 @@
               pullRequest: e.pullRequest,
             });
           case Gr.OversizedFiles:
-            return we.createElement(uA, {
+            return we.createElement(cA, {
               key: "oversized-files",
               oversizedFiles: e.oversizedFiles,
               onDismissed: n,
@@ -101265,7 +101269,7 @@
               repository: e.repository,
             });
           case Gr.CommitConflictsWarning:
-            return we.createElement(lA, {
+            return we.createElement(aA, {
               key: "commit-conflicts-warning",
               dispatcher: this.props.dispatcher,
               files: e.files,
@@ -101274,7 +101278,7 @@
               onDismissed: n,
             });
           case Gr.PushNeedsPull:
-            return we.createElement(hA, {
+            return we.createElement(uA, {
               key: "push-needs-pull",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101282,7 +101286,7 @@
             });
           case Gr.ConfirmForcePush: {
             const { askForConfirmationOnForcePush: t } = this.state;
-            return we.createElement(oP, {
+            return we.createElement(iP, {
               key: "confirm-force-push",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101299,7 +101303,7 @@
             if (s.kind !== jr.Valid) return null;
             const a = s.branch,
               l = null !== o.stashEntry;
-            return we.createElement(pA, {
+            return we.createElement(dA, {
               key: "stash-and-switch-branch",
               dispatcher: this.props.dispatcher,
               repository: e.repository,
@@ -101311,7 +101315,7 @@
           }
           case Gr.ConfirmOverwriteStash: {
             const { repository: t, branchToCheckout: r } = e;
-            return we.createElement(mA, {
+            return we.createElement(pA, {
               key: "overwrite-stash",
               dispatcher: this.props.dispatcher,
               repository: t,
@@ -101321,7 +101325,7 @@
           }
           case Gr.ConfirmDiscardStash: {
             const { repository: t, stash: r } = e;
-            return we.createElement(fA, {
+            return we.createElement(mA, {
               key: "confirm-discard-stash-dialog",
               dispatcher: this.props.dispatcher,
               askForConfirmationOnDiscardStash:
@@ -101332,7 +101336,7 @@
             });
           }
           case Gr.CreateTutorialRepository:
-            return we.createElement(gA, {
+            return we.createElement(fA, {
               key: "create-tutorial-repository-dialog",
               account: e.account,
               progress: e.progress,
@@ -101340,20 +101344,20 @@
               onCreateTutorialRepository: this.onCreateTutorialRepository,
             });
           case Gr.ConfirmExitTutorial:
-            return we.createElement(mT, {
+            return we.createElement(pT, {
               key: "confirm-exit-tutorial",
               onDismissed: n,
               onContinue: this.onExitTutorialToHomeScreen,
             });
           case Gr.PushRejectedDueToMissingWorkflowScope:
-            return we.createElement(yA, {
+            return we.createElement(gA, {
               onDismissed: n,
               rejectedPath: e.rejectedPath,
               dispatcher: this.props.dispatcher,
               repository: e.repository,
             });
           case Gr.SAMLReauthRequired:
-            return we.createElement(vA, {
+            return we.createElement(yA, {
               onDismissed: n,
               organizationName: e.organizationName,
               endpoint: e.endpoint,
@@ -101361,14 +101365,14 @@
               dispatcher: this.props.dispatcher,
             });
           case Gr.CreateFork:
-            return we.createElement(bA, {
+            return we.createElement(vA, {
               onDismissed: n,
               dispatcher: this.props.dispatcher,
               repository: e.repository,
               account: e.account,
             });
           case Gr.CreateTag:
-            return we.createElement(wA, {
+            return we.createElement(bA, {
               key: "create-tag",
               repository: e.repository,
               onDismissed: n,
@@ -101378,7 +101382,7 @@
               localTags: e.localTags,
             });
           case Gr.DeleteTag:
-            return we.createElement(CA, {
+            return we.createElement(wA, {
               key: "delete-tag",
               repository: e.repository,
               onDismissed: n,
@@ -101386,7 +101390,7 @@
               tagName: e.tagName,
             });
           case Gr.ChooseForkSettings:
-            return we.createElement(SA, {
+            return we.createElement(CA, {
               repository: e.repository,
               onDismissed: n,
               dispatcher: this.props.dispatcher,
@@ -101397,7 +101401,7 @@
                 null !== u && u.type === Ge.Repository
                   ? u.state.changesState.stashEntry
                   : null;
-            return we.createElement(EA, {
+            return we.createElement(kA, {
               repository: e.repository,
               dispatcher: this.props.dispatcher,
               hasExistingStash: null !== h,
@@ -101406,18 +101410,18 @@
               files: e.files,
             });
           case Gr.MoveToApplicationsFolder:
-            return we.createElement(xA, {
+            return we.createElement(RA, {
               dispatcher: this.props.dispatcher,
               onDismissed: n,
             });
           case Gr.ChangeRepositoryAlias:
-            return we.createElement(TA, {
+            return we.createElement(xA, {
               dispatcher: this.props.dispatcher,
               repository: e.repository,
               onDismissed: n,
             });
           case Gr.ThankYou:
-            return we.createElement(DA, {
+            return we.createElement(TA, {
               key: "thank-you",
               emoji: this.state.emoji,
               userContributions: e.userContributions,
@@ -101441,7 +101445,7 @@
                 this.state.accounts
               ),
               y = Wi(this.state.accounts, e.repository);
-            return we.createElement(AA, {
+            return we.createElement(_A, {
               key: "commit-message",
               autocompletionProviders: g,
               branch: m,
@@ -101471,7 +101475,7 @@
                   "[App] invalid state encountered - multi commit flow should not be active when step is null"
                 ),
                 null)
-              : we.createElement(QA, {
+              : we.createElement(JA, {
                   key: "multi-commit-operation",
                   repository: e.repository,
                   dispatcher: this.props.dispatcher,
@@ -101488,7 +101492,7 @@
           }
           case Gr.WarnLocalChangesBeforeUndo: {
             const { repository: t, commit: r, isWorkingDirectoryClean: i } = e;
-            return we.createElement(eP, {
+            return we.createElement(QA, {
               key: "warn-local-changes-before-undo",
               dispatcher: this.props.dispatcher,
               repository: t,
@@ -101500,7 +101504,7 @@
           }
           case Gr.WarningBeforeReset: {
             const { repository: t, commit: r } = e;
-            return we.createElement(tP, {
+            return we.createElement(eP, {
               key: "warning-before-reset",
               dispatcher: this.props.dispatcher,
               repository: t,
@@ -101509,14 +101513,14 @@
             });
           }
           case Gr.InvalidatedToken:
-            return we.createElement(nP, {
+            return we.createElement(tP, {
               key: "invalidated-token",
               dispatcher: this.props.dispatcher,
               account: e.account,
               onDismissed: n,
             });
           case Gr.AddSSHHost:
-            return we.createElement(rP, {
+            return we.createElement(nP, {
               key: "add-ssh-host",
               host: e.host,
               ip: e.ip,
@@ -101526,21 +101530,21 @@
               onDismissed: n,
             });
           case Gr.SSHKeyPassphrase:
-            return we.createElement(iP, {
+            return we.createElement(rP, {
               key: "ssh-key-passphrase",
               keyPath: e.keyPath,
               onSubmit: e.onSubmit,
               onDismissed: n,
             });
           case Gr.SSHUserPassword:
-            return we.createElement(mP, {
+            return we.createElement(pP, {
               key: "ssh-user-password",
               username: e.username,
               onSubmit: e.onSubmit,
               onDismissed: n,
             });
           case Gr.PullRequestChecksFailed:
-            return we.createElement(lP, {
+            return we.createElement(aP, {
               key: "pull-request-checks-failed",
               dispatcher: this.props.dispatcher,
               shouldChangeRepository: e.shouldChangeRepository,
@@ -101554,7 +101558,7 @@
               onDismissed: n,
             });
           case Gr.CICheckRunRerun:
-            return we.createElement(uP, {
+            return we.createElement(cP, {
               key: "rerun-check-runs",
               checkRuns: e.checkRuns,
               dispatcher: this.props.dispatcher,
@@ -101565,7 +101569,7 @@
             });
           case Gr.WarnForcePush: {
             const { askForConfirmationOnForcePush: t } = this.state;
-            return we.createElement(WA, {
+            return we.createElement(HA, {
               key: "warn-force-push",
               dispatcher: this.props.dispatcher,
               operation: e.operation,
@@ -101575,7 +101579,7 @@
             });
           }
           case Gr.DiscardChangesRetry:
-            return we.createElement(hP, {
+            return we.createElement(uP, {
               key: "discard-changes-retry",
               dispatcher: this.props.dispatcher,
               retryAction: e.retryAction,
@@ -101584,7 +101588,7 @@
                 this.onConfirmDiscardChangesPermanentlyChanged,
             });
           case Gr.PullRequestReview:
-            return we.createElement(pP, {
+            return we.createElement(dP, {
               key: "pull-request-review",
               dispatcher: this.props.dispatcher,
               shouldCheckoutBranch: e.shouldCheckoutBranch,
@@ -101641,7 +101645,7 @@
                 showSideBySideDiff: p,
                 currentBranchHasPullRequest: m,
               } = e;
-            return we.createElement(CP, {
+            return we.createElement(wP, {
               key: "open-pull-request",
               prBaseBranches: o,
               currentBranch: s,
@@ -101661,20 +101665,20 @@
             });
           }
           case Gr.Error:
-            return we.createElement(XD, {
+            return we.createElement(ZD, {
               error: e.error,
               onDismissed: n,
               onShowPopup: this.showPopup,
               onRetryAction: this.onRetryAction,
             });
           case Gr.InstallingUpdate:
-            return we.createElement(SP, {
+            return we.createElement(CP, {
               key: "installing-update",
               dispatcher: this.props.dispatcher,
               onDismissed: n,
             });
           case Gr.TestNotifications:
-            return we.createElement(TP, {
+            return we.createElement(xP, {
               key: "test-notifications",
               dispatcher: this.props.dispatcher,
               notificationsDebugStore: this.props.notificationsDebugStore,
@@ -101682,7 +101686,7 @@
               onDismissed: n,
             });
           case Gr.PullRequestComment:
-            return we.createElement(DP, {
+            return we.createElement(TP, {
               key: "pull-request-comment",
               dispatcher: this.props.dispatcher,
               shouldCheckoutBranch: e.shouldCheckoutBranch,
@@ -101696,7 +101700,7 @@
               onDismissed: n,
             });
           case Gr.UnknownAuthors:
-            return we.createElement(_P, {
+            return we.createElement(DP, {
               key: "unknown-authors",
               authors: e.authors,
               onCommit: e.onCommit,
@@ -101772,7 +101776,7 @@
         return we.createElement(
           Me,
           null,
-          e && we.createElement(je, { classNames: "modal", timeout: AP }, e)
+          e && we.createElement(je, { classNames: "modal", timeout: _P }, e)
         );
       }
       renderDragElement() {
@@ -101787,7 +101791,7 @@
         if (null === e) return null;
         const { gitHubRepository: n, commit: r, selectedCommits: i } = e;
         return e.type === hv.Commit
-          ? we.createElement(RA, {
+          ? we.createElement(EA, {
               gitHubRepository: n,
               commit: r,
               selectedCommits: i,
@@ -101917,7 +101921,7 @@
             height: "100%",
             top: 0,
           };
-        return we.createElement(TT, {
+        return we.createElement(xT, {
           icon: n,
           title: r,
           description: "Current repository",
@@ -101962,7 +101966,7 @@
         if (!e || e.type !== Ge.Repository) return null;
         const t = e.state,
           n = t.revertProgress;
-        if (n) return we.createElement(GT, { progress: n });
+        if (n) return we.createElement(jT, { progress: n });
         let r = t.remote ? t.remote.name : null;
         const i = t.pushPullFetchProgress,
           { conflictState: o } = t.changesState,
@@ -101977,7 +101981,7 @@
         const h = this.state.currentFoldout,
           d = null !== h && h.type === Ve.PushPull,
           p = Co(l, a);
-        return we.createElement(NT, {
+        return we.createElement(MT, {
           dispatcher: this.props.dispatcher,
           repository: e.repository,
           aheadBehind: t.aheadBehind,
@@ -102043,7 +102047,7 @@
           n = null !== t && t.type === Ve.Branch,
           r = e.repository,
           { branchesState: i } = e.state;
-        return we.createElement(qT, {
+        return we.createElement($T, {
           dispatcher: this.props.dispatcher,
           isOpen: n,
           onDropDownStateChanged: this.onBranchDropdownStateChanged,
@@ -102067,14 +102071,14 @@
             ? (e = (function (e, t, n) {
                 switch (e.type) {
                   case Hs.SuccessfulMerge:
-                    return we.createElement(DD, {
+                    return we.createElement(TD, {
                       ourBranch: e.ourBranch,
                       theirBranch: e.theirBranch,
                       onDismissed: n,
                       key: "successful-merge",
                     });
                   case Hs.MergeConflictsFound:
-                    return we.createElement(xD, {
+                    return we.createElement(RD, {
                       dispatcher: t,
                       ourBranch: e.ourBranch,
                       popup: e.popup,
@@ -102082,14 +102086,14 @@
                       key: "merge-conflicts",
                     });
                   case Hs.SuccessfulRebase:
-                    return we.createElement(AD, {
+                    return we.createElement(_D, {
                       targetBranch: e.targetBranch,
                       baseBranch: e.baseBranch,
                       onDismissed: n,
                       key: "successful-rebase",
                     });
                   case Hs.RebaseConflictsFound:
-                    return we.createElement(_D, {
+                    return we.createElement(DD, {
                       dispatcher: t,
                       targetBranch: e.targetBranch,
                       onOpenDialog: e.onOpenDialog,
@@ -102097,14 +102101,14 @@
                       key: "merge-conflicts",
                     });
                   case Hs.BranchAlreadyUpToDate:
-                    return we.createElement(PD, {
+                    return we.createElement(AD, {
                       ourBranch: e.ourBranch,
                       theirBranch: e.theirBranch,
                       onDismissed: n,
                       key: "branch-already-up-to-date",
                     });
                   case Hs.SuccessfulCherryPick:
-                    return we.createElement(ID, {
+                    return we.createElement(PD, {
                       key: "successful-cherry-pick",
                       targetBranchName: e.targetBranchName,
                       countCherryPicked: e.count,
@@ -102112,21 +102116,21 @@
                       onUndo: e.onUndo,
                     });
                   case Hs.CherryPickConflictsFound:
-                    return we.createElement(MD, {
+                    return we.createElement(ID, {
                       targetBranchName: e.targetBranchName,
                       onOpenConflictsDialog: e.onOpenConflictsDialog,
                       onDismissed: n,
                       key: "cherry-pick-conflicts",
                     });
                   case Hs.CherryPickUndone:
-                    return we.createElement(ND, {
+                    return we.createElement(MD, {
                       key: "cherry-pick-undone",
                       targetBranchName: e.targetBranchName,
                       countCherryPicked: e.countCherryPicked,
                       onDismissed: n,
                     });
                   case Hs.OpenThankYouCard:
-                    return we.createElement(BD, {
+                    return we.createElement(ND, {
                       key: "open-thank-you-card",
                       emoji: e.emoji,
                       onDismissed: n,
@@ -102134,7 +102138,7 @@
                       onThrowCardAway: e.onThrowCardAway,
                     });
                   case Hs.SuccessfulSquash:
-                    return we.createElement(OD, {
+                    return we.createElement(BD, {
                       key: "successful-squash",
                       count: e.count,
                       onDismissed: n,
@@ -102143,7 +102147,7 @@
                   case Hs.SquashUndone: {
                     const t = 1 === e.commitsCount ? "commit" : "commits";
                     return we.createElement(
-                      TD,
+                      xD,
                       { timeout: 5e3, onDismissed: n },
                       "Squash of ",
                       e.commitsCount,
@@ -102155,7 +102159,7 @@
                   case Hs.SuccessfulReorder: {
                     const t = 1 === e.count ? "commit" : "commits";
                     return we.createElement(
-                      TD,
+                      xD,
                       { timeout: 15e3, onDismissed: n, onUndo: e.onUndo },
                       we.createElement(
                         "span",
@@ -102171,7 +102175,7 @@
                   case Hs.ReorderUndone: {
                     const t = 1 === e.commitsCount ? "commit" : "commits";
                     return we.createElement(
-                      TD,
+                      xD,
                       { timeout: 5e3, onDismissed: n },
                       "Reorder of ",
                       e.commitsCount,
@@ -102181,14 +102185,14 @@
                     );
                   }
                   case Hs.ConflictsFound:
-                    return we.createElement(FD, {
+                    return we.createElement(OD, {
                       operationDescription: e.operationDescription,
                       onOpenConflictsDialog: e.onOpenConflictsDialog,
                       onDismissed: n,
                       key: "conflicts-found",
                     });
                   case Hs.WindowsVersionNoLongerSupported:
-                    return we.createElement(UD, { onDismissed: n });
+                    return we.createElement(LD, { onDismissed: n });
                   default:
                     return ot(0, `Unknown popup type: ${e}`);
                 }
@@ -102203,12 +102207,12 @@
           we.createElement(
             Me,
             null,
-            e && we.createElement(je, { classNames: "banner", timeout: PP }, e)
+            e && we.createElement(je, { classNames: "banner", timeout: AP }, e)
           )
         );
       }
       renderUpdateBanner() {
-        return we.createElement(RD, {
+        return we.createElement(ED, {
           dispatcher: this.props.dispatcher,
           newReleases: Bv.state.newReleases,
           isX64ToARM64ImmediateAutoUpdate:
@@ -102226,7 +102230,7 @@
         if (this.inNoRepositoriesViewState()) return null;
         const e = go(this.state.sidebarWidth);
         return we.createElement(
-          kT,
+          ST,
           { id: "desktop-app-toolbar" },
           we.createElement(
             "div",
@@ -102240,7 +102244,7 @@
       renderRepository() {
         const e = this.state;
         if (this.inNoRepositoriesViewState())
-          return we.createElement(V_, {
+          return we.createElement(G_, {
             dotComAccount: this.getDotComAccount(),
             enterpriseAccount: this.getEnterpriseAccount(),
             onCreate: this.showCreateRepository,
@@ -102253,12 +102257,12 @@
             onRefreshRepositories: this.onRefreshRepositories,
           });
         const t = e.selectedState;
-        if (!t) return we.createElement(MP, null);
+        if (!t) return we.createElement(IP, null);
         if (t.type === Ge.Repository) {
           const n = e.selectedExternalEditor
             ? e.selectedExternalEditor
             : void 0;
-          return we.createElement(fT, {
+          return we.createElement(mT, {
             ref: this.repositoryViewRef,
             key: t.repository.hash,
             repository: t.repository,
@@ -102296,19 +102300,19 @@
           });
         }
         return t.type === Ge.CloningRepository
-          ? we.createElement(ST, {
+          ? we.createElement(CT, {
               repository: t.repository,
               progress: t.progress,
             })
           : t.type === Ge.MissingRepository
-          ? we.createElement(n_, {
+          ? we.createElement(t_, {
               repository: t.repository,
               dispatcher: this.props.dispatcher,
             })
           : ot(0, `Unknown state: ${t}`);
       }
       renderWelcomeFlow() {
-        return we.createElement(dD, {
+        return we.createElement(hD, {
           dispatcher: this.props.dispatcher,
           optOut: this.state.optOutOfUsageTracking,
           accounts: this.state.accounts,
@@ -102322,7 +102326,7 @@
         return we.createElement(
           "div",
           { id: "desktop-app-chrome", className: e },
-          we.createElement(cA, { theme: t }),
+          we.createElement(lA, { theme: t }),
           this.renderTitlebar(),
           this.state.showWelcomeFlow
             ? this.renderWelcomeFlow()
@@ -102341,7 +102345,7 @@
       onViewCommitOnGitHub = async (e, t) => {
         const n = this.getRepository();
         if (!n || n instanceof br || !n.gitHubRepository) return;
-        const r = vP(n.gitHubRepository, e, t);
+        const r = yP(n.gitHubRepository, e, t);
         null !== r && this.props.dispatcher.openInBrowser(r);
       };
       onBranchDeleted = (e) => {
@@ -102388,7 +102392,7 @@
           (function (e, t, n) {
             if (void 0 === e) return !1;
             const { version: r, checkedUsers: i } = e;
-            return i.includes(t) && "3.2.6" === r;
+            return i.includes(t) && "3.2.7" === r;
           })(t, n)
         )
           return;
@@ -102417,14 +102421,14 @@
               r = n.get(t);
             return void 0 !== r ? r : null;
           })(r, n);
-        if (null === i) return void _A(this.props.dispatcher, t, n, "3.2.6");
-        const o = r ? "3.2.6" : null,
+        if (null === i) return void DA(this.props.dispatcher, t, n, "3.2.7");
+        const o = r ? "3.2.7" : null,
           s = {
             type: Hs.OpenThankYouCard,
             emoji: this.state.emoji,
             onOpenCard: () => this.openThankYouCard(i, o),
             onThrowCardAway: () => {
-              _A(this.props.dispatcher, t, n, "3.2.6");
+              DA(this.props.dispatcher, t, n, "3.2.7");
             },
           };
         this.setBanner(s);
@@ -102445,18 +102449,18 @@
           void 0 === e && this.props.dispatcher.recordDragStartedAndCanceled();
       };
     }
-    function MP() {
+    function IP() {
       return we.createElement(
         "div",
         { className: "panel blankslate" },
         "No repository selected"
       );
     }
-    function NP(e) {
+    function MP(e) {
       const { login: t, email: n, avatarURL: r, name: i } = e;
       return { login: t, email: n, avatarURL: r, name: i };
     }
-    function BP(e) {
+    function NP(e) {
       return (
         Object.keys(localStorage)
           .filter((e) => /^IssuesStore\/\d+\/lastFetch$/.test(e))
@@ -102465,47 +102469,47 @@
       );
     }
     new Set(["LOCAL_GIT_DIRECTORY"]);
-    const OP = new Set(
+    const BP = new Set(
         ["button", "a", "input", "textarea", "label"].map((e) =>
           e.toUpperCase()
         )
       ),
-      FP = new Set(["button", "option", "menuitem", "tab", "radio"]);
-    function LP(e, t) {
+      OP = new Set(["button", "option", "menuitem", "tab", "radio"]);
+    function FP(e, t) {
       if (t.has(e)) return e;
       for (const n of t.keys()) if (Tt(n, e)) return n;
       return e;
     }
-    var UP = n(9093),
-      HP = n.n(UP);
-    function WP(e, t) {
+    var LP = n(9093),
+      UP = n.n(LP);
+    function HP(e, t) {
       const { endpoint: n, owner: r, name: i } = e;
       return (function (e, t, n, r) {
         return `${e}/repos/${t}/${n}/commits/${r}`;
       })(n, r.login, i, t);
     }
-    function zP(e) {
+    function WP(e) {
       return Date.now() - e.fetchedAt.valueOf() > 6e4;
     }
-    function $P(e, t, n) {
+    function zP(e, t, n) {
       return `${e.path}:${t}:${n}`;
     }
-    function qP(e, t) {
+    function $P(e, t) {
       return `${e}:${t}`;
     }
-    function jP(e) {
+    function qP(e) {
       const [t, n] = e.p.split(".");
       return {
         userId: e.u,
-        presenceKey: qP(e.u, t),
+        presenceKey: $P(e.u, t),
         connectionCount: Number(n),
         metadata: e.m || [],
       };
     }
-    function GP(e) {
+    function jP(e) {
       return e.startsWith("presence-");
     }
-    class VP {
+    class GP {
       constructor() {
         this.presenceItems = new Map();
       }
@@ -102529,25 +102533,25 @@
         return Array.from(this.presenceItems.values());
       }
     }
-    class KP {
+    class VP {
       constructor() {
         this.presenceChannels = new Map();
       }
       getPresenceChannel(e) {
-        const t = this.presenceChannels.get(e) || new VP();
+        const t = this.presenceChannels.get(e) || new GP();
         return this.presenceChannels.set(e, t), t;
       }
       handleMessage(e, t) {
         const n = this.getPresenceChannel(e);
         switch (t.e) {
           case "pf":
-            n.replacePresenceItems(t.d.map(jP));
+            n.replacePresenceItems(t.d.map(qP));
             break;
           case "pa":
-            n.addPresenceItem(jP(t.d));
+            n.addPresenceItem(qP(t.d));
             break;
           case "pr":
-            n.removePresenceItem(jP(t.d));
+            n.removePresenceItem(qP(t.d));
         }
         return this.getChannelItems(e);
       }
@@ -102558,11 +102562,11 @@
         this.presenceChannels.delete(e);
       }
     }
-    const YP = "_i";
-    function ZP(e) {
+    const KP = "_i";
+    function YP(e) {
       return Object.assign(Object.assign({}, e), { isLocal: !0 });
     }
-    class XP {
+    class ZP {
       constructor() {
         this.subscriberMetadata = new Map();
       }
@@ -102580,16 +102584,16 @@
           let t;
           for (const n of this.subscriberMetadata.values())
             for (const r of n)
-              if (YP in r) {
+              if (KP in r) {
                 const e = Boolean(r._i);
                 t = void 0 === t ? e : e && t;
               } else e.push(r);
-          return void 0 !== t && e.push({ [YP]: t ? 1 : 0 }), e;
+          return void 0 !== t && e.push({ [KP]: t ? 1 : 0 }), e;
         }
         const t = [],
           { subscriber: n, markAllAsLocal: r } = e;
         for (const [e, i] of this.subscriberMetadata) {
-          const o = r || e === n ? i.map(ZP) : i;
+          const o = r || e === n ? i.map(YP) : i;
           t.push(...o);
         }
         return t;
@@ -102598,13 +102602,13 @@
         return this.subscriberMetadata.size > 0;
       }
     }
-    class JP {
+    class XP {
       constructor() {
         this.metadataByChannel = new Map();
       }
       setMetadata({ subscriber: e, channelName: t, metadata: n }) {
         let r = this.metadataByChannel.get(t);
-        r || ((r = new XP()), this.metadataByChannel.set(t, r)),
+        r || ((r = new ZP()), this.metadataByChannel.set(t, r)),
           r.setMetadata(e, n);
       }
       removeSubscribers(e) {
@@ -102619,40 +102623,40 @@
         return (null == n ? void 0 : n.getMetadata(t)) || [];
       }
     }
-    async function QP(e, t) {
+    async function JP(e, t) {
       let n;
       const r = new Promise((t, r) => {
         n = self.setTimeout(() => r(new Error("timeout")), e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, tI(t)]);
+        await Promise.race([r, eI(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    async function eI(e, t) {
+    async function QP(e, t) {
       let n;
       const r = new Promise((t) => {
         n = self.setTimeout(t, e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, tI(t)]);
+        await Promise.race([r, eI(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    function tI(e) {
+    function eI(e) {
       return new Promise((t, n) => {
         const r = new Error("aborted");
         (r.name = "AbortError"),
           e.aborted ? n(r) : e.addEventListener("abort", () => n(r));
       });
     }
-    function nI(e, t) {
+    function tI(e, t) {
       return (async function (e, t, n = 1 / 0, r) {
-        const i = r ? tI(r) : null;
+        const i = r ? eI(r) : null;
         for (let s = 0; s < t; s++)
           try {
             const t = i ? Promise.race([e(), i]) : e();
@@ -102662,7 +102666,7 @@
             if (s === t - 1) throw e;
             const i = 1e3 * Math.pow(2, s),
               a = ((o = 0.1 * i), Math.floor(Math.random() * Math.floor(o)));
-            await eI(Math.min(n, i + a), r);
+            await QP(Math.min(n, i + a), r);
           }
         var o;
         throw new Error("retry failed");
@@ -102685,7 +102689,7 @@
                 });
               })(r);
             try {
-              return await Promise.race([i, QP(t, n)]), r;
+              return await Promise.race([i, JP(t, n)]), r;
             } catch (e) {
               throw (
                 ((async function (e) {
@@ -102702,7 +102706,7 @@
         t.signal
       );
     }
-    class rI {
+    class nI {
       constructor(e, t, n) {
         (this.socket = null),
           (this.opening = null),
@@ -102717,7 +102721,7 @@
           signal: this.opening.signal,
         });
         try {
-          this.socket = await nI(this.url, e);
+          this.socket = await tI(this.url, e);
         } catch (e) {
           return void this.delegate.socketDidFinish(this);
         } finally {
@@ -102730,7 +102734,7 @@
             (
               this.delegate.socketShouldRetry
                 ? this.delegate.socketShouldRetry(this, e.code)
-                : (n = e.code) !== iI && n !== oI
+                : (n = e.code) !== rI && n !== iI
             )
               ? setTimeout(
                   () => this.open(),
@@ -102762,9 +102766,9 @@
         return !!this.socket;
       }
     }
-    const iI = 1008,
-      oI = 1011;
-    class sI {
+    const rI = 1008,
+      iI = 1011;
+    class oI {
       constructor(e) {
         if (((this.map = new Map()), e)) for (const [t, n] of e) this.set(t, n);
       }
@@ -102810,9 +102814,9 @@
         return this.map.size;
       }
     }
-    class aI {
+    class sI {
       constructor() {
-        (this.subscriptions = new sI()), (this.signatures = new Map());
+        (this.subscriptions = new oI()), (this.signatures = new Map());
       }
       add(...e) {
         const t = [];
@@ -102849,44 +102853,44 @@
         return this.subscriptions.get(e).values();
       }
     }
-    function* lI(e, t) {
+    function* aI(e, t) {
       for (let n = 0; n < e.length; n += t) yield e.slice(n, n + t);
     }
-    function cI(e) {
+    function lI(e) {
       return new Promise((t, n) => {
         const r = new Error("aborted");
         (r.name = "AbortError"),
           e.aborted ? n(r) : e.addEventListener("abort", () => n(r));
       });
     }
-    async function uI(e, t) {
+    async function cI(e, t) {
       let n;
       const r = new Promise((t) => {
         n = self.setTimeout(t, e);
       });
       if (!t) return r;
       try {
-        await Promise.race([r, cI(t)]);
+        await Promise.race([r, lI(t)]);
       } catch (e) {
         throw (self.clearTimeout(n), e);
       }
     }
-    var hI;
+    var uI;
     !(function (e) {
       (e.Deploy = "Alive Redeploy"), (e.Reconnect = "Alive Reconnect");
-    })(hI || (hI = {}));
-    class dI {
+    })(uI || (uI = {}));
+    class hI {
       constructor(e, t, n, r) {
         (this.url = e),
           (this.getUrl = t),
           (this.inSharedWorker = n),
           (this.notify = r),
-          (this.subscriptions = new aI()),
+          (this.subscriptions = new sI()),
           (this.state = "online"),
           (this.retrying = null),
           (this.connectionCount = 0),
-          (this.presence = new KP()),
-          (this.presenceMetadata = new JP()),
+          (this.presence = new VP()),
+          (this.presenceMetadata = new XP()),
           (this.intentionallyDisconnected = !1),
           (this.lastCameOnline = 0),
           (this.userId = (function (e) {
@@ -102896,7 +102900,7 @@
           (this.presenceId = `${Math.round(
             Math.random() * (Math.pow(2, 31) - 1)
           )}_${Math.round(Date.now() / 1e3)}`),
-          (this.presenceKey = qP(this.userId, this.presenceId)),
+          (this.presenceKey = $P(this.userId, this.presenceId)),
           (this.socket = this.connect());
       }
       subscribe(e) {
@@ -102904,7 +102908,7 @@
         this.sendSubscribe(t);
         for (const t of e) {
           const e = t.topic.name;
-          GP(e) && this.notifyCachedPresence(t.subscriber, e);
+          jP(e) && this.notifyCachedPresence(t.subscriber, e);
         }
       }
       unsubscribe(e) {
@@ -103026,7 +103030,7 @@
             };
           if (r !== this.presenceKey) {
             for (const e of n)
-              YP in e
+              KP in e
                 ? !1 !== o.isIdle && (o.isIdle = Boolean(e._i))
                 : o.metadata.push(e);
             i.set(t, o);
@@ -103059,7 +103063,7 @@
           try {
             this.retrying = new AbortController();
             const e = await (async function (e, t, n = 1 / 0, r) {
-              const i = r ? cI(r) : null;
+              const i = r ? lI(r) : null;
               for (let s = 0; s < t; s++)
                 try {
                   const t = i ? Promise.race([e(), i]) : e();
@@ -103071,7 +103075,7 @@
                     a =
                       ((o = 0.1 * i),
                       Math.floor(Math.random() * Math.floor(o)));
-                  await uI(Math.min(n, i + a), r);
+                  await cI(Math.min(n, i + a), r);
                 }
               var o;
               throw new Error("retry failed");
@@ -103094,7 +103098,7 @@
         );
       }
       connect() {
-        const e = new rI(this.getUrlWithPresenceId(), this, {
+        const e = new nI(this.getUrlWithPresenceId(), this, {
           timeout: 4e3,
           attempts: 7,
         });
@@ -103102,10 +103106,10 @@
       }
       sendSubscribe(e) {
         const t = Array.from(e);
-        for (const e of lI(t, 25)) {
+        for (const e of aI(t, 25)) {
           const t = {};
           for (const n of e)
-            GP(n.name)
+            jP(n.name)
               ? (t[n.signed] = JSON.stringify(
                   this.presenceMetadata.getChannelMetadata(n.name)
                 ))
@@ -103115,12 +103119,12 @@
       }
       sendUnsubscribe(e) {
         const t = Array.from(e, (e) => e.signed);
-        for (const e of lI(t, 25))
+        for (const e of aI(t, 25))
           this.socket.send(JSON.stringify({ unsubscribe: e }));
-        for (const t of e) GP(t.name) && this.presence.clearChannel(t.name);
+        for (const t of e) jP(t.name) && this.presence.clearChannel(t.name);
       }
     }
-    function pI(e, t) {
+    function dI(e, t) {
       return t.find((t) => Tt(t, e));
     }
     (async function () {
@@ -103148,34 +103152,34 @@
       })(),
       (process.env.LOCAL_GIT_DIRECTORY = e.resolve(__dirname, "git")),
       delete process.env.GIT_EXEC_PATH;
-    const mI = performance.now();
+    const pI = performance.now();
     n(3822);
-    let fI = null;
-    const gI = (e, t = {}, n) => {
+    let mI = null;
+    const fI = (e, t = {}, n) => {
       (e = h(e)), console.error("Uncaught exception", e);
       {
         const r = { osVersion: Gn(), ...t };
         try {
-          fI &&
-            (null !== fI.currentBanner &&
-              (r.currentBanner = fI.currentBanner.type),
-            null !== fI.currentPopup &&
-              (r.currentPopup = `${fI.currentPopup.type}`),
-            null !== fI.selectedState &&
-              ((r.selectedState = `${fI.selectedState.type}`),
-              fI.selectedState.type === Ge.Repository &&
-                (r.selectedRepositorySection = `${fI.selectedState.state.selectedSection}`)),
-            null !== fI.currentFoldout &&
-              (r.currentFoldout = `${fI.currentFoldout.type}`),
-            fI.showWelcomeFlow && (r.inWelcomeFlow = "true"),
-            1 !== fI.windowZoomFactor &&
-              (r.windowZoomFactor = `${fI.windowZoomFactor}`),
-            fI.errorCount > 0 && (r.activeAppErrors = `${fI.errorCount}`),
-            (r.repositoryCount = `${fI.repositories.length}`),
-            (r.windowState = fI.windowState ?? "Unknown"),
-            (r.accounts = `${fI.accounts.length}`),
+          mI &&
+            (null !== mI.currentBanner &&
+              (r.currentBanner = mI.currentBanner.type),
+            null !== mI.currentPopup &&
+              (r.currentPopup = `${mI.currentPopup.type}`),
+            null !== mI.selectedState &&
+              ((r.selectedState = `${mI.selectedState.type}`),
+              mI.selectedState.type === Ge.Repository &&
+                (r.selectedRepositorySection = `${mI.selectedState.state.selectedSection}`)),
+            null !== mI.currentFoldout &&
+              (r.currentFoldout = `${mI.currentFoldout.type}`),
+            mI.showWelcomeFlow && (r.inWelcomeFlow = "true"),
+            1 !== mI.windowZoomFactor &&
+              (r.windowZoomFactor = `${mI.windowZoomFactor}`),
+            mI.errorCount > 0 && (r.activeAppErrors = `${mI.errorCount}`),
+            (r.repositoryCount = `${mI.repositories.length}`),
+            (r.windowState = mI.windowState ?? "Unknown"),
+            (r.accounts = `${mI.accounts.length}`),
             (r.automaticallySwitchTheme = `${
-              fI.selectedTheme === Zn.System && rr()
+              mI.selectedTheme === Zn.System && rr()
             }`));
         } catch (e) {}
         !(function (e, t, n) {
@@ -103184,19 +103188,19 @@
       }
     };
     process.once("uncaughtException", (e) => {
-      gI(e),
+      fI(e),
         (function (e) {
           se(oe(e));
         })(e);
     }),
       process.on("send-non-fatal-exception", (e, t) => {
-        gI(e, t, !0);
+        fI(e, t, !0);
       }),
       (window.onerror = (e, t, n, r, i) => (ry("uncaughtError", i), !1)),
       window.addEventListener("unhandledrejection", (e) => {
         co() && e.reason instanceof Error && ry("unhandledRejection", e.reason);
       });
-    const yI = new (class extends ir {
+    const gI = new (class extends ir {
         database;
         queryCache = null;
         pruneQueryCacheTimeoutId = null;
@@ -103318,7 +103322,7 @@
                 .where("gitHubRepositoryID")
                 .equals(e)
                 .toArray()
-            ).map(NP);
+            ).map(MP);
           }
           getMentionableCacheEntry(e) {
             return this.mentionableCache.get(e);
@@ -103333,7 +103337,7 @@
           }
         })("GitHubUserDatabase")
       ),
-      vI = new (class extends ir {
+      yI = new (class extends ir {
         _repositories = new Array();
         stateByID = new Map();
         async clone(e, t, n) {
@@ -103398,7 +103402,7 @@
           t > -1 && this._repositories.splice(t, 1), this.emitUpdate();
         }
       })(),
-      bI = new (class {
+      vI = new (class {
         db;
         queryCache = null;
         pruneQueryCacheTimeoutId = null;
@@ -103507,7 +103511,7 @@
                   issues:
                     "++id, &[gitHubRepositoryID+number], gitHubRepositoryID, number, [gitHubRepositoryID+updated_at]",
                 },
-                BP
+                NP
               );
           }
           getIssuesForRepository(e) {
@@ -103515,7 +103519,7 @@
           }
         })("IssuesDatabase")
       ),
-      wI = new (class {
+      bI = new (class {
         db;
         uiActivityMonitor;
         uiActivityMonitorSubscription = null;
@@ -103588,7 +103592,7 @@
             u = rl() ? "split" : "unified";
           return {
             eventType: "usage",
-            version: "3.2.6",
+            version: "3.2.7",
             osVersion: Gn(),
             platform: "win32",
             architecture: await J(),
@@ -104657,9 +104661,9 @@
               e.target instanceof HTMLElement &&
               (function (e) {
                 for (; null !== e; ) {
-                  if (OP.has(e.nodeName)) return !0;
+                  if (BP.has(e.nodeName)) return !0;
                   const t = e.getAttribute("role");
-                  if (null !== t && FP.has(t)) return !0;
+                  if (null !== t && OP.has(t)) return !0;
                   e = e instanceof HTMLElement ? e.parentElement : null;
                 }
                 return !1;
@@ -104672,7 +104676,7 @@
           onMenuEvent = () => this.emit("menu");
         })()
       ),
-      CI = new (class extends or {
+      wI = new (class extends or {
         state = null;
         endpointSupportBasicAuth = new Map();
         emitAuthenticate(e, t) {
@@ -105018,7 +105022,7 @@
               }
         }
       })(),
-      SI = new (class extends or {
+      CI = new (class extends or {
         dataStore;
         secureStore;
         accounts = [];
@@ -105122,7 +105126,7 @@
             this.emitUpdate(this.accounts);
         }
       })(localStorage, mt),
-      kI = new (class extends or {
+      SI = new (class extends or {
         db;
         lastStashCheckCache = new Map();
         branchProtectionSettingsFoundCache = new Map();
@@ -105515,7 +105519,7 @@
           }
         })("Database")
       ),
-      EI = new (class {
+      kI = new (class {
         db;
         repositoryStore;
         emitter = new tt.Emitter();
@@ -105737,9 +105741,9 @@
             });
           }
         })("PullRequestDatabase"),
-        kI
+        SI
       ),
-      RI = new (class {
+      EI = new (class {
         pullRequestStore;
         repositoriesStore;
         currentPullRequestUpdater = null;
@@ -105816,8 +105820,8 @@
             this.prCache.get(e.dbID) || []
           );
         }
-      })(EI, kI),
-      xI = new (class {
+      })(kI, SI),
+      RI = new (class {
         statsStore;
         repositoryState = new Map();
         constructor(e) {
@@ -106023,8 +106027,8 @@
         clearPullRequestState(e) {
           this.update(e, () => ({ pullRequestState: null }));
         }
-      })(wI),
-      TI = new (class extends ir {
+      })(bI),
+      xI = new (class extends ir {
         accountState = new Map();
         constructor(e) {
           super(), e.onDidUpdate(this.onAccountsChanged);
@@ -106041,13 +106045,13 @@
         };
         updateAccount(e, t) {
           const n = new Map(this.accountState),
-            r = LP(e, n),
+            r = FP(e, n),
             i = n.get(r),
             o = Et(void 0 === i ? { loading: !1, repositories: [] } : i, t);
           n.set(r, o), (this.accountState = n), this.emitUpdate();
         }
         getAccountState(e) {
-          return this.accountState.get(LP(e, this.accountState));
+          return this.accountState.get(FP(e, this.accountState));
         }
         async loadRepositories(e) {
           const t = this.getAccountState(e);
@@ -106064,7 +106068,7 @@
               }),
                 this.updateAccount(e, { repositories: [...r.values()] });
             },
-            o = En.fromAccount(LP(e, this.accountState));
+            o = En.fromAccount(FP(e, this.accountState));
           await o.streamUserRepositories(i, void 0, {
             continue: async () => (
               await Promise.all([
@@ -106083,15 +106087,15 @@
         getState() {
           return this.accountState;
         }
-      })(SI),
-      DI = new (class {
+      })(CI),
+      TI = new (class {
         accounts = [];
         backgroundRefreshHandle = null;
         refreshQueued = !1;
         subscriptions = new Map();
         cache = new (Ns())({ maxSize: 250 });
         queue = new Set();
-        limit = HP()(6);
+        limit = UP()(6);
         constructor(e) {
           e.getAll().then(this.onAccountsUpdated),
             e.onDidUpdate(this.onAccountsUpdated);
@@ -106123,7 +106127,7 @@
           for (const e of this.subscriptions.keys()) {
             if (this.queue.has(e)) continue;
             const t = this.cache.get(e);
-            (t && !zP(t)) ||
+            (t && !WP(t)) ||
               (this.limit(() => this.refreshSubscription(e))
                 .catch((e) => log.error("Failed refreshing commit status", e))
                 .then(() => this.queue.delete(e)),
@@ -106131,7 +106135,7 @@
           }
         }
         async manualRefreshSubscription(e, t, n) {
-          const r = WP(e, t),
+          const r = HP(e, t),
             i = this.subscriptions.get(r);
           if (void 0 === i) return;
           const o = this.cache.get(r)?.check;
@@ -106217,13 +106221,13 @@
           return await this.mapActionWorkflowRunsJobsToCheckRuns(t, i);
         }
         tryGetStatus(e, t, n) {
-          const r = WP(e, t);
+          const r = HP(e, t);
           return void 0 !== n && this.subscriptions.get(r)?.branchName !== n
             ? null
             : this.cache.get(r)?.check ?? null;
         }
         getOrCreateSubscription(e, t, n) {
-          const r = WP(e, t);
+          const r = HP(e, t);
           let i = this.subscriptions.get(r);
           if (void 0 !== i) {
             if (i.branchName === n) return i;
@@ -106253,7 +106257,7 @@
           );
         }
         subscribe(e, t, n, r) {
-          const i = WP(e, t),
+          const i = HP(e, t),
             o = this.getOrCreateSubscription(e, t, r);
           return (
             o.callbacks.add(n),
@@ -106302,16 +106306,16 @@
             ? null
             : En.fromAccount(i).fetchCheckSuite(n.login, r, t);
         }
-      })(SI),
-      _I = new (class {
+      })(CI),
+      DI = new (class {
         cache = new (Ns())({ maxSize: 2500 });
         workers = new Map();
-        limit = HP()(1);
+        limit = UP()(1);
         tryGetAheadBehind(e, t, n) {
-          return this.cache.get($P(e, t, n)) ?? void 0;
+          return this.cache.get(zP(e, t, n)) ?? void 0;
         }
         getAheadBehind(e, t, n, r) {
-          const i = $P(e, t, n),
+          const i = zP(e, t, n),
             o = this.cache.get(i),
             s = new tt.Disposable(() => {});
           return null === o
@@ -106342,7 +106346,7 @@
               s);
         }
       })(),
-      AI = new (class {
+      _I = new (class {
         accountsStore;
         ALIVE_EVENT_RECEIVED_EVENT = "alive-event-received";
         sessionPerEndpoint = new Map();
@@ -106380,8 +106384,8 @@
         };
         async _subscribeToAccounts(e) {
           const t = this.subscriptions.map((e) => e.account);
-          for (const n of t) pI(n, e) || this.unsubscribeFromAccount(n);
-          for (const n of e) pI(n, t) || (await this.subscribeToAccount(n));
+          for (const n of t) dI(n, e) || this.unsubscribeFromAccount(n);
+          for (const n of e) dI(n, t) || (await this.subscribeToAccount(n));
         }
         sessionForAccount(e) {
           return this.sessionPerEndpoint.get(e.endpoint);
@@ -106404,7 +106408,7 @@
           }
           if (null === r) return null;
           const i = {
-            session: new dI(r, () => n.getAliveWebSocketURL(), !1, this.notify),
+            session: new hI(r, () => n.getAliveWebSocketURL(), !1, this.notify),
             webSocketUrl: r,
           };
           return this.sessionPerEndpoint.set(e.endpoint, i), i;
@@ -106448,8 +106452,8 @@
             "pr-comment" !== n.type) ||
             this.emitter.emit(this.ALIVE_EVENT_RECEIVED_EVENT, n);
         };
-      })(SI),
-      PI = new (class {
+      })(CI),
+      AI = new (class {
         accountsStore;
         aliveStore;
         pullRequestCoordinator;
@@ -106675,8 +106679,8 @@
         onPullRequestCommentNotification(e) {
           this.onPullRequestCommentCallback = e;
         }
-      })(SI, AI, RI, wI),
-      II = new (class {
+      })(CI, _I, EI, bI),
+      PI = new (class {
         accountsStore;
         notificationsStore;
         pullRequestCoordinator;
@@ -106746,8 +106750,8 @@
             comment_id: n.id.toString(),
           });
         }
-      })(SI, PI, RI),
-      MI = new (class extends or {
+      })(CI, AI, EI),
+      II = new (class extends or {
         gitHubUserStore;
         cloningRepositoriesStore;
         issuesStore;
@@ -107363,17 +107367,18 @@
             this.emitUpdate();
         }
         getShasInDiff(e, t, n) {
-          const r = new Array();
           if (e.length <= 1 || !t) return e;
-          const i = [e.at(-1)];
-          do {
-            const t = i.pop();
-            if (void 0 === t) continue;
-            r.push(t);
-            const o = (n.get(t)?.parentSHAs || []).filter((t) => e.includes(t));
-            i.push(...o);
-          } while (i.length > 0);
-          return r;
+          const r = new Set(),
+            i = new Set(e),
+            o = [e.at(-1)];
+          let s;
+          for (; void 0 !== (s = o.pop()); )
+            r.has(s) ||
+              (r.add(s),
+              n.get(s)?.parentSHAs?.forEach((e) => {
+                i.has(e) && !r.has(e) && o.push(e);
+              }));
+          return Array.from(r);
         }
         updateOrSelectFirstCommit(e, t) {
           const n = this.repositoryStateCache.get(e);
@@ -110858,13 +110863,15 @@
         }
         orderCommitsByHistory(e, t) {
           const { compareState: n } = this.repositoryStateCache.get(e),
-            { commitSHAs: r } = n;
-          return [...t].sort((e, t) => r.indexOf(t.sha) - r.indexOf(e.sha));
+            { commitSHAs: r } = n,
+            i = new Map(r.map((e, t) => [e, t]));
+          return [...t].sort((e, t) => qi(i.get(t.sha), i.get(e.sha)));
         }
         orderShasByHistory(e, t) {
           const { compareState: n } = this.repositoryStateCache.get(e),
-            { commitSHAs: r } = n;
-          return [...t].sort((e, t) => r.indexOf(t) - r.indexOf(e));
+            { commitSHAs: r } = n,
+            i = new Map(r.map((e, t) => [e, t]));
+          return [...t].sort((e, t) => qi(i.get(t), i.get(e)));
         }
         async _cherryPick(e, t) {
           if (0 === t.length)
@@ -111701,11 +111708,11 @@
           e !== this.resizablePaneActive &&
             ((this.resizablePaneActive = e), this.emitUpdate());
         }
-      })(yI, vI, bI, wI, CI, SI, kI, RI, xI, TI, PI);
-    MI.onDidUpdate((e) => {
-      fI = e;
+      })(gI, yI, vI, bI, wI, CI, SI, EI, RI, xI, AI);
+    II.onDidUpdate((e) => {
+      mI = e;
     });
-    const NI = new (class {
+    const MI = new (class {
       appStore;
       repositoryStateManager;
       statsStore;
@@ -113537,9 +113544,9 @@
       appFocusedElementChanged() {
         this.appStore._appFocusedElementChanged();
       }
-    })(MI, xI, wI, DI);
-    NI.registerErrorHandler(yv),
-      NI.registerErrorHandler(async function (e, t) {
+    })(II, RI, bI, TI);
+    MI.registerErrorHandler(yv),
+      MI.registerErrorHandler(async function (e, t) {
         return e instanceof jo
           ? (t.showPopup({
               type: Gr.UpstreamAlreadyExists,
@@ -113549,7 +113556,7 @@
             null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = (function (e) {
           return e instanceof ci ? e : null;
         })(e);
@@ -113565,7 +113572,7 @@
           null
         );
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         return e instanceof xo
           ? (await t.showPopup({
               type: Gr.OpenShellFailed,
@@ -113574,7 +113581,7 @@
             null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113597,7 +113604,7 @@
         const { currentBranch: a, theirBranch: l } = s;
         return t.handleConflictsDetectedOnError(o, a, l), null;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = gv(e);
         if (!n) return e;
         const r = n.result.gitError;
@@ -113607,7 +113614,7 @@
             : (t.showPopup({ type: Gr.LFSAttributeMismatch }), null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113620,7 +113627,7 @@
             : (t.showCreateForkDialog(i), null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113640,7 +113647,7 @@
             ),
             e);
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113653,7 +113660,7 @@
           ? (t.showPopup({ type: Gr.PushNeedsPull, repository: o }), null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113684,11 +113691,11 @@
           null
         );
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         return n && n.metadata.backgroundTask ? null : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = n.metadata.repository;
@@ -113707,7 +113714,7 @@
           ? (await t.updateRepositoryMissing(r, !0), null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (null === n) return e;
         const r = gv(n.underlyingError);
@@ -113749,7 +113756,7 @@
           null
         );
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         const r = gv(n.underlyingError);
@@ -113765,7 +113772,7 @@
         const { currentBranch: a } = s;
         return t.launchRebaseOperation(o, a), null;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         const n = fv(e);
         if (!n) return e;
         if (!gv(n.underlyingError)) return e;
@@ -113782,7 +113789,7 @@
             null)
           : e;
       }),
-      NI.registerErrorHandler(async function (e, t) {
+      MI.registerErrorHandler(async function (e, t) {
         if (!(e instanceof $o)) return e;
         const { retryAction: n } = e.metadata;
         return void 0 === n
@@ -113791,7 +113798,7 @@
             null);
       }),
       document.body.classList.add("platform-win32"),
-      NI.initializeAppFocusState(),
+      MI.initializeAppFocusState(),
       (function (e) {
         g("notification-event", (t, n, r, i) => {
           if ("click" !== n) return;
@@ -113800,34 +113807,34 @@
           if (void 0 !== o) return o?.(), void Eu.delete(r);
           e.onNotificationEventReceived(n, r, i);
         });
-      })(PI),
-      uy.setDispatcher(NI),
+      })(AI),
+      uy.setDispatcher(MI),
       g("focus", () => {
-        const { selectedState: e } = MI.getState();
+        const { selectedState: e } = II.getState();
         e &&
           e.type !== Ge.CloningRepository &&
-          NI.refreshRepository(e.repository),
-          NI.setAppFocusState(!0);
+          MI.refreshRepository(e.repository),
+          MI.setAppFocusState(!0);
       }),
       g("blur", () => {
-        NI.setAccessKeyHighlightState(!1), NI.setAppFocusState(!1);
+        MI.setAccessKeyHighlightState(!1), MI.setAppFocusState(!1);
       }),
-      g("url-action", (e, t) => NI.dispatchURLAction(t)),
+      g("url-action", (e, t) => MI.dispatchURLAction(t)),
       (function (e, t) {
         ["aria-label", "aria-readonly"].forEach((n) => {
           delete e?.[n], delete t?.[n];
         });
       })(Zb.defaultProps, Zb.propTypes),
       Se.render(
-        we.createElement(IP, {
-          dispatcher: NI,
-          appStore: MI,
-          repositoryStateManager: xI,
-          issuesStore: bI,
-          gitHubUserStore: yI,
-          aheadBehindStore: _I,
-          notificationsDebugStore: II,
-          startTime: mI,
+        we.createElement(PP, {
+          dispatcher: MI,
+          appStore: II,
+          repositoryStateManager: RI,
+          issuesStore: vI,
+          gitHubUserStore: gI,
+          aheadBehindStore: DI,
+          notificationsDebugStore: PI,
+          startTime: pI,
         }),
         document.getElementById("desktop-app-container")
       );
