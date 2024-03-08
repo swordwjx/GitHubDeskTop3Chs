@@ -90331,7 +90331,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `View the files of your repository in ${e}`,
+          `使用资源管理器打开 ${e}`,
           void 0,
           this.onShowInFileManagerClicked
         );
@@ -90344,7 +90344,7 @@
         return null !== this.props.repository.gitHubRepository
           ? this.renderMenuBackedAction(
               "view-repository-on-github",
-              "使用浏览器打开GitHub上的存储库",
+              "使用浏览器打开 GitHub 上的存储库",
               void 0,
               this.onViewOnGitHubClicked
             )
