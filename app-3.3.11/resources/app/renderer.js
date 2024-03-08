@@ -90331,7 +90331,7 @@
         const e = this.getPlatformFileManagerName();
         return this.renderMenuBackedAction(
           "open-working-directory",
-          `使用资源管理器打开 ${e}`,
+          `打开存储库使用 ${e}`,
           void 0,
           this.onShowInFileManagerClicked
         );
